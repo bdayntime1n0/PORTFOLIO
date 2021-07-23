@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD430_16_SSCR_SCREEN</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD430_16_SSCR_SCREEN</h2>
+<h3> Description: SELECTION SCREEN SCREEN 예제</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD430_16_SSCR_SCREEN<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD430_16_SSCR_SCREEN.<br />
+<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B01 WITH FRAME TITLE TEXT-S01.    "SELECTION OPTIONS<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_CHK&nbsp;AS&nbsp;CHECKBOX&nbsp;USER-COMMAND&nbsp;UC1.&nbsp;&nbsp;"&nbsp;CHECKBOX를&nbsp;선택할&nbsp;때&nbsp;AT&nbsp;SELECTION&nbsp;SCREEN&nbsp;EVENT를&nbsp;발생.<br />
+SELECTION-SCREEN END OF BLOCK B01.                " USER-COMMAND를 체크하지 않으면 엔터를ㄴ 루러야 팡벙이 뜨게 만듬.<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 1100.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;B02&nbsp;WITH&nbsp;FRAME&nbsp;TITLE&nbsp;TEXT-S02&nbsp;NO&nbsp;INTERVALS.&nbsp;"&nbsp;ADDITIONAL&nbsp;OPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_CARRID&nbsp;TYPE&nbsp;SCARR-CARRID.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;NO&nbsp;INTERVALS&nbsp;를&nbsp;주지&nbsp;않으면&nbsp;PARAMETERS&nbsp;칸이&nbsp;너무&nbsp;길어짐.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;B02.<br />
+<br />
+SELECTION-SCREEN END OF SCREEN 1100.<br />
+<br />
+<br />
+AT SELECTION-SCREEN ON P_CHK.     " P_CHK에 값 변경이 있는 경우 ACTIVE.<br />
+&nbsp;&nbsp;IF&nbsp;P_CHK&nbsp;EQ&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;SELECTION-SCREEN&nbsp;1100&nbsp;STARTING&nbsp;AT&nbsp;05&nbsp;05&nbsp;&nbsp;&nbsp;"&nbsp;팝업시작위치&nbsp;열/행<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDING&nbsp;&nbsp;&nbsp;AT&nbsp;60&nbsp;10.&nbsp;&nbsp;"&nbsp;팝업종료위치&nbsp;열/행<br />
+" STARTING AT만 지정하면 사용하는 공간만큼 팝업이 생김.<br />
+"  ENDING AT만 지정하면 설정한 공간만큼 팝업이 길어짐.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I000(OO)&nbsp;WITH&nbsp;'P_CARRID&nbsp;=&nbsp;'&nbsp;P_CARRID.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I000(OO)&nbsp;WITH&nbsp;'P_CARRID&nbsp;입력&nbsp;취소'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;S01&nbsp;SELECTION&nbsp;OPTIONS<br />
+*&nbsp;S02&nbsp;ADDICTIONAL&nbsp;OPTIONS<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;OO<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

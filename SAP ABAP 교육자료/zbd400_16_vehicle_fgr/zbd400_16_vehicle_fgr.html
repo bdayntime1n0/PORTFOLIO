@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD400_16_VEHICLE_FGR</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD400_16_VEHICLE_FGR</h2>
+<h3> Description: 자동차 함수그룹 예제</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD400_16_VEHICLE_FGR<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD400_16_VEHICLE_FGR.<br />
+<br />
+" 속도 증가, 감소를 위한 PARAMETERS 선언.<br />
+PARAMETERS : P_INCSP TYPE I,  " 증가할 속도<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DECSP&nbsp;TYPE&nbsp;I.&nbsp;&nbsp;"&nbsp;감소할&nbsp;속도<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+DATA : LV_SPEED TYPE I.<br />
+<br />
+&nbsp;&nbsp;call&nbsp;function&nbsp;<a&nbsp;href&nbsp;="zbd1_16_get_speed/zbd1_16_get_speed.html">'ZBD1_16_GET_SPEED'</a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_SPEED&nbsp;=&nbsp;LV_SPEED.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;현재&nbsp;자동차의&nbsp;속도<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'현재&nbsp;자동차&nbsp;속도는&nbsp;',&nbsp;LV_SPEED,&nbsp;'&nbsp;입니다.'.<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'가속할&nbsp;자동차&nbsp;속도는&nbsp;',&nbsp;P_INCSP,&nbsp;'&nbsp;입니다.'.<br />
+<br />
+&nbsp;&nbsp;call&nbsp;function&nbsp;<a&nbsp;href&nbsp;="zbd1_16_inc_speed/zbd1_16_inc_speed.html">'ZBD1_16_INC_SPEED'</a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_SPEED&nbsp;=&nbsp;P_INCSP.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;현재&nbsp;속도에서&nbsp;더해질&nbsp;속도<br />
+<br />
+&nbsp;&nbsp;call&nbsp;function&nbsp;<a&nbsp;href&nbsp;="zbd1_16_get_speed/zbd1_16_get_speed.html">'ZBD1_16_GET_SPEED'</a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_SPEED&nbsp;=&nbsp;LV_SPEED.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;현재&nbsp;자동차의&nbsp;속도<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'현재&nbsp;자동차&nbsp;속도는&nbsp;',&nbsp;LV_SPEED,&nbsp;'&nbsp;입니다.'.<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'감속할&nbsp;자동차&nbsp;속도는&nbsp;',&nbsp;P_DECSP,&nbsp;'&nbsp;입니다.'.<br />
+<br />
+&nbsp;&nbsp;call&nbsp;function&nbsp;<a&nbsp;href&nbsp;="zbd1_16_dec_speed/zbd1_16_dec_speed.html">'ZBD1_16_DEC_SPEED'</a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_SPEED&nbsp;=&nbsp;P_DECSP.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;현재&nbsp;속도에서&nbsp;감속할&nbsp;속도<br />
+<br />
+&nbsp;&nbsp;call&nbsp;function&nbsp;<a&nbsp;href&nbsp;="zbd1_16_get_speed/zbd1_16_get_speed.html">'ZBD1_16_GET_SPEED'</a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_SPEED&nbsp;=&nbsp;LV_SPEED.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;현재&nbsp;자동차의&nbsp;속도<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'현재&nbsp;자동차&nbsp;속도는&nbsp;',&nbsp;LV_SPEED,&nbsp;'&nbsp;입니다.'.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

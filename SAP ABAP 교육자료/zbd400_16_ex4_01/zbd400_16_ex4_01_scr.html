@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD400_16_EX4_01_SCR</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD400_16_EX4_01_SCR</h2>
+<h3> Description: Include ZBD400_16_EX4_SCR</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD400_16_EX4_SCR<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK SB01 WITH FRAME TITLE TEXT-S00.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_R1&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R01&nbsp;DEFAULT&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;(15)&nbsp;FOR&nbsp;FIELD&nbsp;p_R1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_R2&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R01.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;(15)&nbsp;FOR&nbsp;FIELD&nbsp;p_R2.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_R3&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R01.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;(15)&nbsp;FOR&nbsp;FIELD&nbsp;p_R3.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+SELECTION-SCREEN END OF BLOCK SB01.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK SB02 WITH FRAME TITLE TEXT-S01.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_CARRID&nbsp;FOR&nbsp;SBOOK-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_CONNID&nbsp;FOR&nbsp;SBOOK-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_FLDATE&nbsp;FOR&nbsp;SBOOK-FLDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_PODATE&nbsp;FOR&nbsp;SBOOK-ORDER_DATE.<br />
+SELECTION-SCREEN END OF BLOCK SB02.<br />
+<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK SB03 WITH FRAME TITLE TEXT-S02.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_FRCONT&nbsp;FOR&nbsp;SPFLI-COUNTRYFR&nbsp;NO-EXTENSION&nbsp;NO&nbsp;INTERVALS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_FRCITY&nbsp;FOR&nbsp;SPFLI-CITYFROM&nbsp;NO-EXTENSION&nbsp;NO&nbsp;INTERVALS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_TOCONT&nbsp;FOR&nbsp;SPFLI-COUNTRYTO&nbsp;NO-EXTENSION&nbsp;NO&nbsp;INTERVALS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_TOCITY&nbsp;FOR&nbsp;SPFLI-CITYTO&nbsp;NO-EXTENSION&nbsp;NO&nbsp;INTERVALS.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_CHK&nbsp;AS&nbsp;CHECKBOX.<br />
+SELECTION-SCREEN END OF BLOCK SB03.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>MZBD410_SOL2_16_TABSTRIPE01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: MZBD410_SOL2_16_TABSTRIPE01</h2>
+<h3> Description: Include MZBD410_SOL2_16E01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MZBD410_SOL2_16E01<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+" REPORT PROGRAMME (TYPE 1 PROGRAM)의 INITIALIZATION과 같음.<br />
+" 프로그램이 실행될 때 호출되는 이벤트.<br />
+" INITIALIZATION을 안쓰는 이유 = REPORT PROGRAMME 이 아니기 때문.<br />
+<br />
+LOAD-OF-PROGRAM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;GET&nbsp;PARAMETER&nbsp;:&nbsp;SAP&nbsp;MEMORY&nbsp;에서&nbsp;메모리&nbsp;변수의&nbsp;값을&nbsp;가져오는&nbsp;키워드<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;PARAMETER&nbsp;ID&nbsp;OF&nbsp;AIRLINE&nbsp;CODE.<br />
+&nbsp;&nbsp;GET&nbsp;PARAMETER&nbsp;ID&nbsp;:&nbsp;'CAR'&nbsp;FIELD&nbsp;SDYN_CONN-CARRID,&nbsp;&nbsp;&nbsp;&nbsp;"SCREEN&nbsp;100&nbsp;-&nbsp;GENERAL의&nbsp;NAME에서&nbsp;확인&nbsp;가능.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;PARAMETER&nbsp;ID&nbsp;OF&nbsp;FLIGHT&nbsp;NUMBER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'CON'&nbsp;FIELD&nbsp;SDYN_CONN-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;PARAMETER&nbsp;ID&nbsp;OF&nbsp;FLIGHT&nbsp;DATE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'DAY'&nbsp;FIELD&nbsp;SDYN_CONN-FLDATE.<br />
+<br />
+" SFLIGHT 에서 데이터를 조회해 WORKAREA( WA_SFLIGHT )에 값을 저장한다.<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;FROM&nbsp;ZBD1_FLIGHT16&nbsp;&nbsp;"&nbsp;SFLIGHT<br />
+&nbsp;&nbsp;INTO&nbsp;WA_SFLIGHT<br />
+&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;=&nbsp;SDYN_CONN-CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;CONNID&nbsp;=&nbsp;SDYN_CONN-CONNID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;FLDATE&nbsp;=&nbsp;SDYN_CONN-FLDATE.<br />
+<br />
+" TRANSACTION CODE 가 100번 화면을 호출하는데,<br />
+" 그 때 100번 화면이 출력 전에 PBO 가 먼저 수행되고<br />
+" PBO 모듈 중 WA_SFLIGHT 에서 SDYN_CONN 으로 값 복사하는<br />
+" MOVE-CORRESPONDING 이 있기 때문에,<br />
+" PBD가 끝나고 화면이 출력될 때 SDYN_CONN 에 값이 있어서<br />
+" 실행하자마자 100번 화면에 모든 필드에 데이터가 출력되는 것을 볼 수가 있다.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

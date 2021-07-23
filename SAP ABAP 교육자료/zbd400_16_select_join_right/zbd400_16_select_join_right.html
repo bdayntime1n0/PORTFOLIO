@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD400_16_SELECT_JOIN_RIGHT</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD400_16_SELECT_JOIN_RIGHT</h2>
+<h3> Description: SELECT RIGHT OUTER JOIN 예제</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD400_16_SELECT_JOIN_RIGHT<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD400_16_SELECT_JOIN_RIGHT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*LOCAL&nbsp;STRUCTURE&nbsp;선언<br />
+<br />
+   </div>
+   <div class="code">
+DATA : BEGIN OF GS_DATA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;LIKE&nbsp;MARA-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;자재테이블의&nbsp;자재코드<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAKTX&nbsp;LIKE&nbsp;MAKT-MAKTX,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;자재내역&nbsp;테이블의&nbsp;자재내역<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DATA.<br />
+<br />
+DATA : GT_DATA LIKE TABLE OF GS_DATA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_ALV&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_SALV_TABLE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GX_MSG&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CX_SALV_MSG.<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;M~MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T~MAKTX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;MAKT&nbsp;AS&nbsp;T&nbsp;RIGHT&nbsp;OUTER&nbsp;JOIN&nbsp;MARA&nbsp;AS&nbsp;M<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;T~MATNR&nbsp;=&nbsp;M~MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;T~SPRAS&nbsp;IN&nbsp;('E',&nbsp;'3')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;이전에는&nbsp;EQ만&nbsp;가능했는데&nbsp;IN('E',&nbsp;'3')등을&nbsp;쓸&nbsp;수&nbsp;있어짐.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@GT_DATA.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;E와&nbsp;3을&nbsp;같이&nbsp;보여주기&nbsp;때문에&nbsp;결과에&nbsp;동일한&nbsp;MATERIAL이&nbsp;반복됨.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+***********&nbsp;OLD&nbsp;SQL&nbsp;********************<br />
+<br />
+*&nbsp;&nbsp;SELECT&nbsp;M~MATNR<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T~MAKTX<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;MAKT&nbsp;AS&nbsp;T&nbsp;RIGHT&nbsp;OUTER&nbsp;JOIN&nbsp;MARA&nbsp;AS&nbsp;M&nbsp;&nbsp;&nbsp;"&nbsp;코드와&nbsp;텍스트를&nbsp;가지고&nbsp;JOIN을&nbsp;할&nbsp;때<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;T~MATNR&nbsp;=&nbsp;M~MATNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;코드가&nbsp;존재하는&nbsp;텍스트를&nbsp;보여주는&nbsp;것이&nbsp;당연하지만,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;T~SPRAS&nbsp;=&nbsp;'E'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;텍스트가&nbsp;존재하지&nbsp;않을&nbsp;때도&nbsp;코드는&nbsp;보여줘야&nbsp;하므로<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;GT_DATA.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;코드와&nbsp;텍스트&nbsp;간의&nbsp;JOIN&nbsp;에서는&nbsp;반드시&nbsp;OUTER&nbsp;JOIN으로&nbsp;JOIN&nbsp;TABLE을&nbsp;해야&nbsp;함.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;T~SPRAS&nbsp;=&nbsp;'E'&nbsp;처럼&nbsp;오른쪽&nbsp;값에&nbsp;HARD&nbsp;CODING도&nbsp;불가능했음.<br />
+<br />
+   </div>
+   <div class="code">
+SORT  GT_DATA BY MATNR MAKTX.<br />
+<br />
+&nbsp;&nbsp;TRY&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_SALV_TABLE=&gt;FACTORY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_SALV_TABLE&nbsp;=&nbsp;GO_ALV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Basis&nbsp;Class&nbsp;Simple&nbsp;ALV&nbsp;Tables<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_TABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_DATA.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_MSG&nbsp;INTO&nbsp;GX_MSG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;LV_ERROR&nbsp;TYPE&nbsp;STRING.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ERROR&nbsp;=&nbsp;GX_MSG-&gt;GET_TEXT(&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E000(OO)&nbsp;WITH&nbsp;LV_ERROR.&nbsp;"&nbsp;ALV:&nbsp;General&nbsp;Error&nbsp;Class&nbsp;with&nbsp;Message<br />
+<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;GO_ALV-&gt;DISPLAY(&nbsp;).<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;OO<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

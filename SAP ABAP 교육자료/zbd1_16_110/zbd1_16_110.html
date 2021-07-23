@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD1_16_110</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD1_16_110</h2>
+<h3> Description: 엑셀 업로드 예제 (BDC - COST CENTER 생성 )</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD1_16_110<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;엑셀&nbsp;업로드&nbsp;예제<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD1_16_110 MESSAGE-ID ZBD1_00.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;프로그램&nbsp;내에서&nbsp;사용할&nbsp;대표&nbsp;메시지&nbsp;클래스<br />
+<br />
+include <a href ="zbd1_16_110_t01.html">ZBD1_16_110_T01</a>.<br />
+include <a href ="zbd1_16_110_cls.html">ZBD1_16_110_CLS</a>.<br />
+include <a href ="zbd1_16_110_scr.html">ZBD1_16_110_SCR</a>.<br />
+include <a href ="zbd1_16_110_f01.html">ZBD1_16_110_F01</a>.<br />
+include <a href ="zbd1_16_110_pbo.html">ZBD1_16_110_PBO</a>.<br />
+include <a href ="zbd1_16_110_pai.html">ZBD1_16_110_PAI</a>.<br />
+<br />
+INITIALIZATION.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;INITIALIZATION.<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_DATA_FROM_EXCEL.<br />
+&nbsp;&nbsp;"&nbsp;엑셀파일에서&nbsp;업로드용&nbsp;Internal&nbsp;Table&nbsp;로&nbsp;데이터를&nbsp;가져온다.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;MOVE_INTERN_TO_ITAB.<br />
+&nbsp;&nbsp;"&nbsp;업로드용&nbsp;Internal&nbsp;Table&nbsp;에서&nbsp;출력용&nbsp;Internal&nbsp;Table&nbsp;로&nbsp;변환한다.<br />
+<br />
+END-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;DISPLAY_DATA.<br />
+&nbsp;&nbsp;"&nbsp;출력용&nbsp;Internal&nbsp;Table의&nbsp;내용을&nbsp;ALV로&nbsp;보여준다.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;S01&nbsp;Selection&nbsp;Options<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;P_FILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Upload&nbsp;Excel&nbsp;File&nbsp;Path<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
+*&nbsp;&nbsp;&nbsp;사용자가&nbsp;파일을&nbsp;선택했습니다.<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;ZBD1_00<br />
+*006&nbsp;&nbsp;&nbsp;Not&nbsp;exist&nbsp;data&nbsp;in&nbsp;excel&nbsp;file.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

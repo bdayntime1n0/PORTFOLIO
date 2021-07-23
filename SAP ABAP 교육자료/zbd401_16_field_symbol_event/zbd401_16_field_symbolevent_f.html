@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD401_16_FIELD_SYMBOLEVENT_F</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD401_16_FIELD_SYMBOLEVENT_F</h2>
+<h3> Description: Include ZBD401_16_FIELD_SYMBOL_F01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD401_16_FIELD_SYMBOL_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SELECTED_DATA_RTN<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SELECTED_DATA_RTN .<br />
+<br />
+&nbsp;&nbsp;"&nbsp;사용자가&nbsp;입력한&nbsp;테이블&nbsp;이름에&nbsp;따라서&nbsp;&lt;FS_TAB&gt;이&nbsp;가리키는&nbsp;ITAB이&nbsp;달라지게&nbsp;됨.<br />
+&nbsp;&nbsp;CASE&nbsp;P_TABNM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SCARR'.&nbsp;"&nbsp;사용자가&nbsp;PARAMETER에&nbsp;SCARR를&nbsp;입력했다면<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;GT_SCARR&nbsp;TO&nbsp;&lt;FS_TAB&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SBOOK'.&nbsp;"&nbsp;사용자가&nbsp;PARAMETER에&nbsp;SBOOK를&nbsp;입력했다면<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;GT_SBOOK&nbsp;TO&nbsp;&lt;FS_TAB&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNASSIGN&nbsp;&lt;FS_TAB&gt;.&nbsp;&nbsp;"&nbsp;FS_TAB에&nbsp;가리키는&nbsp;것을&nbsp;해제.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;FIELD&nbsp;SYMBOL에&nbsp;제대로&nbsp;ASSAIGN이&nbsp;됐는지&nbsp;체크.<br />
+&nbsp;&nbsp;IF&nbsp;&lt;FS_TAB&gt;&nbsp;IS&nbsp;ASSIGNED&nbsp;&nbsp;&nbsp;"&nbsp;현재&nbsp;FIELD&nbsp;SYMBOL&nbsp;이&nbsp;가리키는&nbsp;변수가&nbsp;있는&nbsp;경우<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;SY-SUBRC&nbsp;=&nbsp;0.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ASSIGN&nbsp;키워드가&nbsp;FIELD&nbsp;SYMBOL을&nbsp;성공적으로&nbsp;ASSIGN&nbsp;했을&nbsp;때<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;실패한&nbsp;경우&nbsp;SY-SUBRC&nbsp;=&nbsp;4가&nbsp;됨.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;그러나&nbsp;가리키고&nbsp;있을&nbsp;때,&nbsp;언제부터&nbsp;가리키게&nbsp;됐는지는&nbsp;알&nbsp;수&nbsp;없음.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;그리하여&nbsp;WHEN&nbsp;OTHERS&nbsp;를&nbsp;통해&nbsp;본&nbsp;SUBROUTINE에서는<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;취급하는&nbsp;테이블이&nbsp;아닌&nbsp;경우에&nbsp;대해&nbsp;FIELD&nbsp;SYMBOL을&nbsp;UNASSIGN&nbsp;되므로<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;이&nbsp;IF&nbsp;문이&nbsp;참이&nbsp;되는&nbsp;경우는&nbsp;CASE&nbsp;를&nbsp;통해서&nbsp;ASSIGN이&nbsp;되는&nbsp;경우라고&nbsp;할&nbsp;수&nbsp;있다.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;(P_TABNM)&nbsp;"&nbsp;DYNAMIC&nbsp;SELECT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;UP&nbsp;TO&nbsp;1000&nbsp;ROWS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;데이터를&nbsp;최대&nbsp;1000줄&nbsp;조회<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@&lt;FS_TAB&gt;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SELECT&nbsp;문장을&nbsp;통해&nbsp;아래와&nbsp;같이&nbsp;움직이는&nbsp;것을&nbsp;알&nbsp;수&nbsp;있다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;P_TABNM&nbsp;=&nbsp;'SCARR'&nbsp;:&nbsp;SCARR&nbsp;테이블에서&nbsp;데이터를&nbsp;조회해&nbsp;GT_SCARR에&nbsp;채운다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;P_TABNM&nbsp;=&nbsp;'SBOOK'&nbsp;:&nbsp;SBOOK&nbsp;테이블에서&nbsp;데이터를&nbsp;조회해&nbsp;GT_SBOOK에&nbsp;채운다.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;DISPLAY_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DISPLAY_DATA .<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;&lt;FS_TAB&gt;&nbsp;IS&nbsp;ASSIGNED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;0100.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;CREATE_CONTAINER<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CREATE_CONTAINER.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_CON<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTAINER_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'MY_CONTAINER'&nbsp;&nbsp;"&nbsp;Name&nbsp;of&nbsp;the&nbsp;Screen&nbsp;CustCtrl&nbsp;Name&nbsp;to&nbsp;Link&nbsp;Container&nbsp;To<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;CNTL_ERROR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_SYSTEM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;CNTL_SYSTEM_ERROR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CREATE_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;CREATE_ERROR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LIFETIME_ERROR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_DYNPRO_DYNPRO_LINK&nbsp;=&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LIFETIME_DYNPRO_DYNPRO_LINK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;6.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_PARENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GO_CON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Parent&nbsp;Container<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_CREATE&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Error&nbsp;when&nbsp;creating&nbsp;the&nbsp;control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_INIT&nbsp;&nbsp;&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Error&nbsp;While&nbsp;Initializing&nbsp;Control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_LINK&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Error&nbsp;While&nbsp;Linking&nbsp;Control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_DP_CREATE&nbsp;&nbsp;&nbsp;=&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Error&nbsp;While&nbsp;Creating&nbsp;DataProvider&nbsp;Control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;DISPLAY_ALV<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DISPLAY_ALV.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;P_TABNM&nbsp;에&nbsp;의해서&nbsp;ALV&nbsp;에&nbsp;출력될&nbsp;필드&nbsp;구성이&nbsp;달라지게&nbsp;된다.<br />
+&nbsp;&nbsp;"&nbsp;P_TABNM이&nbsp;SCARR인&nbsp;경우에는&nbsp;SCARR&nbsp;TABLE의&nbsp;FIELD&nbsp;구성으로.<br />
+&nbsp;&nbsp;"&nbsp;SBOOK인&nbsp;경우에는&nbsp;SBOOK&nbsp;TABLE의&nbsp;FIELD&nbsp;구성으로&nbsp;ALV가&nbsp;출력됨.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;또한&nbsp;출력할&nbsp;데이터는&nbsp;&lt;FS_TAB&gt;에&nbsp;의해서&nbsp;결정이&nbsp;되는데,<br />
+&nbsp;&nbsp;"&nbsp;&lt;FS_TAB&gt;&nbsp;또한&nbsp;P_TABNM&nbsp;에&nbsp;의해서&nbsp;가리킬&nbsp;ITAB이&nbsp;달라지므로<br />
+&nbsp;&nbsp;"&nbsp;동적으로&nbsp;출력할&nbsp;ITAB이&nbsp;결정되게&nbsp;된다.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_GRID-&gt;SET_TABLE_FOR_FIRST_DISPLAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_STRUCTURE_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_TABNM&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Internal&nbsp;Output&nbsp;Table&nbsp;Structure&nbsp;Name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&lt;FS_TAB&gt;&nbsp;&nbsp;&nbsp;"&nbsp;Output&nbsp;Table<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INVALID_PARAMETER_COMBINATION&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Wrong&nbsp;Parameter<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PROGRAM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Program&nbsp;Errors<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TOO_MANY_LINES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Too&nbsp;many&nbsp;Rows&nbsp;in&nbsp;Ready&nbsp;for&nbsp;Input&nbsp;Grid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;EVENT_DOUBLE_CLICK<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM EVENT_DOUBLE_CLICK  USING PS_ROW_NO TYPE LVC_S_ROID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_COLUMN&nbsp;TYPE&nbsp;LVC_S_COL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PR_SENDER&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.&nbsp;"&nbsp;CLASS&nbsp;이름.<br />
+&nbsp;&nbsp;"&nbsp;ES_ROW_NO&nbsp;=&gt;&nbsp;P_ES_ROW_NO&nbsp;=&gt;&nbsp;PS_ROW_NO&nbsp;으로&nbsp;변경한&nbsp;이유?<br />
+&nbsp;&nbsp;"&nbsp;ES_*&nbsp;=&gt;&nbsp;P_ES_*&nbsp;=&gt;&nbsp;PS_*&nbsp;이&nbsp;된것임.<br />
+&nbsp;&nbsp;"&nbsp;ES&nbsp;=&nbsp;E&nbsp;:&nbsp;EXPORTING&nbsp;PARAMETER의&nbsp;준말.&nbsp;==&gt;&nbsp;EVENT&nbsp;입장에서는&nbsp;전달해주는(EXPORTING)&nbsp;매개변수이기&nbsp;때문.<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S&nbsp;:&nbsp;STRUCTURE&nbsp;(구조체)의&nbsp;준말.<br />
+&nbsp;&nbsp;"&nbsp;PS&nbsp;로&nbsp;바꾼&nbsp;이유&nbsp;=&nbsp;P&nbsp;:&nbsp;PARAMETER&nbsp;==&gt;&nbsp;매개변수의&nbsp;의미만&nbsp;남음<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S&nbsp;:&nbsp;STRUCTURE<br />
+&nbsp;&nbsp;"&nbsp;PS_ROW_NO&nbsp;=&nbsp;호출한&nbsp;측에서&nbsp;전달해준&nbsp;매개변수(P)<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;이&nbsp;매개변수는&nbsp;STRUCTURE&nbsp;구조로&nbsp;추정&nbsp;가능(S)<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;이&nbsp;매개변수는&nbsp;라인&nbsp;번호에&nbsp;대한&nbsp;정보를&nbsp;갖고&nbsp;있을&nbsp;것으로&nbsp;추정.&nbsp;(&nbsp;ROW_NO&nbsp;)<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;PR_SENDER.&nbsp;"&nbsp;EVENT가&nbsp;발생한&nbsp;ALV의&nbsp;INSTANCE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;GO_GRID.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;GO_GRID&nbsp;로&nbsp;출력한&nbsp;ALV&nbsp;에서&nbsp;이벤트가&nbsp;발생한&nbsp;경우&nbsp;이&nbsp;조건이&nbsp;만족함.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FIELD-SYMBOLS&nbsp;&lt;FS_WA&gt;.&nbsp;&nbsp;"&nbsp;WORK&nbsp;AREA&nbsp;선언.&nbsp;TYPE&nbsp;선언&nbsp;안하면&nbsp;TYPE&nbsp;ANY와&nbsp;같음.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;출력된&nbsp;정보를&nbsp;가리키고&nbsp;있는&nbsp;필드심볼에서&nbsp;DOUBLE&nbsp;CLICK&nbsp;한&nbsp;라인을&nbsp;&lt;FS_WA&gt;가&nbsp;가리키도록&nbsp;한다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;&lt;FS_TAB&gt;&nbsp;ASSIGNING&nbsp;&lt;FS_WA&gt;&nbsp;INDEX&nbsp;PS_ROW_NO-ROW_ID.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;READ&nbsp;TABLE&nbsp;구문이&nbsp;INDEX로&nbsp;받은&nbsp;숫자에&nbsp;해당하는&nbsp;라인을&nbsp;찾아서<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;그&nbsp;라인을&nbsp;&lt;FS_WA&gt;로&nbsp;가리키는데&nbsp;성공했을&nbsp;때,&nbsp;SY-SUBRC&nbsp;=&nbsp;0이&nbsp;된다.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FIELD-SYMBOLS&nbsp;&lt;FS_VAL&gt;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;&lt;FS_WA&gt;&nbsp;의&nbsp;필드&nbsp;중에&nbsp;PS_COLUMN-FIELDNAME&nbsp;으로&nbsp;이름이&nbsp;있는&nbsp;필드를&nbsp;찾아서<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;&lt;FS_VAL&gt;&nbsp;이&nbsp;가리키도록&nbsp;한다.&nbsp;&lt;FS_WA&gt;&nbsp;에&nbsp;그런&nbsp;이름을&nbsp;가진&nbsp;필드가&nbsp;없다면<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SY-SUBRC&nbsp;=&nbsp;4가&nbsp;되고,&nbsp;필드가&nbsp;있다면&nbsp;SY-SUBRC&nbsp;=&nbsp;0이&nbsp;된다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;COMPONENT&nbsp;PS_COLUMN-FIELDNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OF&nbsp;STRUCTURE&nbsp;&lt;FS_WA&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO&nbsp;&lt;FS_VAL&gt;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I000(OO)&nbsp;WITH&nbsp;'더블클릭한&nbsp;셀의&nbsp;값은'&nbsp;&lt;FS_VAL&gt;&nbsp;'입니다.'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNASSIGN&nbsp;&lt;FS_VAL&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNASSIGN&nbsp;&lt;FS_WA&gt;.&nbsp;"&nbsp;ASSIGN의&nbsp;목적이&nbsp;끝나면&nbsp;&lt;FS_WA&gt;의&nbsp;ASSIGN을&nbsp;해제.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;IF&nbsp;PR_SENDER&nbsp;EQ&nbsp;GO_GRID.<br />
+&nbsp;&nbsp;"&nbsp;ENDIF.&nbsp;로도&nbsp;표현&nbsp;가능.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_ALV_EVENT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_ALV_EVENT .<br />
+<br />
+" TOP에 선언돼야 함.<br />
+" CLASS LCL_EVENT_RECV DEFINITION DEFERRED.<br />
+" DATA GO_EVENT_RECV TYPE REF TO LCL_EVENT_RECV.  &lt;- 이 경우는 DATA 가 CLASS 정의보다<br />
+"                                                    위에서 선언이 될 경우<br />
+<br />
+CREATE OBJECT GO_EVENT_RECV.<br />
+SET HANDLER GO_EVENT_RECV-&gt;ON_DOUBLE_CLICK FOR ALL INSTANCES.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

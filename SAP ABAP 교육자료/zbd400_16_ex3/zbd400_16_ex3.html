@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD400_16_EX3</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD400_16_EX3</h2>
+<h3> Description: [EX] 비행기 타기</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD400_16_EX3<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD400_16_EX3.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;ZBD400_16_EX3&nbsp;전재목<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK B01 WITH FRAME TITLE TEXT-S01.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;B02.<br />
+PARAMETERS : P_CITYFR TYPE SPFLI-CITYFROM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_CITYTO&nbsp;TYPE&nbsp;SPFLI-CITYTO.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK B02.<br />
+<br />
+PARAMETERS : P_FLDATE TYPE SFLIGHT-FLDATE.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK B01.<br />
+<br />
+PARAMETERS : R_FLDATE RADIOBUTTON GROUP RA1 DEFAULT  'X',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_FLTIME&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;RA1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_PRICE&nbsp;&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;RA1.<br />
+<br />
+TYPES : BEGIN OF GS_FLIGHT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SCARR-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRNAME&nbsp;&nbsp;&nbsp;LIKE&nbsp;SCARR-CARRNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONNID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SPFLI-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FLDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SFLIGHT-FLDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COUNTRYFR&nbsp;&nbsp;LIKE&nbsp;SPFLI-COUNTRYFR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CITYFROM&nbsp;&nbsp;&nbsp;LIKE&nbsp;SPFLI-CITYFROM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AIRPFROM&nbsp;&nbsp;&nbsp;LIKE&nbsp;SPFLI-AIRPFROM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AIRPNAMEFR&nbsp;LIKE&nbsp;SAIRPORT-NAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COUNTRYTO&nbsp;&nbsp;LIKE&nbsp;SPFLI-COUNTRYTO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CITYTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SPFLI-CITYTO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AIRPTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SPFLI-AIRPTO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AIRPNAMETO&nbsp;LIKE&nbsp;SAIRPORT-NAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FLTIME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SPFLI-FLTIME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRICE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SFLIGHT-PRICE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSMAX&nbsp;&nbsp;&nbsp;LIKE&nbsp;SFLIGHT-SEATSMAX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSOCC&nbsp;&nbsp;&nbsp;LIKE&nbsp;SFLIGHT-SEATSOCC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_FLIGHT.<br />
+<br />
+<br />
+DATA : GT_FLIGHT TYPE TABLE OF GS_FLIGHT,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_ALV&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_SALV_TABLE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GX_MSG&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CX_SALV_MSG.<br />
+<br />
+<br />
+AT SELECTION-SCREEN ON BLOCK B02.<br />
+<br />
+&nbsp;&nbsp;TABLES&nbsp;SPFLI.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LT_DATA&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;SPFLI.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_CITYFR&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;CITYFROM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CITYTO<br />
+FROM   SPFLI<br />
+WHERE  CITYFROM = @P_CITYFR<br />
+&nbsp;&nbsp;&nbsp;AND&nbsp;CITYTO&nbsp;=&nbsp;@P_CITYTO<br />
+INTO TABLE @LT_DATA.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.&nbsp;&nbsp;&nbsp;&nbsp;"SY-DBCNT&nbsp;=&nbsp;0&nbsp;=&nbsp;검색된&nbsp;라인의&nbsp;수를&nbsp;의미.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E000(OO)&nbsp;WITH&nbsp;'해당&nbsp;일정은&nbsp;존재하지&nbsp;않습니다.&nbsp;다시&nbsp;입력해주세요.'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_CITYTO&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;CITYFROM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CITYTO<br />
+FROM   SPFLI<br />
+WHERE  CITYFROM = @P_CITYFR<br />
+&nbsp;&nbsp;&nbsp;AND&nbsp;CITYTO&nbsp;=&nbsp;@P_CITYTO<br />
+INTO TABLE @LT_DATA.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E000(OO)&nbsp;WITH&nbsp;'해당&nbsp;일정은&nbsp;존재하지&nbsp;않습니다.&nbsp;다시&nbsp;입력해주세요.'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_DATE&nbsp;TYPE&nbsp;SFLIGHT-FLDATE.<br />
+&nbsp;&nbsp;LV_DATE&nbsp;=&nbsp;P_FLDATE&nbsp;+&nbsp;29.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;A~CARRID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~CARRNAME&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~CONNID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~FLDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~COUNTRYFR&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~CITYFROM&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~AIRPFROM&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D~NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~COUNTRYTO&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~CITYTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~AIRPTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E~NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~FLTIME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~PRICE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~SEATSMAX&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~SEATSOCC<br />
+&nbsp;&nbsp;FROM&nbsp;SPFLI&nbsp;AS&nbsp;A&nbsp;INNER&nbsp;JOIN&nbsp;SCARR&nbsp;&nbsp;&nbsp;&nbsp;AS&nbsp;B&nbsp;ON&nbsp;A~CARRID&nbsp;=&nbsp;B~CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;SFLIGHT&nbsp;&nbsp;AS&nbsp;C&nbsp;ON&nbsp;A~CARRID&nbsp;=&nbsp;C~CARRID&nbsp;AND&nbsp;A~CONNID&nbsp;=&nbsp;C~CONNID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;SAIRPORT&nbsp;AS&nbsp;D&nbsp;ON&nbsp;A~AIRPFROM&nbsp;=&nbsp;D~ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"TEXT를&nbsp;가져올&nbsp;때는&nbsp;있으면&nbsp;가져오고&nbsp;없으면&nbsp;만다는&nbsp;생각으로&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN을&nbsp;시행.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;SAIRPORT&nbsp;AS&nbsp;E&nbsp;ON&nbsp;A~AIRPTO&nbsp;=&nbsp;E~ID<br />
+&nbsp;&nbsp;WHERE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSMAX&nbsp;-&nbsp;SEATSOCC&nbsp;NE&nbsp;0<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;FLDATE&nbsp;BETWEEN&nbsp;@P_FLDATE&nbsp;AND&nbsp;@LV_DATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;CITYFROM&nbsp;=&nbsp;@P_CITYFR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;CITYTO&nbsp;=&nbsp;@P_CITYTO<br />
+&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@GT_FLIGHT.<br />
+<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;&nbsp;R_FLDATE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SORT&nbsp;&nbsp;GT_FLIGHT&nbsp;BY&nbsp;FLDATE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;&nbsp;R_FLTIME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SORT&nbsp;&nbsp;GT_FLIGHT&nbsp;BY&nbsp;FLTIME.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;&nbsp;R_PRICE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SORT&nbsp;&nbsp;GT_FLIGHT&nbsp;BY&nbsp;PRICE.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;DISPLAY&nbsp;ALV<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;TRY&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_SALV_TABLE=&gt;FACTORY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_SALV_TABLE&nbsp;=&nbsp;GO_ALV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Basis&nbsp;Class&nbsp;Simple&nbsp;ALV&nbsp;Tables<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_TABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_FLIGHT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_MSG&nbsp;INTO&nbsp;GX_MSG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;LV_ERROR&nbsp;TYPE&nbsp;STRING.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ERROR&nbsp;=&nbsp;GX_MSG-&gt;GET_TEXT(&nbsp;).&nbsp;&nbsp;&nbsp;"&nbsp;ALV:&nbsp;General&nbsp;Error&nbsp;Class&nbsp;with&nbsp;Message<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E000(OO)&nbsp;WITH&nbsp;LV_ERROR.<br />
+<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;GO_ALV-&gt;DISPLAY(&nbsp;).<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;S01&nbsp;출발,&nbsp;도착&nbsp;도시<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;P_CITYFR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;출발도시<br />
+*&nbsp;P_CITYTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;도착도시<br />
+*&nbsp;P_FLDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;출발날짜<br />
+*&nbsp;R_FLDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;출발날짜&nbsp;기준<br />
+*&nbsp;R_FLTIME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소요시간&nbsp;기준<br />
+*&nbsp;R_PRICE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;가격&nbsp;기준<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;OO<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD400_16_ITAB_EX_4</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD400_16_ITAB_EX_4</h2>
+<h3> Description: INTERNAL TABLE 예제 ( APPEND / MODIFY / DELETE )</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD400_16_ITAB_EX_4<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD400_16_ITAB_EX_4.<br />
+<br />
+<br />
+TYPES : BEGIN OF TS_FLIGHT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRID&nbsp;TYPE&nbsp;&nbsp;BC400_S_FLIGHT-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONNID&nbsp;TYPE&nbsp;&nbsp;BC400_S_FLIGHT-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FLDATE&nbsp;TYPE&nbsp;&nbsp;BC400_S_FLIGHT-FLDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TS_FLIGHT.<br />
+<br />
+DATA : GT_FLIGHT TYPE TABLE OF TS_FLIGHT,   "INTERNAL TABLE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;&nbsp;GT_FLIGHT.&nbsp;&nbsp;&nbsp;"WORK&nbsp;AREA<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;APPEND<br />
+<br />
+   </div>
+   <div class="code">
+CLEAR GS_FLIGHT.<br />
+GS_FLIGHT-CARRID = 'AA'.<br />
+GS_FLIGHT-CONNID = '1000'.<br />
+GS_FLIGHT-FLDATE = '20210621'.  " 날짜는 숫자형 문자 타잎. + 1, + 10도 가능.<br />
+APPEND GS_FLIGHT TO GT_FLIGHT.<br />
+   </div>
+   <div class="codeComment">
+*APPEND&nbsp;GT_FLIGHT&nbsp;"만약&nbsp;WITH&nbsp;HEADER&nbsp;LINE이라면,<br />
+<br />
+   </div>
+   <div class="code">
+CLEAR GS_FLIGHT.<br />
+GS_FLIGHT-CARRID = 'BB'.<br />
+GS_FLIGHT-CONNID = '0100'.<br />
+GS_FLIGHT-FLDATE = '20210101'.<br />
+APPEND GS_FLIGHT TO GT_FLIGHT.<br />
+<br />
+CLEAR GS_FLIGHT.<br />
+GS_FLIGHT-CARRID = 'BB'.<br />
+GS_FLIGHT-CONNID = '0200'.<br />
+GS_FLIGHT-FLDATE = '20210201'.<br />
+APPEND GS_FLIGHT TO GT_FLIGHT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;INSERT는&nbsp;INDEX를&nbsp;적지&nbsp;않으면&nbsp;사용할&nbsp;수&nbsp;없음.<br />
+<br />
+*&nbsp;MODIFY<br />
+<br />
+******************************************<br />
+*&nbsp;EXAMPLE&nbsp;1은&nbsp;LOOP를&nbsp;1번&nbsp;돌면서&nbsp;모두&nbsp;바꾸기&nbsp;때문에&nbsp;속도가&nbsp;빠름.<br />
+*&nbsp;따라서&nbsp;EXAMPLE&nbsp;2처럼&nbsp;하는&nbsp;것을&nbsp;추천!<br />
+******************************************<br />
+<br />
+*&nbsp;EXAMPLE&nbsp;1<br />
+<br />
+   </div>
+   <div class="code">
+LOOP AT GT_FLIGHT INTO GS_FLIGHT.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;GS_FLIGHT-CARRID.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'AA'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;GS_FLIGHT-CONNID.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-CONNID&nbsp;=&nbsp;'2000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_FLIGHT&nbsp;FROM&nbsp;GS_FLIGHT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1100'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-CONNID&nbsp;=&nbsp;'2100'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_FLIGHT&nbsp;FROM&nbsp;GS_FLIGHT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;CARRID&nbsp;=&nbsp;'AA'&nbsp;이고&nbsp;CONNID&nbsp;가&nbsp;'1000'&nbsp;인&nbsp;데이터는&nbsp;CONNID&nbsp;를&nbsp;'2000&nbsp;으로&nbsp;변경해야&nbsp;한다.<br />
+&nbsp;&nbsp;IF&nbsp;GS_FLIGHT-CARRID&nbsp;=&nbsp;'AA'&nbsp;AND&nbsp;GS_FLIGHT-CONNID&nbsp;=&nbsp;'1000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-CONNID&nbsp;=&nbsp;'2000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_FLIGHT&nbsp;FROM&nbsp;GS_FLIGHT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;CARRID&nbsp;=&nbsp;'AA'&nbsp;이고&nbsp;CONNID&nbsp;가&nbsp;'1100'&nbsp;인&nbsp;데이터는&nbsp;CONNID&nbsp;를&nbsp;'2100&nbsp;으로&nbsp;변경해야&nbsp;한다.<br />
+&nbsp;&nbsp;IF&nbsp;GS_FLIGHT-CARRID&nbsp;=&nbsp;'AA'&nbsp;AND&nbsp;GS_FLIGHT-CONNID&nbsp;=&nbsp;'1100'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-CONNID&nbsp;=&nbsp;'2100'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_FLIGHT&nbsp;FROM&nbsp;GS_FLIGHT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDLOOP.<br />
+<br />
+" LOOP AT GT_FLIGHT 안에서는 MODIFY GT_FLIGHT 구문을 수행할 때<br />
+" 어느 라인을 수정해야 되지 시스템이 알고 있지만,<br />
+" LOOP AT 을 벗어나면 어느 라인을 수정해야 될지 시스템이 모르므로,<br />
+" Dump 가 발생한다.<br />
+   </div>
+   <div class="codeComment">
+*MODIFY&nbsp;GT_FLIGHT&nbsp;FROM&nbsp;GS_FLIGHT.<br />
+*=&gt;&nbsp;MODIFY&nbsp;GT_FLIGHT&nbsp;FROM&nbsp;GS_FLIGHT&nbsp;INDEX&nbsp;1.&nbsp;"&nbsp;이&nbsp;경우는&nbsp;라인을&nbsp;알기에&nbsp;오류가&nbsp;발생하지&nbsp;않는다.<br />
+<br />
+*&nbsp;EXAMPLE&nbsp;2<br />
+<br />
+   </div>
+   <div class="code">
+" CONNID = '2000' 인 라인은 CONNID = '1000' 으로 / CONNID = '2100' 인 라인은 CONNID = '1100' 으로 변경한다.<br />
+GS_FLIGHT-CONNID = '1000'.<br />
+MODIFY GT_FLIGHT FROM GS_FLIGHT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRANSPORTING&nbsp;CONNID&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;찾은&nbsp;라인에서&nbsp;수정할&nbsp;필드&nbsp;(&nbsp;수정될&nbsp;값은&nbsp;from&nbsp;에서&nbsp;참조&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;CONNID&nbsp;=&nbsp;'2000'.&nbsp;"&nbsp;Internal&nbsp;Table&nbsp;수정할&nbsp;라인을&nbsp;찾는&nbsp;조건.<br />
+<br />
+GS_FLIGHT-CONNID = '1100'.<br />
+MODIFY GT_FLIGHT FROM GS_FLIGHT TRANSPORTING CONNID WHERE CONNID = '2100'.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;DELETE&nbsp;&nbsp;&nbsp;"&nbsp;특정&nbsp;조건에&nbsp;맞는&nbsp;데이터만&nbsp;지우겠다.<br />
+*&nbsp;REFRESH&nbsp;GT_FLIGHT.<br />
+*&nbsp;CLEAR&nbsp;&nbsp;&nbsp;GT_FLGIHT[].<br />
+<br />
+   </div>
+   <div class="code">
+LOOP AT GT_FLIGHT INTO GS_FLIGHT.<br />
+&nbsp;&nbsp;IF&nbsp;GS_FLIGHT-CARRID&nbsp;=&nbsp;'AA'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"CARRID&nbsp;=&nbsp;'AA'인&nbsp;라인&nbsp;한줄씩&nbsp;삭제.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_FLIGHT.&nbsp;&nbsp;&nbsp;"현재&nbsp;라인을&nbsp;알고&nbsp;있기&nbsp;때문에&nbsp;INDEX&nbsp;KEYWORD를&nbsp;적지&nbsp;않아도&nbsp;됨.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDLOOP.<br />
+<br />
+"CARRID = 'BB'인 라인 한번에 삭제.<br />
+DELETE GT_FLIGHT WHERE CARRID = 'BB'.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

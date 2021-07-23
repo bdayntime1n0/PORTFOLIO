@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD400_16_SELECT_VIEW</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD400_16_SELECT_VIEW</h2>
+<h3> Description: SELECT VIEW 예제</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD400_16_SELECT_VIEW<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD400_16_SELECT_VIEW.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+***&nbsp;GLOBAL&nbsp;VARIABLES<br />
+   </div>
+   <div class="code">
+DATA : GS_FLIGHTS TYPE SV_FLIGHTS,            " STRUCTURE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FLIGHTS&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;SV_FLIGHTS,&nbsp;&nbsp;&nbsp;"&nbsp;INTERNAL&nbsp;TABLE<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_ALV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_SALV_TABLE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GX_MSG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CX_SALV_MSG.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+***&nbsp;SELECTION&nbsp;SCREEN<br />
+   </div>
+   <div class="code">
+SELECT-OPTIONS : SO_CITYF FOR GS_FLIGHTS-CITYFROM,    " SELECT-OPTIONS를 공란으로 두면 모든 조건 조회.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SO_CITYT&nbsp;FOR&nbsp;GS_FLIGHTS-CITYTO.<br />
+<br />
+PARAMETERS : P_HANA AS CHECKBOX.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***&nbsp;START-OF-SELECTION<br />
+   </div>
+   <div class="code">
+IF P_HANA IS INITIAL.<br />
+&nbsp;&nbsp;SELECT&nbsp;CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONNID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CITYFROM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CITYTO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FLDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSMAX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSOCC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SV_FLIGHTS&nbsp;&nbsp;&nbsp;"&nbsp;VIEW<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_FLIGHTS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;CITYFROM&nbsp;IN&nbsp;SO_CITYF<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;CITYTO&nbsp;&nbsp;&nbsp;IN&nbsp;SO_CITYT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;SEATSOCC&nbsp;&lt;&nbsp;SV_FLIGHTS~SEATSMAX&nbsp;&nbsp;"&nbsp;THERE&nbsp;ARE&nbsp;EXTRA&nbsp;SEATS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER&nbsp;BY&nbsp;CARRID&nbsp;CONNID&nbsp;FLDATE.<br />
+<br />
+ELSE.<br />
+&nbsp;&nbsp;SELECT&nbsp;CARRID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONNID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CITYFROM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CITYTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FLDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSMAX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSOCC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;SEATSMAX&nbsp;-&nbsp;SEATSOCC&nbsp;)&nbsp;AS&nbsp;SEATSCUR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SV_FLIGHTS&nbsp;&nbsp;&nbsp;"&nbsp;VIEW<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;CITYFROM&nbsp;IN&nbsp;@SO_CITYF<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;CITYTO&nbsp;&nbsp;&nbsp;IN&nbsp;@SO_CITYT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;SEATSMAX&nbsp;-&nbsp;SEATSOCC&nbsp;&gt;&nbsp;0&nbsp;&nbsp;"&nbsp;THERE&nbsp;ARE&nbsp;EXTRA&nbsp;SEATS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER&nbsp;BY&nbsp;CARRID,&nbsp;CONNID,&nbsp;FLDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@DATA(LT_FLIGHTS).&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;@DATA(&nbsp;TABLE&nbsp;)&nbsp;=&nbsp;IN-LINE&nbsp;DEFINITION.<br />
+&nbsp;&nbsp;"&nbsp;TABLE에&nbsp;올&nbsp;변수를&nbsp;SELECT에&nbsp;맞춰서&nbsp;알아서&nbsp;만들어줌.<br />
+ENDIF.<br />
+<br />
+IF SY-SUBRC &lt;&gt; 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;/&nbsp;'NO&nbsp;BOOKING&nbsp;EXIST.'.<br />
+<br />
+ELSE.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;BEGIN&nbsp;OF&nbsp;LS_DISPLAY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRID&nbsp;&nbsp;&nbsp;TYPE&nbsp;SV_FLIGHTS-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRNAME&nbsp;TYPE&nbsp;SV_FLIGHTS-CARRNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONNID&nbsp;&nbsp;&nbsp;TYPE&nbsp;SV_FLIGHTS-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CITYFROM&nbsp;TYPE&nbsp;SV_FLIGHTS-CITYFROM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CITYTO&nbsp;&nbsp;&nbsp;TYPE&nbsp;SV_FLIGHTS-CITYTO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FLDATE&nbsp;&nbsp;&nbsp;TYPE&nbsp;SV_FLIGHTS-FLDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSMAX&nbsp;TYPE&nbsp;SV_FLIGHTS-SEATSMAX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSOCC&nbsp;TYPE&nbsp;SV_FLIGHTS-SEATSOCC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSCUR&nbsp;TYPE&nbsp;SV_FLIGHTS-SEATSOCC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;LS_DISPLAY.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;LT_DISPLAY&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;LS_DISPLAY.<br />
+ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;출력용&nbsp;INTERNAL&nbsp;TABLE&nbsp;에&nbsp;명칭이&nbsp;동일한&nbsp;FIELD만&nbsp;데이터를&nbsp;복사<br />
+   </div>
+   <div class="code">
+IF P_HANA IS INITIAL.<br />
+&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GT_FLIGHTS&nbsp;TO&nbsp;LT_DISPLAY.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_DISPLAY&nbsp;INTO&nbsp;LS_DISPLAY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LS_DISPLAY-SEATSCUR&nbsp;=&nbsp;LS_DISPLAY-SEATSMAX&nbsp;-&nbsp;LS_DISPLAY-SEATSOCC.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;LT_DISPLAY&nbsp;FROM&nbsp;LS_DISPLAY.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ELSE.<br />
+&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;LT_FLIGHTS&nbsp;TO&nbsp;LT_DISPLAY.<br />
+<br />
+ENDIF.<br />
+<br />
+TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_SALV_TABLE=&gt;FACTORY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_SALV_TABLE&nbsp;=&nbsp;GO_ALV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Basis&nbsp;Class&nbsp;Simple&nbsp;ALV&nbsp;Tables<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_TABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_DISPLAY.<br />
+<br />
+&nbsp;&nbsp;CATCH&nbsp;CX_SALV_MSG&nbsp;INTO&nbsp;GX_MSG.&nbsp;"&nbsp;ALV:&nbsp;General&nbsp;Error&nbsp;Class&nbsp;with&nbsp;Message<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;LV_ERROR&nbsp;TYPE&nbsp;STRING.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_ERROR&nbsp;=&nbsp;GX_MSG-&gt;GET_TEXT(&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E000(OO)&nbsp;WITH&nbsp;LV_ERROR.<br />
+ENDTRY.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;COLUMN&nbsp;이름&nbsp;변경하기<br />
+   </div>
+   <div class="code">
+" 구 문법<br />
+DATA LO_COLUMNS TYPE REF TO CL_SALV_COLUMNS_TABLE.<br />
+CALL METHOD GO_ALV-&gt;GET_COLUMNS<br />
+&nbsp;&nbsp;RECEIVING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;=&nbsp;LO_COLUMNS.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ALV&nbsp;Columns<br />
+<br />
+" 신 문법<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;DATA(LO_COLUMNS)&nbsp;=&nbsp;GO_ALV-&gt;GET_COLUMNS(&nbsp;).<br />
+<br />
+   </div>
+   <div class="code">
+DATA LO_COLUMN TYPE REF TO CL_SALV_COLUMN.<br />
+<br />
+CALL METHOD LO_COLUMNS-&gt;GET_COLUMN<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COLUMNNAME&nbsp;=&nbsp;'SEATSCUR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ALV&nbsp;Control:&nbsp;Field&nbsp;Name&nbsp;of&nbsp;Internal&nbsp;Table&nbsp;Field<br />
+&nbsp;&nbsp;RECEIVING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LO_COLUMN.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Description&nbsp;of&nbsp;ALV&nbsp;Column<br />
+<br />
+" VALUE =  'X' -&gt; DATA ELEMENT가 가진 FIELD LABEL로 보여준다.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;LO_COLUMN-&gt;SET_FIXED_HEADER_TEXT<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;=&nbsp;&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ALV&nbsp;control:&nbsp;Determine&nbsp;DDIC&nbsp;text&nbsp;reference<br />
+<br />
+<br />
+*&nbsp;COLUMN&nbsp;NAME&nbsp;SETTING<br />
+   </div>
+   <div class="code">
+CALL METHOD LO_COLUMN-&gt;SET_LONG_TEXT<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;=&nbsp;'CURRENT&nbsp;SEATS'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Long&nbsp;Field&nbsp;Label<br />
+<br />
+CALL METHOD LO_COLUMN-&gt;SET_MEDIUM_TEXT<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;=&nbsp;'CURRENT'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Medium&nbsp;Field&nbsp;Label<br />
+<br />
+CALL METHOD LO_COLUMN-&gt;SET_SHORT_TEXT<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;=&nbsp;'CURR'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Short&nbsp;Field&nbsp;Label<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;LT_DISPLAY를&nbsp;띄움.<br />
+   </div>
+   <div class="code">
+GO_ALV-&gt;DISPLAY( ).<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;SO_CITYF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEPART&nbsp;CITY<br />
+*&nbsp;SO_CITYT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARRIVAL&nbsp;CITY<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;OO<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

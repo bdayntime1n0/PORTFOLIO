@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD400_16_ITAB_HEADERLINE</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD400_16_ITAB_HEADERLINE</h2>
+<h3> Description: INTERNAL TABLE WITH HEADER LINE 예제</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD400_16_ITAB_HEADERLINE<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD400_16_ITAB_HEADERLINE.<br />
+<br />
+<br />
+TYPES : BEGIN OF TS_DATA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRID&nbsp;TYPE&nbsp;BC400_S_FLIGHT-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONNID&nbsp;TYPE&nbsp;BC400_S_FLIGHT-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TS_DATA.<br />
+<br />
+DATA GT_DATA_1 TYPE TABLE OF TS_DATA.    "WITHOUT HEADER LINE.<br />
+DATA GT_DATA_2 TYPE TABLE OF TS_DATA WITH HEADER LINE.<br />
+<br />
+BREAK-POINT.<br />
+<br />
+REFRESH GT_DATA_2.      "INTERNAL TABLE의 내용을 초기화.<br />
+<br />
+CLEAR   GT_DATA_1.      "INTERNAL TABLE의 내용을 초기화.<br />
+CLEAR   GT_DATA_1[].    "INTERNAL TABLE의 내용을 초기화.<br />
+<br />
+CLEAR   GT_DATA_2.      "INTERNAL TABLE의 HEADER LINE을 초기화.<br />
+CLEAR   GT_DATA_2[].    "INTERNAL TABLE의 내용을 초기화.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***************************************************************************<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+CLEAR GT_DATA_2.<br />
+GT_DATA_2-CARRID = 'AA'.<br />
+GT_DATA_2-CONNID = '1000'.<br />
+INSERT GT_DATA_2 INDEX 1.<br />
+<br />
+CLEAR GT_DATA_2.<br />
+GT_DATA_2-CARRID = 'AA'.<br />
+GT_DATA_2-CONNID = '2000'.<br />
+INSERT GT_DATA_2 INDEX 1.<br />
+<br />
+CLEAR GT_DATA_2.<br />
+GT_DATA_2-CARRID = 'AA'.<br />
+GT_DATA_2-CONNID = '3000'.<br />
+INSERT GT_DATA_2 INDEX 1.<br />
+<br />
+SORT GT_DATA_2 BY CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONNID&nbsp;ASCENDING.&nbsp;&nbsp;&nbsp;"ASCENDING은&nbsp;생략&nbsp;가능.<br />
+<br />
+LOOP AT GT_DATA_2.<br />
+&nbsp;&nbsp;"INTERNAL&nbsp;TABLE에서&nbsp;HEADER&nbsp;LINE으로&nbsp;알아서&nbsp;옮김.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;GT_DATA_2-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_DATA_2-CONNID.<br />
+ENDLOOP.<br />
+<br />
+GT_DATA_1 = GT_DATA_2[].<br />
+<br />
+CLEAR GT_DATA_1.<br />
+<br />
+CLEAR GT_DATA_2.<br />
+CLEAR GT_DATA_2[].<br />
+<br />
+BREAK-POINT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD400_16_ITAB_SELECT_SINGLE_2</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD400_16_ITAB_SELECT_SINGLE_2</h2>
+<h3> Description: SELECT SINGLE CORRESPONDING 예제</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD400_16_ITAB_SELECT_SINGLE_2<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD400_16_ITAB_SELECT_SINGLE_2.<br />
+<br />
+<br />
+PARAMETERS : P_CARRID TYPE SFLIGHT-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_CONNID&nbsp;TYPE&nbsp;SFLIGHT-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_FLDATE&nbsp;TYPE&nbsp;SFLIGHT-FLDATE.<br />
+<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LS_FLIGHT&nbsp;TYPE&nbsp;BC400_S_FLIGHT.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;SEATSMAX&nbsp;SEATSOCC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SFLIGHT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;LS_FLIGHT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;=&nbsp;P_CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;CONNID&nbsp;=&nbsp;P_CONNID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;FLDATE&nbsp;=&nbsp;P_FLDATE.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;LS_FLIGHT-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_FLIGHT-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_FLIGHT-FLDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_FLIGHT-SEATSMAX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_FLIGHT-SEATSOCC.<br />
+<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'NO&nbsp;DATA&nbsp;FOUND.'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

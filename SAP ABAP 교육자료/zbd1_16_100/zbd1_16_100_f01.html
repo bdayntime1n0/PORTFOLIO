@@ -1,0 +1,421 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD1_16_100_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD1_16_100_F01</h2>
+<h3> Description: Include ZBD1_16_100_F01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD1_16_100_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;INITIALIZATION<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM INITIALIZATION .<br />
+<br />
+&nbsp;&nbsp;TEXTS01&nbsp;=&nbsp;'SELECTION&nbsp;OPTIONS'(S01).<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;ONF4_FILE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ONF4_FILE  USING PV_FILE TYPE LOCALFILE.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LT_FILE&nbsp;&nbsp;&nbsp;TYPE&nbsp;FILETABLE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SUBRC&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ACTION&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;FILE_OPEN_DIALOG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"선택한&nbsp;파일&nbsp;이름<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WINDOW_TITLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'엑셀&nbsp;파일&nbsp;찾아보기'&nbsp;"&nbsp;Title&nbsp;Of&nbsp;File&nbsp;Open&nbsp;Dialog<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE_FILTER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'EXCEL&nbsp;FILE(*.xls,&nbsp;*.xlsx)&nbsp;|*.xls;&nbsp;*.xlsx|&nbsp;ALL&nbsp;FILES(*)&nbsp;|*.*|'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;File&nbsp;Extension&nbsp;Filter&nbsp;String<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;중복&nbsp;선택&nbsp;가능<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MULTISELECTION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;''&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Multiple&nbsp;selections&nbsp;poss.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INITIAL_DIRECTORY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Initial&nbsp;Directory<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;선택한&nbsp;파일의&nbsp;목록<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE_TABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_FILE&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Table&nbsp;Holding&nbsp;Selected&nbsp;Files<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_SUBRC&nbsp;&nbsp;&nbsp;"&nbsp;Return&nbsp;Code,&nbsp;Number&nbsp;of&nbsp;Files&nbsp;or&nbsp;-1&nbsp;If&nbsp;Error&nbsp;Occurred<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;파일&nbsp;선택했는지&nbsp;안했는지&nbsp;체크<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USER_ACTION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_ACTION&nbsp;&nbsp;"&nbsp;User&nbsp;Action&nbsp;(See&nbsp;Class&nbsp;Constants&nbsp;ACTION_OK,&nbsp;ACTION_CANCEL)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE_OPEN_DIALOG_FAILED&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;"Open&nbsp;File"&nbsp;dialog&nbsp;failed<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Control&nbsp;error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_NO_GUI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;No&nbsp;GUI&nbsp;available<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NOT_SUPPORTED_BY_GUI&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;GUI&nbsp;does&nbsp;not&nbsp;support&nbsp;this<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;LV_ACTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;ACTION_OK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_FILE&nbsp;INTO&nbsp;DATA(LS_FILE)&nbsp;INDEX&nbsp;1.&nbsp;&nbsp;"Inline&nbsp;Definition<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_FILE&nbsp;=&nbsp;LS_FILE-FILENAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'USER&nbsp;SELECTED&nbsp;A&nbsp;FILE.'&nbsp;TYPE&nbsp;'S'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;ACTION_CANCEL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'사용자가&nbsp;파일&nbsp;선택을&nbsp;취소했습니다.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'W'.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;GET_DATA_FROM_EXCEL<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_DATA_FROM_EXCEL.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;TOP&nbsp;INCLUDE&nbsp;에&nbsp;선언해야&nbsp;함<br />
+*&nbsp;DATA&nbsp;:&nbsp;GT_INTERN&nbsp;TYPE&nbsp;ALSMEX_TABLINE.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;REFRESH&nbsp;GT_INTERN.<br />
+<br />
+&nbsp;&nbsp;"5000개씩&nbsp;가져올&nbsp;임시&nbsp;테이블로&nbsp;활용<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LT_INTERN&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ALSMEX_TABLINE.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;문제!&nbsp;ALSMEX~&nbsp;는&nbsp;NUM(4)&nbsp;이기&nbsp;때문에&nbsp;0000~9999줄까지만&nbsp;가져올&nbsp;수&nbsp;있음.<br />
+&nbsp;&nbsp;"&nbsp;그래서&nbsp;1만줄이&nbsp;넘는&nbsp;데이터&nbsp;업로드를&nbsp;위해&nbsp;변수를&nbsp;추가적으로&nbsp;선언해줌.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_BEGIN_ROW&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_END_ROW&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_LINES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;CONSTANTS&nbsp;:&nbsp;LC_MAX_LINE&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;5000.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;조회를&nbsp;시작할&nbsp;행번호와&nbsp;한번에&nbsp;5000줄을&nbsp;가져오기&nbsp;위한&nbsp;행번호&nbsp;설정<br />
+&nbsp;&nbsp;LV_BEGIN_ROW&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;LV_END_ROW&nbsp;=&nbsp;LV_BEGIN_ROW&nbsp;+&nbsp;LC_MAX_LINE&nbsp;-&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;DO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;REFRESH&nbsp;LT_INTERN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;엑셀&nbsp;파일에서&nbsp;내용을&nbsp;읽어와&nbsp;ITAB에&nbsp;보관.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'ALSM_EXCEL_TO_INTERNAL_TABLE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILENAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_FILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;가져올&nbsp;파일명<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_BEGIN_COL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;몇&nbsp;번째&nbsp;열부터&nbsp;가져올건지<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_BEGIN_ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_BEGIN_ROW&nbsp;"&nbsp;몇&nbsp;번째&nbsp;행부터&nbsp;가져올건지<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_END_COL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;몇&nbsp;번째&nbsp;열까지&nbsp;가져올건지<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_END_ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_END_ROW&nbsp;&nbsp;&nbsp;"&nbsp;몇&nbsp;번째&nbsp;행까지&nbsp;가져올건지<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTERN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_INTERN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCONSISTENT_PARAMETERS&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UPLOAD_OLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;엑셀에서&nbsp;가져온&nbsp;데이터의&nbsp;라인&nbsp;정보를&nbsp;보관<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SORT&nbsp;LT_INTERN&nbsp;BY&nbsp;ROW&nbsp;COL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_INTERN&nbsp;INTO&nbsp;DATA(LS_INTERN).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AT&nbsp;NEW&nbsp;ROW.&nbsp;&nbsp;&nbsp;"&nbsp;ROW&nbsp;필드에&nbsp;새로운&nbsp;값이&nbsp;들어갈&nbsp;때&nbsp;마다&nbsp;LV_LINES에&nbsp;1을&nbsp;더해라.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;1&nbsp;TO&nbsp;LV_LINES.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LV_LINES&nbsp;EQ&nbsp;LC_MAX_LINE.&nbsp;"&nbsp;조회&nbsp;가능한&nbsp;최대&nbsp;라인&nbsp;수&nbsp;까지&nbsp;가져왔을&nbsp;때,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;데이터가&nbsp;더&nbsp;존재할&nbsp;수&nbsp;있으므로<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;조회시작&nbsp;행번호와&nbsp;조회종료&nbsp;행번호를&nbsp;다음&nbsp;단계로&nbsp;조정.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;가져온&nbsp;데이터를&nbsp;전역&nbsp;변수에&nbsp;보관<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;LINES&nbsp;OF&nbsp;LT_INTERN&nbsp;TO&nbsp;GT_INTERN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_BEGIN_ROW&nbsp;=&nbsp;LV_END_ROW&nbsp;+&nbsp;1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;방금&nbsp;조회했던&nbsp;라인의&nbsp;다음줄부터<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_END_ROW&nbsp;&nbsp;&nbsp;=&nbsp;LV_END_ROW&nbsp;+&nbsp;LC_MAX_LINE.&nbsp;&nbsp;"&nbsp;최대&nbsp;라인수만큼&nbsp;더&nbsp;조회함<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LV_LINES&nbsp;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;가져온&nbsp;데이터를&nbsp;전역&nbsp;변수에&nbsp;보관<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;LINES&nbsp;OF&nbsp;LT_INTERN&nbsp;TO&nbsp;GT_INTERN.&nbsp;"&nbsp;가져온&nbsp;데이터를&nbsp;전역&nbsp;변수에&nbsp;보관<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDDO.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;MOVE_INTERN_TO_ITAB<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM MOVE_INTERN_TO_ITAB .<br />
+<br />
+&nbsp;&nbsp;"&nbsp;GT_INTERN&nbsp;을&nbsp;ITAB에&nbsp;올바르게&nbsp;매칭시켜&nbsp;데이터를&nbsp;옮겨&nbsp;담는&nbsp;로직.<br />
+&nbsp;&nbsp;"&nbsp;FIELD&nbsp;SYMBOL을&nbsp;사용해&nbsp;세련되게&nbsp;옮겨보기.<br />
+&nbsp;&nbsp;FIELD-SYMBOLS&nbsp;&lt;FS&gt;.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;행&nbsp;-&gt;&nbsp;열&nbsp;순으로&nbsp;정렬한&nbsp;뒤에&nbsp;진행.<br />
+&nbsp;&nbsp;SORT&nbsp;GT_INTERN&nbsp;BY&nbsp;ROW&nbsp;COL.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_INTERN&nbsp;INTO&nbsp;DATA(LS_INTERN).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AT&nbsp;NEW&nbsp;ROW.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_DISPLAY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;COMPONENT&nbsp;LS_INTERN-COL&nbsp;OF&nbsp;STRUCTURE&nbsp;GS_DISPLAY&nbsp;TO&nbsp;&lt;FS&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;LS_INTERN-COL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;REPLACE&nbsp;:&nbsp;IN&nbsp;뒤에&nbsp;나오는&nbsp;TEXT에&nbsp;대해&nbsp;특정&nbsp;단어를&nbsp;검색해서&nbsp;다른&nbsp;단어로&nbsp;변경해줌.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;아래와&nbsp;같은&nbsp;경우&nbsp;LS_INTERN-VALUE&nbsp;에&nbsp;'2021-01-01'&nbsp;이라는&nbsp;텍스트가&nbsp;존재할&nbsp;때<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;'-'을&nbsp;찾아서&nbsp;''으로&nbsp;변경해준다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;그리하여&nbsp;LS_INTERN-VALUE의&nbsp;내용이&nbsp;'2021-01-01'&nbsp;-&gt;&nbsp;'20210101'로&nbsp;변경됨.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPLACE&nbsp;ALL&nbsp;OCCURRENCES&nbsp;OF&nbsp;'-'&nbsp;IN&nbsp;LS_INTERN-VALUE&nbsp;WITH&nbsp;SPACE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FS&gt;&nbsp;=&nbsp;LS_INTERN-VALUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNASSIGN&nbsp;&lt;FS&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;ROW.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_DISPLAY&nbsp;TO&nbsp;GT_DISPLAY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDAT.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;DISPLAY_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DISPLAY_DATA .<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_DISPLAY[]&nbsp;IS&nbsp;INITIAL.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'엑셀에&nbsp;데이터가&nbsp;존재하지&nbsp;않습니다.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'W'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S006(ZBD1_16)&nbsp;DISPLAY&nbsp;LIKE&nbsp;'W'.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S006&nbsp;DISPLAY&nbsp;LIKE&nbsp;'W'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;0100.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;CREATE_CONTAINER<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CREATE_CONTAINER .<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_DOCKING_CONTAINER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Report&nbsp;to&nbsp;Which&nbsp;This&nbsp;Docking&nbsp;Control&nbsp;is&nbsp;Linked<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Screen&nbsp;to&nbsp;Which&nbsp;This&nbsp;Docking&nbsp;Control&nbsp;is&nbsp;Linked<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;어차피&nbsp;왼쪽이&nbsp;기본값이라&nbsp;주석처리해도&nbsp;상관없음.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SIDE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_DOCKING_CONTAINER=&gt;DOCK_AT_LEFT&nbsp;&nbsp;"&nbsp;Side&nbsp;to&nbsp;Which&nbsp;Control&nbsp;is&nbsp;Docked<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXTENSION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2000&nbsp;&nbsp;"&nbsp;Control&nbsp;Extension<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Invalid&nbsp;Parent&nbsp;Control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_SYSTEM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;System&nbsp;Error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CREATE_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Create&nbsp;Error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Lifetime&nbsp;Error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_DYNPRO_DYNPRO_LINK&nbsp;=&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LIFETIME_DYNPRO_DYNPRO_LINK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;6.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_DOCKING_CONTAINER_TOP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-REPID&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Report&nbsp;to&nbsp;Which&nbsp;This&nbsp;Docking&nbsp;Control&nbsp;is&nbsp;Linked<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-DYNNR&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Screen&nbsp;to&nbsp;Which&nbsp;This&nbsp;Docking&nbsp;Control&nbsp;is&nbsp;Linked<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SIDE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_DOCKING_CONTAINER=&gt;DOCK_AT_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Side&nbsp;to&nbsp;Which&nbsp;Control&nbsp;is&nbsp;Docked<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXTENSION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;50&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Control&nbsp;Extension<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Invalid&nbsp;Parent&nbsp;Control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_SYSTEM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;System&nbsp;Error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CREATE_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Create&nbsp;Error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Lifetime&nbsp;Error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_DYNPRO_DYNPRO_LINK&nbsp;=&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LIFETIME_DYNPRO_DYNPRO_LINK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;6.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_DOCKING_CONTAINER_BOT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Report&nbsp;to&nbsp;Which&nbsp;This&nbsp;Docking&nbsp;Control&nbsp;is&nbsp;Linked<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Screen&nbsp;to&nbsp;Which&nbsp;This&nbsp;Docking&nbsp;Control&nbsp;is&nbsp;Linked<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SIDE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_DOCKING_CONTAINER=&gt;DOCK_AT_BOTTOM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Side&nbsp;to&nbsp;Which&nbsp;Control&nbsp;is&nbsp;Docked<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXTENSION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;50&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Control&nbsp;Extension<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Invalid&nbsp;Parent&nbsp;Control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_SYSTEM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;System&nbsp;Error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CREATE_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Create&nbsp;Error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Lifetime&nbsp;Error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_DYNPRO_DYNPRO_LINK&nbsp;=&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LIFETIME_DYNPRO_DYNPRO_LINK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;6.<br />
+<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_ALV_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_PARENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GO_DOCKING_CONTAINER&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Parent&nbsp;Container<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_CREATE&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Error&nbsp;when&nbsp;creating&nbsp;the&nbsp;control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_INIT&nbsp;&nbsp;&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Error&nbsp;While&nbsp;Initializing&nbsp;Control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_LINK&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Error&nbsp;While&nbsp;Linking&nbsp;Control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_DP_CREATE&nbsp;&nbsp;&nbsp;=&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Error&nbsp;While&nbsp;Creating&nbsp;DataProvider&nbsp;Control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_ALV_LAYOUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_ALV_LAYOUT .<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_LAYOUT.<br />
+<br />
+&nbsp;&nbsp;GS_LAYOUT-ZEBRA&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;GS_LAYOUT-CWIDTH_OPT&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;GS_LAYOUT-SEL_MODE&nbsp;=&nbsp;'D'.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_ALV_FIELDCATALOG<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_ALV_FIELDCATALOG .<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_FILEDCATALOG_BY_FUNC.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;GET_FILEDCATALOG_BY_FUNC<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_FILEDCATALOG_BY_FUNC .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;LT_FIELDCAT&nbsp;TYPE&nbsp;KKBLO_T_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'K_KKB_FIELDCAT_MERGE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_CALLBACK_PROGRAM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Internal&nbsp;table&nbsp;declaration&nbsp;program<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_INCLNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-REPID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_TABNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'GS_DISPLAY'&nbsp;"&nbsp;Name&nbsp;of&nbsp;table&nbsp;to&nbsp;be&nbsp;displayed<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CT_FIELDCAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_FIELDCAT&nbsp;&nbsp;"&nbsp;Field&nbsp;Catalog&nbsp;with&nbsp;Field&nbsp;Descriptions<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCONSISTENT_INTERFACE&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;REFRESH&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'LVC_TRANSFER_FROM_KKBLO'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCAT_KKBLO&nbsp;=&nbsp;LT_FIELDCAT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ET_FIELDCAT_LVC&nbsp;&nbsp;&nbsp;=&nbsp;GT_FIELDCAT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_DATA_MISSING&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;DISPLAY_ALV<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DISPLAY_ALV .<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_ALV_GRID-&gt;SET_TABLE_FOR_FIRST_DISPLAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Layout<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_DISPLAY&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Output&nbsp;Table<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCATALOG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_FIELDCAT&nbsp;&nbsp;&nbsp;"&nbsp;Field&nbsp;Catalog<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INVALID_PARAMETER_COMBINATION&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Wrong&nbsp;Parameter<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PROGRAM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Program&nbsp;Errors<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TOO_MANY_LINES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Too&nbsp;many&nbsp;Rows&nbsp;in&nbsp;Ready&nbsp;for&nbsp;Input&nbsp;Grid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

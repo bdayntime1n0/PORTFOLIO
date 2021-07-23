@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD400_16_SELECT_GROUP_HAVING</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD400_16_SELECT_GROUP_HAVING</h2>
+<h3> Description: SELECT GROUP HAVING 예제</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD400_16_SELECT_GROUP_HAVING<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD400_16_SELECT_GROUP_HAVING.<br />
+<br />
+PARAMETERS : P_HANA AS CHECKBOX.<br />
+<br />
+TYPES : BEGIN OF GTY_S_FLIGHTOCC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRID&nbsp;TYPE&nbsp;SFLIGHT-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONNID&nbsp;TYPE&nbsp;SFLIGHT-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUMOCC&nbsp;TYPE&nbsp;SFLIGHT-SEATSOCC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GTY_S_FLIGHTOCC.<br />
+<br />
+DATA : GT_FLIGHTOCC  TYPE TABLE OF GTY_S_FLIGHTOCC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_ALV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;&nbsp;&nbsp;CL_SALV_TABLE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GX_MSG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;&nbsp;&nbsp;CX_SALV_MSG.<br />
+<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_HANA&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"R/3&nbsp;ECC&nbsp;6.0<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;CARRID&nbsp;CONNID&nbsp;SUM(&nbsp;SEATSOCC&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SFLIGHT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;GT_FLIGHTOCC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;FLDATE&nbsp;&gt;&nbsp;'20210601'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GROUP&nbsp;BY&nbsp;CARRID&nbsp;CONNID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HAVING&nbsp;SUM(&nbsp;SEATSOCC&nbsp;)&nbsp;&lt;&nbsp;1000.<br />
+<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"S/4&nbsp;HANA<br />
+SELECT CARRID, CONNID, SUM( SEATSOCC )<br />
+&nbsp;&nbsp;FROM&nbsp;SFLIGHT<br />
+&nbsp;&nbsp;WHERE&nbsp;FLDATE&nbsp;&gt;&nbsp;'20210601'<br />
+&nbsp;&nbsp;GROUP&nbsp;BY&nbsp;CARRID,&nbsp;CONNID<br />
+&nbsp;&nbsp;HAVING&nbsp;SUM(&nbsp;SEATSOCC&nbsp;)&nbsp;&lt;&nbsp;1000<br />
+&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@GT_FLIGHTOCC.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+&nbsp;&nbsp;TRY&nbsp;.<br />
+CALL METHOD CL_SALV_TABLE=&gt;FACTORY<br />
+&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;R_SALV_TABLE&nbsp;&nbsp;&nbsp;=&nbsp;GO_ALV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Basis&nbsp;Class&nbsp;Simple&nbsp;ALV&nbsp;Tables<br />
+&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;T_TABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_FLIGHTOCC.<br />
+<br />
+CATCH CX_SALV_MSG INTO GX_MSG. " ALV: General Error Class with Message<br />
+&nbsp;&nbsp;DATA&nbsp;LV_ERROR&nbsp;TYPE&nbsp;STRING.<br />
+&nbsp;&nbsp;LV_ERROR&nbsp;=&nbsp;GX_MSG-&gt;GET_TEXT(&nbsp;).<br />
+&nbsp;&nbsp;MESSAGE&nbsp;E000(OO)&nbsp;WITH&nbsp;LV_ERROR.<br />
+<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;GO_ALV-&gt;DISPLAY(&nbsp;).<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;OO<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD400_16_EX4_01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD400_16_EX4_01</h2>
+<h3> Description: [EX] 예약정보 관리</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD400_16_EX4<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD400_16_EX4_01.<br />
+<br />
+include <a href ="zbd400_16_ex4_01_top.html">ZBD400_16_EX4_01_TOP</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBD400_16_EX4_TOP.&nbsp;"Global&nbsp;변수&nbsp;선언<br />
+   </div>
+   <div class="code">
+include <a href ="zbd400_16_ex4_01_scr.html">ZBD400_16_EX4_01_SCR</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBD400_16_EX4_SCR.&nbsp;"SELECTION&nbsp;SCREEN<br />
+   </div>
+   <div class="code">
+include <a href ="zbd400_16_ex4_01_f01.html">ZBD400_16_EX4_01_F01</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBD400_16_EX4_F01.&nbsp;"SUBROUTINE<br />
+<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;P_R1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;INSERT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;P_R2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SELECT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;P_R3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DELETE.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;S00&nbsp;Execute&nbsp;Mode<br />
+*&nbsp;S01&nbsp;Selection&nbsp;Options<br />
+*&nbsp;S02&nbsp;Additional&nbsp;Options<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;P_CHK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Include&nbsp;cancelled&nbsp;book<br />
+*&nbsp;P_R1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Insert&nbsp;Data<br />
+*&nbsp;P_R2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select&nbsp;Data<br />
+*&nbsp;P_R3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Delete&nbsp;All&nbsp;Data<br />
+*&nbsp;S_CARRID&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_CONNID&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_FLDATE&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_FRCITY&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_FRCONT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Depart.&nbsp;Country<br />
+*&nbsp;S_PODATE&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_TOCITY&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_TOCONT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Arrival&nbsp;Country<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;OO<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

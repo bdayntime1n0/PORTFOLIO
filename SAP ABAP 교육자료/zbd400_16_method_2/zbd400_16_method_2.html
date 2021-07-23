@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD400_16_METHOD_2</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD400_16_METHOD_2</h2>
+<h3> Description: 클래스 메소드 호출 예제 2</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD400_16_METHOD_2<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD400_16_METHOD_2.<br />
+<br />
+<br />
+<br />
+PARAMETERS P_BASE TYPE I.<br />
+PARAMETERS P_POWER TYPE I.<br />
+<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+<br />
+DATA LV_BASE   TYPE BC400_COMPUTE_BASE.<br />
+DATA LV_POWER  TYPE BC400_COMPUTE_POWER.<br />
+DATA LV_RESULT TYPE BC400_COMPUTE_RESULT.<br />
+<br />
+LV_BASE = P_BASE.<br />
+LV_POWER = P_POWER.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;TRY를&nbsp;사용해야&nbsp;CATCH를&nbsp;사용할&nbsp;수&nbsp;있음.<br />
+   </div>
+   <div class="code">
+TRY.<br />
+<br />
+&nbsp;CALL&nbsp;METHOD&nbsp;ZCL_BD1_16_COMPUTE=&gt;GET_POWER<br />
+&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_BASE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_BASE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Base&nbsp;Number&nbsp;for&nbsp;Exponent&nbsp;Calculation<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_POWER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_POWER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Exponent&nbsp;for&nbsp;Exponent&nbsp;Calculation<br />
+&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_RESULT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RESULT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Result&nbsp;of&nbsp;Calculation&nbsp;with&nbsp;Two&nbsp;Decimal&nbsp;Places<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+<br />
+<br />
+&nbsp;WRITE&nbsp;LV_RESULT.<br />
+<br />
+&nbsp;CATCH&nbsp;CX_BC400_POWER_TOO_HIGH.&nbsp;&nbsp;"&nbsp;The&nbsp;maximum&nbsp;value&nbsp;for&nbsp;the&nbsp;exponent&nbsp;is&nbsp;4&nbsp;"&nbsp;GET_POWER에&nbsp;있는&nbsp;EXCEPTION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;WRITE&nbsp;'MAX&nbsp;VALUE&nbsp;FOR&nbsp;POWER&nbsp;IS&nbsp;4.'.<br />
+<br />
+&nbsp;CATCH&nbsp;CX_BC400_RESULT_TOO_HIGH.&nbsp;"&nbsp;Result&nbsp;of&nbsp;calculation&nbsp;too&nbsp;high&nbsp;for&nbsp;result&nbsp;variable&nbsp;"&nbsp;이것도&nbsp;EXCEPTION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;WRITE&nbsp;'RESULT&nbsp;VALUE&nbsp;WAS&nbsp;TOO&nbsp;HIGH.'.<br />
+<br />
+ENDTRY.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

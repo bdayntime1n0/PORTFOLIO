@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD400_16_EX4</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD400_16_EX4</h2>
+<h3> Description: [EX] 예약정보 관리</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD400_16_EX4_1<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD400_16_EX4.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+***&nbsp;전역변수&nbsp;선언<br />
+   </div>
+   <div class="code">
+TABLES SBOOK.<br />
+TABLES SPFLI.<br />
+TABLES SCUSTOM.<br />
+<br />
+DATA : GT_SBOOK   TYPE TABLE OF SBOOK,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_SPFLI&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;SPFLI,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_SCUSTOM&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;SCUSTOM.<br />
+<br />
+DATA : GO_ALV TYPE REF TO CL_SALV_TABLE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GX_MSG&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CX_SALV_MSG.<br />
+<br />
+DATA : GT_CB16 TYPE TABLE OF ZBD1_CB16.<br />
+<br />
+DATA : GR_CANC TYPE RANGE OF SBOOK-CANCELLED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CANC&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;GR_CANC.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***&nbsp;SELECTION-SCREEN&nbsp;선언<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK SB01 WITH FRAME TITLE TEXT-S00.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_R1&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R01&nbsp;DEFAULT&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;10(12)&nbsp;FOR&nbsp;FIELD&nbsp;P_R1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_R2&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R01.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;30(12)&nbsp;FOR&nbsp;FIELD&nbsp;P_R2.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_R3&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R01.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;47(20)&nbsp;FOR&nbsp;FIELD&nbsp;P_R3.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+SELECTION-SCREEN END OF BLOCK SB01.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK SB02 WITH FRAME TITLE TEXT-S01.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_CARRID&nbsp;FOR&nbsp;SBOOK-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_CONNID&nbsp;FOR&nbsp;SBOOK-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_FLDATE&nbsp;FOR&nbsp;SBOOK-FLDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_PODATE&nbsp;FOR&nbsp;SBOOK-ORDER_DATE.<br />
+SELECTION-SCREEN END OF BLOCK SB02.<br />
+<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK SB03 WITH FRAME TITLE TEXT-S02.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_FRCONT&nbsp;FOR&nbsp;SPFLI-COUNTRYFR&nbsp;NO-EXTENSION&nbsp;NO&nbsp;INTERVALS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_FRCITY&nbsp;FOR&nbsp;SPFLI-CITYFROM&nbsp;NO-EXTENSION&nbsp;NO&nbsp;INTERVALS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_TOCONT&nbsp;FOR&nbsp;SPFLI-COUNTRYTO&nbsp;NO-EXTENSION&nbsp;NO&nbsp;INTERVALS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_TOCITY&nbsp;FOR&nbsp;SPFLI-CITYTO&nbsp;NO-EXTENSION&nbsp;NO&nbsp;INTERVALS.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_CHK&nbsp;AS&nbsp;CHECKBOX.<br />
+SELECTION-SCREEN END OF BLOCK SB03.<br />
+<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;P_R1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;INSERT&nbsp;DATA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GR_CANC.&nbsp;&nbsp;&nbsp;"&nbsp;GR_CANC가&nbsp;INTERNAL&nbsp;TABLE&nbsp;WITH&nbsp;HEADER&nbsp;LINE&nbsp;이&nbsp;있기&nbsp;때문에&nbsp;APPEND&nbsp;된&nbsp;데이터를&nbsp;HEADER&nbsp;LINE에서&nbsp;삭제.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_CHK&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CANC-SIGN&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CANC-OPTION&nbsp;=&nbsp;'NE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CANC-LOW&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_CANC&nbsp;TO&nbsp;GR_CANC.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;A~CARRID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~CONNID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~FLDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~BOOKID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~CUSTOMID&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ORDER_DATE&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~CANCELLED&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~CLASS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~COUNTRYFR&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~CITYFROM&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~COUNTRYTO&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~CITYTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~FORM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~CITY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~COUNTRY&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~REGION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~FORCURAM&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~FORCURKEY&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~LOCCURAM&nbsp;&nbsp;&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~LOCCURKEY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SBOOK&nbsp;AS&nbsp;A&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;SPFLI&nbsp;AS&nbsp;B&nbsp;&nbsp;&nbsp;ON&nbsp;A~CARRID&nbsp;=&nbsp;B~CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~CONNID&nbsp;=&nbsp;B~CONNID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;SCUSTOM&nbsp;AS&nbsp;C&nbsp;ON&nbsp;A~CUSTOMID&nbsp;=&nbsp;C~ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~CARRID&nbsp;&nbsp;&nbsp;IN&nbsp;@S_CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~CONNID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;@S_CONNID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~FLDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;@S_FLDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~ORDER_DATE&nbsp;IN&nbsp;@S_PODATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;B~COUNTRYFR&nbsp;&nbsp;IN&nbsp;@S_FRCONT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;B~CITYFROM&nbsp;&nbsp;&nbsp;IN&nbsp;@S_FRCITY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;B~COUNTRYTO&nbsp;&nbsp;IN&nbsp;@S_TOCONT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;B~CITYTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;@S_TOCITY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~CANCELLED&nbsp;&nbsp;IN&nbsp;@GR_CANC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@GT_CB16.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_DBCNT&nbsp;TYPE&nbsp;I.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_DBCNT&nbsp;=&nbsp;SY-DBCNT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-DBCNT&nbsp;=&nbsp;0.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;KEY&nbsp;중복&nbsp;방지를&nbsp;위해&nbsp;키&nbsp;값을&nbsp;기준으로&nbsp;데이터&nbsp;삭제.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000(OO)&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'&nbsp;WITH&nbsp;'NO&nbsp;DATA&nbsp;FOUND'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;FROM&nbsp;ZBD1_CB16&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;&nbsp;&nbsp;IN&nbsp;S_CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;CONNID&nbsp;&nbsp;&nbsp;IN&nbsp;S_CONNID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;FLDATE&nbsp;&nbsp;&nbsp;IN&nbsp;S_FLDATE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;ZBD1_CB16&nbsp;FROM&nbsp;TABLE&nbsp;GT_CB16.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I000(OO)&nbsp;WITH&nbsp;LV_DBCNT&nbsp;'&nbsp;DATA&nbsp;INSERTED!'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000(OO)&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'&nbsp;WITH&nbsp;'INSERT&nbsp;ERROR'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;P_R2.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SELECT&nbsp;DATA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GR_CANC.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_CHK&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CANC-SIGN&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CANC-OPTION&nbsp;=&nbsp;'NE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CANC-LOW&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_CANC&nbsp;TO&nbsp;GR_CANC.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REFRESH&nbsp;GT_CB16.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZBD1_CB16<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;@S_CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;&nbsp;CONNID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;@S_CONNID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;&nbsp;FLDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;@S_FLDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;&nbsp;ORDER_DATE&nbsp;IN&nbsp;@S_PODATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;&nbsp;COUNTRYFR&nbsp;&nbsp;IN&nbsp;@S_FRCONT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;&nbsp;CITYFROM&nbsp;&nbsp;&nbsp;IN&nbsp;@S_FRCITY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;&nbsp;COUNTRYTO&nbsp;&nbsp;IN&nbsp;@S_TOCONT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;&nbsp;CITYTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;@S_TOCITY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;&nbsp;CANCELLED&nbsp;&nbsp;IN&nbsp;@GR_CANC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@GT_CB16.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_DBCNT2&nbsp;TYPE&nbsp;I.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_DBCNT2&nbsp;=&nbsp;SY-DBCNT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-DBCNT&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000(OO)&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'&nbsp;WITH&nbsp;'NO&nbsp;DATA&nbsp;FOUND'&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000(OO)&nbsp;DISPLAY&nbsp;LIKE&nbsp;'I'&nbsp;WITH&nbsp;LV_DBCNT2&nbsp;'&nbsp;DATA&nbsp;FOUND!'&nbsp;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_SALV_TABLE=&gt;FACTORY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_SALV_TABLE&nbsp;=&nbsp;GO_ALV<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_TABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_CB16.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_MSG&nbsp;INTO&nbsp;GX_MSG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;LV_ERROR&nbsp;TYPE&nbsp;STRING.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ERROR&nbsp;=&nbsp;GX_MSG-&gt;GET_TEXT(&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E000(OO)&nbsp;WITH&nbsp;LV_ERROR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_ALV-&gt;DISPLAY(&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;P_R3.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;DELETE&nbsp;ALL&nbsp;DATA<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_DBCNT3&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;FROM&nbsp;ZBD1_CB16.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_DBCNT3&nbsp;=&nbsp;SY-DBCNT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LV_DBCNT3&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000(OO)&nbsp;DISPLAY&nbsp;LIKE&nbsp;'I'&nbsp;WITH&nbsp;LV_DBCNT3&nbsp;'&nbsp;DATA&nbsp;DELETED'&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;FROM&nbsp;ZBD1_CB16.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-DBCNT&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000(OO)&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'&nbsp;WITH&nbsp;'NO&nbsp;DATA'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000(OO)&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'&nbsp;WITH&nbsp;'DELETE&nbsp;ERROR'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;S01&nbsp;Execute&nbsp;Mode<br />
+*&nbsp;S02&nbsp;Selection&nbsp;Options<br />
+*&nbsp;S03&nbsp;Additional&nbsp;Options<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;P_CHK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Include&nbsp;cancelled&nbsp;book<br />
+*&nbsp;P_R1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Insert&nbsp;Data<br />
+*&nbsp;P_R2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select&nbsp;Data<br />
+*&nbsp;P_R3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Delete&nbsp;All&nbsp;Data<br />
+*&nbsp;S_CARRID&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_CONNID&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_FLDATE&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_FRCITY&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_FRCONT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Depart.&nbsp;Country<br />
+*&nbsp;S_PODATE&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_TOCITY&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_TOCONT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Arrival.&nbsp;Country<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;OO<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

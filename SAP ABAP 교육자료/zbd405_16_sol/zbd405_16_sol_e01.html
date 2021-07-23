@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD405_16_SOL_E01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD405_16_SOL_E01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;BC405_INTRO_S_E01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+&nbsp;&nbsp;"&nbsp;AA~&nbsp;QF,&nbsp;NOT&nbsp;AZ.<br />
+<br />
+&nbsp;&nbsp;S_CARRID-SIGN&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;S_CARRID-OPTION&nbsp;=&nbsp;'BT'.<br />
+&nbsp;&nbsp;S_CARRID-LOW&nbsp;=&nbsp;'AA'.<br />
+&nbsp;&nbsp;S_CARRID-HIGH&nbsp;=&nbsp;'QF'.<br />
+&nbsp;&nbsp;APPEND&nbsp;S_CARRID.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;HEADER&nbsp;LINE&nbsp;의&nbsp;데이터를&nbsp;BODY에&nbsp;적재.<br />
+&nbsp;&nbsp;CLEAR&nbsp;S_CARRID.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;HEADER&nbsp;LINE&nbsp;초기화.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;만약&nbsp;우리가&nbsp;S_CARRID를&nbsp;초기화하지&nbsp;않으면&nbsp;HIGH에&nbsp;있는&nbsp;QF가&nbsp;따라서&nbsp;입력됨.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;S_CARRID-SIGN&nbsp;=&nbsp;'E'.<br />
+&nbsp;&nbsp;S_CARRID-OPTION&nbsp;=&nbsp;'EQ'.<br />
+&nbsp;&nbsp;S_CARRID-LOW&nbsp;=&nbsp;'AZ'.<br />
+&nbsp;&nbsp;APPEND&nbsp;S_CARRID.<br />
+&nbsp;&nbsp;CLEAR&nbsp;S_CARRID.<br />
+<br />
+<br />
+<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;P_ALL.&nbsp;"&nbsp;READ&nbsp;ALL&nbsp;FLIGHTS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;&nbsp;DV_FLIGHTS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;IN&nbsp;@S_CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;CONNID&nbsp;IN&nbsp;@S_CONNID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;FLDATE&nbsp;IN&nbsp;@S_FLDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;COUNTRYFR&nbsp;IN&nbsp;@S_CNTYFR<br />
+"DATA LT_FLIGHT TYPE TABLE OF DV_FLIGHTS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@DATA(LT_flight).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;P_DOM.&nbsp;"READ&nbsp;DOMESTIC&nbsp;ONLY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;&nbsp;DV_FLIGHTS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;@S_CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;CONNID&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;@S_CONNID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;FLDATE&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;@S_FLDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;COUNTRYFR&nbsp;EQ&nbsp;DV_FLIGHTS~COUNTRYTO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;COUNTRYFR&nbsp;IN&nbsp;@S_CNTYFR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@LT_flight.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;P_INT.&nbsp;"READ&nbsp;INTERNATIONAL&nbsp;ONLY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;&nbsp;DV_FLIGHTS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;@S_CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;CONNID&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;@S_CONNID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;FLDATE&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;@S_FLDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;COUNTRYFR&nbsp;NE&nbsp;DV_FLIGHTS~COUNTRYTO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;COUNTRYFR&nbsp;IN&nbsp;@S_CNTYFR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@LT_flight.<br />
+<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_FLIGHT&nbsp;INTO&nbsp;GS_FLIGHT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;GS_FLIGHT-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-FLDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-COUNTRYFR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-CITYFROM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-AIRPFROM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-COUNTRYTO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-CITYTO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-AIRPTO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-SEATSMAX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-SEATSOCC.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;&nbsp;dv_flights&nbsp;INTO&nbsp;gs_flight.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;gs_flight-carrid,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_flight-connid,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_flight-fldate,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_flight-countryfr,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_flight-cityfrom,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_flight-airpfrom,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_flight-countryto,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_flight-cityto,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_flight-airpto,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_flight-seatsmax,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_flight-seatsocc.<br />
+*&nbsp;&nbsp;ENDSELECT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

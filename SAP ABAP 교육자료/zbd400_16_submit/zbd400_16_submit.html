@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD400_16_SUBMIT</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD400_16_SUBMIT</h2>
+<h3> Description: SUBMIT 예제</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD400_16_SUBMIT<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD400_16_SUBMIT MESSAGE-ID BC402.     " MSG CLASS를 사전에 등록하는 KEYWORD.<br />
+" MESSAGE S000(BC402) = MESSAGE S000<br />
+<br />
+TYPES: BEGIN OF GTY_S_CONN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRID&nbsp;&nbsp;&nbsp;TYPE&nbsp;SPFLI-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONNID&nbsp;&nbsp;&nbsp;TYPE&nbsp;SPFLI-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CITYFROM&nbsp;TYPE&nbsp;SPFLI-CITYFROM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CITYTO&nbsp;&nbsp;&nbsp;TYPE&nbsp;SPFLI-CITYTO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEPTIME&nbsp;&nbsp;TYPE&nbsp;SPFLI-DEPTIME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARRTIME&nbsp;&nbsp;TYPE&nbsp;SPFLI-ARRTIME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERIOD&nbsp;&nbsp;&nbsp;TYPE&nbsp;SPFLI-PERIOD,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GTY_S_CONN.<br />
+<br />
+TYPES GTY_T_CONN TYPE STANDARD TABLE OF GTY_S_CONN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;NON-UNIQUE&nbsp;DEFAULT&nbsp;KEY.<br />
+<br />
+DATA GT_CONN TYPE GTY_T_CONN.<br />
+<br />
+DATA GV_MSG TYPE STRING.<br />
+<br />
+DATA: GO_ALV TYPE REF TO CL_SALV_TABLE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_EVT&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_SALV_EVENTS_TABLE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GX_MSG&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CX_SALV_MSG.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_handler&nbsp;DEFINITION<br />
+*----------------------------------------------------------------------*<br />
+*<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS LCL_HANDLER DEFINITION.<br />
+<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLASS-METHODS:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON_DOUBLE_CLICK&nbsp;FOR&nbsp;EVENT&nbsp;DOUBLE_CLICK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;EVENT에&nbsp;따라&nbsp;어떤&nbsp;행동을&nbsp;할&nbsp;것&nbsp;인지.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OF&nbsp;IF_SALV_EVENTS_ACTIONS_TABLE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;ROW&nbsp;COLUMN.<br />
+<br />
+ENDCLASS.                    "lcl_handler DEFINITION<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_handler&nbsp;IMPLEMENTATION<br />
+*----------------------------------------------------------------------*<br />
+*<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS LCL_HANDLER IMPLEMENTATION.<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;ON_DOUBLE_CLICK.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;LS_CONN&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;GT_CONN.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;현재&nbsp;출력된&nbsp;데이터에서&nbsp;DOUBLE&nbsp;CLICK한&nbsp;라인이&nbsp;LS_CONN에&nbsp;보관된다.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_CONN&nbsp;INTO&nbsp;LS_CONN&nbsp;INDEX&nbsp;ROW.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;COLUMN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'CARRID'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I000&nbsp;WITH&nbsp;'TEST'.&nbsp;&nbsp;&nbsp;"&nbsp;최상단에&nbsp;MSG&nbsp;CLASS를&nbsp;기입해놨기&nbsp;때문에<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;I000(BC402)를&nbsp;할&nbsp;필요가&nbsp;없음.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;PROGRAMME&nbsp;CALL<br />
+*&nbsp;BC402_INS_FLIGHT_LIST_OSQL&nbsp;프로그램을&nbsp;호출하면서<br />
+*&nbsp;PA_CAR&nbsp;파라메터에&nbsp;우리가&nbsp;더블클릭한&nbsp;라인의&nbsp;CARRID&nbsp;필드값을&nbsp;보내주고,<br />
+*&nbsp;이&nbsp;프로그램이&nbsp;종료되면&nbsp;다시&nbsp;본&nbsp;프로그램을&nbsp;이어서&nbsp;수행하도록&nbsp;한다.<br />
+*&nbsp;PARAMETERS&nbsp;값은&nbsp;SUBMIT에&nbsp;있는&nbsp;프로그램에&nbsp;들어가서&nbsp;확인해볼&nbsp;것.<br />
+*&nbsp;PARAMETERS가&nbsp;잘못돼도&nbsp;현&nbsp;프로그램&nbsp;상의&nbsp;문제가&nbsp;없기&nbsp;때문에&nbsp;ACTIVE는&nbsp;되기&nbsp;때문.<br />
+*&nbsp;프로그램이&nbsp;존재하지&nbsp;않아도&nbsp;ACTIVE에는&nbsp;문제가&nbsp;없음.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBMIT&nbsp;BC402_INS_FLIGHT_LIST_OSQL&nbsp;AND&nbsp;RETURN&nbsp;WITH&nbsp;PA_CAR&nbsp;=&nbsp;LS_CONN-CARRID.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;이전&nbsp;프로그램으로&nbsp;돌아옴.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"on_double_click<br />
+<br />
+ENDCLASS.                       "lcl_handler IMPLEMENTATION<br />
+<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;CARRID&nbsp;CONNID&nbsp;CITYFROM&nbsp;CITYTO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEPTIME&nbsp;ARRTIME&nbsp;PERIOD<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SPFLI<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;GT_CONN.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_SALV_TABLE=&gt;FACTORY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_SALV_TABLE&nbsp;=&nbsp;GO_ALV<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_TABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_CONN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_MSG&nbsp;INTO&nbsp;GX_MSG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_MSG&nbsp;=&nbsp;GX_MSG-&gt;GET_TEXT(&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;GV_MSG&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;GO_EVT&nbsp;=&nbsp;GO_ALV-&gt;GET_EVENT(&nbsp;).<br />
+&nbsp;&nbsp;"&nbsp;LCL&nbsp;=&gt;&nbsp;LOCAL&nbsp;CLASS.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;HANDER&nbsp;=&nbsp;지켜보고&nbsp;있다가&nbsp;무슨&nbsp;일이&nbsp;생기면&nbsp;LCL을&nbsp;실행하라.<br />
+&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;LCL_HANDLER=&gt;ON_DOUBLE_CLICK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LCL_HANDER라는&nbsp;LOCAL&nbsp;CLASS에&nbsp;연결해라.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;GO_EVT.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;EVENT가&nbsp;발생했을&nbsp;때&nbsp;CLASS의&nbsp;METHOD를&nbsp;실행해라.<br />
+<br />
+&nbsp;&nbsp;GO_ALV-&gt;DISPLAY(&nbsp;).<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

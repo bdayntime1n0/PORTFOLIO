@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD405_16_SOL_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD405_16_SOL_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;BC405_INTRO_S1_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+DATA: GS_FLIGHT TYPE DV_FLIGHTS.<br />
+<br />
+   </div>
+   <div class="codeComment">
+****&nbsp;SELECTION&nbsp;SCREEN<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK B01 WITH FRAME TITLE TEXT-S01.  "SELECITON OPTIONS<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_CARRID&nbsp;FOR&nbsp;GS_FLIGHT-CARRID&nbsp;MEMORY&nbsp;ID&nbsp;CAR,&nbsp;&nbsp;&nbsp;"SAP&nbsp;MEMORY에서&nbsp;DATA를&nbsp;가져올&nbsp;때&nbsp;MEMORY&nbsp;ID라는&nbsp;문구를&nbsp;사용.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_CONNID&nbsp;FOR&nbsp;GS_FLIGHT-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_FLDATE&nbsp;FOR&nbsp;GS_FLIGHT-FLDATE&nbsp;NO-EXTENSION.&nbsp;&nbsp;"MULTIPLE&nbsp;SELECTION&nbsp;제거<br />
+<br />
+SELECTION-SCREEN END OF BLOCK B01.<br />
+<br />
+<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B02 WITH FRAME TITLE TEXT-S02. "ADDITIONAL OPTIONS<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_ALL&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R01&nbsp;USER-COMMAND&nbsp;UC01,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DOM&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R01,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_INT&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;R01&nbsp;DEFAULT&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_CNTYFR&nbsp;FOR&nbsp;GS_FLIGHT-COUNTRYFR&nbsp;NO-EXTENSION<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO&nbsp;INTERVALS&nbsp;&nbsp;"&nbsp;HIGH&nbsp;숨기기<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;NOD.&nbsp;"&nbsp;최대&nbsp;3글자,&nbsp;SCREEN-GROUP1과&nbsp;매칭되는&nbsp;옵션.<br />
+&nbsp;&nbsp;"&nbsp;S_CNTYFR&nbsp;과&nbsp;관련있는&nbsp;모든&nbsp;화면&nbsp;OBJECT에<br />
+&nbsp;&nbsp;"&nbsp;GROUP1&nbsp;필드의&nbsp;값이&nbsp;전부&nbsp;지정된&nbsp;값으로&nbsp;관리됨.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK B02.<br />
+<br />
+<br />
+<br />
+AT SELECTION-SCREEN OUTPUT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;IF&nbsp;P_DOM&nbsp;=&nbsp;'X'&nbsp;AND&nbsp;S_CNTYFR[]&nbsp;IS&nbsp;INITIAL&nbsp;AND&nbsp;SY-UCOMM&nbsp;NE&nbsp;'UC01'.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SELECTION-SCREEN&nbsp;의&nbsp;모든&nbsp;OBJECT에&nbsp;대한&nbsp;접근.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;INTERNAL&nbsp;TABLE&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;만약&nbsp;HEADER&nbsp;LINE이&nbsp;없다면&nbsp;'LOOP&nbsp;AT&nbsp;SCREEN&nbsp;INTO&nbsp;~~'로&nbsp;적혀있어야&nbsp;함.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;SCREEN-NAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'S_CNTYFR-LOW'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;RANGE&nbsp;TABLE이라&nbsp;입력필드가&nbsp;2개이기&nbsp;때문에&nbsp;CASE를&nbsp;사용함.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_DOM&nbsp;EQ&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-INPUT&nbsp;=&nbsp;'1'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;DOMESTIC&nbsp;인&nbsp;경우에는&nbsp;입력을&nbsp;받겠다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-INPUT&nbsp;=&nbsp;'0'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;S_CNTYFR&nbsp;INPUT에&nbsp;입력&nbsp;받지&nbsp;않겠다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;SCREEN-GROUP1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'NOD'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;DOM을&nbsp;찍을&nbsp;때만&nbsp;입력가능하게&nbsp;뜸.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_DOM&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+<br />
+AT SELECTION-SCREEN ON S_CNTYFR.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_DOM&nbsp;=&nbsp;'X'&nbsp;AND&nbsp;S_CNTYFR[]&nbsp;IS&nbsp;INITIAL&nbsp;AND&nbsp;SY-UCOMM&nbsp;NE&nbsp;'UC01'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E003(BC405).<br />
+&nbsp;&nbsp;ENDIF.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

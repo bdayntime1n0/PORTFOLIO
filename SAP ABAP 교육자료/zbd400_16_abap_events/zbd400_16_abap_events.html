@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD400_16_ABAP_EVENTS</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD400_16_ABAP_EVENTS</h2>
+<h3> Description: EVENTS OF ABAP REPORT 예제</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD400_16_ABAP_EVENTS<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD400_16_ABAP_EVENTS.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;전역변수<br />
+   </div>
+   <div class="code">
+DATA : GT_FLIGHTS TYPE BC400_T_FLIGHTS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT&nbsp;&nbsp;TYPE&nbsp;BC400_S_FLIGHT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*검색화면을&nbsp;위한&nbsp;키워드&nbsp;입력.<br />
+   </div>
+   <div class="code">
+PARAMETERS     : P_CARRID TYPE SCARR-CARRID.<br />
+SELECT-OPTIONS : S_CONNID FOR  GS_FLIGHT-CONNID.<br />
+<br />
+INITIALIZATION.<br />
+&nbsp;&nbsp;"SELECTION&nbsp;SCREEN&nbsp;이&nbsp;출력되기&nbsp;전에&nbsp;수행되는&nbsp;구간.<br />
+&nbsp;&nbsp;P_CARRID&nbsp;=&nbsp;'LH'.<br />
+<br />
+AT SELECTION-SCREEN.<br />
+&nbsp;&nbsp;"&nbsp;사용자가&nbsp;검색화면에서&nbsp;ENTER&nbsp;나&nbsp;F8을&nbsp;눌렀을&nbsp;때&nbsp;진입하는&nbsp;구간.<br />
+<br />
+&nbsp;&nbsp;AUTHORITY-CHECK&nbsp;OBJECT&nbsp;'ZCARRID_00'<br />
+&nbsp;&nbsp;ID&nbsp;'CARRID'&nbsp;FIELD&nbsp;P_CARRID<br />
+&nbsp;&nbsp;ID&nbsp;'ACTVT'&nbsp;&nbsp;FIELD&nbsp;'03'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"01&nbsp;:&nbsp;CREATE.&nbsp;02&nbsp;:&nbsp;CHANGE.&nbsp;03&nbsp;:&nbsp;DISPLAY.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Implement&nbsp;a&nbsp;suitable&nbsp;exception&nbsp;handling&nbsp;here<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E046(BC400)&nbsp;WITH&nbsp;P_CARRID.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+START-OF-SELECTION.<br />
+   </div>
+   <div class="codeComment">
+*검색화면에서&nbsp;실행버튼을&nbsp;눌렀을&nbsp;때,<br />
+*AT&nbsp;SELECTION-SCREEN&nbsp;에서&nbsp;오류&nbsp;메시지가&nbsp;발생하지&nbsp;않은&nbsp;경우.<br />
+*START-OF-SELECTION&nbsp;으로&nbsp;진입한다.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_BC400_FLIGHTMODEL=&gt;GET_FLIGHTS_RANGE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV_CARRID&nbsp;&nbsp;=&nbsp;P_CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_CONNID&nbsp;&nbsp;=&nbsp;S_CONNID[]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Range&nbsp;Table&nbsp;for&nbsp;Flight&nbsp;Number&nbsp;=&nbsp;SELECT-OPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;INTERNAL&nbsp;TABLE&nbsp;WITH&nbsp;HEADER&nbsp;LINE&nbsp;이라&nbsp;HEADER&nbsp;LINE만&nbsp;가져갈&nbsp;수&nbsp;있기&nbsp;때문에<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;TABLE을&nbsp;주겠다는&nbsp;[]표시를&nbsp;넣음.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ET_FLIGHTS&nbsp;=&nbsp;GT_FLIGHTS.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Flight&nbsp;times<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_BC400_NO_DATA.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;No&nbsp;Data&nbsp;for&nbsp;Selection<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTION이&nbsp;발생했을&nbsp;때의&nbsp;로직&nbsp;추가&nbsp;가능.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'NO&nbsp;DATA&nbsp;FOUND.'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_BC400_NO_AUTH.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;No&nbsp;Authorization&nbsp;for&nbsp;Airline<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'NO&nbsp;AUTHORIZATION.'.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_FLIGHTS&nbsp;INTO&nbsp;GS_FLIGHT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;NEW-LINE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_FLIGHT-PERCENTAGE&nbsp;&gt;=&nbsp;98.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;ICON_RED_LIGHT&nbsp;AS&nbsp;ICON.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;GS_FLIGHT-PERCENTAGE&nbsp;&gt;=&nbsp;75.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;ICON_YELLOW_LIGHT&nbsp;AS&nbsp;ICON.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;ICON_GREEN_LIGHT&nbsp;AS&nbsp;ICON.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;&nbsp;GS_FLIGHT-CARRID&nbsp;&nbsp;&nbsp;COLOR&nbsp;COL_KEY,&nbsp;"KEY의&nbsp;색&nbsp;=&nbsp;파란색.&nbsp;즉,&nbsp;배경을&nbsp;파란색으로&nbsp;칠하겠다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-CONNID&nbsp;&nbsp;&nbsp;COLOR&nbsp;COL_KEY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-FLDATE&nbsp;&nbsp;&nbsp;COLOR&nbsp;COL_KEY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-SEATSMAX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-SEATSOCC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-PERCENTAGE.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;BC400<br />
+*046&nbsp;&nbsp;&nbsp;No&nbsp;display&nbsp;authorization&nbsp;for&nbsp;airline&nbsp;&1<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

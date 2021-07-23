@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD400_16_ITAB_MULTI</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD400_16_ITAB_MULTI</h2>
+<h3> Description: INTERNAL TABLE 대량 데이터 삽입/추가 예제</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD400_16_ITAB_MULTI<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD400_16_ITAB_MULTI.<br />
+<br />
+DATA : GT_SPFLI   TYPE TABLE OF SPFLI,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_SPFLI_2&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;SPFLI.<br />
+<br />
+DATA : GO_ALV TYPE REF TO CL_SALV_TABLE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GX_MSG&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CX_SALV_MSG.<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SPFLI<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;GT_SPFLI<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;=&nbsp;'AA'.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;FROM&nbsp;SPFLI<br />
+&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;GT_SPFLI_2<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;=&nbsp;'UA'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;INTERNAL&nbsp;TABLE의&nbsp;LINE&nbsp;조회&nbsp;목적<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA&nbsp;LV_LINE&nbsp;TYPE&nbsp;I.<br />
+&nbsp;&nbsp;DESCRIBE&nbsp;TABLE&nbsp;GT_SPFLI&nbsp;LINES&nbsp;LV_LINE.<br />
+<br />
+&nbsp;&nbsp;LV_LINE&nbsp;=&nbsp;LV_LINE&nbsp;/&nbsp;2.<br />
+&nbsp;&nbsp;IF&nbsp;LV_LINE&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_LINE&nbsp;=&nbsp;1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;INDEX는&nbsp;1부터&nbsp;시작하기&nbsp;때문에&nbsp;1로&nbsp;바꿔주는&nbsp;것.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;GT_SPFLI_2의&nbsp;모든&nbsp;LINE을&nbsp;GT_SPFLI의&nbsp;LV_LINE&nbsp;번째&nbsp;줄에&nbsp;삽입.<br />
+*&nbsp;GT_SPFLI의&nbsp;LV_LINE&nbsp;번째에&nbsp;데이터가&nbsp;있는&nbsp;경우<br />
+*&nbsp;해당&nbsp;라인은&nbsp;삽입되는&nbsp;라인&nbsp;수&nbsp;만큼&nbsp;아래로&nbsp;밀리게&nbsp;됨.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;INSERT&nbsp;LINES&nbsp;OF&nbsp;GT_SPFLI_2&nbsp;INTO&nbsp;GT_SPFLI&nbsp;INDEX&nbsp;LV_LINE.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;GT_SPFLI_2의&nbsp;모든&nbsp;라인을&nbsp;GT_SPFLI&nbsp;의&nbsp;마지막&nbsp;줄&nbsp;다음에&nbsp;추가한다.<br />
+*&nbsp;추가되는&nbsp;위치가&nbsp;고정되어&nbsp;있으므로,&nbsp;INDEX를&nbsp;사용할&nbsp;수&nbsp;없다.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;APPEND&nbsp;LINES&nbsp;OF&nbsp;GT_SPFLI_2&nbsp;TO&nbsp;GT_SPFLI.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+***&nbsp;DISPLAY&nbsp;ALV.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;TRY&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_SALV_TABLE=&gt;FACTORY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_SALV_TABLE&nbsp;=&nbsp;GO_ALV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Basis&nbsp;Class&nbsp;Simple&nbsp;ALV&nbsp;Tables<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_TABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_SPFLI.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_MSG&nbsp;INTO&nbsp;GX_MSG.&nbsp;"&nbsp;ALV:&nbsp;General&nbsp;Error&nbsp;Class&nbsp;with&nbsp;Message<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;LV_ERROR&nbsp;TYPE&nbsp;STRING.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ERROR&nbsp;=&nbsp;GX_MSG-&gt;GET_TEXT(&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E000(OO)&nbsp;WITH&nbsp;LV_ERROR.<br />
+<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;GO_ALV-&gt;DISPLAY(&nbsp;).<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;OO<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

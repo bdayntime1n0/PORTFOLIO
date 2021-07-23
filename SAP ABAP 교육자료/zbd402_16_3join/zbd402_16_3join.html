@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD402_16_3JOIN</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD402_16_3JOIN</h2>
+<h3> Description: SELECT JOIN EXERCISE 36 실습</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;&nbsp;BC402_DBT_3JOIN<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+REPORT  ZBD402_16_3JOIN.<br />
+<br />
+TYPES : BEGIN OF GTY_S_DATA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SBOOK-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRNAME&nbsp;&nbsp;&nbsp;TYPE&nbsp;SCARR-CARRNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONNID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SBOOK-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FLDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SBOOK-FLDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BOOKID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SBOOK-BOOKID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CUSTOMID&nbsp;&nbsp;&nbsp;TYPE&nbsp;SBOOK-CUSTOMID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CUSTOMNAME&nbsp;TYPE&nbsp;SCUSTOM-NAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AGENCYNUM&nbsp;&nbsp;TYPE&nbsp;SBOOK-AGENCYNUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AGENCYNAME&nbsp;TYPE&nbsp;STRAVELAG-NAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AGENCYCITY&nbsp;TYPE&nbsp;STRAVELAG-CITY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GTY_S_DATA.<br />
+<br />
+DATA : GT_DATA TYPE TABLE OF GTY_S_DATA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_ALV&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_SALV_TABLE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GX_MSG&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CX_SALV_MSG.<br />
+<br />
+<br />
+TYPES: BEGIN OF GTY_S_BOOKING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRID&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SBOOK-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONNID&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SBOOK-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FLDATE&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SBOOK-FLDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BOOKID&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SBOOK-BOOKID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CUSTOMID&nbsp;&nbsp;TYPE&nbsp;SBOOK-CUSTOMID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AGENCYNUM&nbsp;TYPE&nbsp;SBOOK-AGENCYNUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GTY_S_BOOKING.<br />
+<br />
+TYPES:<br />
+&nbsp;&nbsp;&nbsp;GTY_T_BOOKINGS&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;GTY_S_BOOKING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;NON-UNIQUE&nbsp;KEY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRID&nbsp;CONNID&nbsp;FLDATE&nbsp;BOOKID.<br />
+<br />
+DATA:<br />
+&nbsp;&nbsp;GT_BOOKINGS&nbsp;TYPE&nbsp;GTY_T_BOOKINGS,<br />
+&nbsp;&nbsp;GS_BOOKING&nbsp;&nbsp;TYPE&nbsp;GTY_S_BOOKING.<br />
+<br />
+DATA:<br />
+&nbsp;&nbsp;GV_CUSTNAME&nbsp;&nbsp;&nbsp;TYPE&nbsp;SCUSTOM-NAME,<br />
+&nbsp;&nbsp;GV_CARRNAME&nbsp;&nbsp;&nbsp;TYPE&nbsp;SCARR-CARRNAME,<br />
+&nbsp;&nbsp;GV_AGENCYNAME&nbsp;TYPE&nbsp;STRAVELAG-NAME,<br />
+&nbsp;&nbsp;GV_AGENCYCITY&nbsp;TYPE&nbsp;STRAVELAG-CITY.<br />
+<br />
+FIELD-SYMBOLS:<br />
+&nbsp;&nbsp;&lt;FS_BOOKING&gt;&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;GT_BOOKINGS.&nbsp;&nbsp;&nbsp;&nbsp;"DATA&nbsp;선언&nbsp;안했네???<br />
+<br />
+SELECT-OPTIONS :<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SO_AGY&nbsp;FOR&nbsp;GS_BOOKING-AGENCYNUM&nbsp;DEFAULT&nbsp;'100',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SO_CUS&nbsp;FOR&nbsp;GS_BOOKING-CUSTOMID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SO_FLD&nbsp;FOR&nbsp;GS_BOOKING-FLDATE.<br />
+<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;A~CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~CARRNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~CONNID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~FLDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~BOOKID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~CUSTOMID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~NAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~AGENCYNUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D~NAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D~CITY<br />
+&nbsp;&nbsp;FROM&nbsp;SBOOK&nbsp;AS&nbsp;A&nbsp;INNER&nbsp;JOIN&nbsp;SCARR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS&nbsp;B&nbsp;ON&nbsp;A~CARRID&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;B~CARRID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;CARRIER&nbsp;정보를&nbsp;가져오기&nbsp;위한&nbsp;JOIN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;SCUSTOM&nbsp;&nbsp;&nbsp;AS&nbsp;C&nbsp;ON&nbsp;A~CUSTOMID&nbsp;&nbsp;=&nbsp;C~ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;CUSTOMER&nbsp;정보를&nbsp;가져오기&nbsp;위한&nbsp;JOIN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;STRAVELAG&nbsp;AS&nbsp;D&nbsp;ON&nbsp;D~AGENCYNUM&nbsp;=&nbsp;A~AGENCYNUM&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;AGENCY&nbsp;정보를&nbsp;가져오기&nbsp;위한&nbsp;JOIN<br />
+&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;GT_DATA<br />
+&nbsp;&nbsp;WHERE&nbsp;A~AGENCYNUM&nbsp;IN&nbsp;SO_AGY&nbsp;AND&nbsp;&nbsp;&nbsp;"&nbsp;AGENCY&nbsp;비교<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~CUSTOMID&nbsp;&nbsp;IN&nbsp;SO_CUS&nbsp;AND&nbsp;&nbsp;&nbsp;"&nbsp;고객&nbsp;ID&nbsp;비교<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~FLDATE&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;SO_FLD&nbsp;AND&nbsp;&nbsp;&nbsp;"&nbsp;운항일자&nbsp;비교<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~CANCELLED&nbsp;&lt;&gt;&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;예약&nbsp;중인&nbsp;데이터만&nbsp;조회<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+***DISPLAY&nbsp;ALV<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;TRY&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_SALV_TABLE=&gt;FACTORY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_SALV_TABLE&nbsp;=&nbsp;GO_ALV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Basis&nbsp;Class&nbsp;Simple&nbsp;ALV&nbsp;Tables<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_TABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_DATA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_MSG&nbsp;INTO&nbsp;GX_MSG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;LV_ERROR&nbsp;TYPE&nbsp;STRING.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ERROR&nbsp;=&nbsp;GX_MSG-&gt;GET_TEXT(&nbsp;).&nbsp;"&nbsp;ALV:&nbsp;General&nbsp;Error&nbsp;Class&nbsp;with&nbsp;Message<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E000(OO)&nbsp;WITH&nbsp;LV_ERROR.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;GO_ALV-&gt;DISPLAY(&nbsp;).<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+***********************************************************<br />
+*&nbsp;ORIGINAL&nbsp;CODE<br />
+***********************************************************<br />
+*<br />
+*&nbsp;&nbsp;SELECT&nbsp;CARRID&nbsp;CONNID&nbsp;FLDATE&nbsp;BOOKID<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CUSTOMID&nbsp;AGENCYNUM<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SBOOK<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;GT_BOOKINGS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;AGENCYNUM&nbsp;IN&nbsp;SO_AGY&nbsp;AND<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CUSTOMID&nbsp;&nbsp;IN&nbsp;SO_CUS&nbsp;AND<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FLDATE&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;SO_FLD&nbsp;AND<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CANCELLED&nbsp;&lt;&gt;&nbsp;'X'.<br />
+*<br />
+*&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_BOOKINGS&nbsp;ASSIGNING&nbsp;&lt;FS_BOOKING&gt;.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ASSIGNING&nbsp;&lt;STRUCTURE&gt;&nbsp;=&nbsp;FIELD&nbsp;SYMBOL.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ASSIGNING은&nbsp;STRUCTURE&nbsp;TYPE을&nbsp;가리킬&nbsp;수&nbsp;있다고&nbsp;선언됐을&nbsp;뿐&nbsp;STRUCTURE가&nbsp;아님.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;INTERNAL&nbsp;TABLE의&nbsp;첫번째&nbsp;줄을&nbsp;가리킴.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;INTO&nbsp;를&nbsp;사용하면&nbsp;STRUCTURE에&nbsp;TABLE의&nbsp;첫&nbsp;줄이&nbsp;옮겨짐.&nbsp;즉.&nbsp;STRUCTURE를&nbsp;초기화해도&nbsp;TABLE에&nbsp;영향&nbsp;X.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;CLEAR&nbsp;&lt;FS_BOOKING&gt;을&nbsp;하면&nbsp;INTERNAL&nbsp;TABLE의&nbsp;첫&nbsp;줄을&nbsp;지워버림.&nbsp;즉.&nbsp;TABLE&nbsp;자체를&nbsp;건드리는&nbsp;것.<br />
+*<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;NAME&nbsp;FROM&nbsp;SCUSTOM<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;GV_CUSTNAME<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ID&nbsp;=&nbsp;&lt;FS_BOOKING&gt;-CUSTOMID.<br />
+**<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;CARRNAME&nbsp;FROM&nbsp;SCARR<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;GV_CARRNAME<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;=&nbsp;&lt;FS_BOOKING&gt;-CARRID.<br />
+**<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;NAME&nbsp;CITY&nbsp;FROM&nbsp;STRAVELAG<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;(GV_AGENCYNAME,&nbsp;GV_AGENCYCITY)<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;AGENCYNUM&nbsp;=&nbsp;&lt;FS_BOOKING&gt;-AGENCYNUM.<br />
+*<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_AGENCYNAME,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_AGENCYCITY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FS_BOOKING&gt;-CARRID,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_CARRNAME,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FS_BOOKING&gt;-CONNID,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FS_BOOKING&gt;-FLDATE,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FS_BOOKING&gt;-BOOKID,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_CUSTNAME,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_AGENCYNAME,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_AGENCYCITY.<br />
+*<br />
+*&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;SO_AGY&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;SO_CUS&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;SO_FLD&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;OO<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

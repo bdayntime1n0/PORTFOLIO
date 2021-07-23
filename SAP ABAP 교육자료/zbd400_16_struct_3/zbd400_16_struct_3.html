@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD400_16_STRUCT_3</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD400_16_STRUCT_3</h2>
+<h3> Description: 스트럭쳐 활용 예제</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD400_16_STRUCT_3<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD400_16_STRUCT_3.<br />
+<br />
+PARAMETERS : PA_CAR  TYPE BC400_S_FLIGHT-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PA_CON&nbsp;&nbsp;TYPE&nbsp;BC400_S_FLIGHT-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PA_DATE&nbsp;TYPE&nbsp;BC400_S_FLIGHT-FLDATE.<br />
+<br />
+DATA : GS_CARRIER TYPE BC400_S_CARRIER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT&nbsp;&nbsp;TYPE&nbsp;BC400_S_FLIGHT.<br />
+<br />
+TYPES : BEGIN OF TS_CARRIERFLIGHT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BC400_S_CARRIER-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRNAME&nbsp;&nbsp;&nbsp;TYPE&nbsp;BC400_S_CARRIER-CARRNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CURRCODE&nbsp;&nbsp;&nbsp;TYPE&nbsp;BC400_S_CARRIER-CURRCODE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BC400_S_CARRIER-URL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONNID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BC400_S_FLIGHT-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FLDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BC400_S_FLIGHT-FLDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSMAX&nbsp;&nbsp;&nbsp;TYPE&nbsp;BC400_S_FLIGHT-SEATSMAX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSOCC&nbsp;&nbsp;&nbsp;TYPE&nbsp;BC400_S_FLIGHT-SEATSOCC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERCENTAGE&nbsp;TYPE&nbsp;BC400_S_FLIGHT-PERCENTAGE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TS_CARRIERFLIGHT.<br />
+<br />
+DATA : GS_CARRIERFLIGHT TYPE TS_CARRIERFLIGHT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***********************************<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+   </div>
+   <div class="codeComment">
+***********************************<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_BC400_FLIGHTMODEL=&gt;GET_CARRIER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV_CARRID&nbsp;&nbsp;=&nbsp;PA_CAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Airline&nbsp;Code<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ES_CARRIER&nbsp;=&nbsp;GS_CARRIER.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Airline&nbsp;Carrier<br />
+<br />
+   </div>
+   <div class="codeComment">
+****&nbsp;EXCEPTION&nbsp;CLASS를&nbsp;사용하고&nbsp;있기&nbsp;때문에&nbsp;CATCH가&nbsp;나온다!<br />
+****&nbsp;때문에&nbsp;CALL&nbsp;METHOD&nbsp;앞에&nbsp;TRY를&nbsp;적어야&nbsp;함.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_BC400_NO_DATA.&nbsp;"&nbsp;No&nbsp;Data&nbsp;for&nbsp;Selection<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_BC400_NO_AUTH.&nbsp;"&nbsp;No&nbsp;Authorization&nbsp;for&nbsp;Airline<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_BC400_FLIGHTMODEL=&gt;GET_FLIGHT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV_CARRID&nbsp;=&nbsp;PA_CAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Airline&nbsp;Code<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV_CONNID&nbsp;=&nbsp;PA_CON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Flight&nbsp;Connection&nbsp;Number<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV_FLDATE&nbsp;=&nbsp;PA_DATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Flight&nbsp;Date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ES_FLIGHT&nbsp;=&nbsp;GS_FLIGHT.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Flight&nbsp;time<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_BC400_NO_DATA.&nbsp;"&nbsp;No&nbsp;Data&nbsp;for&nbsp;Selection<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_BC400_NO_AUTH.&nbsp;"&nbsp;No&nbsp;Authorization&nbsp;for&nbsp;Airline<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;GS_CARRIER에&nbsp;있는&nbsp;필드&nbsp;중에서<br />
+*&nbsp;&nbsp;GS_CARRIERFLIGHT에&nbsp;있는&nbsp;필드와&nbsp;동일한&nbsp;이름으로&nbsp;매칭되는&nbsp;필드에&nbsp;한해서<br />
+*&nbsp;&nbsp;값&nbsp;복사가&nbsp;발생한다.<br />
+*&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_CARRIER&nbsp;TO&nbsp;GS_CARRIERFLIGHT.<br />
+*&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GS_FLIGHT&nbsp;&nbsp;TO&nbsp;GS_CARRIERFLIGHT.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;:&nbsp;GS_CARRIER&nbsp;TO&nbsp;GS_CARRIERFLIGHT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT&nbsp;&nbsp;TO&nbsp;GS_CARRIERFLIGHT.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_FLIGHT&nbsp;IS&nbsp;INITIAL.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;GS_FLIGHT이&nbsp;비어&nbsp;있다면<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"(초기&nbsp;상태라면&nbsp;숫자&nbsp;변수를&nbsp;대상으로&nbsp;is&nbsp;initial을&nbsp;묻는다는&nbsp;의미는&nbsp;이게&nbsp;0이냐는&nbsp;질문과&nbsp;동일),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;'NO&nbsp;FLIGHT&nbsp;WAS&nbsp;FOUND.'.<br />
+<br />
+&nbsp;&nbsp;ELSE.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;GS_FLIGHT이&nbsp;비어있지&nbsp;않다면,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;/:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CARRIERFLIGHT-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CARRIERFLIGHT-CARRNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CARRIERFLIGHT-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CARRIERFLIGHT-FLDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CARRIERFLIGHT-SEATSMAX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CARRIERFLIGHT-SEATSOCC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CARRIERFLIGHT-PERCENTAGE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CARRIERFLIGHT-CURRCODE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;GS_CARRIERFLIGHT-URL.<br />
+&nbsp;&nbsp;ENDIF.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

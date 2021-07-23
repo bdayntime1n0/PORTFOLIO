@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD401_16_MAIN_EVENT_CLS_AIR</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD401_16_MAIN_EVENT_CLS_AIR</h2>
+<h3> Description: Include ZBD401_16_MAIN_EVENT_CLS_AIR</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD401_16_MAIN_EVENT_CLS_AIR<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+CLASS LCL_AIRPLANE DEFINITION.<br />
+<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;CONSTRUCTOR는&nbsp;CLASS&nbsp;호출과&nbsp;동시에&nbsp;호출되기&nbsp;때문에&nbsp;PUBLIC에&nbsp;작성하며&nbsp;제일&nbsp;위에&nbsp;적음.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLASS-METHODS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;STATIC을&nbsp;의미하는&nbsp;CLASS-METHODS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS_CONSTRUCTOR.&nbsp;&nbsp;"&nbsp;클래스의&nbsp;STATIC&nbsp;생성자를&nbsp;의미.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;하단의&nbsp;일반&nbsp;CONSTRUCTOR와&nbsp;구분짓기&nbsp;위해&nbsp;CLASS_&nbsp;를&nbsp;붙임.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;생성자&nbsp;:&nbsp;이름과&nbsp;항공기를&nbsp;CREATE&nbsp;OBJECT&nbsp;시&nbsp;입력받도록&nbsp;요구한다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONSTRUCTOR&nbsp;&nbsp;IMPORTING&nbsp;IV_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STRING&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;OPTIONAL&nbsp;이라고&nbsp;입력하지&nbsp;않으면&nbsp;필수&nbsp;입력값이&nbsp;됨.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV_PLANETYPE&nbsp;TYPE&nbsp;SAPLANE-PLANETYPE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;INSTANCE&nbsp;METHOD.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET_ATTRIBUTES&nbsp;IMPORTING&nbsp;IV_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STRING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV_PLANETYPE&nbsp;TYPE&nbsp;SAPLANE-PLANETYPE,<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DISPLAY_ATTRIBUTES.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLASS-METHODS&nbsp;:&nbsp;&nbsp;&nbsp;"STATIC&nbsp;ATTRIBUTE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DISPLAY_N_O_AIRPLANES.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EVENTS&nbsp;:&nbsp;AIRPLANE_CREATED.<br />
+<br />
+&nbsp;&nbsp;PRIVATE&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;INSTANCE&nbsp;ATTRIBUTE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;MV_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MV_PLANETYPE&nbsp;TYPE&nbsp;SAPLANE-PLANETYPE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;STATIC&nbsp;ATTRIBUTE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLASS-DATA&nbsp;:&nbsp;GV_N_O_AIRPLANES&nbsp;TYPE&nbsp;I.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TYPES&nbsp;:&nbsp;TY_PLANETYPES&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;SAPLANE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;PRIMARY_KEY&nbsp;COMPONENTS&nbsp;PLANETYPE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLASS-DATA&nbsp;:&nbsp;GT_PLANETYPES&nbsp;TYPE&nbsp;TY_PLANETYPES.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;일반적으로는&nbsp;아래와&nbsp;같이&nbsp;사용하는&nbsp;케이스가&nbsp;훨씬&nbsp;많음.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;CLASS-DATA&nbsp;:&nbsp;GT_PLANETYPES&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;SAPLANE.<br />
+<br />
+   </div>
+   <div class="code">
+ENDCLASS.<br />
+<br />
+CLASS LCL_AIRPLANE IMPLEMENTATION.<br />
+&nbsp;&nbsp;METHOD&nbsp;CLASS_CONSTRUCTOR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SAPLANE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_PLANETYPES.<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;CONSTRUCTOR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MV_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;IV_NAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MV_PLANETYPE&nbsp;=&nbsp;IV_PLANETYPE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;1&nbsp;TO&nbsp;GV_N_O_AIRPLANES.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;CREATE&nbsp;OBJECT&nbsp;시&nbsp;자동으로&nbsp;생성되는&nbsp;생성자의&nbsp;위치에&nbsp;EVENT&nbsp;로직을&nbsp;입력하는&nbsp;것이&nbsp;좋음.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RAISE&nbsp;EVENT&nbsp;AIRPLANE_CREATED.<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;METHOD&nbsp;SET_ATTRIBUTES.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;MV_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;IV_NAME.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;MV_PLANETYPE&nbsp;=&nbsp;IV_PLANETYPE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;1&nbsp;TO&nbsp;GV_N_O_AIRPLANES.<br />
+*&nbsp;&nbsp;ENDMETHOD.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;METHOD&nbsp;DISPLAY_ATTRIBUTES.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/(10)&nbsp;'NAME&nbsp;:&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(20)&nbsp;MV_NAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(10)&nbsp;'TYPE&nbsp;:&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(20)&nbsp;MV_PLANETYPE.<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;DISPLAY_N_O_AIRPLANES.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'AIRPLANE&nbsp;COUNT&nbsp;:&nbsp;',&nbsp;GV_N_O_AIRPLANES.<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+ENDCLASS.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

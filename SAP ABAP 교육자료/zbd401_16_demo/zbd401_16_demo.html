@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD401_16_DEMO</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD401_16_DEMO</h2>
+<h3> Description: OOP CLASS 예제</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD401_16_DEMO<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD401_16_DEMO.<br />
+<br />
+CLASS LCL_VEHICLE DEFINITION.   " CLASS LCL_VEHICLE의 속성.<br />
+<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;여러개의&nbsp;METHOD를&nbsp;바라보는&nbsp;키워드이기&nbsp;때문에&nbsp;METHODS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET_ATTRIBUTES&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;IV_MAKE&nbsp;&nbsp;TYPE&nbsp;S_MAKE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV_MODEL&nbsp;TYPE&nbsp;S_MODEL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DISPLAY_ATTRIBUTES.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLASS-METHODS&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DISPLAY_N_O_VEHICLES.<br />
+<br />
+&nbsp;&nbsp;PRIVATE&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;MV_MAKE&nbsp;&nbsp;TYPE&nbsp;S_MAKE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;INSTANCE&nbsp;ATTRIBUTE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MV_MODEL&nbsp;TYPE&nbsp;S_MODEL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLASS-DATA&nbsp;:&nbsp;GV_N_O_VEHICLES&nbsp;TYPE&nbsp;I.&nbsp;"&nbsp;STATIC&nbsp;ATTRIBUTE<br />
+<br />
+ENDCLASS.<br />
+<br />
+CLASS LCL_VEHICLE IMPLEMENTATION.   " CLASS LCL_VEHICLE의 기능.<br />
+&nbsp;&nbsp;METHOD&nbsp;SET_ATTRIBUTES.&nbsp;&nbsp;"&nbsp;METHOD&nbsp;하나하나&nbsp;로직을&nbsp;짜기&nbsp;때문에&nbsp;단수형으로&nbsp;작성.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MV_MAKE&nbsp;&nbsp;=&nbsp;IV_MAKE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MV_MODEL&nbsp;=&nbsp;IV_MODEL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_N_O_VEHICLES&nbsp;=&nbsp;GV_N_O_VEHICLES&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;DISPLAY_ATTRIBUTES.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'MAKE&nbsp;:&nbsp;',&nbsp;MV_MAKE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;'MODEL&nbsp;:&nbsp;',&nbsp;MV_MODEL.<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;DISPLAY_N_O_VEHICLES.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'NUMBER&nbsp;OF&nbsp;VEHICLES&nbsp;:&nbsp;',&nbsp;GV_N_O_VEHICLES.<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+ENDCLASS.<br />
+<br />
+" LOCAL CLASS 참조하는 변수 2개 선언.<br />
+DATA : GR_VEHICLE1 TYPE REF TO LCL_VEHICLE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GR_VEHICLE2&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;LCL_VEHICLE.<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;CLASS&nbsp;OBJECT는&nbsp;클래스를&nbsp;정의하자마자&nbsp;생성됨.<br />
+*&nbsp;그래서&nbsp;CLASS&nbsp;ATTRIBUTE,&nbsp;METHOD는&nbsp;정의하자마자&nbsp;생성됨.<br />
+*&nbsp;STATIC&nbsp;METHOD&nbsp;를&nbsp;호출할&nbsp;때&nbsp;CLASㄴ와&nbsp;STATIC&nbsp;METHOD&nbsp;사이에&nbsp;기호는&nbsp;=&gt;&nbsp;를&nbsp;사용한다.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;LCL_VEHICLE=&gt;DISPLAY_N_O_VEHICLES.&nbsp;"&nbsp;CLASS에서&nbsp;직접&nbsp;METHOD를&nbsp;호출했다?<br />
+&nbsp;&nbsp;"&nbsp;DISPLAY_M_O_VEHICLES&nbsp;=&nbsp;STATIC&nbsp;METHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;CLASS&nbsp;METHOD는&nbsp;정의하자마자&nbsp;생성되기&nbsp;때문.<br />
+&nbsp;&nbsp;"&nbsp;EX)&nbsp;CALL&nbsp;METHOD&nbsp;GV_SALV_TABLE&nbsp;=&gt;&nbsp;FACTORY.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;"&nbsp;참조변수의&nbsp;객체를&nbsp;생성하겠다.<br />
+&nbsp;&nbsp;"&nbsp;즉,&nbsp;객체의&nbsp;INSTANCE를&nbsp;만드는&nbsp;행위.<br />
+&nbsp;&nbsp;"&nbsp;CREATE&nbsp;OBJECT&nbsp;이후에만&nbsp;INSTANCE&nbsp;ATTRIBUTE나&nbsp;METHOD&nbsp;에&nbsp;접근할&nbsp;수&nbsp;있다.<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GR_VEHICLE1.<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GR_VEHICLE2.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;INSTANCE&nbsp;METHOD&nbsp;를&nbsp;호출할&nbsp;때는&nbsp;CLASS&nbsp;참조변수&nbsp;사이에&nbsp;-&gt;&nbsp;기호를&nbsp;사용해야&nbsp;한다.<br />
+*CALL&nbsp;METHOD&nbsp;LCL_VEHICLE=&gt;DISPLAY_ATTRIBUTES.<br />
+*CALL&nbsp;METHOD&nbsp;LCL_VEHICLE-&gt;DISPLAY_ATTRIBUTES.<br />
+*&nbsp;둘&nbsp;다&nbsp;틀린&nbsp;코드.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;"&nbsp;INSTANCE&nbsp;METHOD&nbsp;호출하는&nbsp;올바른&nbsp;방법.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GR_VEHICLE1-&gt;SET_ATTRIBUTES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV_MAKE&nbsp;&nbsp;=&nbsp;'HYUNDAI'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV_MODEL&nbsp;=&nbsp;'GRANDEUR'.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GR_VEHICLE2-&gt;SET_ATTRIBUTES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV_MAKE&nbsp;&nbsp;=&nbsp;'KIA'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV_MODEL&nbsp;=&nbsp;'K5'.<br />
+<br />
+CALL METHOD GR_VEHICLE1-&gt;DISPLAY_ATTRIBUTES.<br />
+CALL METHOD GR_VEHICLE2-&gt;DISPLAY_ATTRIBUTES.<br />
+<br />
+CALL METHOD LCL_VEHICLE=&gt;DISPLAY_N_O_VEHICLES.  " CLASS=&gt;STATIC METHOD. 단순한 설계도.<br />
+CALL METHOD GR_VEHICLE1-&gt;DISPLAY_N_O_VEHICLES.  " OBJECT-&gt;INSTANCE METHOD<br />
+CALL METHOD GR_VEHICLE2-&gt;DISPLAY_N_O_VEHICLES.  " OBJECT-&gt;INSTANCE METHOD<br />
+<br />
+DATA : LV_A TYPE I.<br />
+" LV_A 라는 변수가 만들어진다.<br />
+" LV_A 는 정수를 저장할 수 있는 변수다.<br />
+" LV_A 라는 이름을 가진  정수를 담을 수 있는 공간이 생긴다는 의미.<br />
+<br />
+DATA : GR_VEHICLE TYPE REF TO LCL_VEHICLE.<br />
+" GR_VEHICLE 이라는 변수가 만들어 진다.<br />
+CREATE OBJECT GR_VEHICLE.<br />
+" GR_VEHICLE 은 LOCAL CLASS [ LCL_VEHICLE ] 을 참조하는 변수라서<br />
+" 그 CLASS 에 정의된 ATTRIBUTE 나 METHOD 정보들을 전부 갖고 있는 형태로 만들어진다.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

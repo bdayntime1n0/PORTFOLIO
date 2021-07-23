@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD1_16_080PBO</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD1_16_080PBO</h2>
+<h3> Description: Include ZBD1_00_010PBO</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD1_00_010PBO<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Module&nbsp;STATUS_0100&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE STATUS_0100 OUTPUT.<br />
+&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'0100'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;SET&nbsp;TITLEBAR&nbsp;'xxx'.<br />
+   </div>
+   <div class="code">
+ENDMODULE.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Module&nbsp;INIT_ALV_0100&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE INIT_ALV_0100 OUTPUT.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GO_GRID&nbsp;IS&nbsp;NOT&nbsp;BOUND.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CREATE_GRID.<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_ALV_LAYOUT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_ALV_FIELDCATALOG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_ALV_EVENT.<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DISPLAY_ALV_DATA.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDMODULE.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Module&nbsp;STATUS_0200&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE STATUS_0200 OUTPUT.<br />
+&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'0200'.<br />
+&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;&nbsp;'0200'&nbsp;WITH&nbsp;GS_DISPLAY-CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-CONNID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-FLDATE.<br />
+ENDMODULE.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Module&nbsp;INIT_ALV_0200&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE INIT_ALV_0200 OUTPUT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;GO_GRID&nbsp;를&nbsp;통해서&nbsp;사용자가&nbsp;FLDATE&nbsp;필드를&nbsp;Click&nbsp;하면서<br />
+&nbsp;&nbsp;"&nbsp;Hotspot&nbsp;이벤트가&nbsp;발생을&nbsp;했다.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;이&nbsp;Hotspot&nbsp;이벤트는&nbsp;새로운&nbsp;팝업창이&nbsp;열리면서,<br />
+&nbsp;&nbsp;"&nbsp;이&nbsp;팝업창은&nbsp;사용자가&nbsp;선택한&nbsp;라인의&nbsp;데이터를&nbsp;기준으로<br />
+<br />
+&nbsp;&nbsp;"&nbsp;예약현황을&nbsp;ALV&nbsp;로&nbsp;새롭게&nbsp;보여준다.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GO_GRID_2&nbsp;IS&nbsp;BOUND.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;REFRESH_ALV_GRID&nbsp;USING&nbsp;GO_GRID_2.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CREATE_CONTAINER_0200.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_ALV_LAYOUT_0200.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_ALV_FIELDCATALOG_0200.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DISPLAY_ALV_DATA_0200.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDMODULE.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Module&nbsp;GET_BOOK_0200&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE GET_BOOK_0200 OUTPUT.<br />
+<br />
+&nbsp;&nbsp;REFRESH&nbsp;GT_BOOK.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;A~BOOKID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~CUSTOMID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~NAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~CUSTTYPE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~CLASS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~LOCCURAM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~LOCCURKEY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ORDER_DATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~CANCELLED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~RESERVED<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SBOOK&nbsp;AS&nbsp;A&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;SCUSTOM&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;B~ID&nbsp;EQ&nbsp;A~CUSTOMID<br />
+<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~CARRID&nbsp;EQ&nbsp;@GS_DISPLAY-CARRID&nbsp;"&nbsp;GS_DISPLAY&nbsp;는&nbsp;Hotspot&nbsp;이벤트에서<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~CONNID&nbsp;EQ&nbsp;@GS_DISPLAY-CONNID&nbsp;"&nbsp;클릭한&nbsp;라인&nbsp;번호를&nbsp;기준으로&nbsp;GT_DISPLAY&nbsp;에서<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~FLDATE&nbsp;EQ&nbsp;@GS_DISPLAY-FLDATE&nbsp;"&nbsp;가져와&nbsp;넣은&nbsp;후에&nbsp;CALL&nbsp;SCREEN&nbsp;0200&nbsp;을&nbsp;한&nbsp;것이므로<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;사용자가&nbsp;선택한&nbsp;라인의&nbsp;정보가&nbsp;들어있다.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@GT_BOOK.&nbsp;&nbsp;"&nbsp;Select&nbsp;에서&nbsp;가져오는&nbsp;필드순서에&nbsp;따라<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;그대로&nbsp;Internal&nbsp;Table&nbsp;의&nbsp;필드에&nbsp;순서대로&nbsp;집어넣는다.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;고객ID별&nbsp;최근&nbsp;예약한&nbsp;일자&nbsp;기준으로&nbsp;정렬<br />
+&nbsp;&nbsp;SORT&nbsp;GT_BOOK&nbsp;BY&nbsp;CUSTOMID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_DATE&nbsp;DESCENDING.<br />
+<br />
+ENDMODULE.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

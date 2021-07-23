@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD430_16_COPY_TABLES</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD430_16_COPY_TABLES</h2>
+<h3> Description: SELECT & INSERT TABLE 예제</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD430_16_COPY_TABLES<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD430_16_COPY_TABLES.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***&nbsp;전역변수<br />
+*TABLE의&nbsp;모든&nbsp;LINE정보를&nbsp;가질&nbsp;INTERNAL&nbsp;TABLE&nbsp;생성<br />
+   </div>
+   <div class="code">
+DATA : GT_SCARR   TYPE TABLE OF SCARR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_SPFLI&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;SPFLI,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_SFLIGHT&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;SFLIGHT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***&nbsp;SELECTION-SCREEN.<br />
+<br />
+<br />
+<br />
+***&nbsp;START-OF-SELECTION.<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;DATABASE&nbsp;TABLE&nbsp;에서&nbsp;DATA를&nbsp;조회<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;SCARR&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;GT_SCARR.<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;SPFLI&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;GT_SPFLI.<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;SFLIGHT&nbsp;INTO&nbsp;TABLE&nbsp;GT_SFLIGHT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;저장할&nbsp;테이블을&nbsp;초기화.&nbsp;(모든&nbsp;라인을&nbsp;삭제)<br />
+*&nbsp;&nbsp;특정&nbsp;라인을&nbsp;지울&nbsp;때는&nbsp;FROM을&nbsp;뒤로&nbsp;옮겨서&nbsp;라인을&nbsp;기재.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DELETE&nbsp;FROM&nbsp;ZBD1_CARR16.<br />
+&nbsp;&nbsp;DELETE&nbsp;FROM&nbsp;ZBD1_PFLI16.<br />
+&nbsp;&nbsp;DELETE&nbsp;FROM&nbsp;ZBD1_FLIGHT16.<br />
+<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;LV_SUBRC&nbsp;TYPE&nbsp;SY-SUBRC.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;INTERNAL&nbsp;TABLE의&nbsp;내용을&nbsp;DATABASE&nbsp;TABLE에&nbsp;삽입.<br />
+*&nbsp;중복이&nbsp;생길&nbsp;경우&nbsp;DUMP가&nbsp;발생.<br />
+*&nbsp;STRUCTURE가&nbsp;FROM에&nbsp;오면&nbsp;1줄만&nbsp;추가됨.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;INSERT&nbsp;ZBD1_CARR16&nbsp;&nbsp;&nbsp;FROM&nbsp;TABLE&nbsp;GT_SCARR.<br />
+&nbsp;&nbsp;LV_SUBRC&nbsp;=&nbsp;LV_SUBRC&nbsp;+&nbsp;SY-SUBRC.<br />
+&nbsp;&nbsp;INSERT&nbsp;ZBD1_PFLI16&nbsp;&nbsp;&nbsp;FROM&nbsp;TABLE&nbsp;GT_SPFLI.<br />
+&nbsp;&nbsp;LV_SUBRC&nbsp;=&nbsp;LV_SUBRC&nbsp;+&nbsp;SY-SUBRC.<br />
+&nbsp;&nbsp;INSERT&nbsp;ZBD1_FLIGHT16&nbsp;FROM&nbsp;TABLE&nbsp;GT_SFLIGHT.<br />
+&nbsp;&nbsp;LV_SUBRC&nbsp;=&nbsp;LV_SUBRC&nbsp;+&nbsp;SY-SUBRC.<br />
+<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;변경사항에&nbsp;대한&nbsp;확정처리.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;COMMIT&nbsp;WORK.<br />
+&nbsp;&nbsp;ELSE.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;변경사항에&nbsp;대한&nbsp;취소처리.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;ROLLBACK&nbsp;WORK.<br />
+&nbsp;&nbsp;ENDIF.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD1_16_110_T01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD1_16_110_T01</h2>
+<h3> Description: Include ZBD1_00_100_T01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD1_00_100_T01<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+" 엑셀에서 가져온 데이터를 보관하기 위한 Internal Table<br />
+DATA GT_INTERN TYPE TABLE OF ALSMEX_TABLINE.<br />
+<br />
+" ALV 에 출력할 데이터를 보관하기 위한 Internal Table<br />
+DATA: BEGIN OF GS_DISPLAY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;&nbsp;LIKE&nbsp;ICON-ID,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;업로드&nbsp;상태여부&nbsp;체크<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KOSTL&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKS-KOSTL,&nbsp;"&nbsp;코스트센터코드<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATAB&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKS-DATAB,&nbsp;"&nbsp;유효시작일<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATBI&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKS-DATBI,&nbsp;"&nbsp;유효만료일<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KTEXT&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKT-KTEXT,&nbsp;"&nbsp;코스트센터명<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LTEXT&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKT-LTEXT,&nbsp;"&nbsp;설명<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VERAK&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKS-VERAK,&nbsp;"&nbsp;첵임자<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KOSAR&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKS-KOSAR,&nbsp;"&nbsp;카테고리<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KHINR&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKS-KHINR,&nbsp;"&nbsp;계층구조<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKS-WAERS,&nbsp;"&nbsp;통화코드<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRCTR&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKS-PRCTR,&nbsp;"&nbsp;손익센터<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DISPLAY.<br />
+<br />
+DATA GT_DISPLAY LIKE TABLE OF GS_DISPLAY.<br />
+<br />
+<br />
+DATA: OKCODE TYPE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVEOK&nbsp;TYPE&nbsp;SY-UCOMM.&nbsp;"&nbsp;Screen&nbsp;에서&nbsp;사용할&nbsp;OKCODE&nbsp;관련&nbsp;변수<br />
+<br />
+<br />
+DATA GO_DOCKING_CONTAINER_TOP     TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA GO_DOCKING_CONTAINER         TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA GO_DOCKING_CONTAINER_BOTTOM  TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+" ALV 를 Screen 0100 에 출력하기 위한 도화지 같은 역할<br />
+<br />
+DATA GO_ALV_GRID          TYPE REF TO CL_GUI_ALV_GRID.<br />
+" Screen 0100 에서 Container 에 ALV 를 출력하는 물감 같은 역할<br />
+<br />
+DATA GS_LAYOUT    TYPE LVC_S_LAYO.  " ALV 의 전체모양 등을 관리하는 옵션<br />
+DATA GT_FIELDCAT  TYPE LVC_T_FCAT.  " ALV 의 각 필드별 모양, 옵션, 기능 등 세부적인 옵션<br />
+DATA GS_FIELDCAT  TYPE LVC_S_FCAT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

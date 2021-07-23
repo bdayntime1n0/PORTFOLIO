@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD430_16_SSCR_TABSTRIP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD430_16_SSCR_TABSTRIP</h2>
+<h3> Description: SELCETION SCREEN TABSTRIP 예제</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD430_16_SSCR_TABSTRIP<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD430_16_SSCR_TABSTRIP.<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 1100 AS SUBSCREEN.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_CARR1&nbsp;TYPE&nbsp;SCARR-CARRID.<br />
+SELECTION-SCREEN END OF  SCREEN 1100.<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 1200 AS SUBSCREEN.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_CARR2&nbsp;TYPE&nbsp;SPFLI-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_CONN2&nbsp;TYPE&nbsp;SPFLI-CONNID.<br />
+SELECTION-SCREEN END OF  SCREEN 1200.<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 1300 AS SUBSCREEN.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_CARR3&nbsp;TYPE&nbsp;SFLIGHT-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_CONN3&nbsp;TYPE&nbsp;SFLIGHT-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DATE3&nbsp;TYPE&nbsp;SFLIGHT-FLDATE.<br />
+SELECTION-SCREEN END OF  SCREEN 1300.<br />
+<br />
+<br />
+<br />
+SELECTION-SCREEN BEGIN OF TABBED BLOCK MY_TAB FOR 5 LINES.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;TAB&nbsp;(10)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;탭&nbsp;이름의&nbsp;넓이<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABNM1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;탭&nbsp;이름을&nbsp;가진&nbsp;변수<br />
+&nbsp;&nbsp;&nbsp;&nbsp;USER-COMMAND&nbsp;UC_TAB1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;탭&nbsp;이동을&nbsp;위한&nbsp;USER-COMMAND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT&nbsp;SCREEN&nbsp;1100.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;탭의&nbsp;화면을&nbsp;보여주기&nbsp;위한&nbsp;SUB&nbsp;SCREEN<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;TAB&nbsp;(20)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABNM2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;USER-COMMAND&nbsp;UC_TAB2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT&nbsp;SCREEN&nbsp;1200.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;TAB&nbsp;(30)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABNM3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;USER-COMMAND&nbsp;UC_TAB3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT&nbsp;SCREEN&nbsp;1300.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK MY_TAB.<br />
+<br />
+<br />
+INITIALIZATION.<br />
+<br />
+&nbsp;&nbsp;TABNM1&nbsp;=&nbsp;'AIRLINE'.<br />
+&nbsp;&nbsp;TABNM2&nbsp;=&nbsp;'FLIGHT&nbsp;SCHEDULE'.<br />
+&nbsp;&nbsp;TABNM3&nbsp;=&nbsp;'FLIGHT'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;프로그램&nbsp;실행&nbsp;시&nbsp;2번째&nbsp;탭인&nbsp;FLIGHT&nbsp;SCHEDULE&nbsp;탭이&nbsp;활성화되어&nbsp;있도록&nbsp;조치.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;MY_TAB-ACTIVETAB&nbsp;=&nbsp;'UC_TAB2'.<br />
+&nbsp;&nbsp;MY_TAB-DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1200.<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;MY_TAB-ACTIVETAB.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'UC_TAB1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;/:&nbsp;'현재&nbsp;AIRPORT&nbsp;탭이&nbsp;활성화되었고,',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'P_CARR1&nbsp;=&nbsp;',&nbsp;P_CARR1&nbsp;,&nbsp;'입니다.'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'UC_TAB2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;/:&nbsp;'현재&nbsp;SCHEDULE&nbsp;탭이&nbsp;활성화되었고,',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'P_CARR2&nbsp;=&nbsp;',&nbsp;P_CARR2&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'P_CONN2&nbsp;=&nbsp;',&nbsp;P_CONN2,&nbsp;'입니다.'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'UC_TAB3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;/:&nbsp;'현재&nbsp;FLIGHT&nbsp;탭이&nbsp;활성화되었고,',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'P_CARR3&nbsp;=&nbsp;',&nbsp;P_CARR3&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'P_CONN3&nbsp;=&nbsp;',&nbsp;P_CONN3&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'P_DATE3&nbsp;=&nbsp;',&nbsp;P_DATE3&nbsp;,&nbsp;'입니다.'.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;P_CARR1&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;P_CARR2&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;P_CARR3&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;P_CONN2&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;P_CONN3&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;P_DATE3&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD401_16_MAIN_EVENT_CLS_PAS</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD401_16_MAIN_EVENT_CLS_PAS</h2>
+<h3> Description: Include ZBD401_16_MAIN_EVENT_CLS_PAS</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD401_16_MAIN_EVENT_CLS_PAS<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+CLASS LCL_PASSENGER_PLANE DEFINITION INHERITING FROM LCL_AIRPLANE.<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;아래&nbsp;2개의&nbsp;IMPORTING&nbsp;PARAMETER&nbsp;는&nbsp;부모&nbsp;클래스의&nbsp;생서자아게&nbsp;주기&nbsp;위해&nbsp;선언한&nbsp;PARAMETER로&nbsp;볼&nbsp;수&nbsp;있다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;CONSTRUCTOR&nbsp;IMPORTING&nbsp;IV_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STRING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LCL_AIRPLANE에&nbsp;있는&nbsp;ATTRIBUTE는&nbsp;PRIVATE에&nbsp;있기&nbsp;때문에&nbsp;받아올&nbsp;수&nbsp;없음.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV_PLANETYPE&nbsp;TYPE&nbsp;SAPLANE-PLANETYPE&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;대신&nbsp;CONSTRUCTOR가&nbsp;LCL_AIRPLANE의&nbsp;ATTRIBUTE를&nbsp;받아오기&nbsp;때문에&nbsp;이걸&nbsp;사용하면&nbsp;됨.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;아래&nbsp;1개의&nbsp;IMPORTING&nbsp;PARAMETER&nbsp;는&nbsp;자기&nbsp;자신이&nbsp;가진&nbsp;INSTANCE&nbsp;ATTRIBUTE를&nbsp;ASSIGN&nbsp;VALUE&nbsp;하기&nbsp;위해&nbsp;선언한&nbsp;PARAMETER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV_SEATS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SAPLANE-SEATSMAX.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;상속받은&nbsp;LCL_AIRPLANE&nbsp;이&nbsp;이미&nbsp;동일한&nbsp;이름으로&nbsp;METHOD를&nbsp;생성해두었으나<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LCL_PASSENGER_PLANE&nbsp;에게는&nbsp;적합하지&nbsp;않아,&nbsp;해당&nbsp;METHOD를&nbsp;재정의.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;즉,&nbsp;IV_SEATS&nbsp;까지&nbsp;출력할&nbsp;수&nbsp;있도록&nbsp;재정의<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;DISPLAY_ATTRIBUTES&nbsp;REDEFINITION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;ON_AIRPLANE_CREATED&nbsp;FOR&nbsp;EVENT&nbsp;AIRPLANE_CREATED<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OF&nbsp;LCL_AIRPLANE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;SENDER.<br />
+<br />
+&nbsp;&nbsp;PRIVATE&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;INSTANCE&nbsp;ATTRIBUTE&nbsp;선언<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;MV_SEATS&nbsp;TYPE&nbsp;SAPLANE-SEATSMAX.<br />
+<br />
+ENDCLASS.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Class&nbsp;(Implementation)&nbsp;LCL_PASSENGER_PLANE<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS LCL_PASSENGER_PLANE IMPLEMENTATION.<br />
+&nbsp;&nbsp;METHOD&nbsp;CONSTRUCTOR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;다뤄야&nbsp;하는&nbsp;INSTANCE&nbsp;ATTRIBUTE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;-&nbsp;MV_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(SUPER,&nbsp;PRIVATE)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;-&nbsp;MV_PLANETYPE&nbsp;&nbsp;(SUPER,&nbsp;PRIVATE)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;-&nbsp;MV_SEATS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SUPER-&gt;CONSTRUCTOR(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;IV_NAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV_PLANETYPE&nbsp;=&nbsp;IV_PLANETYPE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;).<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;ME-&gt;MV_SEATS&nbsp;=&nbsp;IV_SEATS.&nbsp;&nbsp;&nbsp;"&nbsp;아래와&nbsp;동일<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;MV_SEATS&nbsp;=&nbsp;IV_SEATS.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;REGISTER&nbsp;THE&nbsp;NEW&nbsp;HANDLER&nbsp;METHOD.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;ME-&gt;ON_AIRPLANE_CREATED&nbsp;FOR&nbsp;ALL&nbsp;INSTANCES.<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;DISPLAY_ATTRIBUTES.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;부모&nbsp;CLASS&nbsp;LCL_AIRPLANE&nbsp;으로부터&nbsp;물려받았으나<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;현재&nbsp;자식&nbsp;CLASS에서&nbsp;다루는&nbsp;ATTRIBUTE가&nbsp;추가되어<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;해당&nbsp;내용도&nbsp;보이게끔&nbsp;다시&nbsp;만들고자&nbsp;함.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SUPER-&gt;DISPLAY_ATTRIBUTES(&nbsp;).<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/(10)&nbsp;'NAME&nbsp;:&nbsp;',<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(20)&nbsp;MV_NAME,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/(10)&nbsp;'TYPE&nbsp;:&nbsp;',<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(20)&nbsp;MV_PLANETYPE.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;&nbsp;(10)&nbsp;'SEATS&nbsp;:&nbsp;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(20)&nbsp;MV_SEATS.<br />
+<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;ON_AIRPLANE_CREATED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I000(OO)&nbsp;WITH&nbsp;'비행기가&nbsp;생성되었습니다.'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDMETHOD.<br />
+ENDCLASS.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

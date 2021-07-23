@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD1_16_040TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD1_16_040TOP</h2>
+<h3> Description: Include ZBD1_00_010TOP</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD1_00_010TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*LCL_EVENT_HANDLER&nbsp;를&nbsp;나중에&nbsp;선언&nbsp;및&nbsp;구현할테니,&nbsp;있는&nbsp;것&nbsp;처럼&nbsp;취급해라<br />
+   </div>
+   <div class="code">
+CLASS LCL_EVENT_HANDLER DEFINITION DEFERRED.<br />
+<br />
+TABLES: SCARR, SPFLI, SFLIGHT.<br />
+<br />
+" 조회 및 출력할 Data 구조 및 Internal Table<br />
+DATA: BEGIN OF GS_DISPLAY,  " Global Structure + 출력을 위한 구조체<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SFLIGHT-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRNAME&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SCARR-CARRNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONNID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SFLIGHT-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FLDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SFLIGHT-FLDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTRFR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SPFLI-COUNTRYFR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTRTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SPFLI-COUNTRYTO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSMAX_F&nbsp;&nbsp;LIKE&nbsp;SFLIGHT-SEATSMAX_F,&nbsp;&nbsp;"&nbsp;최대좌석&nbsp;First<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSMAX_B&nbsp;&nbsp;LIKE&nbsp;SFLIGHT-SEATSMAX_B,&nbsp;&nbsp;"&nbsp;최대좌석&nbsp;Business<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSMAX&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SFLIGHT-SEATSMAX,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;최대좌석&nbsp;Economy<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSOCC_F&nbsp;&nbsp;LIKE&nbsp;SFLIGHT-SEATSOCC_F,&nbsp;&nbsp;"&nbsp;현재예약된&nbsp;First<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSOCC_B&nbsp;&nbsp;LIKE&nbsp;SFLIGHT-SEATSOCC_B,&nbsp;&nbsp;"&nbsp;현재예약된&nbsp;Business<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSOCC&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SFLIGHT-SEATSOCC,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;현재예약된&nbsp;Economy<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRICE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SFLIGHT-PRICE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;운임<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CURRENCY&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SFLIGHT-CURRENCY,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;통화<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DISPLAY.<br />
+<br />
+DATA GT_DISPLAY LIKE TABLE OF GS_DISPLAY.<br />
+<br />
+<br />
+DATA GO_CON     TYPE REF TO CL_GUI_CONTAINER.<br />
+" CL_GUI_CUSTOM_CONTAINER 대신 부모클래스(Super Class)인 CL_GUI_CONTAINER<br />
+" 이유 : ALV 를 전체화면으로 출력하기 위해<br />
+<br />
+DATA GO_GRID    TYPE REF TO CL_GUI_ALV_GRID.<br />
+" Grid ALV 를 출력하기 위해서 선언<br />
+<br />
+DATA GO_EVENT_HANDLER TYPE REF TO LCL_EVENT_HANDLER.<br />
+" GRID ALV 의 이벤트를 핸들링하기 위해 선언.<br />
+<br />
+<br />
+DATA GT_FIELDCAT TYPE LVC_T_FCAT.<br />
+" LVC_T_FCAT 은 Table Type 으로 선언된 ABAP Dictionary<br />
+" 그래서 GT_FIELDCAT 은 TYPE 만 적었지만, Internal Table 로 선언된다.<br />
+<br />
+DATA GS_FIELDCAT TYPE LVC_S_FCAT.<br />
+" LVC_S_FCAT 은 Structure 로 선언된 ABAP Dictionary<br />
+<br />
+<br />
+DATA GS_LAYOUT   TYPE LVC_S_LAYO.<br />
+" SAP 에서는 4글자, 5글자 위주로 정의된 케이스가 많다.<br />
+" LAYOUT =&gt; LAYO 로 단축하였기에, LAYO 라고 적혀있어도, LAYOUT 으로 읽는다.<br />
+" ALV 에서 다룰 옵션을 가지고 있다.<br />
+<br />
+<br />
+DATA OKCODE TYPE SY-UCOMM.<br />
+DATA SAVEOK TYPE SY-UCOMM.<br />
+" 화면에 대한 입력처리를 위한 선언<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

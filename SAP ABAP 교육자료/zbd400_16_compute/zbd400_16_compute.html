@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD400_16_COMPUTE</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD400_16_COMPUTE</h2>
+<h3> Description: 실습과제 #1 계산기</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD400_16_COMPUTE<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD400_16_COMPUTE.<br />
+<br />
+<br />
+" 총 3개의 매개변수 ( Parameters )<br />
+" 2개의 정수 와 1개의 연산자<br />
+<br />
+" 전역변수 1개를 요구 - 2개의 정수와 연산자로 계산된 결과값<br />
+<br />
+" 연산자는 case 문을 통해서 계산로직을 분기<br />
+<br />
+" 계산된 결과가 저장된 전역변수를 WRITE 문을 통해서 출력<br />
+<br />
+" 연산자는 사칙연산( + , - , * , / ) 외에는 허용하지 않는다.<br />
+" 만약 입력시 오류 메시지 출력<br />
+<br />
+" / 연산자 중 분모에 해당하는 값이 0일 경우 오류 메시지 출력<br />
+<br />
+PARAMETERS : PA_INT1 TYPE I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PA_INT2&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PA_OP&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;1.<br />
+<br />
+DATA : GV_RESULT TYPE P LENGTH 16 DECIMALS 2.<br />
+<br />
+<br />
+IF  ( PA_OP = '+' OR PA_OP = '-' OR PA_OP = '*' OR PA_OP = '/' ).<br />
+<br />
+CASE PA_OP.<br />
+<br />
+WHEN '+'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_RESULT&nbsp;=&nbsp;PA_INT1&nbsp;+&nbsp;PA_INT2.<br />
+<br />
+WHEN '-'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_RESULT&nbsp;=&nbsp;PA_INT1&nbsp;-&nbsp;PA_INT2.<br />
+<br />
+WHEN '*'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_RESULT&nbsp;=&nbsp;PA_INT1&nbsp;*&nbsp;PA_INT2.<br />
+<br />
+WHEN '/'.<br />
+&nbsp;&nbsp;IF&nbsp;PA_INT2&nbsp;=&nbsp;0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;'분모는&nbsp;0이&nbsp;될&nbsp;수&nbsp;없습니다.'.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'분모는&nbsp;0이&nbsp;될&nbsp;수&nbsp;없습니다.'&nbsp;TYPE&nbsp;'E'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_RESULT&nbsp;=&nbsp;PA_INT1&nbsp;/&nbsp;PA_INT2.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+WRITE : PA_INT1, PA_OP, PA_INT2, ' = ', GV_RESULT.<br />
+<br />
+ELSE.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;'연산자만&nbsp;들어갈&nbsp;수&nbsp;있습니다.'.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'연산자만&nbsp;들어갈&nbsp;수&nbsp;있습니다.'&nbsp;TYPE&nbsp;'E'.<br />
+<br />
+ENDIF.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
+*&nbsp;&nbsp;&nbsp;분모는&nbsp;0이&nbsp;될&nbsp;수&nbsp;없습니다.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

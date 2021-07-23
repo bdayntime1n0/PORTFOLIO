@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD1_16_010_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD1_16_010_F01</h2>
+<h3> Description: Include ZBD1_16_010_F01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD1_16_010_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;INITIALIZATION<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM INITIALIZATION .<br />
+<br />
+&nbsp;&nbsp;TEXTS01&nbsp;=&nbsp;'SELECTION&nbsp;OPTIONS'(S01).&nbsp;"&nbsp;TEXT-S01<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SELECTED_DATA_RTN<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SELECTED_DATA_RTN .<br />
+<br />
+&nbsp;&nbsp;REFRESH&nbsp;GT_DISPLAY.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;C~CARRID,&nbsp;A~CARRNAME,&nbsp;B~CONNID,&nbsp;C~FLDATE,&nbsp;B~COUNTRYFR,&nbsp;B~COUNTRYTO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~SEATSMAX_F,&nbsp;C~SEATSMAX_B,&nbsp;C~SEATSMAX,&nbsp;C~SEATSOCC_F,&nbsp;C~SEATSOCC_B,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~SEATSOCC,&nbsp;C~PRICE,&nbsp;C~CURRENCY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SCARR&nbsp;AS&nbsp;A&nbsp;INNER&nbsp;JOIN&nbsp;SPFLI&nbsp;&nbsp;&nbsp;AS&nbsp;B&nbsp;ON&nbsp;B~CARRID&nbsp;EQ&nbsp;A~CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;SFLIGHT&nbsp;AS&nbsp;C&nbsp;ON&nbsp;C~CARRID&nbsp;EQ&nbsp;B~CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;C~CONNID&nbsp;EQ&nbsp;B~CONNID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;C~CARRID&nbsp;IN&nbsp;@S_CARRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;C~CONNID&nbsp;IN&nbsp;@S_CONNID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;C~FLDATE&nbsp;IN&nbsp;@S_FLDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@GT_DISPLAY.<br />
+<br />
+&nbsp;&nbsp;SORT&nbsp;GT_DISPLAY&nbsp;BY&nbsp;CARRID&nbsp;CONNID&nbsp;FLDATE.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;DISPLAY_ALV<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DISPLAY_ALV .<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;0100.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;CREATE_GRID<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CREATE_GRID .<br />
+&nbsp;&nbsp;"&nbsp;생성되지&nbsp;않은&nbsp;CONTAINER&nbsp;OBJECT를&nbsp;I_PARENT로&nbsp;전달하면,<br />
+&nbsp;&nbsp;"&nbsp;ALV가&nbsp;화면&nbsp;전체에&nbsp;출력된다.<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_PARENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GO_CON&nbsp;&nbsp;"&nbsp;Parent&nbsp;Container<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_CREATE&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Error&nbsp;when&nbsp;creating&nbsp;the&nbsp;control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_INIT&nbsp;&nbsp;&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Error&nbsp;While&nbsp;Initializing&nbsp;Control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_LINK&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Error&nbsp;While&nbsp;Linking&nbsp;Control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_DP_CREATE&nbsp;&nbsp;&nbsp;=&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Error&nbsp;While&nbsp;Creating&nbsp;DataProvider&nbsp;Control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_ALV_LAYOUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_ALV_LAYOUT .<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_LAYOUT.<br />
+<br />
+&nbsp;&nbsp;GS_LAYOUT-ZEBRA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;라인단위&nbsp;얼룩처리<br />
+&nbsp;&nbsp;GS_LAYOUT-CWIDTH_OPT&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;컬럼&nbsp;넓이&nbsp;최적화<br />
+&nbsp;&nbsp;GS_LAYOUT-SEL_MODE&nbsp;&nbsp;&nbsp;=&nbsp;'D'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;A&nbsp;:&nbsp;행열&nbsp;기준&nbsp;선택<br />
+&nbsp;&nbsp;"&nbsp;B&nbsp;:&nbsp;행&nbsp;기준&nbsp;선택<br />
+&nbsp;&nbsp;"&nbsp;C&nbsp;:&nbsp;열&nbsp;기준&nbsp;선택<br />
+&nbsp;&nbsp;"&nbsp;D&nbsp;:&nbsp;셀&nbsp;단위&nbsp;선택.&nbsp;주로&nbsp;D를&nbsp;선택함.<br />
+&nbsp;&nbsp;GS_LAYOUT-GRID_TITLE&nbsp;=&nbsp;'ALV&nbsp;GRID'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ALV&nbsp;TITLE<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;GS_LAYOUUT-EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ALV의&nbsp;모든&nbsp;필드를&nbsp;수정가능하게&nbsp;만드는&nbsp;기능.<br />
+*&nbsp;GS_LAYOUT-NO_MERGING&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;정렬할&nbsp;때&nbsp;동일한&nbsp;필드값은&nbsp;두번째&nbsp;부터&nbsp;생략하는&nbsp;기능을&nbsp;끄는&nbsp;옵션.<br />
+*&nbsp;GS_LAYOUT-NO_ROWMARK&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;행&nbsp;선택하는&nbsp;마크를&nbsp;출력하지&nbsp;않는&nbsp;옵션.<br />
+*&nbsp;GS_LAYOUT-STYLEFNAME&nbsp;=&nbsp;'스타일&nbsp;필드이름'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ALV&nbsp;각&nbsp;라인별&nbsp;스타일&nbsp;설정을&nbsp;위한&nbsp;필드이름.&nbsp;EX)&nbsp;특정&nbsp;필드만&nbsp;수정하도록&nbsp;하고&nbsp;싶다.<br />
+*&nbsp;GS_LAYOUT-CTAB_FNAME&nbsp;=&nbsp;'컬러&nbsp;필드이름'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ALV&nbsp;각&nbsp;라인별&nbsp;컬러&nbsp;설정을&nbsp;위한&nbsp;필드이름.<br />
+*&nbsp;GS_LAYOUT-BOX_FNAME&nbsp;&nbsp;=&nbsp;'행마크&nbsp;필드이름'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;현재&nbsp;라인을&nbsp;선택했는지&nbsp;안했는지&nbsp;마킹되는&nbsp;필드를&nbsp;의미<br />
+<br />
+   </div>
+   <div class="code">
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_ALV_FIELDCATALOG<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_ALV_FIELDCATALOG .<br />
+<br />
+&nbsp;&nbsp;"&nbsp;FIELD&nbsp;CATALOG란&nbsp;-&gt;&nbsp;ALV에서&nbsp;출력할&nbsp;필드를&nbsp;결정함.<br />
+<br />
+&nbsp;&nbsp;REFRESH&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;"&nbsp;FIELD&nbsp;CATALOG의&nbsp;옵션&nbsp;설정.<br />
+&nbsp;&nbsp;"&nbsp;GS_FIELDCAT-XXX&nbsp;=&nbsp;XXXXX.&nbsp;형식.<br />
+<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;필드가&nbsp;몇번째&nbsp;위치할지&nbsp;결정하는&nbsp;필드<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;중복을&nbsp;허용,&nbsp;중복된&nbsp;경우는&nbsp;필드카탈로그&nbsp;테이블&nbsp;삽입&nbsp;순서대로&nbsp;나열.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'CARRID'.&nbsp;&nbsp;"&nbsp;ALV로&nbsp;보낸&nbsp;OUTPUT&nbsp;TABLE에서&nbsp;가져올&nbsp;FIELD명.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;보여주고&nbsp;싶은&nbsp;필드&nbsp;이름을&nbsp;적는&nbsp;것과&nbsp;같음.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'항공사ID'.&nbsp;&nbsp;"&nbsp;ALV&nbsp;필드의&nbsp;헤더&nbsp;텍스트.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'CARRNAME'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'항공사명'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'CONNID'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'항공편&nbsp;NO.'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'FLDATE'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'비행일자'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'CNTRFR'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'출발국가'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'CNTRTO'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'도착국가'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'SEATSMAX_F'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'1ST석&nbsp;최대정원'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'SEATSMAX_B'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'BIZ석&nbsp;최대정원'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;9.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'SEATSMAX'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'ECO석&nbsp;최대정원'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'SEATSOCC_F'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'1ST석&nbsp;예약좌석수'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;11.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'SEATSOCC_B'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'BIZ석&nbsp;예약좌석수'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'SEATSOCC'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'ECO석&nbsp;예약좌석수'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;13.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'PRICE'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'운임'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;GS_FIELDCAT-CURRENCY&nbsp;&nbsp;&nbsp;=&nbsp;'KRW'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;통화코드를&nbsp;정적으로&nbsp;표시.&nbsp;(STATIC)<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;GS_FIELDCAT-CFIELDNAME&nbsp;=&nbsp;'CURRENCY'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;통화코드를&nbsp;가진&nbsp;필드명을&nbsp;지정한다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;각&nbsp;라인별&nbsp;통화필드에서&nbsp;통화코드를&nbsp;참조.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;즉,&nbsp;금액을&nbsp;통화에&nbsp;맞춰&nbsp;보여줌&nbsp;(DYNAMIC)<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_FIELDCAT.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COL_POS&nbsp;&nbsp;&nbsp;=&nbsp;14.<br />
+&nbsp;&nbsp;GS_FIELDCAT-FIELDNAME&nbsp;=&nbsp;'CURRENCY'.<br />
+&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;'통화'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_FIELDCAT&nbsp;TO&nbsp;GT_FIELDCAT.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;DISPLAY_ALV_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DISPLAY_ALV_DATA .<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_GRID-&gt;SET_TABLE_FOR_FIRST_DISPLAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;정보&nbsp;이동&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;===<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Layout<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_VARIANT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Layout<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_SAVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Save&nbsp;Layout<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_DEFAULT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Default&nbsp;Display&nbsp;Variant<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_TOOLBAR_EXCLUDING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Excluded&nbsp;Toolbar&nbsp;Standard&nbsp;Functions<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_DISPLAY&nbsp;&nbsp;&nbsp;"&nbsp;Output&nbsp;Table<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCATALOG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_FIELDCAT&nbsp;&nbsp;"&nbsp;Field&nbsp;Catalog<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INVALID_PARAMETER_COMBINATION&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Wrong&nbsp;Parameter<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PROGRAM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Program&nbsp;Errors<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TOO_MANY_LINES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Too&nbsp;many&nbsp;Rows&nbsp;in&nbsp;Ready&nbsp;for&nbsp;Input&nbsp;Grid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD401_16_ALV_EVENT</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD401_16_ALV_EVENT</h2>
+<h3> Description: GRID ALV 예제 1</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD401_16_ALV<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD401_16_ALV_EVENT.<br />
+<br />
+include <a href ="zbd401_16_alv_event_top.html">ZBD401_16_ALV_EVENT_TOP</a>.  " GLOBAL VARIABLES<br />
+include <a href ="zbd401_16_alv_event_cls.html">ZBD401_16_ALV_EVENT_CLS</a>.  " LOCAL CLASS DEFINITION/IMPLEMENTATION<br />
+include <a href ="zbd401_16_alv_event_f01.html">ZBD401_16_ALV_EVENT_F01</a>.  " SUBROUTINE FORM<br />
+include <a href ="zbd401_16_alv_event_pbo.html">ZBD401_16_ALV_EVENT_PBO</a>.  " PROCESS BEFORE OUPUT<br />
+include <a href ="zbd401_16_alv_event_pai.html">ZBD401_16_ALV_EVENT_PAI</a>.  " PROCESS AFTER INPUT<br />
+<br />
+START-OF-SELECTION.<br />
+" 데이터의 조회 담당<br />
+PERFORM SELECTED_DATA_RTN.<br />
+<br />
+END-OF-SELECTION.<br />
+"데이터의 출력 담당<br />
+PERFORM DISPLAY_DATA.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;BC401<br />
+*010&nbsp;&nbsp;&nbsp;Double&nbsp;click&nbsp;on&nbsp;row&nbsp;&1&nbsp;and&nbsp;column&nbsp;&2<br />
+*555&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

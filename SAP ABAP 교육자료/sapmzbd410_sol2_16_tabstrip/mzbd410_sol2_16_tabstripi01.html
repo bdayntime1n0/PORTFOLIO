@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>MZBD410_SOL2_16_TABSTRIPI01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: MZBD410_SOL2_16_TABSTRIPI01</h2>
+<h3> Description: Include MBC410ADIAS_DYNPROI01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+***INCLUDE&nbsp;MBC410ADIAS_DYNPROI01&nbsp;.<br />
+*----------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;check_sflight&nbsp;&nbsp;INPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;read&nbsp;flight&nbsp;data<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE CHECK_SFLIGHT INPUT.<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZBD1_FLIGHT16&nbsp;&nbsp;"&nbsp;SFLIGHT<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;sdyn_conn&nbsp;	"&nbsp;direct&nbsp;read<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;WA_SFLIGHT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Read&nbsp;into&nbsp;internal&nbsp;structure<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;CARRID&nbsp;=&nbsp;SDYN_CONN-CARRID&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONNID&nbsp;=&nbsp;SDYN_CONN-CONNID&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FLDATE&nbsp;=&nbsp;SDYN_CONN-FLDATE.<br />
+&nbsp;&nbsp;CHECK&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;CLEAR&nbsp;WA_SFLIGHT.<br />
+&nbsp;&nbsp;MESSAGE&nbsp;E007(BC410).<br />
+<br />
+ENDMODULE.                 " check_sflight  INPUT<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;user_command_0100&nbsp;&nbsp;INPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;process&nbsp;user&nbsp;command<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE USER_COMMAND_0100 INPUT.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;OKCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;BACK&nbsp;버튼을&nbsp;눌렀을&nbsp;때&nbsp;OKCODE에&nbsp;BACK라는&nbsp;문자열이&nbsp;들어감.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'BACK'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.&nbsp;&nbsp;"&nbsp;현재&nbsp;화면을&nbsp;떠나&nbsp;이전&nbsp;화면으로&nbsp;이동.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'TIME'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;OKCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;150&nbsp;STARTING&nbsp;AT&nbsp;10&nbsp;10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDING&nbsp;&nbsp;&nbsp;AT&nbsp;50&nbsp;20.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SAVE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;OKCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;WA_SFLIGHT에&nbsp;가져온&nbsp;다음에&nbsp;화면에&nbsp;데이터를&nbsp;출력함.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;즉,&nbsp;WA_SFLIGHT에는&nbsp;최신의&nbsp;정보가&nbsp;들어가&nbsp;있음.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;따라서&nbsp;WA_SFLIGHT를&nbsp;MODIFY&nbsp;해줘야&nbsp;함.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"DB&nbsp;TABLE에&nbsp;수정(&nbsp;실제&nbsp;DB&nbsp;에는&nbsp;업데이트&nbsp;하지&nbsp;않은&nbsp;상황&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;ZBD1_FLIGHT16&nbsp;FROM&nbsp;WA_SFLIGHT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COMMIT&nbsp;WORK&nbsp;AND&nbsp;WAIT.&nbsp;"&nbsp;엑셀파일&nbsp;열고&nbsp;수정&nbsp;뒤에&nbsp;저장버튼을&nbsp;누르는&nbsp;행위와&nbsp;동일.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;COMMIT을&nbsp;하지&nbsp;않더라도&nbsp;프로그램이&nbsp;종료되며&nbsp;자동으로&nbsp;COMMIT을&nbsp;수행하는데,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;이것을&nbsp;AUTO&nbsp;COMMIT이라고&nbsp;한다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;그러나&nbsp;확실하게&nbsp;저장하고&nbsp;끄는&nbsp;것과&nbsp;AUTO&nbsp;COMMIT을&nbsp;하는&nbsp;것은&nbsp;다름.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S009(BC410).&nbsp;"&nbsp;Change&nbsp;successful<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ROLLBACK&nbsp;WORK.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;엑셀파일&nbsp;열고&nbsp;수정&nbsp;뒤에&nbsp;저장안하는&nbsp;행위.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S105(BC410)&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.&nbsp;"Error&nbsp;during&nbsp;UPDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABSTRIP&nbsp;의&nbsp;각&nbsp;TAB&nbsp;들은&nbsp;FUCTION&nbsp;CODE가&nbsp;FC1~3으로&nbsp;지정되어&nbsp;있는데,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FUNCTION&nbsp;CODDE가&nbsp;있는&nbsp;SCREEN&nbsp;ELEMENT는&nbsp;사용자가&nbsp;클릭할&nbsp;때<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OKCODE로&nbsp;해당&nbsp;텍스트가&nbsp;들어가면서&nbsp;PAI가&nbsp;실행된다.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이&nbsp;때,&nbsp;MY_TABSTRIP-ACTIVETAB에&nbsp;저장해두면,&nbsp;PBO에서&nbsp;올바른&nbsp;SUBSCREEN을&nbsp;호출하는데&nbsp;사용할&nbsp;수&nbsp;있다.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'FC1'&nbsp;OR&nbsp;'FC2'&nbsp;OR&nbsp;'FC3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MY_TABSTRIP-ACTIVETAB&nbsp;=&nbsp;OKCODE.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;IO_COMMAND.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'T'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;150&nbsp;STARTING&nbsp;AT&nbsp;10&nbsp;10&nbsp;&nbsp;&nbsp;"&nbsp;LEFT&nbsp;COLUMN&nbsp;&&nbsp;UPPER&nbsp;ROW<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDING&nbsp;&nbsp;&nbsp;AT&nbsp;50&nbsp;20.&nbsp;&nbsp;"&nbsp;RIGHT&nbsp;COLUMN&nbsp;&&nbsp;LOWER&nbsp;ROW<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;IO_COMMAND.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDMODULE.                 " user_command_0100  INPUT<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;EXIT_0100&nbsp;&nbsp;INPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE EXIT_0100 INPUT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;FUNCTIONAL&nbsp;TYPE&nbsp;이&nbsp;E&nbsp;(EXIT-COMMAND)&nbsp;인&nbsp;FUNCTION만&nbsp;수행.<br />
+&nbsp;&nbsp;"&nbsp;왜?&nbsp;AT&nbsp;EXIT-COMMAND&nbsp;라는&nbsp;키워드&nbsp;때문에.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;OKCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'EXIT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;PROGRAM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'CANC'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;INITIALIZE&nbsp;INPUT/OUTPUT&nbsp;FIELD.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;SDYN_CONN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;WA_SFLIGHT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SAP&nbsp;MEMORY&nbsp;에서&nbsp;메모리&nbsp;변수의&nbsp;값을&nbsp;저장.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;방금&nbsp;CLEAR해서&nbsp;SDYN_CONN에&nbsp;아무것도&nbsp;없는&nbsp;것을&nbsp;저장해줘야<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SCREEN&nbsp;100에&nbsp;아무것도&nbsp;안나옴.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GET&nbsp;PARAMETER&nbsp;ID&nbsp;:&nbsp;'CAR'&nbsp;FIELD&nbsp;SDYN_CONN-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;PARAMETER&nbsp;ID&nbsp;OF&nbsp;FLIGHT&nbsp;NUMBER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'CON'&nbsp;FIELD&nbsp;SDYN_CONN-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;PARAMETER&nbsp;ID&nbsp;OF&nbsp;FLIGHT&nbsp;DATE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'DAY'&nbsp;FIELD&nbsp;SDYN_CONN-FLDATE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;INPUT&nbsp;FIELD&nbsp;를&nbsp;하지&nbsp;않고,&nbsp;현재&nbsp;화면을&nbsp;버린&nbsp;후<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;새롭게&nbsp;100번&nbsp;화면을&nbsp;호출하기&nbsp;위해<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LEAVE&nbsp;키워드를&nbsp;사용함.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;100.<br />
+<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDMODULE.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;CHECK_PLANETYPE&nbsp;&nbsp;INPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE CHECK_PLANETYPE INPUT.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SDYN_CONN-PLANETYPE&nbsp;IS&nbsp;INITIAL.&nbsp;&nbsp;"&nbsp;PLANETYPE&nbsp;의&nbsp;값이&nbsp;있는지&nbsp;없는지&nbsp;먼저&nbsp;체크<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E555(BC410)&nbsp;WITH&nbsp;'INPUT&nbsp;PLANE&nbsp;TYPE'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;SDYN_CONN-SEATSMAX.&nbsp;&nbsp;&nbsp;"&nbsp;검색이&nbsp;된&nbsp;숫자로&nbsp;제대로&nbsp;덮어쓰기&nbsp;할&nbsp;수&nbsp;있도록.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;SEATSMAX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SAPLANE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;SDYN_CONN-SEATSMAX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;PLANETYPE&nbsp;=&nbsp;SDYN_CONN-PLANETYPE.&nbsp;"&nbsp;UNIQUE&nbsp;KEY&nbsp;FIELD.<br />
+&nbsp;&nbsp;"&nbsp;모든&nbsp;KEY&nbsp;FIELD에&nbsp;대해&nbsp;조건을&nbsp;줬기&nbsp;때문에<br />
+&nbsp;&nbsp;"&nbsp;무조건&nbsp;단&nbsp;하나의&nbsp;라인만&nbsp;검색되므로,<br />
+&nbsp;&nbsp;"&nbsp;ARRAY&nbsp;FETCH&nbsp;(테이블&nbsp;단위)&nbsp;로&nbsp;가져오지&nbsp;않고,<br />
+&nbsp;&nbsp;"&nbsp;단일&nbsp;레코드&nbsp;조회&nbsp;(SINGLE)로&nbsp;처리하는&nbsp;것이&nbsp;좋다.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SDYN_CONN-SEATSOCC&nbsp;&gt;&nbsp;SDYN_CONN-SEATSMAX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ERROR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E109(BC410).&nbsp;"&nbsp;No.&nbsp;of&nbsp;places&nbsp;booked&nbsp;exceeds&nbsp;capacity.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"OKAY.&nbsp;THEN&nbsp;UPDATE&nbsp;TO&nbsp;WORK&nbsp;AREA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;WHY?&nbsp;PBO&nbsp;에서&nbsp;WA&nbsp;가&nbsp;SDYN_CONN&nbsp;에게&nbsp;다시&nbsp;덮어씌우므로<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;WA에도&nbsp;SEATSMAX와&nbsp;PLANETYPE이&nbsp;갱신돼야만&nbsp;한다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;그렇지&nbsp;않을&nbsp;경우&nbsp;계속&nbsp;원래&nbsp;값으로&nbsp;복원이&nbsp;된다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;SDYN_CONN&nbsp;TO&nbsp;WA_SFLIGHT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+ENDMODULE.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

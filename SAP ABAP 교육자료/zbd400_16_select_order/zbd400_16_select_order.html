@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD400_16_SELECT_ORDER</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD400_16_SELECT_ORDER</h2>
+<h3> Description: SELECT ORDER 예제</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD400_16_SELECT_ORDER<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD400_16_SELECT_ORDER.<br />
+<br />
+PARAMETERS : P_HANA AS CHECKBOX.      " S/4 HANA에서 사용하는 PARAMETERS.<br />
+" S/4로 돌릴지 R/3로 돌릴지 체크박스를 통해 확인.<br />
+<br />
+TYPES : BEGIN OF GTY_S_FLIGHTOCC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONNID&nbsp;&nbsp;&nbsp;TYPE&nbsp;SFLIGHT-CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FLDATE&nbsp;&nbsp;&nbsp;TYPE&nbsp;SFLIGHT-FLDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSOCC&nbsp;TYPE&nbsp;SFLIGHT-SEATSOCC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GTY_S_FLIGHTOCC.<br />
+<br />
+DATA : GT_FLIGHTOCC TYPE TABLE OF GTY_S_FLIGHTOCC.<br />
+<br />
+DATA : GO_ALV TYPE REF TO CL_SALV_TABLE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GX_MSG&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CX_SALV_MSG.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;X&nbsp;=&nbsp;EXCEPTION.&nbsp;예외처리하기&nbsp;위해&nbsp;선언.<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_HANA&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"R/3&nbsp;ECC&nbsp;6.0&nbsp;기준.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;CONNID&nbsp;FLDATE&nbsp;SEATSOCC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SFLIGHT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;GT_FLIGHTOCC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;SEATSOCC&nbsp;&gt;&nbsp;200<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER&nbsp;BY&nbsp;CONNID&nbsp;&nbsp;&nbsp;DESCENDING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSOCC&nbsp;ASCENDING.<br />
+<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;S/4&nbsp;HANA&nbsp;기준.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;CONNID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FLDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSOCC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SFLIGHT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;SEATSOCC&nbsp;&gt;&nbsp;200<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER&nbsp;BY&nbsp;CONNID&nbsp;&nbsp;&nbsp;DESCENDING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEATSOCC&nbsp;ASCENDING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@GT_FLIGHTOCC.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SALV&nbsp;출력을&nbsp;위한&nbsp;사전&nbsp;준비&nbsp;단계<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;출력할&nbsp;데이터를&nbsp;전달해주면&nbsp;됨.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_SALV_TABLE=&gt;FACTORY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_SALV_TABLE&nbsp;=&nbsp;GO_ALV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Basis&nbsp;Class&nbsp;Simple&nbsp;ALV&nbsp;Tables<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_TABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_FLIGHTOCC.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_MSG&nbsp;INTO&nbsp;GX_MSG.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ALV:&nbsp;General&nbsp;Error&nbsp;Class&nbsp;with&nbsp;Message<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;예외처리&nbsp;후&nbsp;에러메시지를&nbsp;출력하기&nbsp;위한&nbsp;로직.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;LV_ERROR&nbsp;TYPE&nbsp;STRING.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ERROR&nbsp;=&nbsp;GX_MSG-&gt;GET_TEXT(&nbsp;).&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"TYPE&nbsp;REF&nbsp;TO&nbsp;로&nbsp;CLASS를&nbsp;선언하면&nbsp;-&gt;&nbsp;로&nbsp;CLASS를&nbsp;호출.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E000(00)&nbsp;WITH&nbsp;LV_ERROR.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;SALV를&nbsp;화면에&nbsp;출력.<br />
+&nbsp;&nbsp;GO_ALV-&gt;DISPLAY(&nbsp;).<br />
+<br />
+&nbsp;&nbsp;"&nbsp;INTERNAL&nbsp;TABLE로&nbsp;출력할&nbsp;때&nbsp;ALV.<br />
+&nbsp;&nbsp;"&nbsp;SALV&nbsp;=&nbsp;SIMPLE&nbsp;ALV.&nbsp;쉽게&nbsp;출력워.&nbsp;기능이&nbsp;다양하고&nbsp;강력해서&nbsp;제대로&nbsp;배우면&nbsp;출력할&nbsp;때&nbsp;좋음.<br />
+&nbsp;&nbsp;"&nbsp;FALV&nbsp;=&nbsp;FUNCTIONAL&nbsp;ALV.&nbsp;구식&nbsp;ALV이지만&nbsp;SALV보다&nbsp;헐씬&nbsp;나음.<br />
+&nbsp;&nbsp;"&nbsp;GRID&nbsp;ALV.&nbsp;CLASS&nbsp;위주로&nbsp;사용.&nbsp;복잡하고&nbsp;어려워.&nbsp;기능이&nbsp;다양하고&nbsp;강력해서&nbsp;제대로&nbsp;배우면&nbsp;출력할&nbsp;때&nbsp;좋음.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD400_16_IF_1</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD400_16_IF_1</h2>
+<h3> Description: 조건문 IF 예제1</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD400_16_IF_1<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD400_16_IF_1.<br />
+<br />
+<br />
+PARAMETERS P_TEST TYPE C.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;ELSEIF에&nbsp;A가&nbsp;있는&nbsp;경우&nbsp;어떻게&nbsp;될까?<br />
+<br />
+   </div>
+   <div class="code">
+IF P_TEST = 'A'.<br />
+&nbsp;&nbsp;WRITE&nbsp;'입력하신&nbsp;값은&nbsp;A&nbsp;입니다.'.<br />
+<br />
+ELSEIF P_TEST = 'A'.<br />
+&nbsp;&nbsp;WRITE&nbsp;'IF&nbsp;문이&nbsp;다시&nbsp;수행되었습니다.'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;이미&nbsp;A가&nbsp;참이기&nbsp;때문에&nbsp;아래까지&nbsp;내려오지&nbsp;않음.<br />
+<br />
+   </div>
+   <div class="code">
+ELSEIF P_TEST = 'B'.<br />
+&nbsp;&nbsp;WRITE&nbsp;'입력하신&nbsp;값은&nbsp;A가&nbsp;아니고&nbsp;B&nbsp;입니다.'.<br />
+<br />
+ELSEIF P_TEST = 'C'.<br />
+&nbsp;&nbsp;WRITE&nbsp;'입력하신&nbsp;값은&nbsp;A가&nbsp;아니고&nbsp;B가&nbsp;아니고&nbsp;C&nbsp;입니다.'.<br />
+<br />
+ELSE.<br />
+&nbsp;&nbsp;WRITE&nbsp;'입력하신&nbsp;값은&nbsp;A가&nbsp;아니고&nbsp;B가&nbsp;아니고&nbsp;C가&nbsp;아니고&nbsp;그&nbsp;외&nbsp;입니다.'.<br />
+<br />
+ENDIF.<br />
+<br />
+SKIP 1.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*CASE문<br />
+<br />
+   </div>
+   <div class="code">
+CASE P_TEST.<br />
+<br />
+&nbsp;&nbsp;WHEN&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;'입력하신&nbsp;값은&nbsp;A&nbsp;입니다.'.<br />
+<br />
+&nbsp;&nbsp;WHEN&nbsp;'A'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;'CASE&nbsp;문이&nbsp;다시&nbsp;수행되었습니다.'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;이미&nbsp;A가&nbsp;참이기&nbsp;때문에&nbsp;아래까지&nbsp;내려오지&nbsp;않음.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;WHEN&nbsp;'B'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;'입력하신&nbsp;값은&nbsp;A가&nbsp;아니고&nbsp;B&nbsp;입니다.'.<br />
+<br />
+&nbsp;&nbsp;WHEN&nbsp;'C'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;'입력하신&nbsp;값은&nbsp;A가&nbsp;아니고&nbsp;B가&nbsp;아니고&nbsp;C&nbsp;입니다.'.<br />
+<br />
+&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;'입력하신&nbsp;값은&nbsp;A가&nbsp;아니고&nbsp;B가&nbsp;아니고&nbsp;C가&nbsp;아니고&nbsp;그&nbsp;외&nbsp;입니다.'.<br />
+<br />
+ENDCASE.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

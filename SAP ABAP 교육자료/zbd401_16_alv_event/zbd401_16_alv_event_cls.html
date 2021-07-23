@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBD401_16_ALV_EVENT_CLS</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD401_16_ALV_EVENT_CLS</h2>
+<h3> Description: Include ZBD401_16_ALV_EVENT_CLS</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD401_16_ALV_EVENT_CLS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+" 보통 CLASS의 이름은 CL로 시작하지만<br />
+" LOCAL CLASS의 경우 LCL로 시작함.<br />
+CLASS LCL_EVENT_HANDLER DEFINITION.<br />
+<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;INSTANCE&nbsp;METHOD<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:&nbsp;ON_DOUBLE_CLICK&nbsp;FOR&nbsp;EVENT&nbsp;DOUBLE_CLICK&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;어떤&nbsp;이벤트인지<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OF&nbsp;CL_GUI_ALV_GRID&nbsp;"&nbsp;어디서&nbsp;발생한&nbsp;이벤트인지<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;ES_ROW_NO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;더블클릭&nbsp;시&nbsp;몇번째&nbsp;줄인지<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_COLUMN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;더블클릭&nbsp;시&nbsp;몇번째&nbsp;칸인지<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SENDER.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;이벤트를&nbsp;발생시킨&nbsp;INSTANCE<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;STATIC&nbsp;METHOD<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLASS-METHODS&nbsp;:&nbsp;ON_DOUBLE_CLICK_STATIC&nbsp;FOR&nbsp;EVENT&nbsp;DOUBLE_CLICK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OF&nbsp;CL_GUI_ALV_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;ES_ROW_NO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_COLUMN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SENDER.<br />
+&nbsp;&nbsp;PRIVATE&nbsp;SECTION.<br />
+<br />
+ENDCLASS.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Class&nbsp;(Implementation)&nbsp;LCL_EVENT_HANDLER<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS LCL_EVENT_HANDLER IMPLEMENTATION.<br />
+&nbsp;&nbsp;METHOD&nbsp;ON_DOUBLE_CLICK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I010(BC401)&nbsp;WITH&nbsp;ES_ROW_NO-ROW_ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;몇&nbsp;번째&nbsp;줄인지<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_COLUMN-FIELDNAME.&nbsp;&nbsp;"&nbsp;몇&nbsp;번째&nbsp;칸인지<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;ON_DOUBLE_CLICK_STATIC.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I555(BC401)&nbsp;WITH&nbsp;'YOU&nbsp;CALLED&nbsp;STATIC&nbsp;METHOD.'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'SELECTED&nbsp;ROW/FIELD&nbsp;ARE&nbsp;FOLLOWED.'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ES_ROW_NO-ROW_ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_COLUMN-FIELDNAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDMETHOD.<br />
+ENDCLASS.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>
