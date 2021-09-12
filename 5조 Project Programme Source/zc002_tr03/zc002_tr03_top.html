@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZC002_TR03_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZC002_TR03_TOP</h2>
+<h3> Description: Include ZC002_TR03_TOP</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZC002_TR03_TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS LCL_EVENT_HANDLER DEFINITION DEFERRED.<br />
+<br />
+TABLES : SSCRFIELDS, ZTOI_VENDOR, ZTOI_ORDER.<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;Vendor&nbsp;##<br />
+**********************************************************************<br />
+   </div>
+   <div class="code">
+CONSTANTS : GC_DISP_STR TYPE TABNAME VALUE 'ZSOI_VENDOR'.<br />
+CONSTANTS : C_X   TYPE C VALUE 'X'.<br />
+<br />
+DATA : BEGIN OF GT_S_DISPLAY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zsoi_vendor/dictionary-zsoi_vendor.html">ZSOI_VENDOR</a>.<br />
+DATA : END OF GT_S_DISPLAY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_VMST&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GT_S_DISPLAY&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;BDC<br />
+**********************************************************************<br />
+   </div>
+   <div class="code">
+DATA GT_BDC     TYPE TABLE OF BDCDATA.<br />
+DATA GS_BDC     TYPE BDCDATA.<br />
+DATA GT_MSG     TYPE TABLE OF BDCMSGCOLL.<br />
+DATA GS_MSG     LIKE BDCMSGCOLL.<br />
+DATA GS_OPTION  TYPE CTU_PARAMS.<br />
+DATA GV_MOVE    LIKE CTU_PARAMS-DISMODE VALUE 'N'.<br />
+DATA GV_ANSWER  TYPE C.<br />
+<br />
+TYPES : GTY_BDC2 TYPE BDCDATA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GTY_MSG2&nbsp;TYPE&nbsp;BDCMSGCOLL.<br />
+DATA  : GT_BDC2 TYPE STANDARD TABLE OF GTY_BDC2, "### ## ITAB<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_BDC2&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;GT_BDC2,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;###&nbsp;###&nbsp;##&nbsp;WA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_MSG2&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;GTY_MSG2,&nbsp;"##&nbsp;##&nbsp;##&nbsp;ITAB<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_MSG2&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;GT_MSG2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;###&nbsp;###&nbsp;##&nbsp;WA<br />
+DATA  : GS_OPT2     TYPE CTU_PARAMS,            "CALL TRANSACTION ### ### WA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_MOVE2&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;CTU_PARAMS-DISMODE&nbsp;VALUE&nbsp;'N',&nbsp;&nbsp;"DISPLAY#####,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_MESSAGE2&nbsp;LIKE&nbsp;BAPIRETURN-MESSAGE.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;##<br />
+DATA    GV_ANS2  TYPE C.<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;Perform&nbsp;BDC&nbsp;##<br />
+**********************************************************************<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Batchinputdata&nbsp;of&nbsp;single&nbsp;transaction<br />
+   </div>
+   <div class="code">
+DATA:   BDCDATA LIKE BDCDATA    OCCURS 0 WITH HEADER LINE.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;messages&nbsp;of&nbsp;call&nbsp;transaction<br />
+   </div>
+   <div class="code">
+DATA:   MESSTAB LIKE BDCMSGCOLL OCCURS 0 WITH HEADER LINE.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error&nbsp;session&nbsp;opened&nbsp;('&nbsp;'&nbsp;or&nbsp;'X')<br />
+   </div>
+   <div class="code">
+DATA:   E_GROUP_OPENED.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;texts<br />
+   </div>
+   <div class="code">
+TABLES: T100.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;Screen&nbsp;0100&nbsp;##&nbsp;Container&nbsp;#&nbsp;ALV&nbsp;#&nbsp;##<br />
+**********************************************************************<br />
+   </div>
+   <div class="code">
+DATA : GO_CON TYPE REF TO CL_GUI_CUSTOM_CONTAINER.<br />
+DATA : GO_GRID TYPE REF TO CL_GUI_ALV_GRID. " Grid ALV # #### ### ##<br />
+<br />
+DATA : GO_EVENT_HANDLER TYPE REF TO LCL_EVENT_HANDLER. " Grid ALV # #### ### ## ## ##<br />
+<br />
+DATA : GT_FIELDCAT TYPE LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT&nbsp;TYPE&nbsp;LVC_S_FCAT.&nbsp;"&nbsp;ALV&nbsp;#&nbsp;#&nbsp;###&nbsp;##,&nbsp;##,&nbsp;##&nbsp;#&nbsp;####&nbsp;##<br />
+DATA : GS_LAYOUT         TYPE LVC_S_LAYO,  " ALV # #### ## #### ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_VARIANT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;DISVARIANT.<br />
+<br />
+DATA : GT_SORT TYPE LVC_T_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_DROP&nbsp;TYPE&nbsp;LVC_T_DROP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*Vendor&nbsp;##<br />
+**********************************************************************<br />
+   </div>
+   <div class="code">
+CONSTANTS : GC_DISP_STR2 TYPE TABNAME VALUE 'ZSOI_LFA2'.<br />
+<br />
+TYPES : BEGIN OF GT_S_SEARCH.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zsoi_lfa2/dictionary-zsoi_lfa2.html">ZSOI_LFA2</a>.<br />
+TYPES : END OF GT_S_SEARCH.<br />
+<br />
+DATA : GT_SEARCH TYPE TABLE OF GT_S_SEARCH,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SEARCH&nbsp;TYPE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_S_SEARCH.<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;Screen&nbsp;0200&nbsp;##&nbsp;Container&nbsp;#&nbsp;ALV&nbsp;#&nbsp;##<br />
+**********************************************************************<br />
+<br />
+   </div>
+   <div class="code">
+DATA : GO_CON_2  TYPE REF TO CL_GUI_CUSTOM_CONTAINER.<br />
+DATA : GO_GRID_2 TYPE REF TO CL_GUI_ALV_GRID. " Grid ALV # #### ### ##<br />
+<br />
+DATA : GO_EVENT_HANDLER_2 TYPE REF TO LCL_EVENT_HANDLER. " Grid ALV # #### ### ## ## ##<br />
+<br />
+DATA : GT_FIELDCAT_2 TYPE LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT_2&nbsp;TYPE&nbsp;LVC_S_FCAT.&nbsp;"&nbsp;ALV&nbsp;#&nbsp;#&nbsp;###&nbsp;##,&nbsp;##,&nbsp;##&nbsp;#&nbsp;####&nbsp;##<br />
+DATA : GS_LAYOUT_2   TYPE LVC_S_LAYO,  " ALV # #### ## #### ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_VARIANT_2&nbsp;&nbsp;TYPE&nbsp;DISVARIANT.<br />
+<br />
+DATA : OKCODE TYPE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVEOK&nbsp;TYPE&nbsp;SY-UCOMM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

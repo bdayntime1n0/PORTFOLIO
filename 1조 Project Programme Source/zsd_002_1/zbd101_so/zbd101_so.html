@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBD101_SO</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for function ZBD101_SO</h2>
+<h3> Description: ####1# 1# SO##</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="code">
+FUNCTION ZBD101_SO.<br />
+   </div>
+   <div class="codeComment">
+*"----------------------------------------------------------------------<br />
+*"*"Local Interface:<br />
+*"  IMPORTING<br />
+*"     REFERENCE(IV_MATERIAL) TYPE  RV45A-MABNR<br />
+*"     REFERENCE(IV_CUSTOM) TYPE  KUAGV-KUNNR<br />
+*"     REFERENCE(IV_REQQTY) TYPE  VBAP-LSMENG<br />
+*"     REFERENCE(IV_PLANT) TYPE  VBAP-WERKS<br />
+*"     REFERENCE(IV_TAGQTY) TYPE  VBAP-KWMENG<br />
+*"  EXPORTING<br />
+*"     REFERENCE(LV_SALESDOCUMENT) TYPE  BAPIVBELN-VBELN<br />
+*"  TABLES<br />
+*"      LT_RETURN STRUCTURE  BAPIRET2<br />
+*"----------------------------------------------------------------------<br />
+
+<div class="codeComment">*       <a href ="global-zbd101_so.html">Global data declarations</a></div><br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LS_ORDER_HEADER_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPISDHD1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_ORDER_HEADER_INX&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPISDHD1X,<br />
+   </div>
+   <div class="codeComment">
+*         LV_SALESDOCUMENT       LIKE  BAPIVBELN-VBELN,<br />
+*         LT_RETURN              LIKE  TABLE OF  BAPIRET2   WITH HEADER LINE,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_ORDER_ITEMS_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;TABLE&nbsp;OF&nbsp;&nbsp;BAPISDITM&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_ORDER_ITEMS_INX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;TABLE&nbsp;OF&nbsp;&nbsp;BAPISDITMX&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_ORDER_PARTNERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;TABLE&nbsp;OF&nbsp;&nbsp;BAPIPARNR&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_ORDER_SCHEDULES_IN&nbsp;&nbsp;LIKE&nbsp;&nbsp;TABLE&nbsp;OF&nbsp;&nbsp;BAPISCHDL&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_ORDER_SCHEDULES_INX&nbsp;LIKE&nbsp;&nbsp;TABLE&nbsp;OF&nbsp;&nbsp;BAPISCHDLX&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_DATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;SY-DATUM.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;LV_DATE.<br />
+&nbsp;&nbsp;LV_DATE&nbsp;=&nbsp;SY-DATUM.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'RP_CALC_DATE_IN_INTERVAL'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_DATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAYS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MONTHS&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SIGNUM&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'-'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YEARS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALC_DATE&nbsp;=&nbsp;LV_DATE.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;LS_ORDER_HEADER_IN.<br />
+&nbsp;&nbsp;LS_ORDER_HEADER_IN-DOC_TYPE&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'TA'.<br />
+&nbsp;&nbsp;LS_ORDER_HEADER_IN-SALES_ORG&nbsp;&nbsp;&nbsp;=&nbsp;'1010'.&nbsp;"####&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;LS_ORDER_HEADER_IN-DISTR_CHAN&nbsp;&nbsp;=&nbsp;'10'.&nbsp;&nbsp;&nbsp;"####&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;LS_ORDER_HEADER_IN-DIVISION&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'00'.&nbsp;&nbsp;&nbsp;"####&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;LS_ORDER_HEADER_IN-PURCH_NO_C&nbsp;&nbsp;=&nbsp;'TEST'.<br />
+&nbsp;&nbsp;LS_ORDER_HEADER_IN-REQ_DATE_H&nbsp;&nbsp;=&nbsp;SY-DATUM.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;LS_ORDER_HEADER_INX.<br />
+&nbsp;&nbsp;LS_ORDER_HEADER_INX-UPDATEFLAG&nbsp;&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;LS_ORDER_HEADER_INX-DOC_TYPE&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_ORDER_HEADER_INX-SALES_ORG&nbsp;&nbsp;&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_ORDER_HEADER_INX-DISTR_CHAN&nbsp;&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_ORDER_HEADER_INX-DIVISION&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_ORDER_HEADER_INX-PURCH_NO_C&nbsp;&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_ORDER_HEADER_INX-REQ_DATE_H&nbsp;&nbsp;=&nbsp;ABAP_TRUE.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LT_ORDER_ITEMS_IN,&nbsp;LT_ORDER_ITEMS_IN[].<br />
+&nbsp;&nbsp;LT_ORDER_ITEMS_IN-ITM_NUMBER&nbsp;&nbsp;=&nbsp;'000010'.<br />
+&nbsp;&nbsp;LT_ORDER_ITEMS_IN-MATERIAL&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;IV_MATERIAL.&nbsp;&nbsp;"&nbsp;!<br />
+&nbsp;&nbsp;LT_ORDER_ITEMS_IN-PLANT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;IV_PLANT.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Plant&nbsp;##&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;LT_ORDER_ITEMS_IN-STORE_LOC&nbsp;&nbsp;&nbsp;=&nbsp;'101C'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Stor.Loc&nbsp;##&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;LT_ORDER_ITEMS_IN-TARGET_QTY&nbsp;&nbsp;=&nbsp;IV_TAGQTY.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;!&nbsp;##&nbsp;##&nbsp;##(##&nbsp;##)<br />
+&nbsp;&nbsp;LT_ORDER_ITEMS_IN-NET_WEIGHT&nbsp;&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;APPEND&nbsp;LT_ORDER_ITEMS_IN&nbsp;.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LT_ORDER_ITEMS_INX,&nbsp;LT_ORDER_ITEMS_INX[].<br />
+&nbsp;&nbsp;LT_ORDER_ITEMS_INX-ITM_NUMBER&nbsp;&nbsp;=&nbsp;'000010'.<br />
+&nbsp;&nbsp;LT_ORDER_ITEMS_INX-UPDATEFLAG&nbsp;&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;LT_ORDER_ITEMS_INX-PLANT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LT_ORDER_ITEMS_INX-STORE_LOC&nbsp;&nbsp;&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LT_ORDER_ITEMS_INX-MATERIAL&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LT_ORDER_ITEMS_INX-TARGET_QTY&nbsp;&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;APPEND&nbsp;LT_ORDER_ITEMS_INX.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LT_ORDER_SCHEDULES_IN,&nbsp;LT_ORDER_SCHEDULES_IN[].<br />
+&nbsp;&nbsp;LT_ORDER_SCHEDULES_IN-ITM_NUMBER&nbsp;=&nbsp;'000010'.<br />
+&nbsp;&nbsp;LT_ORDER_SCHEDULES_IN-SCHED_LINE&nbsp;=&nbsp;'0001'.<br />
+&nbsp;&nbsp;LT_ORDER_SCHEDULES_IN-REQ_DATE&nbsp;&nbsp;&nbsp;=&nbsp;SY-DATUM.<br />
+&nbsp;&nbsp;LT_ORDER_SCHEDULES_IN-REQ_QTY&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;IV_REQQTY.&nbsp;"&nbsp;!&nbsp;##&nbsp;##&nbsp;##(##&nbsp;##)<br />
+&nbsp;&nbsp;APPEND&nbsp;LT_ORDER_SCHEDULES_IN.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LT_ORDER_SCHEDULES_INX,&nbsp;LT_ORDER_SCHEDULES_INX[].<br />
+&nbsp;&nbsp;LT_ORDER_SCHEDULES_INX-ITM_NUMBER&nbsp;=&nbsp;'000010'.<br />
+&nbsp;&nbsp;LT_ORDER_SCHEDULES_INX-SCHED_LINE&nbsp;=&nbsp;'0001'.<br />
+&nbsp;&nbsp;LT_ORDER_SCHEDULES_INX-UPDATEFLAG&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;LT_ORDER_SCHEDULES_INX-REQ_DATE&nbsp;&nbsp;&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LT_ORDER_SCHEDULES_INX-REQ_QTY&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;APPEND&nbsp;LT_ORDER_SCHEDULES_INX.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LT_ORDER_PARTNERS,&nbsp;LT_ORDER_PARTNERS[].<br />
+&nbsp;&nbsp;LT_ORDER_PARTNERS-PARTN_ROLE&nbsp;=&nbsp;'AG'.<br />
+&nbsp;&nbsp;LT_ORDER_PARTNERS-PARTN_NUMB&nbsp;=&nbsp;IV_CUSTOM.&nbsp;"&nbsp;!&nbsp;"customer&nbsp;##&nbsp;##(##&nbsp;##)<br />
+&nbsp;&nbsp;APPEND&nbsp;LT_ORDER_PARTNERS.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LV_SALESDOCUMENT,&nbsp;LT_RETURN,&nbsp;LT_RETURN[].<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_SALESORDER_CREATEFROMDAT2'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LS_ORDER_HEADER_IN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_INX&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LS_ORDER_HEADER_INX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SALESDOCUMENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_SALESDOCUMENT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_RETURN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_ITEMS_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_ORDER_ITEMS_IN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_ITEMS_INX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_ORDER_ITEMS_INX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_PARTNERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_ORDER_PARTNERS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_SCHEDULES_IN&nbsp;&nbsp;=&nbsp;LT_ORDER_SCHEDULES_IN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_SCHEDULES_INX&nbsp;=&nbsp;LT_ORDER_SCHEDULES_INX.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LV_SALESDOCUMENT&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_TRANSACTION_COMMIT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;LV_SALESDOCUMENT.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_TRANSACTION_ROLLBACK'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;LT_RETURN[&nbsp;TYPE&nbsp;=&nbsp;'E'&nbsp;]-MESSAGE.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFUNCTION.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

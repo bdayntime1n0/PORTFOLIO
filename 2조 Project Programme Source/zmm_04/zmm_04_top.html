@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZMM_04_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM_04_TOP</h2>
+<h3> Description: Include ZBD1_08_RETURN_TOP</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD1_08_RETURN_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+" LCL_EVENT_HANDLER # ### ## # ### ##<br />
+" ### ## ### ### ###.<br />
+CLASS LCL_EVENT_HANDLER DEFINITION DEFERRED.<br />
+<br />
+TABLES: ZTSD_08, ZTSD_10, ZTSD_13.<br />
+<br />
+DATA: BEGIN OF GS_DISPLAY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;LIKE&nbsp;ICON-ID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZREST	LIKE&nbsp;ZTSD_08-ZREST,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCPNB	LIKE&nbsp;ZTSD_08-ZCPNB,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RCVDT&nbsp;LIKE&nbsp;ZTSD_08-RCVDT,	"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VBELN&nbsp;LIKE&nbsp;ZTSD_08-VBELN,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KUNNR	LIKE&nbsp;ZTSD_08-KUNNR,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDEFN	LIKE&nbsp;ZTSD_08-ZDEFN,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZNSOS	LIKE&nbsp;ZTSD_08-ZNSOS,&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR	LIKE&nbsp;ZTSD_08-MATNR,&nbsp;"##NM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR	LIKE&nbsp;ZTSD_13-ZMM_VNM,&nbsp;"####NM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZRETD	LIKE&nbsp;ZTSD_08-ZRETD,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZREAD	LIKE&nbsp;ZTSD_08-ZREAD,&nbsp;"####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UPDFG&nbsp;,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"CELLSCOL&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_SCOL,&nbsp;&nbsp;&nbsp;&nbsp;"ALV&nbsp;FIELD#&nbsp;COLOR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"CELLSTYL&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_STYL,&nbsp;&nbsp;&nbsp;&nbsp;"ALV&nbsp;FIELD#&nbsp;STYLE<br />
+END OF GS_DISPLAY.<br />
+<br />
+DATA GT_DISPLAY LIKE TABLE OF GS_DISPLAY.<br />
+<br />
+DATA GO_CON TYPE REF TO CL_GUI_CONTAINER.<br />
+DATA GO_GRID TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+DATA GT_FIELDCAT TYPE LVC_T_FCAT.<br />
+" LVC_T_FCAT # Table Type ## ### ABAP Dictionary<br />
+" ### GT_FIELDCAT # TYPE # ####, Internal Table # ####.<br />
+<br />
+DATA GS_FIELDCAT TYPE LVC_S_FCAT.<br />
+" LVC_S_FCAT # Structure # ### ABAP Dictionary<br />
+<br />
+DATA GO_EVENT_HANDLER TYPE REF TO LCL_EVENT_HANDLER.<br />
+" GRID ALV # #### ### ## ## ##<br />
+<br />
+DATA GS_LAYOUT   TYPE LVC_S_LAYO.<br />
+" SAP ### 4##, 5## ### ### #### ##.<br />
+" LAYOUT =&gt; LAYO # ######, LAYO ## #####, LAYOUT ## ###.<br />
+" ALV ## ## ### ### ##.<br />
+<br />
+DATA: GS_SAVE_DATA TYPE ZTSD_08,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_SAVE_DATA&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZTSD_08.<br />
+<br />
+DATA OKCODE TYPE SY-UCOMM.<br />
+DATA SAVEOK TYPE SY-UCOMM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

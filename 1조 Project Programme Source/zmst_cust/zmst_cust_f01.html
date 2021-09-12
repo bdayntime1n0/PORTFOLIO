@@ -1,0 +1,1038 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZMST_CUST_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMST_CUST_F01</h2>
+<h3> Description: Include ZMST_CUST_F01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMST_CUST_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;ONF4_FILE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ONF4_FILE  USING PV_FILE TYPE LOCALFILE.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LT_FILE&nbsp;&nbsp;&nbsp;TYPE&nbsp;FILETABLE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SUBRC&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ACTION&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;FILE_OPEN_DIALOG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WINDOW_TITLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'##'&nbsp;"&nbsp;Title&nbsp;Of&nbsp;File&nbsp;Open&nbsp;Dialog<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE_FILTER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'Excel&nbsp;File(*.xls,&nbsp;*.xlsx)|*.xls;*.xlsx|##&nbsp;##(*.*)|*.*|'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MULTISELECTION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'&nbsp;'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Multiple&nbsp;selections&nbsp;poss.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE_TABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_FILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Table&nbsp;Holding&nbsp;Selected&nbsp;Files<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_SUBRC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Return&nbsp;Code,&nbsp;Number&nbsp;of&nbsp;Files&nbsp;or&nbsp;-1&nbsp;If&nbsp;Error&nbsp;Occurred<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USER_ACTION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_ACTION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;User&nbsp;Action&nbsp;(See&nbsp;Class&nbsp;Constants&nbsp;ACTION_OK,&nbsp;ACTION_CANCEL)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE_OPEN_DIALOG_FAILED&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;"Open&nbsp;File"&nbsp;dialog&nbsp;failed<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Control&nbsp;error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_NO_GUI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;No&nbsp;GUI&nbsp;available<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NOT_SUPPORTED_BY_GUI&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;GUI&nbsp;does&nbsp;not&nbsp;support&nbsp;this<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;LV_ACTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;ACTION_OK.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_FILE&nbsp;INTO&nbsp;DATA(LS_FILE)&nbsp;INDEX&nbsp;1."&nbsp;Inline&nbsp;Definition<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_FILE&nbsp;=&nbsp;LS_FILE-FILENAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;###&nbsp;######.'&nbsp;TYPE&nbsp;'S'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;ACTION_CANCEL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;##&nbsp;###&nbsp;######.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'W'.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;GETDATA_FROM_XLS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GETDATA_FROM_XLS .<br />
+<br />
+&nbsp;&nbsp;REFRESH&nbsp;GT_INTERN.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;DATA&nbsp;LT_INTERN&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ALSMEX_TABLINE.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;LV_BEGIN_ROW&nbsp;TYPE&nbsp;I.<br />
+&nbsp;&nbsp;DATA&nbsp;LV_END_ROW&nbsp;&nbsp;&nbsp;TYPE&nbsp;I.<br />
+&nbsp;&nbsp;DATA&nbsp;LV_LINES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I.<br />
+<br />
+<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;####&nbsp;###&nbsp;##&nbsp;30##&nbsp;####&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;CONSTANTS&nbsp;LC_MAX_LINE&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;30.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;ex)&nbsp;######&nbsp;1#&nbsp;##&nbsp;4999&nbsp;#&nbsp;###&nbsp;5000&nbsp;##&nbsp;###&nbsp;####.<br />
+&nbsp;&nbsp;"&nbsp;ex)&nbsp;######&nbsp;2#&nbsp;##&nbsp;4999&nbsp;#&nbsp;###&nbsp;5001&nbsp;##&nbsp;###&nbsp;####.<br />
+&nbsp;&nbsp;LV_BEGIN_ROW&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;LV_END_ROW&nbsp;&nbsp;&nbsp;=&nbsp;LV_BEGIN_ROW&nbsp;+&nbsp;LC_MAX_LINE&nbsp;-&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;DO.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;REFRESH&nbsp;LT_INTERN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;####&nbsp;###&nbsp;###&nbsp;Internal&nbsp;Table&nbsp;#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'ALSM_EXCEL_TO_INTERNAL_TABLE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILENAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_FILE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_BEGIN_COL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_BEGIN_ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_BEGIN_ROW&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_END_COL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;11<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_END_ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_END_ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTERN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_INTERN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCONSISTENT_PARAMETERS&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UPLOAD_OLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;####&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;LV_LINES.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SORT&nbsp;LT_INTERN&nbsp;BY&nbsp;ROW&nbsp;COL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_INTERN&nbsp;INTO&nbsp;DATA(LS_INTERN).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AT&nbsp;NEW&nbsp;ROW.&nbsp;&nbsp;&nbsp;"&nbsp;ROW&nbsp;###&nbsp;##&nbsp;###&nbsp;#&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;1&nbsp;TO&nbsp;LV_LINES.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LV_LINES&nbsp;EQ&nbsp;LC_MAX_LINE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;LINES&nbsp;OF&nbsp;LT_INTERN&nbsp;TO&nbsp;GT_INTERN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;##&nbsp;#####&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;#&nbsp;###&nbsp;#&nbsp;####,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;########&nbsp;########&nbsp;##&nbsp;###&nbsp;####.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_BEGIN_ROW&nbsp;=&nbsp;LV_END_ROW&nbsp;+&nbsp;1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;####&nbsp;###&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_END_ROW&nbsp;&nbsp;&nbsp;=&nbsp;LV_END_ROW&nbsp;+&nbsp;LC_MAX_LINE.&nbsp;&nbsp;"&nbsp;##&nbsp;#####&nbsp;#&nbsp;###&nbsp;##.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LV_LINES&nbsp;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;LINES&nbsp;OF&nbsp;LT_INTERN&nbsp;TO&nbsp;GT_INTERN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDDO.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;MOVE_TO_ITAB<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM MOVE_TO_ITAB .<br />
+<br />
+&nbsp;&nbsp;"&nbsp;GT_INTERN&nbsp;#&nbsp;Internal&nbsp;Table&nbsp;#&nbsp;####&nbsp;####&nbsp;####&nbsp;##&nbsp;##&nbsp;##<br />
+<br />
+&nbsp;&nbsp;FIELD-SYMBOLS&nbsp;&lt;FS&gt;.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;#-&gt;#&nbsp;###&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;SORT&nbsp;GT_INTERN&nbsp;BY&nbsp;ROW&nbsp;COL.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_INTERN&nbsp;INTO&nbsp;DATA(LS_INTERN).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AT&nbsp;NEW&nbsp;ROW.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_DISPLAY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-STATUS&nbsp;=&nbsp;ICON_LED_YELLOW.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LS_INTERN-COL&nbsp;=&nbsp;LS_INTERN-COL&nbsp;+&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;COMPONENT&nbsp;LS_INTERN-COL&nbsp;OF&nbsp;STRUCTURE&nbsp;GS_DISPLAY&nbsp;TO&nbsp;&lt;FS&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FS&gt;&nbsp;=&nbsp;LS_INTERN-VALUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNASSIGN&nbsp;&lt;FS&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;ROW.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_DISPLAY&nbsp;TO&nbsp;GT_DISPLAY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDAT.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;DISPLAY_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DISPLAY_DATA .<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;100.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;REFRESH_ALV_GRID<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM REFRESH_ALV_GRID .<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;##&nbsp;###&nbsp;#####&nbsp;ALV&nbsp;#&nbsp;#####&nbsp;###<br />
+&nbsp;&nbsp;"&nbsp;ALV&nbsp;#&nbsp;####&nbsp;##.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_ALV_GRID-&gt;REFRESH_TABLE_DISPLAY<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_stable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;With&nbsp;Stable&nbsp;Rows/Columns<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_soft_refresh&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Without&nbsp;Sort,&nbsp;Filter,&nbsp;etc.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FINISHED&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Display&nbsp;was&nbsp;Ended&nbsp;(by&nbsp;Export)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;CREATE_OBJECT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CREATE_OBJECT .<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_DOCKING_CONTAINER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Report&nbsp;to&nbsp;Which&nbsp;This&nbsp;Docking&nbsp;Control&nbsp;is&nbsp;Linked<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Screen&nbsp;to&nbsp;Which&nbsp;This&nbsp;Docking&nbsp;Control&nbsp;is&nbsp;Linked<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SIDE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_DOCKING_CONTAINER=&gt;DOCK_AT_LEFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Side&nbsp;to&nbsp;Which&nbsp;Control&nbsp;is&nbsp;Docked<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXTENSION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Control&nbsp;Extension<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Invalid&nbsp;Parent&nbsp;Control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_SYSTEM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;System&nbsp;Error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CREATE_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Create&nbsp;Error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Lifetime&nbsp;Error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_DYNPRO_DYNPRO_LINK&nbsp;=&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LIFETIME_DYNPRO_DYNPRO_LINK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;6.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_DOCKING_CONTAINER_TOP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Report&nbsp;to&nbsp;Which&nbsp;This&nbsp;Docking&nbsp;Control&nbsp;is&nbsp;Linked<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Screen&nbsp;to&nbsp;Which&nbsp;This&nbsp;Docking&nbsp;Control&nbsp;is&nbsp;Linked<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SIDE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_DOCKING_CONTAINER=&gt;DOCK_AT_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Side&nbsp;to&nbsp;Which&nbsp;Control&nbsp;is&nbsp;Docked<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXTENSION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;50&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Control&nbsp;Extension<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Invalid&nbsp;Parent&nbsp;Control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_SYSTEM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;System&nbsp;Error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CREATE_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Create&nbsp;Error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Lifetime&nbsp;Error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_DYNPRO_DYNPRO_LINK&nbsp;=&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LIFETIME_DYNPRO_DYNPRO_LINK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;6.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_DOCKING_CONTAINER_BOTTOM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Report&nbsp;to&nbsp;Which&nbsp;This&nbsp;Docking&nbsp;Control&nbsp;is&nbsp;Linked<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Screen&nbsp;to&nbsp;Which&nbsp;This&nbsp;Docking&nbsp;Control&nbsp;is&nbsp;Linked<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SIDE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_DOCKING_CONTAINER=&gt;DOCK_AT_BOTTOM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Side&nbsp;to&nbsp;Which&nbsp;Control&nbsp;is&nbsp;Docked<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXTENSION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;50&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Control&nbsp;Extension<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Invalid&nbsp;Parent&nbsp;Control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_SYSTEM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;System&nbsp;Error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CREATE_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Create&nbsp;Error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Lifetime&nbsp;Error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME_DYNPRO_DYNPRO_LINK&nbsp;=&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LIFETIME_DYNPRO_DYNPRO_LINK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;6.<br />
+<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_ALV_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_PARENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GO_DOCKING_CONTAINER&nbsp;"&nbsp;Parent&nbsp;Container<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_CREATE&nbsp;=&nbsp;1&nbsp;"&nbsp;Error&nbsp;when&nbsp;creating&nbsp;the&nbsp;control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_INIT&nbsp;&nbsp;&nbsp;=&nbsp;2&nbsp;"&nbsp;Error&nbsp;While&nbsp;Initializing&nbsp;Control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_CNTL_LINK&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;"&nbsp;Error&nbsp;While&nbsp;Linking&nbsp;Control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_DP_CREATE&nbsp;&nbsp;&nbsp;=&nbsp;4&nbsp;"&nbsp;Error&nbsp;While&nbsp;Creating&nbsp;DataProvider&nbsp;Control<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_ALV_LAYOUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_ALV_LAYOUT .<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_LAYOUT.<br />
+<br />
+&nbsp;&nbsp;GS_LAYOUT-ZEBRA&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;GS_LAYOUT-CWIDTH_OPT&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;GS_LAYOUT-SEL_MODE&nbsp;=&nbsp;'D'.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_ALV_FIELDCATALOG<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_ALV_FIELDCATALOG .<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_FIELDCATALOG_BY_FUNC.<br />
+&nbsp;&nbsp;PERFORM&nbsp;MAKE_FIELDCATALOG.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;DISPLAY_ALV<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DISPLAY_ALV .<br />
+<br />
+&nbsp;&nbsp;"&nbsp;GO_ALV_GRID&nbsp;#&nbsp;CREATE&nbsp;OBJECT&nbsp;####&nbsp;###&nbsp;##&nbsp;Dump&nbsp;#&nbsp;####.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_ALV_GRID-&gt;SET_TABLE_FOR_FIRST_DISPLAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Layout<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_DISPLAY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Output&nbsp;Table<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCATALOG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_FIELDCAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Field&nbsp;Catalog<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INVALID_PARAMETER_COMBINATION&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Wrong&nbsp;Parameter<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PROGRAM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Program&nbsp;Errors<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TOO_MANY_LINES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Too&nbsp;many&nbsp;Rows&nbsp;in&nbsp;Ready&nbsp;for&nbsp;Input&nbsp;Grid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;GET_FIELDCATALOG_BY_FUNC<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_FIELDCATALOG_BY_FUNC .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;LT_FIELDCAT&nbsp;TYPE&nbsp;KKBLO_T_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'K_KKB_FIELDCAT_MERGE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_CALLBACK_PROGRAM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-REPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Internal&nbsp;table&nbsp;declaration&nbsp;program<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_INCLNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-REPID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_TABNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'GS_DISPLAY'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Name&nbsp;of&nbsp;table&nbsp;to&nbsp;be&nbsp;displayed<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CT_FIELDCAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_FIELDCAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Field&nbsp;Catalog&nbsp;with&nbsp;Field&nbsp;Descriptions<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCONSISTENT_INTERFACE&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+<br />
+<br />
+&nbsp;&nbsp;REFRESH&nbsp;GT_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'LVC_TRANSFER_FROM_KKBLO'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCAT_KKBLO&nbsp;=&nbsp;LT_FIELDCAT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ET_FIELDCAT_LVC&nbsp;&nbsp;&nbsp;=&nbsp;GT_FIELDCAT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_DATA_MISSING&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;MAKE_FIELDCATALOG<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM MAKE_FIELDCATALOG .<br />
+<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;LV_TEXT&nbsp;TYPE&nbsp;TEXT100.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_FIELDCAT&nbsp;INTO&nbsp;GS_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;LV_TEXT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Field&nbsp;Catalog&nbsp;#&nbsp;###&nbsp;###&nbsp;######&nbsp;##&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;GT_FIELDCAT&nbsp;#&nbsp;####.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;GS_FIELDCAT-FIELDNAME.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'STATUS'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-ICON&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;#####.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_TEXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'BPNUM'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_TEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'##Number'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-JUST&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'BPSEX'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_TEXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-JUST&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'NMFIRST'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_TEXT&nbsp;=&nbsp;'#'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-JUST&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'NMLAST'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_TEXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-JUST&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'KEYWORD'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_TEXT&nbsp;=&nbsp;'###'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-JUST&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'COUNTRY'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_TEXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-JUST&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'REGION'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_TEXT&nbsp;=&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-JUST&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'POSTCODE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_TEXT&nbsp;=&nbsp;'####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-JUST&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'CITY'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_TEXT&nbsp;=&nbsp;'#'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-JUST&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'STREET'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_TEXT&nbsp;=&nbsp;'#####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'HOUSENUM'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_TEXT&nbsp;=&nbsp;'#####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ERRMSG'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_TEXT&nbsp;=&nbsp;'#####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LV_TEXT&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-REPTEXT&nbsp;&nbsp;&nbsp;=&nbsp;LV_TEXT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-SCRTEXT_L&nbsp;=&nbsp;LV_TEXT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-SCRTEXT_M&nbsp;=&nbsp;LV_TEXT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-SCRTEXT_S&nbsp;=&nbsp;LV_TEXT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT-COLTEXT&nbsp;&nbsp;&nbsp;=&nbsp;LV_TEXT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_FIELDCAT&nbsp;FROM&nbsp;GS_FIELDCAT.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SAVE_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SAVE_DATA .<br />
+<br />
+<br />
+&nbsp;&nbsp;"###&nbsp;##<br />
+&nbsp;&nbsp;DEFINE&nbsp;__ADD_BDC_FIELD.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_BDC.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_BDC-FNAM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_BDC-FVAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_BDC&nbsp;TO&nbsp;GT_BDC.<br />
+&nbsp;&nbsp;END-OF-DEFINITION.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_DISPLAY&nbsp;INTO&nbsp;GS_DISPLAY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;TCODE#&nbsp;##&nbsp;####&nbsp;##&nbsp;###&nbsp;LOOP#!<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;DTCHK&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;DTCHK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;SY-SUBRC.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(*)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;BUT000<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;PARTNER&nbsp;=&nbsp;@GS_DISPLAY-BPNUM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DTCHK&nbsp;=&nbsp;SY-SUBRC.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;DTCHK&nbsp;NE&nbsp;0.&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;#&nbsp;###&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;SY-SUBRC.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CREATE_BP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MESSAGE&nbsp;WITH&nbsp;KEY&nbsp;MSGTYP&nbsp;=&nbsp;'E'&nbsp;TRANSPORTING&nbsp;NO&nbsp;FIELDS.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-STATUS&nbsp;=&nbsp;ICON_LED_RED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-ERRMSG&nbsp;=&nbsp;'BP####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-STATUS&nbsp;=&nbsp;ICON_LED_GREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_DISPLAY&nbsp;FROM&nbsp;GS_DISPLAY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;DTCHK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;SY-SUBRC.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(*)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;BUT000<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;PARTNER&nbsp;=&nbsp;@GS_DISPLAY-BPNUM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DTCHK&nbsp;=&nbsp;SY-SUBRC.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;DTCHK&nbsp;EQ&nbsp;0.&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;#&nbsp;###&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;SY-SUBRC.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-ERRMSG&nbsp;=&nbsp;''.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;ADDROLE_CUST.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MESSAGE&nbsp;WITH&nbsp;KEY&nbsp;MSGTYP&nbsp;=&nbsp;'E'&nbsp;TRANSPORTING&nbsp;NO&nbsp;FIELDS.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-STATUS&nbsp;=&nbsp;ICON_LED_RED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-ERRMSG&nbsp;=&nbsp;'#####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-STATUS&nbsp;=&nbsp;ICON_LED_GREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_DISPLAY&nbsp;FROM&nbsp;GS_DISPLAY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;CREATE_BP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CREATE_BP .<br />
+<br />
+&nbsp;&nbsp;REFRESH&nbsp;GT_BDC.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+********************###&nbsp;###***************<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;BPSEX&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;6,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPCNTR&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPREGION&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_DISPLAY-BPSEX&nbsp;EQ&nbsp;'#'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;BPSEX&nbsp;=&nbsp;'0001'.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;GS_DISPLAY-BPSEX&nbsp;EQ&nbsp;'#'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;BPSEX&nbsp;=&nbsp;'0002'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_DISPLAY-COUNTRY&nbsp;EQ&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;BPCNTR&nbsp;=&nbsp;'KR'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_DISPLAY-REGION&nbsp;EQ&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;BPREGION&nbsp;=&nbsp;'13'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*******************************<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;"&nbsp;BP&nbsp;PERSON&nbsp;####&nbsp;#<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_BDC.<br />
+&nbsp;&nbsp;GS_BDC-PROGRAM&nbsp;&nbsp;=&nbsp;'SAPLBUS_LOCATOR'.<br />
+&nbsp;&nbsp;GS_BDC-DYNPRO&nbsp;&nbsp;&nbsp;=&nbsp;'3000'.<br />
+&nbsp;&nbsp;GS_BDC-DYNBEGIN&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_BDC&nbsp;TO&nbsp;GT_BDC.<br />
+<br />
+&nbsp;&nbsp;__ADD_BDC_FIELD&nbsp;:<br />
+&nbsp;&nbsp;'BDC_OKCODE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'=SCREEN_1000_CRE_PERS',&nbsp;"PERSON!<br />
+&nbsp;&nbsp;'BUS_LOCA_SRCH01-SEARCH_TYPE'	&nbsp;&nbsp;&nbsp;'2',<br />
+&nbsp;&nbsp;'BUS_LOCA_SRCH01-SEARCH_ID'	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'1',<br />
+&nbsp;&nbsp;'BUS_JOEL_SEARCH-PARTNER_NUMBER'&nbsp;'',<br />
+&nbsp;&nbsp;'BUS_LOCA_SRCH01-MAXHIT'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'100'.<br />
+<br />
+<br />
+&nbsp;&nbsp;"&nbsp;BP&nbsp;Gen&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_BDC.<br />
+&nbsp;&nbsp;GS_BDC-PROGRAM&nbsp;&nbsp;=&nbsp;'SAPLBUS_LOCATOR'.<br />
+&nbsp;&nbsp;GS_BDC-DYNPRO&nbsp;&nbsp;&nbsp;=&nbsp;'3000'.<br />
+&nbsp;&nbsp;GS_BDC-DYNBEGIN&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_BDC&nbsp;TO&nbsp;GT_BDC.<br />
+<br />
+&nbsp;&nbsp;__ADD_BDC_FIELD&nbsp;:<br />
+&nbsp;'BDC_OKCODE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'=BUPK',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####?&nbsp;#&nbsp;#&nbsp;##<br />
+&nbsp;'BUS_JOEL_MAIN-CREATION_NUMBER'&nbsp;&nbsp;GS_DISPLAY-BPNUM,"'T-BPZ03_8',&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;Number<br />
+&nbsp;'BUS_JOEL_MAIN-CREATION_GROUP'&nbsp;&nbsp;'0002',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;External<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_ROLE'&nbsp;&nbsp;&nbsp;&nbsp;'000000',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Gen.<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_TIMEDEP'&nbsp;&nbsp;'000001',<br />
+&nbsp;'BUS000FLDS-TITLE_MEDI'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPSEX,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;0001&nbsp;Ms.<br />
+&nbsp;'BUT000-NAME_FIRST'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-NMFIRST,&nbsp;"'#',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;First&nbsp;name<br />
+&nbsp;'BUT000-NAME_LAST'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-NMLAST,&nbsp;&nbsp;"'##',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Last&nbsp;name<br />
+&nbsp;'SZA11_0100-TEL_COUNTR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPCNTR,<br />
+&nbsp;'SZA11_0100-MOB_COUNTR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPCNTR,<br />
+&nbsp;'SZA11_0100-FAX_COUNTR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPCNTR.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;BP&nbsp;Gen&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_BDC.<br />
+&nbsp;&nbsp;GS_BDC-PROGRAM&nbsp;&nbsp;=&nbsp;'SAPLBUS_LOCATOR'.<br />
+&nbsp;&nbsp;GS_BDC-DYNPRO&nbsp;&nbsp;&nbsp;=&nbsp;'3000'.<br />
+&nbsp;&nbsp;GS_BDC-DYNBEGIN&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_BDC&nbsp;TO&nbsp;GT_BDC.<br />
+<br />
+&nbsp;&nbsp;__ADD_BDC_FIELD&nbsp;:<br />
+&nbsp;'BDC_OKCODE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'=BUS_MAIN_SAVE',&nbsp;"&nbsp;####<br />
+&nbsp;'BUS_JOEL_MAIN-CREATION_NUMBER'&nbsp;&nbsp;GS_DISPLAY-BPNUM,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;Number<br />
+&nbsp;'BUS_JOEL_MAIN-CREATION_GROUP'&nbsp;&nbsp;'0002',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;External<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_ROLE'&nbsp;&nbsp;&nbsp;&nbsp;'000000',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Gen.<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_TIMEDEP'&nbsp;&nbsp;'000001',<br />
+&nbsp;'BUS000FLDS-TITLE_MEDI'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPSEX,"'0001',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;0001&nbsp;Ms.<br />
+&nbsp;'BUT000-NAME_FIRST'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-NMFIRST,&nbsp;"'#',&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;First&nbsp;name<br />
+&nbsp;'BUT000-NAME_LAST'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-NMLAST,&nbsp;&nbsp;"'##',&nbsp;&nbsp;"&nbsp;Last&nbsp;name<br />
+&nbsp;'BUS000FLDS-LANGUCORR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'EN',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Correspondence&nbsp;lang.<br />
+&nbsp;'BUS000FLDS-LANGU'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'EN',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Language<br />
+&nbsp;'BUS000FLDS-BU_SORT1_TXT'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-KEYWORD,&nbsp;"'PK',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Search&nbsp;Term<br />
+&nbsp;'ADDR2_DATA-STREET'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-STREET,&nbsp;"'###&nbsp;###',&nbsp;&nbsp;"&nbsp;Street<br />
+&nbsp;'ADDR2_DATA-HOUSE_NUM1'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-HOUSENUM,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;House&nbsp;number<br />
+&nbsp;'ADDR2_DATA-POST_CODE1'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-POSTCODE,&nbsp;"'50110',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Postal&nbsp;Code<br />
+&nbsp;'ADDR2_DATA-CITY1'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-CITY,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;'###',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;City<br />
+&nbsp;'ADDR2_DATA-COUNTRY'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPCNTR,&nbsp;"'KR',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;KR<br />
+&nbsp;'ADDR2_DATA-REGION'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPREGION,&nbsp;"&nbsp;'13',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Region&nbsp;13&nbsp;Seoul<br />
+&nbsp;'ADDR2_DATA-TIME_ZONE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'UTC+9',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Time&nbsp;zone<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;'BUS000FLDS-ADDR_VALID_FROM'&nbsp;&nbsp;&nbsp;&nbsp;'',<br />
+*&nbsp;'BUS000FLDS-ADDR_VALID_TO'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'',<br />
+   </div>
+   <div class="code">
+&nbsp;'SZA11_0100-TEL_COUNTR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPCNTR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<br />
+&nbsp;'SZA11_0100-MOB_COUNTR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPCNTR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<br />
+&nbsp;'SZA11_0100-FAX_COUNTR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPCNTR.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<br />
+<br />
+<br />
+&nbsp;&nbsp;"&nbsp;BDC&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;GS_OPTION-DISMODE&nbsp;=&nbsp;'E'.<br />
+&nbsp;&nbsp;"&nbsp;A&nbsp;:&nbsp;GT_BDC&nbsp;#&nbsp;##&nbsp;##&nbsp;###&nbsp;##&nbsp;#####&nbsp;#####&nbsp;####.<br />
+&nbsp;&nbsp;"&nbsp;E&nbsp;:&nbsp;GT_BDC&nbsp;#&nbsp;##&nbsp;##&nbsp;###&nbsp;######&nbsp;#####&nbsp;###&nbsp;####&nbsp;#####&nbsp;#&nbsp;###&nbsp;####.<br />
+&nbsp;&nbsp;"&nbsp;=&gt;&nbsp;####<br />
+&nbsp;&nbsp;"&nbsp;N&nbsp;:&nbsp;GT_BDC&nbsp;#&nbsp;##&nbsp;##&nbsp;###&nbsp;######&nbsp;####,&nbsp;#####&nbsp;###&nbsp;####&nbsp;###.<br />
+&nbsp;&nbsp;"&nbsp;=&gt;&nbsp;###<br />
+<br />
+&nbsp;&nbsp;GS_OPTION-UPDMODE&nbsp;=&nbsp;'A'.<br />
+&nbsp;&nbsp;"&nbsp;S&nbsp;:&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;"&nbsp;A&nbsp;:&nbsp;####&nbsp;##<br />
+<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GT_MESSAGE.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;TRANSACTION&nbsp;'BP'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;GT_BDC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OPTIONS&nbsp;&nbsp;FROM&nbsp;GS_OPTION<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGES&nbsp;INTO&nbsp;GT_MESSAGE.&nbsp;&nbsp;"###&nbsp;##&nbsp;###&nbsp;##<br />
+<br />
+&nbsp;&nbsp;"&nbsp;BDC&nbsp;##&nbsp;###&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MESSAGE&nbsp;TRANSPORTING&nbsp;NO&nbsp;FIELDS&nbsp;&nbsp;"####&nbsp;###&nbsp;###&nbsp;####&nbsp;###.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;MSGTYP&nbsp;=&nbsp;'E'.&nbsp;&nbsp;"&nbsp;######&nbsp;#####&nbsp;##<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;ADDROLE_CUST<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ADDROLE_CUST .<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+********************###&nbsp;###***************<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;BPSEX&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;6,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPCNTR&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPREGION&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_DISPLAY-BPSEX&nbsp;EQ&nbsp;'#'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;BPSEX&nbsp;=&nbsp;'0001'.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;GS_DISPLAY-BPSEX&nbsp;EQ&nbsp;'#'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;BPSEX&nbsp;=&nbsp;'0002'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_DISPLAY-COUNTRY&nbsp;EQ&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;BPCNTR&nbsp;=&nbsp;'KR'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GS_DISPLAY-REGION&nbsp;EQ&nbsp;'##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;BPREGION&nbsp;=&nbsp;'13'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*******************************<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;REFRESH&nbsp;GT_BDC.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;BP&nbsp;Locator&nbsp;OFF<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_BDC.<br />
+&nbsp;&nbsp;GS_BDC-PROGRAM&nbsp;&nbsp;=&nbsp;'SAPLBUS_LOCATOR'.<br />
+&nbsp;&nbsp;GS_BDC-DYNPRO&nbsp;&nbsp;&nbsp;=&nbsp;'3000'.<br />
+&nbsp;&nbsp;GS_BDC-DYNBEGIN&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_BDC&nbsp;TO&nbsp;GT_BDC.<br />
+<br />
+&nbsp;&nbsp;__ADD_BDC_FIELD&nbsp;:<br />
+&nbsp;&nbsp;'BDC_OKCODE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'=BUS_LOCATOR_VISIBLE',<br />
+&nbsp;&nbsp;'BUS_LOCA_SRCH01-SEARCH_TYPE'	&nbsp;&nbsp;&nbsp;'2',<br />
+&nbsp;&nbsp;'BUS_LOCA_SRCH01-SEARCH_ID'	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'1',<br />
+&nbsp;&nbsp;'BUS_JOEL_SEARCH-PARTNER_NUMBER'&nbsp;'',<br />
+&nbsp;&nbsp;'BUS_LOCA_SRCH01-MAXHIT'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'100'.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;BP&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_BDC.<br />
+&nbsp;&nbsp;GS_BDC-PROGRAM&nbsp;&nbsp;=&nbsp;'SAPLBUS_LOCATOR'.<br />
+&nbsp;&nbsp;GS_BDC-DYNPRO&nbsp;&nbsp;&nbsp;=&nbsp;'3000'.<br />
+&nbsp;&nbsp;GS_BDC-DYNBEGIN&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_BDC&nbsp;TO&nbsp;GT_BDC.<br />
+<br />
+&nbsp;&nbsp;__ADD_BDC_FIELD&nbsp;:<br />
+&nbsp;&nbsp;'BDC_OKCODE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'=BUS_MAIN_ENTER',&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;'BUS_JOEL_MAIN-CHANGE_NUMBER'&nbsp;&nbsp;GS_DISPLAY-BPNUM.&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;Number<br />
+<br />
+&nbsp;&nbsp;"&nbsp;BP&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_BDC.<br />
+&nbsp;&nbsp;GS_BDC-PROGRAM&nbsp;&nbsp;=&nbsp;'SAPLBUS_LOCATOR'.<br />
+&nbsp;&nbsp;GS_BDC-DYNPRO&nbsp;&nbsp;&nbsp;=&nbsp;'3000'.<br />
+&nbsp;&nbsp;GS_BDC-DYNBEGIN&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_BDC&nbsp;TO&nbsp;GT_BDC.<br />
+<br />
+&nbsp;&nbsp;__ADD_BDC_FIELD&nbsp;:<br />
+&nbsp;'BDC_OKCODE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'=SCREEN_1000_ACTIVITY',&nbsp;"&nbsp;##&lt;-&gt;##&nbsp;##<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_ROLE'&nbsp;&nbsp;&nbsp;&nbsp;'000000',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Gen.<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_TIMEDEP'&nbsp;&nbsp;'000001'.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;FLCU01&nbsp;Customer&nbsp;#&nbsp;Role&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_BDC.<br />
+&nbsp;&nbsp;GS_BDC-PROGRAM&nbsp;&nbsp;=&nbsp;'SAPLBUS_LOCATOR'.<br />
+&nbsp;&nbsp;GS_BDC-DYNPRO&nbsp;&nbsp;&nbsp;=&nbsp;'3000'.<br />
+&nbsp;&nbsp;GS_BDC-DYNBEGIN&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_BDC&nbsp;TO&nbsp;GT_BDC.<br />
+<br />
+&nbsp;&nbsp;__ADD_BDC_FIELD&nbsp;:<br />
+&nbsp;'BDC_OKCODE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'=SCREEN_1110_CHG_ROLE',<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_ROLE'&nbsp;&nbsp;&nbsp;&nbsp;'FLCU01',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Customer<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_TIMEDEP'&nbsp;'000001',<br />
+&nbsp;'BUS000FLDS-TITLE_MEDI'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPSEX,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;0001&nbsp;Ms.<br />
+&nbsp;'BUT000-NAME_FIRST'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-NMFIRST,&nbsp;"&nbsp;First&nbsp;name<br />
+&nbsp;'BUT000-NAME_LAST'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-NMLAST,&nbsp;&nbsp;"&nbsp;Last&nbsp;name<br />
+&nbsp;'BUS000FLDS-LANGUCORR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'EN',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Correspondence&nbsp;lang.<br />
+&nbsp;'BUS000FLDS-LANGU'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'EN',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Language<br />
+&nbsp;'BUS000FLDS-BU_SORT1_TXT'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-KEYWORD,&nbsp;"&nbsp;Search&nbsp;Term<br />
+&nbsp;'ADDR2_DATA-STREET'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-STREET,&nbsp;&nbsp;"&nbsp;Street<br />
+&nbsp;'ADDR2_DATA-HOUSE_NUM1'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-HOUSENUM,&nbsp;"&nbsp;House&nbsp;number<br />
+&nbsp;'ADDR2_DATA-POST_CODE1'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-POSTCODE,&nbsp;"&nbsp;Postal&nbsp;Code<br />
+&nbsp;'ADDR2_DATA-CITY1'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-CITY,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;City<br />
+&nbsp;'ADDR2_DATA-COUNTRY'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPCNTR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;KR<br />
+&nbsp;'ADDR2_DATA-REGION'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPREGION,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Region&nbsp;13&nbsp;Seoul<br />
+&nbsp;'ADDR2_DATA-TIME_ZONE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'UTC+9'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Time&nbsp;zone<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;'SZA11_0100-TEL_COUNTR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'KR',<br />
+*&nbsp;'SZA11_0100-MOB_COUNTR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'KR',<br />
+*&nbsp;'SZA11_0100-FAX_COUNTR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'KR'.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;"&nbsp;Sales&nbsp;and&nbsp;Distribution&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_BDC.<br />
+&nbsp;&nbsp;GS_BDC-PROGRAM&nbsp;&nbsp;=&nbsp;'SAPLBUS_LOCATOR'.<br />
+&nbsp;&nbsp;GS_BDC-DYNPRO&nbsp;&nbsp;&nbsp;=&nbsp;'3000'.<br />
+&nbsp;&nbsp;GS_BDC-DYNBEGIN&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_BDC&nbsp;TO&nbsp;GT_BDC.<br />
+<br />
+&nbsp;&nbsp;__ADD_BDC_FIELD&nbsp;:<br />
+&nbsp;'BDC_OKCODE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'=SCREEN_1000_MAIN_P02',<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_ROLE'&nbsp;&nbsp;&nbsp;&nbsp;'FLCU01',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Customer<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_TIMEDEP'&nbsp;&nbsp;'000001',<br />
+&nbsp;'BUS000FLDS-TITLE_MEDI'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPSEX,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;0001&nbsp;Ms.<br />
+&nbsp;'BUT000-NAME_FIRST'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-NMFIRST,&nbsp;"&nbsp;First&nbsp;name<br />
+&nbsp;'BUT000-NAME_LAST'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-NMLAST,&nbsp;&nbsp;"&nbsp;Last&nbsp;name<br />
+&nbsp;'BUS000FLDS-LANGUCORR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'EN',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Correspondence&nbsp;lang.<br />
+&nbsp;'BUS000FLDS-LANGU'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'EN',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Language<br />
+&nbsp;'BUS000FLDS-BU_SORT1_TXT'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-KEYWORD,&nbsp;"&nbsp;Search&nbsp;Term<br />
+&nbsp;'ADDR2_DATA-STREET'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-STREET,&nbsp;&nbsp;"&nbsp;Street<br />
+&nbsp;'ADDR2_DATA-HOUSE_NUM1'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-HOUSENUM,&nbsp;"&nbsp;House&nbsp;number<br />
+&nbsp;'ADDR2_DATA-POST_CODE1'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-POSTCODE,&nbsp;"&nbsp;Postal&nbsp;Code<br />
+&nbsp;'ADDR2_DATA-CITY1'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DISPLAY-CITY,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;City<br />
+&nbsp;'ADDR2_DATA-COUNTRY'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPCNTR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;KR<br />
+&nbsp;'ADDR2_DATA-REGION'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPREGION,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Region&nbsp;13&nbsp;Seoul<br />
+&nbsp;'ADDR2_DATA-TIME_ZONE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'UTC+9'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Time&nbsp;zone<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;'BUS000FLDS-ADDR_VALID_FROM'&nbsp;&nbsp;&nbsp;&nbsp;'',<br />
+*&nbsp;'BUS000FLDS-ADDR_VALID_TO'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'',<br />
+*&nbsp;'SZA11_0100-TEL_COUNTR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'KR',<br />
+*&nbsp;'SZA11_0100-MOB_COUNTR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'KR',<br />
+*&nbsp;'SZA11_0100-FAX_COUNTR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'KR'.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;"&nbsp;Sales&nbsp;and&nbsp;Distribution&nbsp;##&nbsp;-&nbsp;Sales&nbsp;Area&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_BDC.<br />
+&nbsp;&nbsp;GS_BDC-PROGRAM&nbsp;&nbsp;=&nbsp;'SAPLBUS_LOCATOR'.<br />
+&nbsp;&nbsp;GS_BDC-DYNPRO&nbsp;&nbsp;&nbsp;=&nbsp;'3000'.<br />
+&nbsp;&nbsp;GS_BDC-DYNBEGIN&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_BDC&nbsp;TO&nbsp;GT_BDC.<br />
+<br />
+&nbsp;&nbsp;__ADD_BDC_FIELD&nbsp;:<br />
+&nbsp;'BDC_OKCODE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'=BUS_MAIN_ENTER',<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_ROLE'&nbsp;&nbsp;&nbsp;&nbsp;'FLCU01',<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_TIMEDEP'&nbsp;&nbsp;'000001',<br />
+&nbsp;'RF02D-VKORG'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'1010',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Sales&nbsp;Org.<br />
+&nbsp;'RF02D-VTWEG'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'10',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Distr.&nbsp;Channel<br />
+&nbsp;'RF02D-SPART'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'00'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Division<br />
+<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Sales&nbsp;and&nbsp;Distribution&nbsp;##&nbsp;-&nbsp;Orders&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_BDC.<br />
+&nbsp;&nbsp;GS_BDC-PROGRAM&nbsp;&nbsp;=&nbsp;'SAPLBUS_LOCATOR'.<br />
+&nbsp;&nbsp;GS_BDC-DYNPRO&nbsp;&nbsp;&nbsp;=&nbsp;'3000'.<br />
+&nbsp;&nbsp;GS_BDC-DYNBEGIN&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_BDC&nbsp;TO&nbsp;GT_BDC.<br />
+<br />
+&nbsp;&nbsp;__ADD_BDC_FIELD&nbsp;:<br />
+&nbsp;'BDC_OKCODE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'=SCREEN_1100_TAB_02',<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_ROLE'&nbsp;&nbsp;&nbsp;&nbsp;'FLCU01',&nbsp;&nbsp;&nbsp;"&nbsp;Customer<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_TIMEDEP'&nbsp;&nbsp;'000001',<br />
+&nbsp;'GS_KNVV-BZIRK'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'000001',&nbsp;&nbsp;&nbsp;"&nbsp;Sales&nbsp;District&nbsp;###&nbsp;###&nbsp;#&nbsp;##&nbsp;##<br />
+&nbsp;'GS_KNVV-KDGRP'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'02',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Customer&nbsp;Group<br />
+&nbsp;'GS_KNVV-VKBUR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'1000',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Sales&nbsp;Office<br />
+&nbsp;'GS_KNVV-VKGRP'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'100',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Sales&nbsp;Group<br />
+&nbsp;'GS_KNVV_DYNP-AWAHR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'100',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Order&nbsp;Probability<br />
+&nbsp;'GS_KNVV-WAERS'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'EUR',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Currency<br />
+&nbsp;'GS_KNVV-KURST'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'',<br />
+&nbsp;'GS_KNVV-KONDA'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'02',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Price&nbsp;Group<br />
+&nbsp;'GS_KNVV-KALKS'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'1'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Cust.Pric.Procedure<br />
+<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Sales&nbsp;and&nbsp;Distribution&nbsp;##&nbsp;-&nbsp;Shipping&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_BDC.<br />
+&nbsp;&nbsp;GS_BDC-PROGRAM&nbsp;&nbsp;=&nbsp;'SAPLBUS_LOCATOR'.<br />
+&nbsp;&nbsp;GS_BDC-DYNPRO&nbsp;&nbsp;&nbsp;=&nbsp;'3000'.<br />
+&nbsp;&nbsp;GS_BDC-DYNBEGIN&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_BDC&nbsp;TO&nbsp;GT_BDC.<br />
+<br />
+&nbsp;&nbsp;__ADD_BDC_FIELD&nbsp;:<br />
+&nbsp;'BDC_OKCODE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'=SCREEN_1100_TAB_03',<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_ROLE'&nbsp;&nbsp;&nbsp;&nbsp;'FLCU01',&nbsp;&nbsp;&nbsp;"&nbsp;Customer<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_TIMEDEP'&nbsp;&nbsp;'000001',<br />
+&nbsp;'GS_KNVV_DYNP-LPRIO'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'1',&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Delivery&nbsp;Priority<br />
+&nbsp;'GS_KNVV-VWERK'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'1010',&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Delivering&nbsp;Plant<br />
+&nbsp;'GS_KNVV-VSBED'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'01'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Shipping&nbsp;Conditions<br />
+<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Sales&nbsp;and&nbsp;Distribution&nbsp;##&nbsp;-&nbsp;Billing&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_BDC.<br />
+&nbsp;&nbsp;GS_BDC-PROGRAM&nbsp;&nbsp;=&nbsp;'SAPLBUS_LOCATOR'.<br />
+&nbsp;&nbsp;GS_BDC-DYNPRO&nbsp;&nbsp;&nbsp;=&nbsp;'3000'.<br />
+&nbsp;&nbsp;GS_BDC-DYNBEGIN&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_BDC&nbsp;TO&nbsp;GT_BDC.<br />
+<br />
+&nbsp;&nbsp;__ADD_BDC_FIELD&nbsp;:<br />
+&nbsp;'BDC_OKCODE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'=BUS_MAIN_ENTER',<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_ROLE'&nbsp;&nbsp;&nbsp;&nbsp;'FLCU01',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Customer<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_TIMEDEP'&nbsp;&nbsp;'000001',<br />
+<br />
+&nbsp;'GS_KNVV-INCO1'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'EXW',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Incoterms<br />
+&nbsp;'GS_KNVV-INCO2_L'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Heidelberg',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Incoterms&nbsp;Location&nbsp;1<br />
+&nbsp;'GS_KNVV-ZTERM'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'0002',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Payment&nbsp;terms<br />
+&nbsp;'GT_KNVI_TC-TAXKD(01)'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'1'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Tax&nbsp;Classific.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##!!!<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_BDC.<br />
+&nbsp;&nbsp;GS_BDC-PROGRAM&nbsp;&nbsp;=&nbsp;'SAPLBUS_LOCATOR'.<br />
+&nbsp;&nbsp;GS_BDC-DYNPRO&nbsp;&nbsp;&nbsp;=&nbsp;'3000'.<br />
+&nbsp;&nbsp;GS_BDC-DYNBEGIN&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_BDC&nbsp;TO&nbsp;GT_BDC.<br />
+<br />
+&nbsp;&nbsp;__ADD_BDC_FIELD&nbsp;:<br />
+&nbsp;'BDC_OKCODE'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'=BUS_MAIN_SAVE',<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_ROLE'&nbsp;&nbsp;&nbsp;&nbsp;'FLCU01',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Customer<br />
+&nbsp;'BUS_JOEL_MAIN-PARTNER_TIMEDEP'&nbsp;&nbsp;'000001'.<br />
+<br />
+<br />
+&nbsp;&nbsp;"&nbsp;BDC&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;GS_OPTION-DISMODE&nbsp;=&nbsp;'E'.<br />
+&nbsp;&nbsp;"&nbsp;A&nbsp;:&nbsp;GT_BDC&nbsp;#&nbsp;##&nbsp;##&nbsp;###&nbsp;##&nbsp;#####&nbsp;#####&nbsp;####.<br />
+&nbsp;&nbsp;"&nbsp;E&nbsp;:&nbsp;GT_BDC&nbsp;#&nbsp;##&nbsp;##&nbsp;###&nbsp;######&nbsp;#####&nbsp;###&nbsp;####&nbsp;#####&nbsp;#&nbsp;###&nbsp;####.<br />
+&nbsp;&nbsp;"&nbsp;=&gt;&nbsp;####<br />
+&nbsp;&nbsp;"&nbsp;N&nbsp;:&nbsp;GT_BDC&nbsp;#&nbsp;##&nbsp;##&nbsp;###&nbsp;######&nbsp;####,&nbsp;#####&nbsp;###&nbsp;####&nbsp;###.<br />
+&nbsp;&nbsp;"&nbsp;=&gt;&nbsp;###<br />
+<br />
+&nbsp;&nbsp;GS_OPTION-UPDMODE&nbsp;=&nbsp;'A'.<br />
+&nbsp;&nbsp;"&nbsp;S&nbsp;:&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;"&nbsp;A&nbsp;:&nbsp;####&nbsp;##<br />
+<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GT_MESSAGE.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;TRANSACTION&nbsp;'BP'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;GT_BDC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OPTIONS&nbsp;&nbsp;FROM&nbsp;GS_OPTION<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGES&nbsp;INTO&nbsp;GT_MESSAGE.&nbsp;&nbsp;"###&nbsp;##&nbsp;###&nbsp;##<br />
+<br />
+&nbsp;&nbsp;"&nbsp;BDC&nbsp;##&nbsp;###&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MESSAGE&nbsp;TRANSPORTING&nbsp;NO&nbsp;FIELDS&nbsp;&nbsp;"####&nbsp;###&nbsp;###&nbsp;####&nbsp;###.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;MSGTYP&nbsp;=&nbsp;'E'.&nbsp;&nbsp;"&nbsp;######&nbsp;#####&nbsp;##<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;TEMP_DOWN<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM TEMP_DOWN .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;DOC_TABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;W3MIME&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;DOC_SIZE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;DOC_TYPE(80)&nbsp;&nbsp;&nbsp;VALUE&nbsp;SOI_DOCTYPE_EXCEL_SHEET.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;DOC_FORMAT(80)&nbsp;TYPE&nbsp;C.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;###(SMW0)##&nbsp;###&nbsp;####.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'SAP_OI_LOAD_MIME_DATA'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBJECT_ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'BD101_CUSTEMP'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA_SIZE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;DOC_SIZE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DOCUMENT_FORMAT&nbsp;&nbsp;=&nbsp;DOC_FORMAT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DOCUMENT_TYPE&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;DOC_TYPE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA_TABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;DOC_TABLE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBJECT_NOT_JOUNT&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTERNAL_ERROR&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;####<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'GUI_DOWNLOAD'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BIN_FILESIZE&nbsp;&nbsp;=&nbsp;DOC_SIZE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILENAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'C:\Users\User\Downloads\CUST_TEMP.XLS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILETYPE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'BIN'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO_AUTH_CHECK&nbsp;=&nbsp;'X'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA_TAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;DOC_TABLE.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;INIT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM INIT .<br />
+<br />
+&nbsp;&nbsp;"&nbsp;&nbsp;TEXTS01&nbsp;=&nbsp;'###&nbsp;####'(S01).<br />
+&nbsp;&nbsp;SSCRFIELDS-FUNCTXT_01&nbsp;=&nbsp;'@49@&nbsp;###&nbsp;####'.<br />
+<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

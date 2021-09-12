@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZB001_TR02_SCR</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZB001_TR02_SCR</h2>
+<h3> Description: Include ZB001_TR02_SCR</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZB001_TR02_SCR<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK b01 WITH FRAME TITLE TEXT-S01.<br />
+<br />
+<br />
+SELECTION-SCREEN BEGIN OF LINE.<br />
+<br />
+<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;p_r1&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;rag1&nbsp;DEFAULT&nbsp;'X'<br />
+&nbsp;&nbsp;USER-COMMAND&nbsp;CC.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;:&nbsp;COMMENT&nbsp;7(15)&nbsp;TEXT-h01&nbsp;FOR&nbsp;FIELD&nbsp;p_r1.<br />
+<br />
+<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;p_r2&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;rag1.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;:&nbsp;COMMENT&nbsp;26(15)&nbsp;TEXT-h02&nbsp;FOR&nbsp;FIELD&nbsp;p_r2.<br />
+<br />
+SELECTION-SCREEN END OF LINE.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK b01.<br />
+<br />
+<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B02 WITH FRAME TITLE TEXT-S02.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;SELECT-OPTIONS&nbsp;S_PO&nbsp;FOR&nbsp;ZTOI_STACHK-ZPOFLAG<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;S_PO&nbsp;FOR&nbsp;EKKO-EBELN<br />
+&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;AC1.<br />
+SELECTION-SCREEN END OF BLOCK B02.<br />
+<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B03 WITH FRAME TITLE TEXT-S03.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;SELECT-OPTIONS&nbsp;S_PO2&nbsp;FOR&nbsp;ZTOI_STACHK-ZPOFLAG&nbsp;"PO##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;S_PO2&nbsp;FOR&nbsp;EKKO-EBELN&nbsp;"PO##<br />
+&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;AC2.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;SELECT-OPTIONS&nbsp;S_IV&nbsp;FOR&nbsp;ZTOI_STACHK-ZIVFLAG"RBKP-BELNR&nbsp;"IV##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;S_IV&nbsp;FOR&nbsp;RBKP-BELNR"RBKP-BELNR&nbsp;"IV##<br />
+&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;AC2.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;S_VENDOR&nbsp;FOR&nbsp;ZTOI_ORDER-ZVENDORCO<br />
+&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;AC2.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;PARAMETERS&nbsp;P_YEAR&nbsp;TYPE&nbsp;RBKP-GJAHR&nbsp;"####<br />
+*&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;AC2.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PARAMETERS&nbsp;P_PLANT&nbsp;TYPE&nbsp;RSEG-WERKS&nbsp;"###<br />
+&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;AC2.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;P_MATNR&nbsp;TYPE&nbsp;RSEG-MATNR&nbsp;"####<br />
+&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;AC2.<br />
+SELECTION-SCREEN END OF BLOCK B03.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

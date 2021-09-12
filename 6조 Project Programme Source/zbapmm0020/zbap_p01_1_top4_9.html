@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBAP_P01_1_TOP4_9</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBAP_P01_1_TOP4_9</h2>
+<h3> Description: Include ZBAP_P01_1_TOP</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBAP_P01_1_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+CLASS LCL_EVENT_HANDLER DEFINITION DEFERRED.<br />
+<br />
+TABLES:  EKKO, EKPO, MKPF, MSEG, RBKP, RSEG, EKET ,ZBAP_VENDOR_2.<br />
+<br />
+   </div>
+   <div class="codeComment">
+**###&nbsp;###************************************************************************************<br />
+*DATA:&nbsp;BEGIN&nbsp;OF&nbsp;GS_DATA,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;LIKE&nbsp;EKKO-EBELN,&nbsp;&nbsp;&nbsp;&nbsp;"PO&nbsp;##&nbsp;Purchasing&nbsp;Document&nbsp;Number<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUKRS&nbsp;LIKE&nbsp;EKKO-BUKRS,&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;Company&nbsp;Code<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;LIKE&nbsp;EKKO-LIFNR,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;Vendor's&nbsp;account&nbsp;number<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;LIKE&nbsp;EKPO-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TXZ01&nbsp;LIKE&nbsp;EKPO-TXZ01,&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MENGE&nbsp;LIKE&nbsp;EKPO-MENGE,&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;LIKE&nbsp;EKPO-MEINS,&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NETPR&nbsp;LIKE&nbsp;EKPO-NETPR,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NETWR&nbsp;LIKE&nbsp;EKPO-NETWR,&nbsp;&nbsp;&nbsp;&nbsp;"#&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;LIKE&nbsp;EKKO-WAERS,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;&nbsp;&nbsp;&nbsp;Currency&nbsp;Key<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTERM&nbsp;LIKE&nbsp;EKKO-ZTERM,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##&nbsp;Terms&nbsp;of&nbsp;payment&nbsp;key<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATU&nbsp;LIKE&nbsp;EKKO-STATU,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;Status&nbsp;of&nbsp;Purchasing&nbsp;Document<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AEDAT&nbsp;LIKE&nbsp;EKKO-AEDAT,&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;Date&nbsp;on&nbsp;which&nbsp;the&nbsp;record&nbsp;was&nbsp;created<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERNAM&nbsp;LIKE&nbsp;EKKO-ERNAM,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;###&nbsp;Name&nbsp;of&nbsp;Person&nbsp;who&nbsp;Created&nbsp;the&nbsp;Object<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPRAS&nbsp;LIKE&nbsp;EKKO-SPRAS,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;Language&nbsp;Key<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKORG&nbsp;LIKE&nbsp;EKKO-EKORG,&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;&nbsp;Purchasing&nbsp;organization<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKGRP&nbsp;&nbsp;LIKE&nbsp;EKKO-EKGRP,&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;Purchasing&nbsp;Group<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DATA.<br />
+*<br />
+*&nbsp;DATA:&nbsp;GT_DATA&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_DATA.<br />
+<br />
+***TOP<br />
+   </div>
+   <div class="code">
+&nbsp;DATA:&nbsp;BEGIN&nbsp;OF&nbsp;GS_DATA2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;&nbsp;LIKE&nbsp;ICON-ID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKKO-EBELN,&nbsp;&nbsp;&nbsp;&nbsp;"PO&nbsp;##&nbsp;Purchasing&nbsp;Document&nbsp;Number<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUKRS&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKKO-BUKRS,&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;Company&nbsp;Code<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKKO-LIFNR,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;Vendor's&nbsp;account&nbsp;number<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKPO-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;&nbsp;LIKE&nbsp;EKKO-WAERS,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;&nbsp;&nbsp;&nbsp;Currency&nbsp;Key<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTERM&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKKO-ZTERM,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##&nbsp;Terms&nbsp;of&nbsp;payment&nbsp;key<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATU&nbsp;&nbsp;LIKE&nbsp;EKKO-STATU,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;Status&nbsp;of&nbsp;Purchasing&nbsp;Document<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AEDAT&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKKO-AEDAT,&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;Date&nbsp;on&nbsp;which&nbsp;the&nbsp;record&nbsp;was&nbsp;created<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERNAM&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKKO-ERNAM,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;###&nbsp;Name&nbsp;of&nbsp;Person&nbsp;who&nbsp;Created&nbsp;the&nbsp;Object<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPRAS&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKKO-SPRAS,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;Language&nbsp;Key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKORG&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKKO-EKORG,&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;&nbsp;Purchasing&nbsp;organization<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKGRP	&nbsp;&nbsp;LIKE&nbsp;EKKO-EKGRP,&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;Purchasing&nbsp;Group<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUTN&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ICON-ID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STYLE&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_STYL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MBLNR&nbsp;&nbsp;&nbsp;LIKE&nbsp;MKPF-MBLNR,&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;/&nbsp;GR##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUTN2&nbsp;&nbsp;&nbsp;LIKE&nbsp;ICON-ID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"IV&nbsp;##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STYLE2&nbsp;TYPE&nbsp;LVC_T_STYL,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BELNR&nbsp;&nbsp;&nbsp;LIKE&nbsp;RBKP-BELNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"IV##&nbsp;/&nbsp;IV##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BANFN&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKPO-BANFN,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;""###&nbsp;PR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EINDT&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKET-EINDT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;""####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COLOR&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR4,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;""###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRONG_C&nbsp;LIKE&nbsp;ZBAP_VENDOR_2-WRONG_C,&nbsp;""####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRONG_D&nbsp;LIKE&nbsp;ZBAP_VENDOR_2-WRONG_D,&nbsp;&nbsp;""&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MENGE&nbsp;LIKE&nbsp;EKPO-MENGE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;""##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;LIKE&nbsp;EKPO-MEINS,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;""####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DATA2.<br />
+<br />
+&nbsp;DATA:&nbsp;GT_DATA2&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_DATA2.<br />
+<br />
+   </div>
+   <div class="codeComment">
+**BOTTOM<br />
+   </div>
+   <div class="code">
+&nbsp;DATA:&nbsp;BEGIN&nbsp;OF&nbsp;GS_DATA3,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;LIKE&nbsp;EKPO-EBELN,&nbsp;&nbsp;&nbsp;&nbsp;"PO&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELP&nbsp;LIKE&nbsp;EKPO-EBELP,&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;LIKE&nbsp;EKPO-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TXZ01&nbsp;LIKE&nbsp;EKPO-TXZ01,&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MENGE&nbsp;LIKE&nbsp;EKPO-MENGE,&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;LIKE&nbsp;EKPO-MEINS,&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NETPR&nbsp;LIKE&nbsp;EKPO-NETPR,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NETWR&nbsp;LIKE&nbsp;EKPO-NETWR,&nbsp;&nbsp;&nbsp;&nbsp;"#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;LIKE&nbsp;EKKO-WAERS,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;&nbsp;&nbsp;&nbsp;Currency&nbsp;Key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;LIKE&nbsp;EKPO-WERKS,&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUTN3&nbsp;LIKE&nbsp;ICON-ID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STYLE&nbsp;TYPE&nbsp;LVC_T_STYL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DATA3.<br />
+<br />
+&nbsp;DATA:&nbsp;GT_DATA3&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_DATA3.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+***GR##&nbsp;##&nbsp;#<br />
+   </div>
+   <div class="code">
+&nbsp;DATA:&nbsp;BEGIN&nbsp;OF&nbsp;GS_MIGO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MBLNR&nbsp;LIKE&nbsp;MKPF-MBLNR,&nbsp;""GR##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUDAT&nbsp;LIKE&nbsp;MKPF-BUDAT,&nbsp;""#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;LIKE&nbsp;MSEG-EBELN,&nbsp;""PO##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_MIGO.<br />
+&nbsp;DATA:&nbsp;GT_MIGO&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_MIGO.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***IV##&nbsp;##&nbsp;#<br />
+   </div>
+   <div class="code">
+&nbsp;DATA:&nbsp;BEGIN&nbsp;OF&nbsp;GS_MIRO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BELNR&nbsp;LIKE&nbsp;RBKP-BELNR,&nbsp;"IV##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUDAT&nbsp;LIKE&nbsp;RBKP-BUDAT,&nbsp;""#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;LIKE&nbsp;RSEG-EBELN,&nbsp;""PO##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_MIRO.<br />
+&nbsp;DATA:&nbsp;GT_MIRO&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_MIRO.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+**##&nbsp;************************************************************************************<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;""OKOCDE<br />
+&nbsp;DATA:&nbsp;OKCODE&nbsp;TYPE&nbsp;SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVEOK&nbsp;TYPE&nbsp;SY-UCOMM.<br />
+<br />
+&nbsp;"""""ALV<br />
+"CON<br />
+&nbsp;DATA:&nbsp;GO_CON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_CON_TOP&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_CON_BOTTOM&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER.<br />
+<br />
+&nbsp;"GRID<br />
+&nbsp;DATA:&nbsp;GO_ALV_TOP&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_ALV_BOTTOM&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+<br />
+&nbsp;"SPLIT<br />
+&nbsp;DATA:&nbsp;GO_SPLIT&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_SPLITTER_CONTAINER.<br />
+<br />
+&nbsp;""######<br />
+&nbsp;DATA:&nbsp;GS_FIELDCAT_TOP&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_FCAT.<br />
+&nbsp;DATA:&nbsp;GT_FIELDCAT_TOP&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_FCAT.<br />
+&nbsp;DATA:&nbsp;GS_FIELDCAT_BOTTOM&nbsp;TYPE&nbsp;LVC_S_FCAT.<br />
+&nbsp;DATA:&nbsp;GT_FIELDCAT_BOTTPM&nbsp;TYPE&nbsp;LVC_T_FCAT.<br />
+<br />
+&nbsp;""####<br />
+&nbsp;DATA:&nbsp;GS_LAYOUT_TOP&nbsp;TYPE&nbsp;LVC_S_LAYO.<br />
+&nbsp;DATA:&nbsp;GS_LAYOUT_BOTTOM&nbsp;TYPE&nbsp;LVC_S_LAYO.<br />
+<br />
+""##<br />
+DATA: GT_SORTCAT_TOP TYPE LVC_T_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SORTCAT_TOP&nbsp;TYPE&nbsp;LVC_S_SORT.<br />
+DATA: GT_SORTCAT_BOTTOM TYPE LVC_T_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SORTCAT_BPTTOM&nbsp;TYPE&nbsp;LVC_S_SORT.<br />
+<br />
+<br />
+&nbsp;""###<br />
+&nbsp;DATA:&nbsp;GO_EVENT_HANDLER&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;LCL_EVENT_HANDLER.<br />
+<br />
+&nbsp;""CELL&nbsp;TAB<br />
+DATA: GT_CELLTAB TYPE LVC_T_STYL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB&nbsp;TYPE&nbsp;LVC_S_STYL.<br />
+DATA: GT_CELLTAB2 TYPE LVC_T_STYL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB2&nbsp;TYPE&nbsp;LVC_S_STYL.<br />
+<br />
+""### ## ####<br />
+DATA: C_MM  LIKE EKPO-MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_MM2&nbsp;LIKE&nbsp;EKPO-TXZ01.<br />
+<br />
+<br />
+""##<br />
+DATA: GS_STBL     TYPE LVC_S_STBL.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBD1_04_MM_VENDOR</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD1_04_MM_VENDOR</h2>
+<h3> Description: ## # #### ## ####</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD1_04_MM_VENDOR<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD1_04_MM_VENDOR. " MESSAGE-ID ZBD136.<br />
+<br />
+include <a href ="zbd1_04_mm_vendor_top.html">ZBD1_04_MM_VENDOR_TOP</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBD1_04_MM_VENDER_TOP.<br />
+   </div>
+   <div class="code">
+include <a href ="zbd1_04_mm_vendor_cls.html">ZBD1_04_MM_VENDOR_CLS</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBD1_04_MM_VENDER_CLS.<br />
+   </div>
+   <div class="code">
+include <a href ="zbd1_04_mm_vendor_scr.html">ZBD1_04_MM_VENDOR_SCR</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBD1_04_MM_VENDER_SCR.<br />
+   </div>
+   <div class="code">
+include <a href ="zbd1_04_mm_vendor_f01.html">ZBD1_04_MM_VENDOR_F01</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBD1_04_MM_VENDER_F01.<br />
+   </div>
+   <div class="code">
+include <a href ="zbd1_04_mm_vendor_pbo.html">ZBD1_04_MM_VENDOR_PBO</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBD1_04_MM_VENDER_PBO.<br />
+   </div>
+   <div class="code">
+include <a href ="zbd1_04_mm_vendor_pai.html">ZBD1_04_MM_VENDOR_PAI</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBD1_04_MM_VENDER_PAI.<br />
+<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;TAB#&nbsp;##,&nbsp;SELECTION-SCREEN#&nbsp;##&nbsp;EXCEL_TEMPLATE&nbsp;##&nbsp;##.<br />
+&nbsp;&nbsp;PERFORM&nbsp;INIT.<br />
+&nbsp;&nbsp;"&nbsp;SELECTION-SCREEN#&nbsp;##&nbsp;EXCEL_TEMPLATE&nbsp;##&nbsp;##.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;FUNCTION&nbsp;KEY&nbsp;1.<br />
+<br />
+AT SELECTION-SCREEN.<br />
+&nbsp;&nbsp;"&nbsp;EXCEL_TEMPLATE&nbsp;###&nbsp;###&nbsp;#&nbsp;TEMPLATE#&nbsp;#######&nbsp;##&nbsp;##.<br />
+&nbsp;&nbsp;CASE&nbsp;SY-DYNNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;TAB-DYNNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SSCRFIELDS-UCOMM&nbsp;=&nbsp;'FC01'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DOWNLOAD_TEMPLATE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+AT SELECTION-SCREEN OUTPUT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;#####&nbsp;#####&nbsp;##&nbsp;DROPDOWN<br />
+&nbsp;&nbsp;PERFORM&nbsp;LISTBOX_MBRSH.<br />
+&nbsp;&nbsp;"&nbsp;#####&nbsp;#####&nbsp;##&nbsp;DROPDOWN<br />
+&nbsp;&nbsp;PERFORM&nbsp;LISTBOX_MTART.<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;EXCEL#&nbsp;####&nbsp;SAP&nbsp;ITAB##&nbsp;####&nbsp;##.<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;####&nbsp;##&nbsp;##&nbsp;###&nbsp;###&nbsp;##.<br />
+&nbsp;&nbsp;CASE&nbsp;TAB-ACTIVETAB.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'UC_TAB2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_DATA_FROM_EXCEL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;MOVE_INTERN_TO_ITAB.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+END-OF-SELECTION.<br />
+<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;TAB-ACTIVETAB.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'UC_TAB3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_TAB3_FIELDS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;REGISTER_MATERIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;&nbsp;'UC_TAB1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_TAB1_FIELDS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;REGISTER_VENDOR.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'UC_TAB2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_TAB2_FIELDS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GT_DISPLAY[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000(OO)&nbsp;WITH&nbsp;'##&nbsp;###&nbsp;####&nbsp;####&nbsp;####.'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'W'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;0100.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*GUI&nbsp;Texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;0100&nbsp;--&gt;&nbsp;####&nbsp;##&nbsp;##<br />
+<br />
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;001&nbsp;##&nbsp;##&nbsp;##<br />
+*&nbsp;002&nbsp;####&nbsp;##&nbsp;##<br />
+*&nbsp;003&nbsp;####&nbsp;##&nbsp;##&nbsp;##<br />
+*&nbsp;004&nbsp;####&nbsp;##&nbsp;##<br />
+*&nbsp;005&nbsp;##<br />
+*&nbsp;006&nbsp;##<br />
+*&nbsp;007&nbsp;####&nbsp;##&nbsp;##<br />
+*&nbsp;008&nbsp;####&nbsp;##&nbsp;##<br />
+*&nbsp;009&nbsp;##&nbsp;##&nbsp;##<br />
+*&nbsp;010&nbsp;###&nbsp;###&nbsp;###&nbsp;##&nbsp;###&nbsp;#&nbsp;######.<br />
+*&nbsp;020&nbsp;##&nbsp;##&nbsp;##&nbsp;##<br />
+*&nbsp;021&nbsp;##&nbsp;####&nbsp;#&nbsp;####&nbsp;##<br />
+*&nbsp;022&nbsp;##&nbsp;#&nbsp;##&nbsp;##&nbsp;##<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;BP_ADRS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##<br />
+*&nbsp;BP_CITY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br />
+*&nbsp;BP_CNTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##<br />
+*&nbsp;BP_CODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####&nbsp;##<br />
+*&nbsp;BP_LANG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##<br />
+*&nbsp;BP_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####&nbsp;#<br />
+*&nbsp;BP_POST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;BP_REGI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##<br />
+*&nbsp;BP_STERM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;P_BRGEW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;##<br />
+*&nbsp;P_CCODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;P_CNTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##<br />
+*&nbsp;P_CUR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;P_DISTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##<br />
+*&nbsp;P_EISBE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;P_EXCEL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###<br />
+*&nbsp;P_INC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;P_I_LOC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##&nbsp;##<br />
+*&nbsp;P_LANGU1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##<br />
+*&nbsp;P_LANGU2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##<br />
+*&nbsp;P_LGORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;P_MAKTX1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##<br />
+*&nbsp;P_MAKTX2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##<br />
+*&nbsp;P_MATKL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##<br />
+*&nbsp;P_MATNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##<br />
+*&nbsp;P_MATPR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##&nbsp;##<br />
+*&nbsp;P_MBRSH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##<br />
+*&nbsp;P_MEINS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##<br />
+*&nbsp;P_MTART&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##<br />
+*&nbsp;P_NTGEW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;##<br />
+*&nbsp;P_ORG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;P_PTERMS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;P_PVPRS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##<br />
+*&nbsp;P_RECON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;P_SALES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;P_TAXCL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;###<br />
+*&nbsp;P_TAXTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;P_TRANS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;P_VAREA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####&nbsp;##<br />
+*&nbsp;P_VPRSV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####/######<br />
+*&nbsp;P_WERKS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;00<br />
+*398&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
+*&nbsp;&nbsp;&nbsp;####&nbsp;###&nbsp;######.<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;OO<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

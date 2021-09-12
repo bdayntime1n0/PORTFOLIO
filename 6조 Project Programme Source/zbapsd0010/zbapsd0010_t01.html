@@ -1,0 +1,337 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBAPSD0010_T01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBAPSD0010_T01</h2>
+<h3> Description: Include ZBAP_SO_BAPI_T01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBAP_SO_BAPI_T01<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES SSCRFIELDS.<br />
+<br />
+DATA : LV_MODE  TYPE I.<br />
+" #### ### #### #### ## Internal Table<br />
+DATA GT_INTERN TYPE TABLE OF ALSMEX_TABLINE.<br />
+DATA : G_FUNCTION_KEY TYPE SMP_DYNTXT.<br />
+DATA : GV_UCOMM       TYPE SY-UCOMM.<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;INTERNAL&nbsp;TABLE<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: BEGIN OF GS_DISPLAY,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;STRUCTURE&nbsp;ZBD1_PFLI36.<br />
+*DATA:<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;&nbsp;LIKE&nbsp;ICON-ID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZORDID&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;8,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCUSID&nbsp;&nbsp;LIKE&nbsp;KNA1-KUNNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSUBID&nbsp;&nbsp;LIKE&nbsp;VBKD-BSTKD,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##ID&nbsp;=&nbsp;REFERENCE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMATID&nbsp;&nbsp;LIKE&nbsp;MARA-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDELDT&nbsp;&nbsp;LIKE&nbsp;RV45A-KETDAT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZAMOUN&nbsp;&nbsp;LIKE&nbsp;VBAP-KWMENG,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSONUM&nbsp;&nbsp;LIKE&nbsp;VBAK-VBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZRETURN&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30,&nbsp;&nbsp;&nbsp;"##&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CELLTAB&nbsp;TYPE&nbsp;LVC_T_STYL.<br />
+DATA END OF GS_DISPLAY.<br />
+<br />
+DATA: GT_DISPLAY  LIKE TABLE OF GS_DISPLAY.<br />
+<br />
+<br />
+<br />
+DATA: BEGIN OF GS_DELT,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;STRUCTURE&nbsp;ZBD1_PFLI36.<br />
+*DATA:<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;&nbsp;LIKE&nbsp;ICON-ID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZORDID&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;8,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCUSID&nbsp;&nbsp;LIKE&nbsp;KNA1-KUNNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSUBID&nbsp;&nbsp;LIKE&nbsp;VBKD-BSTKD,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##ID&nbsp;=&nbsp;REFERENCE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMATID&nbsp;&nbsp;LIKE&nbsp;MARA-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDELDT&nbsp;&nbsp;LIKE&nbsp;RV45A-KETDAT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZAMOUN&nbsp;&nbsp;LIKE&nbsp;VBAP-KWMENG,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSONUM&nbsp;&nbsp;LIKE&nbsp;VBAK-VBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZRETURN&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30,&nbsp;&nbsp;&nbsp;"##&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CELLTAB&nbsp;TYPE&nbsp;LVC_T_STYL.<br />
+DATA END OF GS_DELT.<br />
+<br />
+DATA: GT_DELT LIKE TABLE OF GS_DELT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*DATA:&nbsp;BEGIN&nbsp;OF&nbsp;GS_DISPLAY_B2C,<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;STRUCTURE&nbsp;ZBD1_PFLI36.<br />
+**DATA:<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;&nbsp;LIKE&nbsp;ICON-ID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZORDID&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;8,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCUSID&nbsp;&nbsp;LIKE&nbsp;VBAK-KUNNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSUBID&nbsp;&nbsp;LIKE&nbsp;VBAK-BSTKD,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##ID&nbsp;=&nbsp;REFERENCE<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMATID&nbsp;&nbsp;LIKE&nbsp;MARA-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDELDT&nbsp;&nbsp;LIKE&nbsp;RV45A-KETDAT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZAMOUN&nbsp;&nbsp;LIKE&nbsp;VBAP-KWMENG,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSONUM&nbsp;&nbsp;TYPE&nbsp;N&nbsp;LENGTH&nbsp;4,&nbsp;&nbsp;&nbsp;&nbsp;"SO&nbsp;NUMBER<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZRETURN&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30,&nbsp;&nbsp;&nbsp;"##&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BANFN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBEP-BANFN,&nbsp;&nbsp;&nbsp;&nbsp;"PR&nbsp;NUMBER<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EBAN-EBELN,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"PO&nbsp;NUMBER<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CELLTAB&nbsp;&nbsp;TYPE&nbsp;LVC_T_STYL.<br />
+*DATA&nbsp;END&nbsp;OF&nbsp;GS_DISPLAY.<br />
+*<br />
+*DATA:&nbsp;GT_DISPLAY&nbsp;&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_DISPLAY.<br />
+*<br />
+*DATA:&nbsp;BEGIN&nbsp;OF&nbsp;GS_DISPLAY_B2B,<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;STRUCTURE&nbsp;ZBD1_PFLI36.<br />
+**DATA:<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;&nbsp;LIKE&nbsp;ICON-ID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZORDID&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;8,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCUSID&nbsp;&nbsp;LIKE&nbsp;VBAK-KUNNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSUBID&nbsp;&nbsp;LIKE&nbsp;VBAK-BSTKD,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##ID&nbsp;=&nbsp;REFERENCE<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMATID&nbsp;&nbsp;LIKE&nbsp;MARA-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDELDT&nbsp;&nbsp;LIKE&nbsp;RV45A-KETDAT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZAMOUN&nbsp;&nbsp;LIKE&nbsp;VBAP-KWMENG,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSONUM&nbsp;&nbsp;TYPE&nbsp;N&nbsp;LENGTH&nbsp;4,&nbsp;&nbsp;&nbsp;&nbsp;"SO&nbsp;NUMBER<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZRETURN&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30,&nbsp;&nbsp;&nbsp;"##&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CELLTAB&nbsp;&nbsp;TYPE&nbsp;LVC_T_STYL.<br />
+*DATA&nbsp;END&nbsp;OF&nbsp;GS_DISPLAY.<br />
+<br />
+*DATA:&nbsp;GT_DISPLAY&nbsp;&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_DISPLAY.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+*DATA:&nbsp;BEGIN&nbsp;OF&nbsp;GS_DISP,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCUSID&nbsp;LIKE&nbsp;KNA1-KUNNR,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CELLTAB&nbsp;&nbsp;TYPE&nbsp;LVC_T_STYL.<br />
+*DATA&nbsp;END&nbsp;OF&nbsp;GS_DISP.<br />
+*<br />
+*DATA:&nbsp;GT_DISP&nbsp;&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_DISP.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+DATA: BEGIN OF GS_EXCEL,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;STRUCTURE&nbsp;ZBD1_PFLI36.<br />
+*DATA:<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;&nbsp;LIKE&nbsp;ICON-ID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZORDID&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;8,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCUSID&nbsp;LIKE&nbsp;KUAGV-KUNNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSUBID&nbsp;LIKE&nbsp;VBKD-BSTKD,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##ID&nbsp;=&nbsp;REFERENCE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMATID&nbsp;LIKE&nbsp;RV45A-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDELDT&nbsp;LIKE&nbsp;RV45A-KETDAT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZAMOUN&nbsp;LIKE&nbsp;RV45A-KWMENG.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+DATA END OF GS_EXCEL.<br />
+DATA: GT_EXCEL  LIKE TABLE OF GS_EXCEL.<br />
+   </div>
+   <div class="codeComment">
+*DATA:&nbsp;GT_DELT&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZBD1_PFLI36,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DELT&nbsp;TYPE&nbsp;ZBD1_PFLI36.<br />
+<br />
+   </div>
+   <div class="code">
+DATA: BEGIN OF GS_HEADER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;H_TEXT(30),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_HEADER.<br />
+DATA: GT_HEADER LIKE TABLE OF GS_HEADER.<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;DATA&nbsp;VALUE<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CONSTANTS: GC_CREATE TYPE C VALUE 'C',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_UPDATE&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'U'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;ALV&nbsp;OBJECT<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+DATA: OKCODE TYPE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVEOK&nbsp;TYPE&nbsp;SY-UCOMM.&nbsp;"&nbsp;Screen&nbsp;##&nbsp;###&nbsp;OKCODE&nbsp;##&nbsp;##<br />
+<br />
+<br />
+DATA GO_DOCKING_CONTAINER_TOP     TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA GO_DOCKING_CONTAINER         TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA GO_DOCKING_CONTAINER_BOTTOM  TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+" ALV # Screen 0100 # #### ## ### ## ##<br />
+<br />
+DATA GO_ALV_GRID          TYPE REF TO CL_GUI_ALV_GRID.<br />
+" Screen 0100 ## Container # ALV # #### ## ## ##<br />
+<br />
+   </div>
+   <div class="codeComment">
+*DATA&nbsp;GS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_LAYO.&nbsp;&nbsp;"&nbsp;ALV&nbsp;#&nbsp;####&nbsp;##&nbsp;####&nbsp;##<br />
+*DATA&nbsp;GT_FIELDCAT&nbsp;&nbsp;TYPE&nbsp;LVC_T_FCAT.&nbsp;&nbsp;"&nbsp;ALV&nbsp;#&nbsp;#&nbsp;###&nbsp;##,&nbsp;##,&nbsp;##&nbsp;#&nbsp;####&nbsp;##<br />
+*DATA&nbsp;GS_FIELDCAT&nbsp;&nbsp;TYPE&nbsp;LVC_S_FCAT.<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;ALV&nbsp;OBJECT<br />
+*&---------------------------------------------------------------------*<br />
+*DATA:&nbsp;GV_GRID1&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID,<br />
+   </div>
+   <div class="code">
+DATA:     GV_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*FIELDCAT<br />
+   </div>
+   <div class="code">
+DATA: GT_FIELDCAT TYPE LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;GT_FIELDCAT.<br />
+<br />
+DATA: GV_FIELDNAME TYPE SCRFNAME.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*SORTCAT<br />
+   </div>
+   <div class="code">
+DATA: GT_SORTCAT TYPE LVC_T_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SORTCAT&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;GT_SORTCAT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*LAYOUT<br />
+   </div>
+   <div class="code">
+DATA: GS_LAYOUT   TYPE LVC_S_LAYO.<br />
+<br />
+DATA: X_SAVE      VALUE 'A'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*OK_CODE<br />
+   </div>
+   <div class="code">
+DATA: OK_CODE TYPE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVE_OK&nbsp;TYPE&nbsp;SY-UCOMM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*toolbar<br />
+   </div>
+   <div class="code">
+DATA: GT_TOOLBAR_EXCLUDING   TYPE UI_FUNCTIONS.<br />
+<br />
+DATA: GS_STBL     TYPE LVC_S_STBL.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*EVENT&nbsp;RECEIVER<br />
+   </div>
+   <div class="code">
+CLASS LCL_EVENT_RECEIVER DEFINITION DEFERRED.<br />
+DATA: EVENT_RECEIVER     TYPE REF TO LCL_EVENT_RECEIVER.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;DATA&nbsp;:&nbsp;L_EVENT&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;LCL_EVENT.<br />
+*&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;L_EVENT.<br />
+*&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;L_EVENT-&gt;HANDLER_DOUBLE_CLICK&nbsp;FOR&nbsp;GO_GRID.<br />
+<br />
+*""####&nbsp;##&nbsp;###<br />
+   </div>
+   <div class="code">
+DATA: GV_NOT_SELECT VALUE ''. "##### ##<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

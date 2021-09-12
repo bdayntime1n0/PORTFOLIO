@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZMM_001</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM_001</h2>
+<h3> Description: PO # S/T</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZMM_001<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZMM_001 MESSAGE-ID ZBD101.  "ZBD101<br />
+<br />
+include <a href ="zmm_001_top.html">ZMM_001_TOP</a>.<br />
+include <a href ="zmm_001_cls.html">ZMM_001_CLS</a>.<br />
+include <a href ="zmm_001_scr.html">ZMM_001_SCR</a>.<br />
+include <a href ="zmm_001_f01.html">ZMM_001_F01</a>.<br />
+include <a href ="zmm_001_pbo.html">ZMM_001_PBO</a>.<br />
+include <a href ="zmm_001_pai.html">ZMM_001_PAI</a>.<br />
+<br />
+<br />
+INITIALIZATION.<br />
+<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+CASE 'X'.<br />
+&nbsp;&nbsp;WHEN&nbsp;R_ALL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;ALL_DATA.<br />
+&nbsp;&nbsp;WHEN&nbsp;R_AW.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;ALERT_WARN.<br />
+&nbsp;&nbsp;WHEN&nbsp;R_ALERT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;ALRET_DATA.<br />
+&nbsp;&nbsp;WHEN&nbsp;R_WARN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;WARN_DATA.<br />
+ENDCASE.<br />
+<br />
+AT SELECTION-SCREEN.<br />
+<br />
+END-OF-SELECTION.<br />
+&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;0100.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*GUI&nbsp;Texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;100&nbsp;--&gt;&nbsp;PO&nbsp;#&nbsp;S/T<br />
+<br />
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;S01&nbsp;####<br />
+*&nbsp;S02&nbsp;####<br />
+*&nbsp;S03&nbsp;##<br />
+*&nbsp;S04&nbsp;##+##<br />
+*&nbsp;S05&nbsp;##<br />
+*&nbsp;S06&nbsp;##<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;R_ALERT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;R_ALL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##<br />
+*&nbsp;R_AW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##+##<br />
+*&nbsp;R_WARN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##<br />
+*&nbsp;S_DELID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;S_LIFNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;S_MAKTX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###<br />
+*&nbsp;S_MATKL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###<br />
+*&nbsp;S_MATNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;S_NAME1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;ZBD101<br />
+*000&nbsp;&nbsp;&nbsp;&<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

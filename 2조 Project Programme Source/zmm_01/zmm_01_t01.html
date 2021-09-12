@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZMM_01_T01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM_01_T01</h2>
+<h3> Description: Include ZBD1_MM_SFST_T01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD1_MM_SFST_T01<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES sscrfields.<br />
+<br />
+TABLES : mkpf,marc,mara,s013,ekbe,matdoc.<br />
+<br />
+" #### ### #### #### ## Internal Table<br />
+DATA gt_intern TYPE TABLE OF alsmex_tabline.<br />
+<br />
+DATA okcode TYPE sy-ucomm.<br />
+DATA saveok TYPE sy-ucomm.<br />
+<br />
+" ALV # ### #### #### ## Internal Table<br />
+DATA: BEGIN OF gs_display,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status&nbsp;LIKE&nbsp;icon-id,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;werks&nbsp;&nbsp;LIKE&nbsp;marc-werks,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;budat&nbsp;&nbsp;LIKE&nbsp;mkpf-budat,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lifnr&nbsp;&nbsp;LIKE&nbsp;lfa1-lifnr,&nbsp;&nbsp;"&nbsp;MATERIAL&nbsp;NUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matkl&nbsp;&nbsp;LIKE&nbsp;mara-matkl,&nbsp;&nbsp;"&nbsp;MATERIAL&nbsp;GROUP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matnr&nbsp;&nbsp;LIKE&nbsp;mara-matnr,&nbsp;&nbsp;"&nbsp;PLANT&nbsp;NUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eisbe&nbsp;&nbsp;LIKE&nbsp;marc-eisbe,&nbsp;&nbsp;"&nbsp;SAFETY_STK<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eisbe_unit_2&nbsp;LIKE&nbsp;mara-meins,&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;##<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_display.<br />
+<br />
+DATA: BEGIN OF gs_display_2,<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;budat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ekbe-budat,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;werks&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;marc-werks,&nbsp;"###&nbsp;ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;marc-matnr,&nbsp;"##&nbsp;ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maktx&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;makt-maktx,&nbsp;"##&nbsp;NM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matkl&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;mara-matkl,&nbsp;"##&nbsp;ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;labst&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;mard-labst,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;labst_unit&nbsp;LIKE&nbsp;matdoc-meins,&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eisbe&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;marc-eisbe,&nbsp;&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eisbe_unit&nbsp;LIKE&nbsp;mara-meins,&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;icon-id,&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status_2&nbsp;&nbsp;&nbsp;LIKE&nbsp;icon-id,&nbsp;"&nbsp;TRANSACTION&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UPDFG(1),&nbsp;"<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_display_2.<br />
+<br />
+<br />
+<br />
+DATA gt_display LIKE TABLE OF gs_display.<br />
+DATA gt_display_2 LIKE TABLE OF gs_display_2.<br />
+<br />
+DATA go_docking_container_top     TYPE REF TO cl_gui_docking_container.<br />
+DATA go_docking_container         TYPE REF TO cl_gui_docking_container.<br />
+DATA go_docking_container_bottom  TYPE REF TO cl_gui_docking_container.<br />
+" ALV # Screen 0100 # #### ## ### ## ##<br />
+<br />
+DATA go_alv_grid          TYPE REF TO cl_gui_alv_grid.<br />
+" Screen 0100 ## Container # ALV # #### ## ## ##<br />
+<br />
+DATA go_con_2     TYPE REF TO cl_gui_container.<br />
+" ALV # Screen 0200 # #### ## ### ## ##<br />
+<br />
+DATA go_alv_grid_2          TYPE REF TO cl_gui_alv_grid.<br />
+" Screen 0200 ## Container # ALV # #### ## ## ##<br />
+<br />
+<br />
+DATA : GO_SPLIT     TYPE REF TO CL_GUI_SPLITTER_CONTAINER,  "### ####<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_GRID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;###&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_GRID2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"#&nbsp;&nbsp;###&nbsp;2<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_HEADER&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"#&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_BODY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_DOC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_DD_DOCUMENT.<br />
+<br />
+<br />
+DATA gs_layout    TYPE lvc_s_layo.  " ALV # #### ## #### ##<br />
+DATA gt_fieldcat  TYPE lvc_t_fcat.  " ALV # # ### ##, ##, ## # #### ##<br />
+DATA gs_fieldcat  TYPE lvc_s_fcat.<br />
+   </div>
+   <div class="codeComment">
+*<br />
+*DATA&nbsp;GO_EVENT_HANDLER&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;LCL_EVENT_HANDLER.<br />
+*&nbsp;GRID&nbsp;ALV&nbsp;#&nbsp;####&nbsp;###&nbsp;##&nbsp;##&nbsp;##<br />
+<br />
+*DATA&nbsp;GS_LAYOUT&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_LAYO.<br />
+*&nbsp;SAP&nbsp;###&nbsp;4##,&nbsp;5##&nbsp;###&nbsp;###&nbsp;####&nbsp;##.<br />
+*&nbsp;LAYOUT&nbsp;=&gt;&nbsp;LAYO&nbsp;#&nbsp;######,&nbsp;LAYO&nbsp;##&nbsp;#####,&nbsp;LAYOUT&nbsp;##&nbsp;###.<br />
+*&nbsp;ALV&nbsp;##&nbsp;##&nbsp;###&nbsp;###&nbsp;##.<br />
+<br />
+   </div>
+   <div class="code">
+CLASS lcl_event_handler DEFINITION DEFERRED.<br />
+<br />
+DATA gs_layout_2    TYPE lvc_s_layo.  " ALV # #### ## #### ##<br />
+DATA gt_fieldcat_2  TYPE lvc_t_fcat.  " ALV # # ### ##, ##, ## # #### ##<br />
+DATA gs_fieldcat_2  TYPE lvc_s_fcat.<br />
+DATA go_event_handler TYPE REF TO lcl_event_handler. " GRID ALV # #### ### ## ## ##<br />
+   </div>
+   <div class="codeComment">
+*<br />
+*DATA&nbsp;GO_EVENT_HANDLER&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;LCL_EVENT_HANDLER.<br />
+*&nbsp;GRID&nbsp;ALV&nbsp;#&nbsp;####&nbsp;###&nbsp;##&nbsp;##&nbsp;##<br />
+<br />
+*DATA&nbsp;GS_LAYOUT&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_LAYO.<br />
+*&nbsp;SAP&nbsp;###&nbsp;4##,&nbsp;5##&nbsp;###&nbsp;###&nbsp;####&nbsp;##.<br />
+*&nbsp;LAYOUT&nbsp;=&gt;&nbsp;LAYO&nbsp;#&nbsp;######,&nbsp;LAYO&nbsp;##&nbsp;#####,&nbsp;LAYOUT&nbsp;##&nbsp;###.<br />
+*&nbsp;ALV&nbsp;##&nbsp;##&nbsp;###&nbsp;###&nbsp;##.<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+DATA gt_bdc     TYPE TABLE OF bdcdata.<br />
+DATA gs_bdc     TYPE bdcdata.<br />
+DATA gs_option  TYPE ctu_params.<br />
+DATA gt_message TYPE TABLE OF bdcmsgcoll.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

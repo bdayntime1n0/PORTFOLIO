@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZMST_BDC_UPLOAD_SCR</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMST_BDC_UPLOAD_SCR</h2>
+<h3> Description: Include ZBD1_00_100_SCR</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD1_00_100_SCR<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN FUNCTION KEY 1.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B01 WITH FRAME TITLE TEXTS01.<br />
+<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;P_FILE&nbsp;TYPE&nbsp;LOCALFILE.&nbsp;"&nbsp;Data&nbsp;Element<br />
+<br />
+SELECTION-SCREEN END OF BLOCK B01.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*SELECTION-SCREEN&nbsp;SKIP.<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME TITLE TEXT-T04.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;1(15)&nbsp;TEXT-T01&nbsp;MODIF&nbsp;ID&nbsp;GR1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;P_R1&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;RG1&nbsp;USER-COMMAND&nbsp;RADIO&nbsp;DEFAULT&nbsp;'X'.&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;25(10)&nbsp;TEXT-R01&nbsp;FOR&nbsp;FIELD&nbsp;P_R1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;P_R2&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;RG1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;45(10)&nbsp;TEXT-R02&nbsp;FOR&nbsp;FIELD&nbsp;P_R2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;P_R3&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;RG1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;65(10)&nbsp;TEXT-R03&nbsp;FOR&nbsp;FIELD&nbsp;P_R3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+SELECTION-SCREEN END OF LINE.<br />
+SELECTION-SCREEN END OF BLOCK B1.<br />
+<br />
+<br />
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR P_FILE.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;ONF4_FILE&nbsp;USING&nbsp;P_FILE.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

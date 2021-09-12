@@ -1,0 +1,1052 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBD2_CREATE_PO_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD2_CREATE_PO_F01</h2>
+<h3> Description: Include ZBD212_ASSG_W6_0723_F01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD212_ASSG_W6_0723_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;EXCEL_DOWN<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM EXCEL_DOWN .<br />
+&nbsp;&nbsp;PERFORM&nbsp;POP_UP&nbsp;USING&nbsp;'##&nbsp;###&nbsp;####&nbsp;######?'&nbsp;&nbsp;&nbsp;&nbsp;"'###&nbsp;####&nbsp;######?'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'##&nbsp;####&nbsp;##'&nbsp;&nbsp;&nbsp;&nbsp;"'##&nbsp;####&nbsp;##'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;GV_ANSWER.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;GV_ANSWER&nbsp;=&nbsp;'J'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;EXCEL_FORM_DOWN_SWM0_LOGIC.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;POP_UP<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;TEXT_T01<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;C_SPACE<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;TEXT_T02<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;GV_ANSWER<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM POP_UP  USING    P_TEXT P_TEXT2 P_TITEL CHANGING P_ANSWER.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;P_ANSWER.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'POPUP_TO_CONFIRM_STEP'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEFAULTOPTION&nbsp;&nbsp;=&nbsp;'J'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Default&nbsp;#(CANC&nbsp;=&nbsp;A,&nbsp;YES&nbsp;=&nbsp;J,&nbsp;NO&nbsp;=&nbsp;N)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXTLINE1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_TEXT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXTLINE2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_TEXT2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TITEL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_TITEL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CANCEL_DISPLAY&nbsp;=&nbsp;'X'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ANSWER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_ANSWER.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;EXCEL_FORM_DOWN_SWM0_LOGIC<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM EXCEL_FORM_DOWN_SWM0_LOGIC .<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;FACTORY_INITIAL_SMW0&nbsp;USING&nbsp;C_SMW0.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;OPEN_DOCUMENT1_SMW0&nbsp;&nbsp;USING&nbsp;C_SMW0.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;FACTORY_INITIAL_SMW0<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;C_SMW0<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM FACTORY_INITIAL_SMW0  USING    P_APPNAME.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;FACTORY&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;C_OI_FACTORY_CREATOR=&gt;GET_DOCUMENT_FACTORY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FACTORY&nbsp;=&nbsp;FACTORY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETCODE&nbsp;=&nbsp;RETCODE.<br />
+&nbsp;&nbsp;IF&nbsp;RETCODE&nbsp;NE&nbsp;C_OI_ERRORS=&gt;RET_OK.&nbsp;EXIT.&nbsp;ENDIF.<br />
+<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;FACTORY-&gt;START_FACTORY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R3_APPLICATION_NAME&nbsp;=&nbsp;P_APPNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETCODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;RETCODE.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;C_OI_ERRORS=&gt;SHOW_MESSAGE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;=&nbsp;'E'.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;OPEN_DOCUMENT1_SMW0<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;C_SMW0<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM OPEN_DOCUMENT1_SMW0  USING    P_OBJID.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'SAP_OI_LOAD_MIME_DATA'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBJECT_ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_OBJID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA_SIZE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;DOC_SIZE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DOCUMENT_FORMAT&nbsp;&nbsp;=&nbsp;DOC_FORMAT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DOCUMENT_TYPE&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;DOC_TYPE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA_TABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;DOC_TABLE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBJECT_NOT_FOUND&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTERNAL_ERROR&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;ID&nbsp;SY-MSGID&nbsp;TYPE&nbsp;'E'&nbsp;NUMBER&nbsp;SY-MSGNO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;SY-MSGV1&nbsp;SY-MSGV2&nbsp;SY-MSGV3&nbsp;SY-MSGV4.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;DOC_SIZE&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;FACTORY-&gt;GET_DOCUMENT_PROXY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DOCUMENT_TYPE&nbsp;&nbsp;=&nbsp;DOC_TYPE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DOCUMENT_PROXY&nbsp;=&nbsp;DOCUMENT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETCODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;RETCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;C_OI_ERRORS=&gt;SHOW_MESSAGE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;=&nbsp;'E'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;DOCUMENT-&gt;OPEN_DOCUMENT_FROM_TABLE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DOCUMENT_TABLE&nbsp;=&nbsp;DOC_TABLE[]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DOCUMENT_SIZE&nbsp;&nbsp;=&nbsp;DOC_SIZE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETCODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;RETCODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;C_OI_ERRORS=&gt;SHOW_MESSAGE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;=&nbsp;'E'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;FILE_OPEN<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM FILE_OPEN .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LT_FILES&nbsp;TYPE&nbsp;FILETABLE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RC&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_TITLE&nbsp;TYPE&nbsp;STRING.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_FNAME&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RCODE&nbsp;TYPE&nbsp;CHAR1.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LT_FILES,&nbsp;LV_RC,&nbsp;LV_TITLE,&nbsp;LV_FNAME,&nbsp;LV_RCODE.<br />
+<br />
+&nbsp;&nbsp;LV_TITLE&nbsp;=&nbsp;TEXT-002.&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##&nbsp;##<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;FILE_OPEN_DIALOG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WINDOW_TITLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_TITLE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT_EXTENSION&nbsp;=&nbsp;'XLS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT_FILENAME&nbsp;&nbsp;=&nbsp;'DATA.XLS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MULTISELECTION&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'&nbsp;'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE_TABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_FILES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_RC.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LV_RC&nbsp;=&nbsp;1&nbsp;AND&nbsp;LINES(&nbsp;LT_FILES&nbsp;)&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_FILES&nbsp;INDEX&nbsp;1&nbsp;INTO&nbsp;LV_FNAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;FILE_EXIST<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE&nbsp;&nbsp;&nbsp;=&nbsp;LV_FNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RECEIVING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RESULT&nbsp;=&nbsp;LV_RCODE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LV_RCODE&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_FILES&nbsp;INDEX&nbsp;1&nbsp;INTO&nbsp;P_FILENM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I555(BC400)&nbsp;WITH&nbsp;TEXT-003.&nbsp;&nbsp;"####&nbsp;##&nbsp;#####.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I555(BC400)&nbsp;WITH&nbsp;TEXT-004.&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;####&nbsp;####.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;EXCEL_TO_TABLE<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM EXCEL_TO_TABLE .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LS_UPLOAD&nbsp;LIKE&nbsp;ALSMEX_TABLINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_UPLOAD&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;LS_UPLOAD.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_LEN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_POS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_TYPE(3)&nbsp;TYPE&nbsp;C.<br />
+<br />
+&nbsp;&nbsp;FIELD-SYMBOLS&nbsp;&lt;FS&gt;&nbsp;TYPE&nbsp;ANY.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LS_UPLOAD,&nbsp;LT_UPLOAD,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ROW,&nbsp;LV_LEN,&nbsp;LV_POS,&nbsp;LV_TYPE.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_FILENM&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_CHK&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I555(BC400)&nbsp;WITH&nbsp;'###&nbsp;#####&nbsp;####.'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;LV_LEN&nbsp;&nbsp;=&nbsp;STRLEN(&nbsp;P_FILENM&nbsp;).<br />
+&nbsp;&nbsp;LV_POS&nbsp;&nbsp;=&nbsp;LV_LEN&nbsp;-&nbsp;3.<br />
+&nbsp;&nbsp;LV_TYPE&nbsp;=&nbsp;P_FILENM+LV_POS(3).<br />
+&nbsp;&nbsp;TRANSLATE&nbsp;LV_TYPE&nbsp;TO&nbsp;UPPER&nbsp;CASE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*-&nbsp;EXCEL&nbsp;File&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;IF&nbsp;(&nbsp;LV_TYPE&nbsp;EQ&nbsp;'XLS'&nbsp;)&nbsp;OR&nbsp;(&nbsp;LV_TYPE&nbsp;EQ&nbsp;'LSX'&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_HEADER&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ROW&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ROW&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'ALSM_EXCEL_TO_INTERNAL_TABLE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILENAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_FILENM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_BEGIN_COL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_BEGIN_ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_ROW<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_END_COL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_END_ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;65000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTERN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_UPLOAD<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCONSISTENT_PARAMETERS&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UPLOAD_OLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LT_UPLOAD&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_CHK&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I555(BC400)&nbsp;WITH&nbsp;'##&nbsp;###&nbsp;####&nbsp;####&nbsp;####.'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_UPLOAD&nbsp;INTO&nbsp;LS_UPLOAD.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;COMPONENT&nbsp;LS_UPLOAD-COL&nbsp;OF&nbsp;STRUCTURE&nbsp;GS_DATA&nbsp;TO&nbsp;&lt;FS&gt;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRANSLATE&nbsp;LS_UPLOAD-VALUE&nbsp;TO&nbsp;UPPER&nbsp;CASE.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPLACE&nbsp;ALL&nbsp;OCCURRENCES&nbsp;OF&nbsp;'&nbsp;'&nbsp;IN&nbsp;LS_UPLOAD-VALUE&nbsp;WITH&nbsp;''.<br />
+<br />
+<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SHIFT&nbsp;LS_UPLOAD-VALUE&nbsp;LEFT&nbsp;DELETING&nbsp;LEADING&nbsp;'&nbsp;'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SHIFT&nbsp;LS_UPLOAD-VALUE&nbsp;RIGHT&nbsp;DELETING&nbsp;TRAILING&nbsp;'&nbsp;'.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FS&gt;&nbsp;=&nbsp;LS_UPLOAD-VALUE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;ROW.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPLACE&nbsp;ALL&nbsp;OCCURRENCES&nbsp;OF&nbsp;'.'&nbsp;IN&nbsp;GS_UPLOAD-BLDAT&nbsp;WITH&nbsp;''.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPLACE&nbsp;ALL&nbsp;OCCURRENCES&nbsp;OF&nbsp;','&nbsp;IN&nbsp;GS_UPLOAD-BLDAT&nbsp;WITH&nbsp;''.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPLACE&nbsp;ALL&nbsp;OCCURRENCES&nbsp;OF&nbsp;'-'&nbsp;IN&nbsp;GS_UPLOAD-BLDAT&nbsp;WITH&nbsp;''.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPLACE&nbsp;ALL&nbsp;OCCURRENCES&nbsp;OF&nbsp;'.'&nbsp;IN&nbsp;GS_UPLOAD-BUDAT&nbsp;WITH&nbsp;''.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPLACE&nbsp;ALL&nbsp;OCCURRENCES&nbsp;OF&nbsp;','&nbsp;IN&nbsp;GS_UPLOAD-BUDAT&nbsp;WITH&nbsp;''.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPLACE&nbsp;ALL&nbsp;OCCURRENCES&nbsp;OF&nbsp;'-'&nbsp;IN&nbsp;GS_UPLOAD-BUDAT&nbsp;WITH&nbsp;''.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPLACE&nbsp;ALL&nbsp;OCCURRENCES&nbsp;OF&nbsp;'.'&nbsp;IN&nbsp;GS_UPLOAD-ZFBDT&nbsp;WITH&nbsp;''.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPLACE&nbsp;ALL&nbsp;OCCURRENCES&nbsp;OF&nbsp;','&nbsp;IN&nbsp;GS_UPLOAD-ZFBDT&nbsp;WITH&nbsp;''.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPLACE&nbsp;ALL&nbsp;OCCURRENCES&nbsp;OF&nbsp;'-'&nbsp;IN&nbsp;GS_UPLOAD-ZFBDT&nbsp;WITH&nbsp;''.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_DATA&nbsp;TO&nbsp;GT_DATA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_DATA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;DESCRIBE&nbsp;TABLE&nbsp;GT_DATA&nbsp;LINES&nbsp;SY-TFILL.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I555(BC400)&nbsp;WITH&nbsp;SY-TFILL&nbsp;'##&nbsp;###&nbsp;##&nbsp;#####.'.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I000&nbsp;WITH&nbsp;'##&nbsp;###&nbsp;###&nbsp;####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_CHK&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SAPGUI_PROGRESS_INDICATOR<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;TEXT_004<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SAPGUI_PROGRESS_INDICATOR  USING P_P01.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'SAPGUI_PROGRESS_INDICATOR'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT&nbsp;=&nbsp;P_P01.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;BDC_CREATE_COST<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CREATE_PO .<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GV_COUNT.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GS_POHEADER,&nbsp;GS_POHEADERX.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GS_POACCOUNT,&nbsp;GS_POACCOUNTX.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GS_POITEM,&nbsp;GS_POITEMX.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GS_POSCHEDULE,&nbsp;GS_POSCHEDULEX.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GV_MESSAGE.<br />
+<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_DATA&nbsp;INTO&nbsp;GS_DATA.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'CONVERSION_EXIT_ALPHA_INPUT'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INPUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_DATA-COSTCENTER<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OUTPUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_DATA-COSTCENTER.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'CONVERSION_EXIT_ALPHA_INPUT'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INPUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_DATA-ACCOUNT<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OUTPUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_DATA-ACCOUNT.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;GV_COUNT&nbsp;=&nbsp;GV_COUNT&nbsp;+&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_POHEADER-VENDOR&nbsp;=&nbsp;GS_DATA-VENDOR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_POHEADER-COMP_CODE&nbsp;=&nbsp;'1010'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_POHEADER-PURCH_ORG&nbsp;=&nbsp;'1010'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_POHEADER-PUR_GROUP&nbsp;=&nbsp;'001'.&nbsp;&nbsp;&nbsp;"&nbsp;TO-Be&nbsp;Changed&nbsp;GS_DATA-PUR_GROUP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_POHEADER-CURRENCY&nbsp;=&nbsp;'EUR'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_POHEADER-LANGU&nbsp;=&nbsp;SY-LANGU.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_POHEADER-CREAT_DATE&nbsp;=&nbsp;SY-DATUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_POHEADER-DOC_DATE&nbsp;=&nbsp;SY-DATUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_POHEADER-CREATED_BY&nbsp;=&nbsp;SY-UNAME.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_POHEADERX-VENDOR&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_POHEADERX-COMP_CODE&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_POHEADERX-PURCH_ORG&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_POHEADERX-PUR_GROUP&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_POHEADERX-CURRENCY&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_POHEADER-LANGU&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_POHEADER-CREAT_DATE&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_POHEADER-DOC_DATE&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_POHEADER-CREATED_BY&nbsp;=&nbsp;'X'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_DATA-MATERIAL&nbsp;IS&nbsp;INITIAL&nbsp;AND&nbsp;GS_DATA-VENDOR&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_POACCOUNT-PO_ITEM&nbsp;=&nbsp;'10'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_POACCOUNT-GL_ACCOUNT&nbsp;=&nbsp;GS_DATA-ACCOUNT.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_POACCOUNT-COSTCENTER&nbsp;=&nbsp;GS_DATA-COSTCENTER.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"material&nbsp;####&nbsp;####.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_POACCOUNT-CO_AREA&nbsp;=&nbsp;'A000'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_POACCOUNT&nbsp;TO&nbsp;GT_POACCOUNT.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_POACCOUNTX-PO_ITEM&nbsp;=&nbsp;'10'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_POACCOUNTX-PO_ITEMX&nbsp;=&nbsp;'X'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_POACCOUNTX-GL_ACCOUNT&nbsp;=&nbsp;'X'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_POACCOUNTX-COSTCENTER&nbsp;=&nbsp;'X'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_POACCOUNT-CO_AREA&nbsp;=&nbsp;'X'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_POACCOUNTX&nbsp;TO&nbsp;GT_POACCOUNTX.<br />
+*<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEM-SHORT_TEXT&nbsp;=&nbsp;GS_DATA-SHORT_TEXT.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEM-ACCTASSCAT&nbsp;=&nbsp;'K'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEM-COSTCENTER&nbsp;=&nbsp;GS_DATA-COSTCENTER.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEMX-SHORT_TEXT&nbsp;=&nbsp;'X'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEMX-ACCTASSCAT&nbsp;=&nbsp;'X'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEMX-COSTCENTER&nbsp;=&nbsp;'X'.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;GS_DATA-MATERIAL&nbsp;IS&nbsp;NOT&nbsp;INITIAL&nbsp;AND&nbsp;GS_DATA-VENDOR&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEM-MATERIAL&nbsp;=&nbsp;GS_DATA-MATERIAL.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEMX-MATERIAL&nbsp;=&nbsp;'X'.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEM-PO_ITEM&nbsp;=&nbsp;'10'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEM-PRICE_UNIT&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEM-MATERIAL&nbsp;=&nbsp;GS_DATA-MATERIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEM-QUANTITY&nbsp;=&nbsp;GS_DATA-QUANTITY.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEM-PO_UNIT&nbsp;=&nbsp;GS_DATA-UNIT.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEM-NET_PRICE&nbsp;=&nbsp;GS_DATA-NET_PRICE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEM-PLANT&nbsp;=&nbsp;'1010'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEM-TAX_CODE&nbsp;=&nbsp;'V3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEM-MATL_GROUP&nbsp;=&nbsp;GS_DATA-MATERIAL_GROUP.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_POITEM&nbsp;TO&nbsp;GT_POITEM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEMX-PO_ITEM&nbsp;=&nbsp;'10'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEMX-PRICE_UNIT&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEMX-PO_ITEMX&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEMX-MATERIAL&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEMX-QUANTITY&nbsp;=&nbsp;'X'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEMX-PO_UNIT&nbsp;=&nbsp;'X'.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEMX-NET_PRICE&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEMX-PLANT&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEMX-TAX_CODE&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POITEMX-MATL_GROUP&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_POITEMX&nbsp;TO&nbsp;GT_POITEMX.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POSCHEDULE-PO_ITEM&nbsp;=&nbsp;'10'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POSCHEDULE-DEL_DATCAT_EXT&nbsp;=&nbsp;'D'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POSCHEDULE-DELIVERY_DATE&nbsp;=&nbsp;GS_DATA-DELIVERYDATE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_POSCHEDULE&nbsp;TO&nbsp;GT_POSCHEDULE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POSCHEDULEX-PO_ITEM&nbsp;=&nbsp;'10'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POSCHEDULEX-PO_ITEMX&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POSCHEDULEX-DEL_DATCAT_EXT&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_POSCHEDULEX-DELIVERY_DATE&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_POSCHEDULEX&nbsp;TO&nbsp;GT_POSCHEDULEX.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_PO_CREATE1'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POHEADER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_POHEADER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POHEADERX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_POHEADERX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TESTRUN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'&nbsp;'<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TESTRUN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GV_TESTRUN<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POEXPIMPHEADER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POEXPIMPHEADER<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POEXPIMPHEADERX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POEXPIMPHEADERX<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VERSIONS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;VERSIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO_MESSAGING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;NO_MESSAGING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO_MESSAGE_REQ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;NO_MESSAGE_REQ<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO_AUTHORITY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;NO_AUTHORITY<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO_PRICE_FROM_PO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;NO_PRICE_FROM_PO<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARK_COMPLETE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;PARK_COMPLETE<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARK_UNCOMPLETE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;PARK_UNCOMPLETE<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPPURCHASEORDER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GV_EXPPURCHASEORDER<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPHEADER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;EXPHEADER<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPPOEXPIMPHEADER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;EXPPOEXPIMPHEADER<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_RETURN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POITEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_POITEM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POITEMX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_POITEMX<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POADDRDELIVERY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POADDRDELIVERY<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POSCHEDULE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_POSCHEDULE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POSCHEDULEX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_POSCHEDULEX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POACCOUNT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_POACCOUNT<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POACCOUNTPROFITSEGMENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POACCOUNTPROFITSEGMENT<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POACCOUNTX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_POACCOUNTX.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POCONDHEADER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POCONDHEADER<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POCONDHEADERX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POCONDHEADERX<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POCOND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POCOND<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POCONDX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POCONDX<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POLIMITS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POLIMITS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POCONTRACTLIMITS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POCONTRACTLIMITS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POSERVICES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POSERVICES<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POSRVACCESSVALUES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POSRVACCESSVALUES<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POSERVICESTEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POSERVICESTEXT<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXTENSIONIN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;EXTENSIONIN<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXTENSIONOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;EXTENSIONOUT<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POEXPIMPITEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POEXPIMPITEM<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POEXPIMPITEMX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POEXPIMPITEMX<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POTEXTHEADER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POTEXTHEADER<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POTEXTITEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POTEXTITEM<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALLVERSIONS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ALLVERSIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POPARTNER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POPARTNER<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POCOMPONENTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POCOMPONENTS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POCOMPONENTSX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POCOMPONENTSX<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POSHIPPING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POSHIPPING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POSHIPPINGX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POSHIPPINGX<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POSHIPPINGEXP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;POSHIPPINGEXP<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SERIALNUMBER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SERIALNUMBER<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SERIALNUMBERX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SERIALNUMBERX<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INVPLANHEADER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;INVPLANHEADER<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INVPLANHEADERX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;INVPLANHEADERX<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INVPLANITEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;INVPLANITEMS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INVPLANITEMX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;INVPLANITEMX<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NFMETALLITMS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;NFMETALLITMS.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_RETURN&nbsp;INTO&nbsp;GS_RETURN&nbsp;WITH&nbsp;KEY&nbsp;TYPE&nbsp;=&nbsp;'E'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;##&nbsp;##&nbsp;#&nbsp;-----------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'MESSAGE_TEXT_BUILD'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MSGID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_RETURN-ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MSGNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_RETURN-NUMBER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MSGV1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_RETURN-MESSAGE_V1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MSGV2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_RETURN-MESSAGE_V2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MSGV3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_RETURN-MESSAGE_V3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MSGV4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_RETURN-MESSAGE_V4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE_TEXT_OUTPUT&nbsp;=&nbsp;GV_MESSAGE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_TRANSACTION_ROLLBACK'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN&nbsp;=&nbsp;GS_RETURN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_RESULT-LINE&nbsp;=&nbsp;GV_COUNT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_RESULT-MSG&nbsp;=&nbsp;GV_MESSAGE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_RESULT-PONUM&nbsp;=&nbsp;GV_EXPPURCHASEORDER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_RESULT-RESULT&nbsp;=&nbsp;'FAIL'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_RESULT&nbsp;TO&nbsp;GT_RESULT.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;#&nbsp;-----------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_TRANSACTION_COMMIT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAIT&nbsp;&nbsp;&nbsp;=&nbsp;'X'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN&nbsp;=&nbsp;GS_RETURN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_RESULT-LINE&nbsp;=&nbsp;GV_COUNT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_RESULT-MSG&nbsp;=&nbsp;&nbsp;GV_MESSAGE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_RESULT-PONUM&nbsp;=&nbsp;GV_EXPPURCHASEORDER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_RESULT-RESULT&nbsp;=&nbsp;'SUCCESS'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_RESULT&nbsp;TO&nbsp;GT_RESULT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GV_MESSAGE,&nbsp;GV_EXPPURCHASEORDER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;GS_POHEADER,&nbsp;GS_POHEADERX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;GS_POACCOUNT,&nbsp;GS_POACCOUNTX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;GS_POITEM,&nbsp;GS_POITEMX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;GS_POSCHEDULE,&nbsp;GS_POSCHEDULEX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;GT_RETURN[],&nbsp;GS_RETURN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;GT_POACCOUNT[],&nbsp;GT_POACCOUNTX[].<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;GT_POITEM[],&nbsp;GT_POITEMX[].<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;GT_POSCHEDULE[],&nbsp;GT_POSCHEDULEX[].<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_RESULT&nbsp;INTO&nbsp;GS_RESULT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;GS_RESULT-LINE,&nbsp;GS_RESULT-RESULT,&nbsp;GS_RESULT-MSG,&nbsp;GS_RESULT-PONUM.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;ALV_CHECK_CHANGED<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;GO_GRID<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_CHECK_CHANGED  USING PO_GRID TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;E_VALID(1),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_REFRESH(1)&nbsp;VALUE&nbsp;'&nbsp;'.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;PO_GRID&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;"##&nbsp;##&nbsp;#&nbsp;DATA_CHANGED&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;PO_GRID-&gt;CHECK_CHANGED_DATA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_VALID&nbsp;&nbsp;&nbsp;=&nbsp;E_VALID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C_REFRESH&nbsp;=&nbsp;C_REFRESH.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;DYNPRO<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;P_<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;P_<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;P_<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DYNPRO  USING PV_CHECK PV_NAME PV_VALUE.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_BDC.<br />
+&nbsp;&nbsp;IF&nbsp;PV_CHECK&nbsp;=&nbsp;C_X.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_BDC-DYNBEGIN&nbsp;=&nbsp;C_X.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_BDC-PROGRAM&nbsp;&nbsp;=&nbsp;PV_NAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_BDC-DYNPRO&nbsp;&nbsp;&nbsp;=&nbsp;PV_VALUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_BDC&nbsp;TO&nbsp;GT_BDC.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_BDC-FNAM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;PV_NAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_BDC-FVAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;PV_VALUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_BDC&nbsp;TO&nbsp;GT_BDC.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;BDC_CREATE_PROFIT<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM BDC_CREATE_PROFIT .<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;MESSAGE_TEXT<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM MESSAGE_TEXT .<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GV_MESSAGE.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'MESSAGE_TEXT_BUILD'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MSGID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_MSG-MSGID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MSGNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_MSG-MSGNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MSGV1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_MSG-MSGV1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MSGV2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_MSG-MSGV2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MSGV3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_MSG-MSGV3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MSGV4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_MSG-MSGV4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE_TEXT_OUTPUT&nbsp;=&nbsp;GV_MESSAGE.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;CREATE_VENDOR<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CREATE_VENDOR .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LS_CTUPAR&nbsp;LIKE&nbsp;CTU_PARAMS.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Call&nbsp;transaction&nbsp;parameters<br />
+&nbsp;&nbsp;DATA:&nbsp;&nbsp;LV_VALIDFROM&nbsp;TYPE&nbsp;SY-DATUM.<br />
+&nbsp;&nbsp;DATA:&nbsp;&nbsp;LV_COUNT&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:&nbsp;LS_DATA&nbsp;TYPE&nbsp;STRING.<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_DATA&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;LS_DATA.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GS_DATA,&nbsp;GV_MESSAGE.<br />
+<br />
+<br />
+&nbsp;&nbsp;CLEAR:LS_CTUPAR.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;DISMODE&nbsp;CTU_MODE<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;LS_CTUPAR-DISMODE&nbsp;&nbsp;=&nbsp;GV_MODE.<br />
+&nbsp;&nbsp;LS_CTUPAR-UPDMODE&nbsp;&nbsp;=&nbsp;'S'.<br />
+&nbsp;&nbsp;LS_CTUPAR-NOBINPT&nbsp;&nbsp;=&nbsp;SPACE.<br />
+&nbsp;&nbsp;"..&nbsp;BDC&nbsp;###&nbsp;###&nbsp;GET&nbsp;##&nbsp;##!!<br />
+&nbsp;&nbsp;LS_CTUPAR-RACOMMIT&nbsp;=&nbsp;'X'.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_DATA&nbsp;INTO&nbsp;GS_DATA.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DYNPRO&nbsp;USING&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'X'&nbsp;'SAPLBUS_LOCATOR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'3000',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'BDC_OKCODE'&nbsp;&nbsp;'=SCREEN_1110_CHG_ROLE',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'BUS_JOEL_MAIN-PARTNER_ROLE'&nbsp;&nbsp;'FLVN01'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'BUS_JOEL_MAIN-PARTNER_ROLE'&nbsp;&nbsp;'FLVN00'.<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DYNPRO&nbsp;USING&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'X'&nbsp;'SAPLBUS_LOCATOR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'3000',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'BDC_OKCODE'&nbsp;&nbsp;'=SCREEN_1000_MAIN_P02'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DYNPRO&nbsp;USING&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'X'&nbsp;'SAPLBUS_LOCATOR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'3000',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'BDC_OKCODE'&nbsp;&nbsp;'=BUS_MAIN_ENTER',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'GV_PURCHASING_ORG'&nbsp;&nbsp;'1010'..<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DYNPRO&nbsp;USING&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'X'&nbsp;'SAPLBUS_LOCATOR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'3000',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'BDC_OKCODE'&nbsp;&nbsp;'=SCREEN_1100_TAB_02',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'GS_LFM1-WAERS'&nbsp;&nbsp;'KRW',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'GS_LFM1-ZTERM'&nbsp;&nbsp;'0003'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DYNPRO&nbsp;USING&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'X'&nbsp;'SAPLBUS_LOCATOR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'3000',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'BDC_OKCODE'&nbsp;&nbsp;'=BUS_MAIN_SAVE'.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'BPA'&nbsp;FIELD&nbsp;GS_DATA-VENDOR.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;TRANSACTION&nbsp;'BUP2'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;GT_BDC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODE&nbsp;'A'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;LS_CTUPAR-UPDMODE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGES&nbsp;INTO&nbsp;GT_MSG.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MSG&nbsp;INTO&nbsp;GS_MSG&nbsp;WITH&nbsp;KEY&nbsp;MSGID&nbsp;=&nbsp;'E'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;###&nbsp;------------------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;MESSAGE_TEXT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;GV_MESSAGE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;###&nbsp;------------------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MSG&nbsp;INTO&nbsp;GS_MSG&nbsp;WITH&nbsp;KEY&nbsp;MSGTYP&nbsp;=&nbsp;'E'.&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;MESSAGE_TEXT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;GV_MESSAGE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_DATA-VENDOR&nbsp;TO&nbsp;LT_DATA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;&nbsp;GS_DATA,&nbsp;GT_MSG[],&nbsp;GS_BDC,&nbsp;GT_BDC[].<br />
+<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_DATA&nbsp;INTO&nbsp;LS_DATA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;LS_DATA&nbsp;&&&nbsp;'FAILED'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;CREATE_FI_VENDOR<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CREATE_FI_VENDOR .<br />
+<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LS_CTUPAR&nbsp;LIKE&nbsp;CTU_PARAMS.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Call&nbsp;transaction&nbsp;parameters<br />
+&nbsp;&nbsp;DATA:&nbsp;&nbsp;LV_VALIDFROM&nbsp;TYPE&nbsp;SY-DATUM.<br />
+&nbsp;&nbsp;DATA:&nbsp;&nbsp;LV_COUNT&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:&nbsp;LS_DATA&nbsp;TYPE&nbsp;STRING.<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_DATA&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;LS_DATA.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GS_DATA,&nbsp;GV_MESSAGE.<br />
+<br />
+<br />
+&nbsp;&nbsp;CLEAR:LS_CTUPAR.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;DISMODE&nbsp;CTU_MODE<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;LS_CTUPAR-DISMODE&nbsp;&nbsp;=&nbsp;GV_MODE.<br />
+&nbsp;&nbsp;LS_CTUPAR-UPDMODE&nbsp;&nbsp;=&nbsp;'S'.<br />
+&nbsp;&nbsp;LS_CTUPAR-NOBINPT&nbsp;&nbsp;=&nbsp;SPACE.<br />
+&nbsp;&nbsp;"..&nbsp;BDC&nbsp;###&nbsp;###&nbsp;GET&nbsp;##&nbsp;##!!<br />
+&nbsp;&nbsp;LS_CTUPAR-RACOMMIT&nbsp;=&nbsp;'X'.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_DATA&nbsp;INTO&nbsp;GS_DATA.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DYNPRO&nbsp;USING&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'X'&nbsp;'SAPLBUS_LOCATOR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'3000',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'BDC_OKCODE'	'=SCREEN_1110_CHG_ROLE',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'BUS_JOEL_MAIN-PARTNER_ROLE'&nbsp;&nbsp;'FLVN00'.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DYNPRO&nbsp;USING&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'X'&nbsp;'SAPLBUS_LOCATOR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'3000',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'BDC_OKCODE'	'=SCREEN_1000_MAIN_P02'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DYNPRO&nbsp;USING&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'X'&nbsp;'SAPLBUS_LOCATOR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'3000',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'BDC_OKCODE'&nbsp;&nbsp;'=BUS_MAIN_ENTER',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'BS001-BUKRS'&nbsp;&nbsp;'1000'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DYNPRO&nbsp;USING&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'X'&nbsp;'SAPLBUS_LOCATOR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'3000',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'BDC_OKCODE'&nbsp;&nbsp;'=BUS_MAIN_ENTER',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'GS_LFB1-AKONT'&nbsp;&nbsp;'160000'.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DYNPRO&nbsp;USING&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'X'&nbsp;'SAPLBUS_LOCATOR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'3000',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'BDC_OKCODE'&nbsp;&nbsp;'=SCREEN_1100_TAB_02'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DYNPRO&nbsp;USING&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'X'&nbsp;'SAPLBUS_LOCATOR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'3000',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'BDC_OKCODE'&nbsp;&nbsp;'=BUS_MAIN_ENTER',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'GS_LFB1-ZTERM'&nbsp;&nbsp;'0003'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DYNPRO&nbsp;USING&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'X'&nbsp;'SAPLBUS_LOCATOR'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'3000',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;'&nbsp;'BDC_OKCODE'&nbsp;&nbsp;'=BUS_MAIN_SAVE'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'BPA'&nbsp;FIELD&nbsp;GS_DATA-VENDOR.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;TRANSACTION&nbsp;'BUP2'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;GT_BDC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODE&nbsp;'A'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;LS_CTUPAR-UPDMODE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGES&nbsp;INTO&nbsp;GT_MSG.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MSG&nbsp;INTO&nbsp;GS_MSG&nbsp;WITH&nbsp;KEY&nbsp;MSGID&nbsp;=&nbsp;'E'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;###&nbsp;------------------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;MESSAGE_TEXT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;GV_MESSAGE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;###&nbsp;------------------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_MSG&nbsp;INTO&nbsp;GS_MSG&nbsp;WITH&nbsp;KEY&nbsp;MSGTYP&nbsp;=&nbsp;'E'.&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;MESSAGE_TEXT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;GV_MESSAGE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_DATA-VENDOR&nbsp;TO&nbsp;LT_DATA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;&nbsp;GS_DATA,&nbsp;GT_MSG[],&nbsp;GS_BDC,&nbsp;GT_BDC[].<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_DATA&nbsp;INTO&nbsp;LS_DATA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;LS_DATA&nbsp;&&&nbsp;'FAILED'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

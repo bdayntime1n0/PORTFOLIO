@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBAP_M02_T01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBAP_M02_T01</h2>
+<h3> Description: Include ZBD1_00_100_T01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBAP_M001_T01<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES SSCRFIELDS.<br />
+<br />
+<br />
+" #### ### #### #### ## Internal Table<br />
+DATA GT_INTERN TYPE TABLE OF ALSMEX_TABLINE.<br />
+<br />
+" ALV # ### #### #### ## Internal Table<br />
+DATA: BEGIN OF GS_DISPLAY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;&nbsp;LIKE&nbsp;ICON-ID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZVENID&nbsp;&nbsp;LIKE&nbsp;ZBAPCUSB-ZVENID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCNAME&nbsp;&nbsp;LIKE&nbsp;ZBAPCUSB-ZCNAME,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##NAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCITY&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZBAPCUSB-ZCITY,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;CITY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSTRAS&nbsp;&nbsp;LIKE&nbsp;ZBAPCUSB-ZSTRAS,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZPOST&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZBAPCUSB-ZPOST,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTELE&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZBAPCUSB-ZTELE,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEMAIL&nbsp;&nbsp;LIKE&nbsp;ZBAPCUSB-ZEMAIL,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;LIKE&nbsp;BAPIRET2-MESSAGE,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCITY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ORT01_GP,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZPOST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;PSTLZ,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTELE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;TELF1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZEMAIL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZEMAIL,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KOSTL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKS-KOSTL,&nbsp;&nbsp;"&nbsp;#######<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKS-DATAB,&nbsp;&nbsp;"&nbsp;#####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATBI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKS-DATBI,&nbsp;&nbsp;"&nbsp;#####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KTEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKSZ-KTEXT,&nbsp;"&nbsp;######<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LTEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKT-LTEXT,&nbsp;&nbsp;"&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VERAK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKS-VERAK,&nbsp;&nbsp;"&nbsp;###<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KOSAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKS-KOSAR,&nbsp;&nbsp;"&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KHINR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKS-KHINR,&nbsp;&nbsp;"&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKS-WAERS,&nbsp;&nbsp;"&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRCTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;CSKS-PRCTR,&nbsp;&nbsp;"&nbsp;####<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DISPLAY.<br />
+<br />
+DATA GT_DISPLAY LIKE TABLE OF GS_DISPLAY.<br />
+<br />
+<br />
+DATA: OKCODE TYPE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVEOK&nbsp;TYPE&nbsp;SY-UCOMM.&nbsp;"&nbsp;Screen&nbsp;##&nbsp;###&nbsp;OKCODE&nbsp;##&nbsp;##<br />
+<br />
+<br />
+DATA GO_DOCKING_CONTAINER_TOP     TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA GO_DOCKING_CONTAINER         TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA GO_DOCKING_CONTAINER_BOTTOM  TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+" ALV # Screen 0100 # #### ## ### ## ##<br />
+<br />
+DATA GO_ALV_GRID          TYPE REF TO CL_GUI_ALV_GRID.<br />
+" Screen 0100 ## Container # ALV # #### ## ## ##<br />
+<br />
+DATA GS_LAYOUT    TYPE LVC_S_LAYO.  " ALV # #### ## #### ##<br />
+DATA GT_FIELDCAT  TYPE LVC_T_FCAT.  " ALV # # ### ##, ##, ## # #### ##<br />
+DATA GS_FIELDCAT  TYPE LVC_S_FCAT.<br />
+<br />
+<br />
+DATA : GS_BDC LIKE BDCDATA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_BDC&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;BDCDATA.<br />
+<br />
+DATA : GS_MSG LIKE BDCMSGCOLL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_MSG&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;BDCMSGCOLL.<br />
+<br />
+DATA : GS_OPT     TYPE CTU_PARAMS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_MOVE&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;CTU_PARAMS-DISMODE&nbsp;VALUE&nbsp;'N',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_MESSAGE&nbsp;LIKE&nbsp;BAPIRETURN-MESSAGE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*CONSTANTS:&nbsp;GC_RED&nbsp;TYPE&nbsp;ICON-ID&nbsp;VALUE&nbsp;'@5C@',<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_YEL&nbsp;TYPE&nbsp;ICON-ID&nbsp;VALUE&nbsp;'@5D@',<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_GRN&nbsp;TYPE&nbsp;ICON-ID&nbsp;VALUE&nbsp;'@5B@'.<br />
+<br />
+*EVENT&nbsp;RECEIVER<br />
+   </div>
+   <div class="code">
+CLASS LCL_EVENT_RECEIVER DEFINITION DEFERRED.<br />
+DATA: EVENT_RECEIVER     TYPE REF TO LCL_EVENT_RECEIVER.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

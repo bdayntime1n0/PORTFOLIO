@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZSG_MASTER_MAT_T01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZSG_MASTER_MAT_T01</h2>
+<h3> Description: Include ZMY_1_T01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZMY_1_T01<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES SSCRFIELDS.<br />
+TABLES MARA.<br />
+<br />
+DATA : GV_DYNTXT TYPE SMP_DYNTXT. " EXCEL DOWN ##<br />
+<br />
+" #### ### #### #### ## Internal Table<br />
+DATA GT_VEND TYPE TABLE OF ALSMEX_TABLINE.<br />
+<br />
+" ALV # ### #### #### ## Internal Table ( ### ### - ####<br />
+   </div>
+   <div class="codeComment">
+*###&nbsp;###&nbsp;####&nbsp;###&nbsp;###!!&nbsp;)<br />
+   </div>
+   <div class="code">
+DATA: BEGIN OF GS_DISPLAY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;&nbsp;LIKE&nbsp;ICON-ID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARA-MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAKTX&nbsp;&nbsp;&nbsp;LIKE&nbsp;MAKT-MAKTX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARA-MEINS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BRGEW&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARA-BRGEW,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NTGEW&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARA-NTGEW,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GEWEI&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARA-GEWEI,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EISBE&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARC-EISBE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;LIKE&nbsp;BAPIRET2-MESSAGE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DISPLAY.<br />
+<br />
+DATA GT_DISPLAY LIKE TABLE OF GS_DISPLAY.<br />
+<br />
+DATA: BEGIN OF GS_SHOW,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;&nbsp;LIKE&nbsp;ICON-ID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARC-WERKS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARA-MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAKTX&nbsp;&nbsp;&nbsp;LIKE&nbsp;MAKT-MAKTX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MTART&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARA-MTART,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATKL&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARA-MATKL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EISBE&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARC-EISBE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARA-MEINS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BRGEW&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARA-BRGEW,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NTGEW&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARA-NTGEW,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GEWEI&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARA-GEWEI,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LVORM&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARC-LVORM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;LIKE&nbsp;BAPIRET2-MESSAGE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_SHOW.<br />
+DATA GT_SHOW LIKE TABLE OF GS_SHOW.<br />
+<br />
+DATA: OKCODE TYPE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVEOK&nbsp;TYPE&nbsp;SY-UCOMM.&nbsp;"&nbsp;Screen&nbsp;##&nbsp;###&nbsp;OKCODE&nbsp;##&nbsp;##<br />
+<br />
+DATA GV_MODE. "D:##, U:##, C:##<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+***ALV&nbsp;##&nbsp;####&nbsp;##&nbsp;----&gt;&nbsp;PBO##&nbsp;####&nbsp;#####!<br />
+*Container&nbsp;(###)&nbsp;&nbsp;-&nbsp;########&nbsp;##<br />
+   </div>
+   <div class="code">
+DATA GO_DOCKING_CONTAINER     TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+   </div>
+   <div class="codeComment">
+*"&nbsp;ALV&nbsp;#&nbsp;Screen&nbsp;0100&nbsp;#&nbsp;####&nbsp;##&nbsp;###&nbsp;##&nbsp;##<br />
+<br />
+*ALV&nbsp;GRID&nbsp;(##)&nbsp;-&nbsp;ALV&nbsp;GRID&nbsp;####(###)&nbsp;##<br />
+   </div>
+   <div class="code">
+DATA GO_ALV_GRID          TYPE REF TO CL_GUI_ALV_GRID.<br />
+   </div>
+   <div class="codeComment">
+*"&nbsp;Screen&nbsp;0100&nbsp;##&nbsp;Container&nbsp;#&nbsp;ALV&nbsp;#&nbsp;####&nbsp;##&nbsp;##&nbsp;##<br />
+<br />
+<br />
+***ALV&nbsp;##<br />
+   </div>
+   <div class="code">
+DATA GS_LAYOUT    TYPE LVC_S_LAYO.  " ALV # #### ## #### ##<br />
+DATA GT_FIELDCAT  TYPE LVC_T_FCAT.  " ALV # # ### ##, ##, ## #<br />
+   </div>
+   <div class="codeComment">
+*####&nbsp;##<br />
+   </div>
+   <div class="code">
+"FIELD CATALOG: ALV# ### ### # ## ### ##### ## ### ##<br />
+   </div>
+   <div class="codeComment">
+*##&nbsp;###<br />
+   </div>
+   <div class="code">
+DATA GS_FIELDCAT  TYPE LVC_S_FCAT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*EVENT&nbsp;RECEIVER<br />
+   </div>
+   <div class="code">
+CLASS LCL_EVENT_RECEIVER DEFINITION DEFERRED.<br />
+DATA: EVENT_RECEIVER     TYPE REF TO LCL_EVENT_RECEIVER.<br />
+<br />
+"" Status ## - ###<br />
+CONSTANTS: GC_RED TYPE ICON-ID VALUE '@5C@',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_YEL&nbsp;TYPE&nbsp;ICON-ID&nbsp;VALUE&nbsp;'@5D@',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_GRN&nbsp;TYPE&nbsp;ICON-ID&nbsp;VALUE&nbsp;'@5B@'.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

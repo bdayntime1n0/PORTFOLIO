@@ -1,0 +1,1486 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZC001_TR01_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZC001_TR01_F01</h2>
+<h3> Description: Include ZC001_TR01_F01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZC001_TR01_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SELECTION_SCREEN_OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SELECTION_SCREEN_OUTPUT .<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;P_CREATE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;EQ&nbsp;'B2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;P_EXCUTE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;EQ&nbsp;'B2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;INITIALIZATION<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM INITIALIZATION .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LS_FUNC&nbsp;TYPE&nbsp;SMP_DYNTXT.<br />
+<br />
+&nbsp;&nbsp;LS_FUNC-ICON_ID&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ICON_EXPORT.<br />
+&nbsp;&nbsp;LS_FUNC-ICON_TEXT&nbsp;&nbsp;=&nbsp;'###&nbsp;##&nbsp;####'.<br />
+&nbsp;&nbsp;LS_FUNC-QUICKINFO&nbsp;&nbsp;=&nbsp;'###&nbsp;##&nbsp;####'.<br />
+<br />
+&nbsp;&nbsp;SSCRFIELDS-FUNCTXT_01&nbsp;=&nbsp;LS_FUNC.<br />
+<br />
+&nbsp;&nbsp;BTN_EX&nbsp;=&nbsp;'##'.&nbsp;"&nbsp;2000&nbsp;##&nbsp;##<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SAPGUI_PROGRESS_INDICATOR<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;TEXT_M03<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SAPGUI_PROGRESS_INDICATOR  USING P_P01.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'SAPGUI_PROGRESS_INDICATOR'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT&nbsp;=&nbsp;P_P01.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;CONFIRM_UPLOAD<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CONFIRM_UPLOAD .<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;POP_UP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;TEXT-M01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;######?<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT-M02&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;GV_ANSWER.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;GV_ANSWER&nbsp;EQ&nbsp;'J'.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;SAPGUI_PROGRESS_INDICATOR&nbsp;USING&nbsp;TEXT-M03.<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_EXCEL_DATA.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;POP_UP<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;TEXT_009<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;TEXT_010<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;GV_ANSWER<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM POP_UP  USING P_TEXT P_TITEL CHANGING P_ANSWER.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;P_ANSWER.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'POPUP_TO_CONFIRM_STEP'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEFAULTOPTION&nbsp;&nbsp;=&nbsp;'J'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Default&nbsp;#(CANC&nbsp;=&nbsp;A,&nbsp;YES&nbsp;=&nbsp;J,&nbsp;NO&nbsp;=&nbsp;N)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXTLINE1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_TEXT<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXTLINE2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_TEXT2<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TITEL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_TITEL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CANCEL_DISPLAY&nbsp;=&nbsp;'X'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ANSWER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_ANSWER.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;EXCEL_DOWN_SMW0<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM EXCEL_DOWN .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;DOC_TABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;W3MIME&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;DOC_SIZE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;DOC_TYPE(80)&nbsp;&nbsp;&nbsp;VALUE&nbsp;SOI_DOCTYPE_EXCEL_SHEET.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;DOC_FORMAT(80)&nbsp;TYPE&nbsp;C.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;###(SMW0)##&nbsp;###&nbsp;####.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'SAP_OI_LOAD_MIME_DATA'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBJECT_ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'ZORDER_FORM'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA_SIZE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;DOC_SIZE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DOCUMENT_FORMAT&nbsp;&nbsp;=&nbsp;DOC_FORMAT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DOCUMENT_TYPE&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;DOC_TYPE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA_TABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;DOC_TABLE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBJECT_NOT_JOUNT&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTERNAL_ERROR&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;####<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'GUI_DOWNLOAD'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BIN_FILESIZE&nbsp;&nbsp;=&nbsp;DOC_SIZE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILENAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'C:\OrderForm\Order_Form.xlsx'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILETYPE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'BIN'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO_AUTH_CHECK&nbsp;=&nbsp;'X'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA_TAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;DOC_TABLE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;####&nbsp;#&nbsp;##&nbsp;######&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;EXECUTE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DOCUMENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'C:\OrderForm\Order_Form.xlsx'&nbsp;&nbsp;&nbsp;"&nbsp;Path+Name&nbsp;to&nbsp;Document<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNTL_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Control&nbsp;error<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_NO_GUI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;No&nbsp;GUI&nbsp;available<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BAD_PARAMETER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Incorrect&nbsp;parameter&nbsp;combination<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE_NOT_FOUND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;File&nbsp;not&nbsp;found<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PATH_NOT_FOUND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Path&nbsp;not&nbsp;found<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE_EXTENSION_UNKNOWN&nbsp;=&nbsp;6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Could&nbsp;not&nbsp;find&nbsp;application&nbsp;for&nbsp;specified&nbsp;extension<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERROR_EXECUTE_FAILED&nbsp;&nbsp;&nbsp;=&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Could&nbsp;not&nbsp;execute&nbsp;application&nbsp;or&nbsp;document<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SYNCHRONOUS_FAILED&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Cannot&nbsp;Call&nbsp;Application&nbsp;Synchronously<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NOT_SUPPORTED_BY_GUI&nbsp;&nbsp;&nbsp;=&nbsp;9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;GUI&nbsp;does&nbsp;not&nbsp;support&nbsp;this<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;10.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;ONF4_FILE<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;P_FILE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ONF4_FILE USING PV_FILE TYPE LOCALFILE.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LT_FILE&nbsp;&nbsp;&nbsp;TYPE&nbsp;FILETABLE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SUBRC&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ACTION&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;FILE_OPEN_DIALOG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WINDOW_TITLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'##&nbsp;##&nbsp;##'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Title&nbsp;Of&nbsp;File&nbsp;Open&nbsp;Dialog<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT_EXTENSION&nbsp;=&nbsp;'.xlsx'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Default&nbsp;Extension<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT_FILENAME&nbsp;&nbsp;=&nbsp;'Template'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Default&nbsp;File&nbsp;Name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE_FILTER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'XLXS&nbsp;FILE&nbsp;(*.xlsx)|*.xlsx|XLS&nbsp;files&nbsp;(*.xls)|*.xls'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;File&nbsp;Extension&nbsp;Filter&nbsp;String<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INITIAL_DIRECTORY&nbsp;=&nbsp;'C:\OrderForm'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Initial&nbsp;Directory<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MULTISELECTION&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'&nbsp;'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Multiple&nbsp;selections&nbsp;poss.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE_TABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_FILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Table&nbsp;Holding&nbsp;Selected&nbsp;Files<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_SUBRC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Return&nbsp;Code,&nbsp;Number&nbsp;of&nbsp;Files&nbsp;or&nbsp;-1&nbsp;If&nbsp;Error&nbsp;Occurred<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USER_ACTION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_ACTION.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;User&nbsp;Action&nbsp;(See&nbsp;Class&nbsp;Constants&nbsp;ACTION_OK,&nbsp;ACTION_CANCEL)<br />
+&nbsp;&nbsp;.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;LV_ACTION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;ACTION_OK.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_FILE&nbsp;INTO&nbsp;DATA(LS_FILE)&nbsp;INDEX&nbsp;1."&nbsp;Inline&nbsp;Definition<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_FILE&nbsp;=&nbsp;LS_FILE-FILENAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;###&nbsp;######.'&nbsp;TYPE&nbsp;'S'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;CL_GUI_FRONTEND_SERVICES=&gt;ACTION_CANCEL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'####&nbsp;##&nbsp;###&nbsp;######.'&nbsp;TYPE&nbsp;'S'&nbsp;DISPLAY&nbsp;LIKE&nbsp;'W'.<br />
+<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;GET_EXCEL_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_EXCEL_DATA .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_BROW&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_EROW&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_LINE&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;REFRESH&nbsp;:&nbsp;GT_EXCEL.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;&nbsp;&nbsp;:&nbsp;LV_BROW,&nbsp;LV_EROW,&nbsp;LV_LINE.<br />
+<br />
+&nbsp;&nbsp;CONSTANTS&nbsp;LC_MAX_LINE&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;1000000.<br />
+<br />
+&nbsp;&nbsp;LV_BROW&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;LV_EROW&nbsp;=&nbsp;LV_BROW&nbsp;+&nbsp;LC_MAX_LINE&nbsp;-&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'ALSM_EXCEL_TO_INTERNAL_TABLE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILENAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_FILE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_BEGIN_COL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_BEGIN_ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_BROW<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_END_COL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;28<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_END_ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_EROW<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTERN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_EXCEL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCONSISTENT_PARAMETERS&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UPLOAD_OLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_EXCEL&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_CHK&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I555(BC400)&nbsp;WITH&nbsp;'##&nbsp;###&nbsp;####&nbsp;####&nbsp;####.'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;MOVE_EXCEL_ITAB.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;MOVE_EXCEL_ITAB<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM MOVE_EXCEL_ITAB .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_LINE&nbsp;TYPE&nbsp;SY-DBCNT.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;FIELD-SYMBOLS&nbsp;&lt;FS&gt;.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_EXCEL&nbsp;INTO&nbsp;DATA(LS_EXCEL).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AT&nbsp;NEW&nbsp;ROW.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_DATA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DATA-STATUS&nbsp;=&nbsp;ICON_YELLOW_LIGHT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LS_EXCEL-COL&nbsp;=&nbsp;LS_EXCEL-COL&nbsp;+&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;COMPONENT&nbsp;LS_EXCEL-COL&nbsp;OF&nbsp;STRUCTURE&nbsp;GS_DATA&nbsp;TO&nbsp;&lt;FS&gt;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;###&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;LS_EXCEL-COL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPLACE&nbsp;ALL&nbsp;OCCURRENCES&nbsp;OF&nbsp;','&nbsp;IN&nbsp;LS_EXCEL-VALUE&nbsp;WITH&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;23.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPLACE&nbsp;ALL&nbsp;OCCURRENCES&nbsp;OF&nbsp;','&nbsp;IN&nbsp;LS_EXCEL-VALUE&nbsp;WITH&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;25.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPLACE&nbsp;ALL&nbsp;OCCURRENCES&nbsp;OF&nbsp;'-'&nbsp;IN&nbsp;LS_EXCEL-VALUE&nbsp;WITH&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FS&gt;&nbsp;=&nbsp;LS_EXCEL-VALUE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNASSIGN&nbsp;&lt;FS&gt;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;ROW.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;AMT_CONV_TOEXTERNAL&nbsp;USING&nbsp;GS_DATA-ZAMOUNT_CUKY&nbsp;CHANGING&nbsp;GS_DATA-ZAMOUNT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DUPLICATE_CODE&nbsp;&nbsp;USING&nbsp;GS_DATA-ZUNIPASS&nbsp;&nbsp;CHANGING&nbsp;GS_DATA-ZCUSTOMID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DATA-ZVENDORNM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DATA-ZVENDORCO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DATA-ZPRODNM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DATA-ZPRODCO.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;NEW_CODE&nbsp;USING&nbsp;GS_DATA-ZORDERDT&nbsp;CHANGING&nbsp;GS_DATA-ZORDERNUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DATA-ZCUSTOMID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DATA-ZVENDORCO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DATA-ZPRODCO.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_DATA&nbsp;TO&nbsp;GT_CPDT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GS_DATA.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDAT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;###&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SAVE_EXCEL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GT_CPDT[]&nbsp;TO&nbsp;GT_DATA[].<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;LV_LINE&nbsp;=&nbsp;LINES(&nbsp;GT_DATA&nbsp;).<br />
+<br />
+&nbsp;&nbsp;MESSAGE&nbsp;S000(OO)&nbsp;WITH&nbsp;LV_LINE&nbsp;&&&nbsp;'&nbsp;#&nbsp;#######.'.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GT_CPDT[],&nbsp;GT_CPDT.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;AMT_CONV_TOEXTERNAL<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;GS_DATA_ZAMOUNT_CUKY<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;GS_DATA_ZAMOUNT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM AMT_CONV_TOEXTERNAL  USING    PV_WAERS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;PV_AMOUNT.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;EXTERNAL&nbsp;LIKE&nbsp;BAPICURR-BAPICURR.<br />
+<br />
+&nbsp;&nbsp;EXTERNAL&nbsp;=&nbsp;PV_AMOUNT.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_CURRENCY_CONV_TO_INTERNAL'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CURRENCY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;PV_WAERS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AMOUNT_EXTERNAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;EXTERNAL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAX_NUMBER_OF_DIGITS&nbsp;=&nbsp;15<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AMOUNT_INTERNAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;PV_AMOUNT.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;DUPLICATE_CODE<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;GS_DATA_ZUNIPASS<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;GS_DATA_ZCUSTOMID<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DUPLICATE_CODE USING PV_ZUNIPASS   CHANGING PV_ZCUSTOMID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_ZVENDORNM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_ZVENDORCO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_ZPRODNM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_ZPRODCO.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;PV_ZCUSTOMID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_ZVENDORCO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_ZPRODCO.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;ZCUSTOMID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZTOI_CONSUMER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;PV_ZCUSTOMID<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZUNIPASS&nbsp;EQ&nbsp;PV_ZUNIPASS.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_ZCUSTOMID&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;ZVENDORCO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZTOI_VENDOR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;PV_ZVENDORCO<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZVENDORNM&nbsp;EQ&nbsp;PV_ZVENDORNM.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_ZVENDORCO&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;ZPRODCO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZTOI_PRODUCT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;PV_ZPRODCO<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZPRODNM&nbsp;EQ&nbsp;PV_ZPRODNM.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_ZPRODCO&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;NEW_CODE<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM NEW_CODE USING PV_ZORDERDT CHANGING PV_ZORDERNUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_ZCUSTOMID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_ZVENDORCO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_ZPRODCO.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;LV_GETNUM(6)&nbsp;TYPE&nbsp;N.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;PV_ZORDERNUM&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_NUMBER_YEAR&nbsp;USING&nbsp;PV_ZORDERDT&nbsp;CHANGING&nbsp;LV_GETNUM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_ZORDERNUM&nbsp;&nbsp;=&nbsp;PV_ZORDERDT&nbsp;&&&nbsp;LV_GETNUM.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;PV_ZCUSTOMID&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_NUMBER&nbsp;USING&nbsp;'CU'&nbsp;CHANGING&nbsp;LV_GETNUM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_ZCUSTOMID&nbsp;&nbsp;=&nbsp;'TCU-'&nbsp;&&&nbsp;LV_GETNUM.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;PV_ZVENDORCO&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_NUMBER&nbsp;USING&nbsp;'VE'&nbsp;CHANGING&nbsp;LV_GETNUM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_ZVENDORCO&nbsp;&nbsp;=&nbsp;'TVE-'&nbsp;&&&nbsp;LV_GETNUM.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;PV_ZPRODCO&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_NUMBER&nbsp;USING&nbsp;'PR'&nbsp;CHANGING&nbsp;LV_GETNUM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_ZPRODCO&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'TPR-'&nbsp;&&&nbsp;LV_GETNUM.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;GET_NUMBER_YEAR<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;P_<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;LV_GETNUM<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_NUMBER_YEAR USING PV_YEAR CHANGING PV_NUM.<br />
+<br />
+&nbsp;&nbsp;CONSTANTS&nbsp;:&nbsp;LC_OBJECT&nbsp;TYPE&nbsp;INRI-OBJECT&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'ZBD15G_Y',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LC_RANGE&nbsp;&nbsp;TYPE&nbsp;INRI-NRRANGENR&nbsp;VALUE&nbsp;'01'.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;LV_YEAR&nbsp;TYPE&nbsp;INRI-TOYEAR.<br />
+<br />
+&nbsp;&nbsp;LV_YEAR&nbsp;=&nbsp;PV_YEAR.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'NUMBER_GET_NEXT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NR_RANGE_NR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LC_RANGE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Number&nbsp;range&nbsp;number<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBJECT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LC_OBJECT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Name&nbsp;of&nbsp;number&nbsp;range&nbsp;object<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TOYEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_YEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Value&nbsp;of&nbsp;To-fiscal&nbsp;year<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUANTITY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'1'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Number&nbsp;of&nbsp;numbers<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBOBJECT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SPACE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Value&nbsp;of&nbsp;subobject<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IGNORE_BUFFER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SPACE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Ignore&nbsp;object&nbsp;buffering<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NUMBER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;PV_NUM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;free&nbsp;number<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUANTITY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Number&nbsp;of&nbsp;numbers<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURNCODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Return&nbsp;code<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTERVAL_NOT_FOUND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Interval&nbsp;not&nbsp;found<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NUMBER_RANGE_NOT_INTERN&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Number&nbsp;range&nbsp;is&nbsp;not&nbsp;internal<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBJECT_NOT_FOUND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Object&nbsp;not&nbsp;defined&nbsp;in&nbsp;TNRO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUANTITY_IS_0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Number&nbsp;of&nbsp;numbers&nbsp;requested&nbsp;must&nbsp;be&nbsp;&gt;&nbsp;0<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUANTITY_IS_NOT_1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Number&nbsp;of&nbsp;numbers&nbsp;requested&nbsp;must&nbsp;be&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTERVAL_OVERFLOW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Interval&nbsp;used&nbsp;up.&nbsp;Change&nbsp;not&nbsp;possible.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUFFER_OVERFLOW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Buffer&nbsp;is&nbsp;full<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;8.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;GET_NUMBER<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;P_<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;NUMBER<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_NUMBER  USING    VALUE(PV_VAL)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;PV_NUM.<br />
+<br />
+&nbsp;&nbsp;CONSTANTS&nbsp;:&nbsp;LC_OBJECT&nbsp;TYPE&nbsp;INRI-OBJECT&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'ZBD15G'.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;LC_RANGE&nbsp;&nbsp;TYPE&nbsp;INRI-NRRANGENR.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;PV_VAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'CU'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LC_RANGE&nbsp;=&nbsp;'09'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'PR'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LC_RANGE&nbsp;=&nbsp;'09'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'VE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LC_RANGE&nbsp;=&nbsp;'09'.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'NUMBER_GET_NEXT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NR_RANGE_NR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LC_RANGE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Number&nbsp;range&nbsp;number<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBJECT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LC_OBJECT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Name&nbsp;of&nbsp;number&nbsp;range&nbsp;object<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUANTITY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'1'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Number&nbsp;of&nbsp;numbers<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBOBJECT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SPACE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Value&nbsp;of&nbsp;subobject<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TOYEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'0000'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Value&nbsp;of&nbsp;To-fiscal&nbsp;year<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IGNORE_BUFFER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SPACE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Ignore&nbsp;object&nbsp;buffering<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NUMBER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;PV_NUM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;free&nbsp;number<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUANTITY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Number&nbsp;of&nbsp;numbers<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURNCODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Return&nbsp;code<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTERVAL_NOT_FOUND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Interval&nbsp;not&nbsp;found<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NUMBER_RANGE_NOT_INTERN&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Number&nbsp;range&nbsp;is&nbsp;not&nbsp;internal<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBJECT_NOT_FOUND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Object&nbsp;not&nbsp;defined&nbsp;in&nbsp;TNRO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUANTITY_IS_0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Number&nbsp;of&nbsp;numbers&nbsp;requested&nbsp;must&nbsp;be&nbsp;&gt;&nbsp;0<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUANTITY_IS_NOT_1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Number&nbsp;of&nbsp;numbers&nbsp;requested&nbsp;must&nbsp;be&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTERVAL_OVERFLOW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Interval&nbsp;used&nbsp;up.&nbsp;Change&nbsp;not&nbsp;possible.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUFFER_OVERFLOW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Buffer&nbsp;is&nbsp;full<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;8.<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SAVE_EXCEL<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SAVE_EXCEL .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LT_ORDER&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZTOI_ORDER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_CONSUMER&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZTOI_CONSUMER&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_VENDOR&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZTOI_VENDOR&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_PRODUCT&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZTOI_PRODUCT&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_PRODSTA&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZTOI_PRODSTA&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_STATUS&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZTOI_STACHK&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;PV_SOGRU(3),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_POGRU(3).<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;DUPLICATE_CHECK.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_CPDT[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_CPDT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_CPDT-STATUS&nbsp;&nbsp;=&nbsp;ICON_GREEN_LIGHT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_CPDT-MANDT&nbsp;&nbsp;&nbsp;=&nbsp;SY-MANDT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_CPDT-CRDAT&nbsp;&nbsp;&nbsp;=&nbsp;SY-DATUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_CPDT-CRTIM&nbsp;&nbsp;&nbsp;=&nbsp;SY-TIMLO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_CPDT-CRNAM&nbsp;&nbsp;&nbsp;=&nbsp;SY-UNAME.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_CPDT&nbsp;TRANSPORTING&nbsp;STATUS&nbsp;MANDT&nbsp;CRDAT&nbsp;CRTIM&nbsp;CRNAM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DIVISION_SET&nbsp;USING&nbsp;GT_CPDT-ZCATEGORY&nbsp;CHANGING&nbsp;PV_SOGRU&nbsp;PV_POGRU.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GT_CPDT&nbsp;TO&nbsp;LT_ORDER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;LT_ORDER&nbsp;TO&nbsp;LT_ORDER.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GT_CPDT&nbsp;TO&nbsp;LT_CONSUMER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;LT_CONSUMER&nbsp;TO&nbsp;LT_CONSUMER.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GT_CPDT&nbsp;TO&nbsp;LT_VENDOR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;LT_VENDOR&nbsp;TO&nbsp;LT_VENDOR.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GT_CPDT&nbsp;TO&nbsp;LT_PRODUCT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;LT_PRODUCT&nbsp;TO&nbsp;LT_PRODUCT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GT_CPDT&nbsp;TO&nbsp;LT_PRODSTA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;LT_PRODSTA&nbsp;TO&nbsp;LT_PRODSTA.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GT_CPDT&nbsp;TO&nbsp;LT_STATUS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;LT_STATUS&nbsp;TO&nbsp;LT_STATUS.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;-&nbsp;###,&nbsp;####,&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_PRODUCT-ZPLANT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'1010'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_PRODUCT-ZSORG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'1010'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_PRODUCT-ZSGRU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;PV_SOGRU.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_PRODUCT-ZPURCH_GRU&nbsp;=&nbsp;PV_POGRU.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;LT_PRODUCT&nbsp;INDEX&nbsp;SY-TABIX.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;ZTOI_ORDER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;TABLE&nbsp;LT_ORDER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ACCEPTING&nbsp;DUPLICATE&nbsp;KEYS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;ZTOI_CONSUMER&nbsp;&nbsp;FROM&nbsp;TABLE&nbsp;LT_CONSUMER&nbsp;&nbsp;ACCEPTING&nbsp;DUPLICATE&nbsp;KEYS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;ZTOI_VENDOR&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;TABLE&nbsp;LT_VENDOR&nbsp;&nbsp;&nbsp;&nbsp;ACCEPTING&nbsp;DUPLICATE&nbsp;KEYS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;ZTOI_PRODUCT&nbsp;&nbsp;&nbsp;FROM&nbsp;TABLE&nbsp;LT_PRODUCT&nbsp;&nbsp;&nbsp;ACCEPTING&nbsp;DUPLICATE&nbsp;KEYS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;ZTOI_PRODSTA&nbsp;&nbsp;&nbsp;FROM&nbsp;TABLE&nbsp;LT_PRODSTA&nbsp;&nbsp;&nbsp;ACCEPTING&nbsp;DUPLICATE&nbsp;KEYS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;ZTOI_STACHK&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;TABLE&nbsp;LT_STATUS&nbsp;&nbsp;&nbsp;&nbsp;ACCEPTING&nbsp;DUPLICATE&nbsp;KEYS.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;GT_CPDT[].<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;MESSAGE&nbsp;S000(OO)&nbsp;WITH&nbsp;'###'&nbsp;SY-DBCNT&nbsp;'##&nbsp;########.'&nbsp;.<br />
+<br />
+   </div>
+   <div class="code">
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;DUPLICATE_CHECK<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DUPLICATE_CHECK .<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZTOI_ORDER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@DATA(LT_DATA).<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_DATA&nbsp;INTO&nbsp;DATA(LS_DATA).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_DATA&nbsp;WITH&nbsp;KEY&nbsp;ZORDERNUM&nbsp;=&nbsp;LS_DATA-ZORDERNUM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_DATA&nbsp;INDEX&nbsp;SY-TABIX.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZC001_TR01_F02<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SELECT_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SELECT_DATA USING PV_CHK .<br />
+<br />
+&nbsp;&nbsp;REFRESH&nbsp;:&nbsp;GT_ORDER_DATA.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_LINE&nbsp;TYPE&nbsp;SY-DBCNT.<br />
+<br />
+&nbsp;&nbsp;SELECT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZORDERNUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZUNIPASS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZCUSTOMID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZCUSTOMNM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZPHONENM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZPOSTNUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZCITY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZADDRESS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;D~ZCATEGORY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;D~ZPRODCO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;D~ZPRODNM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;A~ZQUANTITY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;A~ZAMOUNT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;A~ZORDERDT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;A~ZTRANSNM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;A~ZDELVDT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;A~ZDELVCOMP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;C~ZVENDORCO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;C~ZVENDORNM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;D~ZPLANT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;D~ZSORG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;D~ZSGRU<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;D~ZPURCH_GRU<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZTOI_ORDER&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;ZTOI_CONSUMER&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZCUSTOMID&nbsp;EQ&nbsp;B~ZCUSTOMID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;ZTOI_VENDOR&nbsp;AS&nbsp;C<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZVENDORCO&nbsp;EQ&nbsp;C~ZVENDORCO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;ZTOI_PRODUCT&nbsp;AS&nbsp;D<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZPRODCO&nbsp;EQ&nbsp;D~ZPRODCO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@GT_ORDER_DATA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~ZORDERNUM&nbsp;IN&nbsp;@S_ORNM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;B~ZCUSTOMNM&nbsp;IN&nbsp;@S_CUNM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~ZORDERDT&nbsp;&nbsp;IN&nbsp;@S_ORDT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~ZTRANSNM&nbsp;&nbsp;IN&nbsp;@S_TRNM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER&nbsp;BY&nbsp;A~ZORDERNUM&nbsp;DESCENDING.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_ORDER_DATA.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GT_ORDER_DATA-ZCATEGORY&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_DOMAIN&nbsp;USING&nbsp;'ZDO15_CATE'&nbsp;GT_ORDER_DATA-ZCATEGORY&nbsp;CHANGING&nbsp;GV_DOMAIN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ORDER_DATA-ZCATEGORY&nbsp;=&nbsp;GV_DOMAIN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GT_ORDER_DATA-ZPLANT&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_DOMAIN&nbsp;USING&nbsp;'ZDO15_PLANT'&nbsp;GT_ORDER_DATA-ZPLANT&nbsp;CHANGING&nbsp;GV_DOMAIN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ORDER_DATA-ZPLANT&nbsp;=&nbsp;GV_DOMAIN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GT_ORDER_DATA-ZSORG&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_DOMAIN&nbsp;USING&nbsp;'ZDO15_SORG'&nbsp;GT_ORDER_DATA-ZSORG&nbsp;CHANGING&nbsp;GV_DOMAIN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ORDER_DATA-ZSORG&nbsp;=&nbsp;GV_DOMAIN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GT_ORDER_DATA-ZSGRU&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_DOMAIN&nbsp;USING&nbsp;'ZDO15_GRU'&nbsp;GT_ORDER_DATA-ZSGRU&nbsp;CHANGING&nbsp;GV_DOMAIN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ORDER_DATA-ZSGRU&nbsp;=&nbsp;GV_DOMAIN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GT_ORDER_DATA-ZPURCH_GRU&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_DOMAIN&nbsp;USING&nbsp;'ZDO15_PRGU'&nbsp;GT_ORDER_DATA-ZPURCH_GRU&nbsp;CHANGING&nbsp;GV_DOMAIN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ORDER_DATA-ZPURCH_GRU&nbsp;=&nbsp;GV_DOMAIN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_ORDER_DATA&nbsp;TRANSPORTING&nbsp;ZCATEGORY&nbsp;ZPLANT&nbsp;ZSORG&nbsp;ZSGRU&nbsp;ZPURCH_GRU.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;PV_CHK&nbsp;EQ&nbsp;'BTN'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_LINE&nbsp;=&nbsp;LINES(&nbsp;GT_ORDER_DATA&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REFRESH&nbsp;GT_STATUS_DATA.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;REFRESH_GRID&nbsp;USING&nbsp;GO_GRID1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;REFRESH_GRID&nbsp;USING&nbsp;GO_GRID2.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_LINE&nbsp;=&nbsp;LINES(&nbsp;GT_ORDER_DATA&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000(OO)&nbsp;WITH&nbsp;LV_LINE&nbsp;'&nbsp;#&nbsp;#######.'.<br />
+<br />
+&nbsp;&nbsp;ELSE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000(OO)&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'&nbsp;WITH&nbsp;'####&nbsp;####&nbsp;####.'.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;STATUS_DETAIL<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;GT_DATA1<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;GS_DATA_ZORDERNUM<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM STATUS_DETAIL TABLES PT_ORDERNM .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_LINE&nbsp;TYPE&nbsp;SY-DBCNT.<br />
+<br />
+&nbsp;&nbsp;REFRESH&nbsp;GT_STATUS_DATA.<br />
+<br />
+&nbsp;&nbsp;SELECT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZORDERNUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZCANCHK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZCUSTOMFLAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZVENDORFLAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZPRODFLAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZSOFLAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZPRFLAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZPOFLAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZIVFLAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZBIFLAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZSTKCHK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZRETCHK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZETC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZTOI_ORDER&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;ZTOI_STACHK&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZORDERNUM&nbsp;EQ&nbsp;B~ZORDERNUM<br />
+&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@GT_STATUS_DATA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~ZORDERNUM&nbsp;IN&nbsp;@PT_ORDERNM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER&nbsp;BY&nbsp;A~ZORDERNUM&nbsp;DESCENDING.<br />
+<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_ORDER_DATA.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GT_STATUS_DATA-ZSTKCHK&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_DOMAIN&nbsp;USING&nbsp;'ZDE15_STKCHK'&nbsp;GT_STATUS_DATA-ZSTKCHK&nbsp;CHANGING&nbsp;GV_DOMAIN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_STATUS_DATA-ZSTKCHK&nbsp;=&nbsp;GV_DOMAIN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_ORDER_DATA&nbsp;TRANSPORTING&nbsp;ZCATEGORY.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_LINE&nbsp;=&nbsp;LINES(&nbsp;GT_STATUS_DATA&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000(OO)&nbsp;WITH&nbsp;LV_LINE&nbsp;'&nbsp;#&nbsp;#######.'.<br />
+<br />
+&nbsp;&nbsp;ELSE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000(OO)&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'&nbsp;WITH&nbsp;'####&nbsp;####&nbsp;####.'.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;DIVISION_SET<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;GT_DATA_ZCATEGORY<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DIVISION_SET USING PV_ZCATEGORY CHANGING PV_SOGRU PV_POGRU.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;PV_ZCATEGORY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'01'&nbsp;OR&nbsp;'02'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_SOGRU&nbsp;=&nbsp;'101'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_POGRU&nbsp;=&nbsp;'Z01'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'03'&nbsp;OR&nbsp;'04'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_SOGRU&nbsp;=&nbsp;'101'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_POGRU&nbsp;=&nbsp;'Z02'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'05'&nbsp;OR&nbsp;'06'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_SOGRU&nbsp;=&nbsp;'101'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_POGRU&nbsp;=&nbsp;'Z03'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'07'&nbsp;OR&nbsp;'08'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_SOGRU&nbsp;=&nbsp;'102'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_POGRU&nbsp;=&nbsp;'Z01'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'09'&nbsp;OR&nbsp;'10'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_SOGRU&nbsp;=&nbsp;'102'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_POGRU&nbsp;=&nbsp;'Z02'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'12'&nbsp;OR&nbsp;'13'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_SOGRU&nbsp;=&nbsp;'102'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_POGRU&nbsp;=&nbsp;'Z03'.<br />
+<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_DOMAIN<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_DOMAIN USING PV_VAL PV_VAL2 CHANGING GV_DOMAIN.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_DOMAIN_SET&nbsp;TYPE&nbsp;DDOBJNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_DOMAIN_GET&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;DD07V.<br />
+<br />
+&nbsp;&nbsp;REFRESH&nbsp;LT_DOMAIN_GET.<br />
+<br />
+&nbsp;&nbsp;LV_DOMAIN_SET&nbsp;&nbsp;&nbsp;=&nbsp;PV_VAL.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;LV_DOMAIN_SET&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'DDUT_DOMVALUES_GET'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_DOMAIN_SET&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Domain&nbsp;name<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LANGU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-LANGU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Language&nbsp;in&nbsp;which&nbsp;the&nbsp;text&nbsp;should&nbsp;be&nbsp;read<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXTS_ONLY&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'&nbsp;'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Only&nbsp;read&nbsp;entries&nbsp;from&nbsp;the&nbsp;text&nbsp;table<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DD07V_TAB&nbsp;=&nbsp;LT_DOMAIN_GET.&nbsp;&nbsp;&nbsp;"&nbsp;Fixed&nbsp;values&nbsp;for&nbsp;domain<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_DOMAIN_GET&nbsp;INTO&nbsp;DATA(LS_DOMAIN_SET)&nbsp;WITH&nbsp;KEY&nbsp;DOMVALUE_L&nbsp;=&nbsp;PV_VAL2.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_DOMAIN&nbsp;=&nbsp;LS_DOMAIN_SET-DDTEXT.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;ORDER_CANCEL<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;GT_ORDER_DATA_ZORDERNUM<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ORDER_CANCEL USING PV_ORNM.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;POP_UP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;TEXT-M05&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###&nbsp;&nbsp;######?<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT-M06&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;GV_ANSWER.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;GV_ANSWER&nbsp;EQ&nbsp;'J'.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZORDERNUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZSOFLAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZCANCHK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZTOI_ORDER&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;ZTOI_STACHK&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZORDERNUM&nbsp;EQ&nbsp;B~ZORDERNUM<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~ZORDERNUM&nbsp;EQ&nbsp;@PV_ORNM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;@DATA(LS_DATA).<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LS_DATA-ZCANCHK&nbsp;IS&nbsp;INITIAL&nbsp;AND&nbsp;LS_DATA-ZSOFLAG&nbsp;EQ&nbsp;'0000000000'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_STATUS_DATA&nbsp;WITH&nbsp;KEY&nbsp;ZORDERNUM&nbsp;=&nbsp;PV_ORNM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GT_STATUS_DATA-ZCANCHK&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GT_STATUS_DATA-ZETC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-DATUM(4)&nbsp;&&&nbsp;'#&nbsp;'&nbsp;&&&nbsp;SY-DATUM+5(1)&nbsp;&&&nbsp;'#&nbsp;'&nbsp;&&&nbsp;SY-DATUM+6&nbsp;&&&nbsp;'#&nbsp;##&nbsp;#######.'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_STATUS_DATA&nbsp;INDEX&nbsp;SY-TABIX.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;ZTOI_STACHK&nbsp;SET&nbsp;ZCANCHK&nbsp;=&nbsp;GT_STATUS_DATA-ZCANCHK&nbsp;ZETC&nbsp;=&nbsp;GT_STATUS_DATA-ZETC&nbsp;WHERE&nbsp;ZORDERNUM&nbsp;=&nbsp;PV_ORNM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000(OO)&nbsp;WITH&nbsp;'####&nbsp;:'&nbsp;&&&nbsp;PV_ORNM&nbsp;&&&nbsp;'&nbsp;#####&nbsp;#######.'.<br />
+<br />
+&nbsp;&nbsp;ELSE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LS_DATA-ZSOFLAG&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I000(OO)&nbsp;WITH&nbsp;'####&nbsp;:'&nbsp;&&&nbsp;PV_ORNM&nbsp;&&&nbsp;'&nbsp;####&nbsp;#####&nbsp;###&nbsp;######.'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;LS_DATA-ZCANCHK&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I000(OO)&nbsp;WITH&nbsp;'#####&nbsp;###&nbsp;####.'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SELECT_BI<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SELECT_BI .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;LV_LINES&nbsp;TYPE&nbsp;SY-DBCNT.<br />
+<br />
+&nbsp;&nbsp;REFRESH&nbsp;GT_BI.<br />
+<br />
+&nbsp;&nbsp;SELECT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZORDERNUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;D~ZSOFLAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZCATEGORY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZPRODCO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;B~ZPRODNM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;A~ZQUANTITY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;C~ZCUSTOMID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;C~ZCUSTOMNM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;A~ZAMOUNT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;A~ZORDERDT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;D~ZETC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZTOI_ORDER&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;ZTOI_PRODUCT&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZPRODCO&nbsp;EQ&nbsp;B~ZPRODCO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;ZTOI_CONSUMER&nbsp;AS&nbsp;C<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZCUSTOMID&nbsp;EQ&nbsp;C~ZCUSTOMID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;ZTOI_STACHK&nbsp;&nbsp;AS&nbsp;D<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZORDERNUM&nbsp;EQ&nbsp;D~ZORDERNUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@GT_BI<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;D~ZCANCHK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NE&nbsp;'X'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;D~ZCUSTOMFLAG&nbsp;EQ&nbsp;'X'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;D~ZVENDORFLAG&nbsp;EQ&nbsp;'X'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;D~ZPRODFLAG&nbsp;&nbsp;&nbsp;EQ&nbsp;'X'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;D~ZBIFLAG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EQ&nbsp;'&nbsp;'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER&nbsp;BY&nbsp;A~ZORDERNUM&nbsp;DESCENDING.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;LV_LINES&nbsp;=&nbsp;LINES(&nbsp;GT_BI&nbsp;).<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_BI.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;BI_STATUS_CHK&nbsp;USING&nbsp;GT_BI-ZORDERNUM.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;MESSAGE&nbsp;S000(OO)&nbsp;WITH&nbsp;LV_LINES&nbsp;&&&nbsp;'&nbsp;#&nbsp;#######.'.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;BI_STATUS_CHK<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;SY_TABIX<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM BI_STATUS_CHK USING PV_VAL .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_MSG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTOI_STACHK-ZETC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSG1(10),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSG2(10),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSG3(10),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSG4(10).<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;ZORDERNUM,&nbsp;ZSOFLAG,&nbsp;ZPRFLAG,&nbsp;ZPOFLAG,&nbsp;ZIVFLAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZTOI_STACHK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@DATA(LT_BI)<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZORDERNUM&nbsp;EQ&nbsp;@PV_VAL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_BI&nbsp;INTO&nbsp;DATA(LS_BI).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LV_MSG,&nbsp;LV_MSG1,&nbsp;LV_MSG2,&nbsp;LV_MSG3,&nbsp;LV_MSG4.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LS_BI-ZIVFLAG&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LS_BI-ZSOFLAG&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSG1&nbsp;=&nbsp;'##&nbsp;'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LS_BI-ZPRFLAG&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSG2&nbsp;=&nbsp;'&nbsp;##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LS_BI-ZPOFLAG&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSG3&nbsp;=&nbsp;'&nbsp;##'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LS_BI-ZIVFLAG&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSG4&nbsp;=&nbsp;'&nbsp;####'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LV_MSG1&nbsp;IS&nbsp;NOT&nbsp;INITIAL&nbsp;OR&nbsp;LV_MSG2&nbsp;IS&nbsp;NOT&nbsp;INITIAL&nbsp;OR&nbsp;LV_MSG3&nbsp;IS&nbsp;NOT&nbsp;INITIAL&nbsp;OR&nbsp;LV_MSG4&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MSG&nbsp;=&nbsp;'[&nbsp;'&nbsp;&&&nbsp;LV_MSG1&nbsp;&&&nbsp;LV_MSG2&nbsp;&&&nbsp;LV_MSG3&nbsp;&&&nbsp;LV_MSG4&nbsp;&&&nbsp;']&nbsp;#&nbsp;##&nbsp;#####.'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_BI&nbsp;WITH&nbsp;KEY&nbsp;ZORDERNUM&nbsp;=&nbsp;LS_BI-ZORDERNUM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_BI-STATUS&nbsp;&nbsp;=&nbsp;ICON_LED_RED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_BI-ZETC&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_MSG.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_BI&nbsp;TRANSPORTING&nbsp;STATUS&nbsp;ZETC&nbsp;WHERE&nbsp;ZORDERNUM&nbsp;=&nbsp;GT_BI-ZORDERNUM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_BI-STATUS&nbsp;&nbsp;=&nbsp;ICON_LED_YELLOW.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_BI&nbsp;TRANSPORTING&nbsp;STATUS&nbsp;WHERE&nbsp;ZORDERNUM&nbsp;=&nbsp;GT_BI-ZORDERNUM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;ELSE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GT_BI[],&nbsp;GT_BI.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;I000(OO)&nbsp;WITH&nbsp;'###&nbsp;####&nbsp;####.'.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;so_pr_chk<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SO_PR_CHK .<br />
+&nbsp;&nbsp;TABLES&nbsp;&nbsp;:&nbsp;VBAK,&nbsp;VBKD,&nbsp;VBEP.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;&nbsp;&nbsp;:&nbsp;LT_STATUS&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;ZTOI_STACHK&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;B~VBELN,&nbsp;A~ZORDERNUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZTOI_ORDER&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;VBAK&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZORDERNUM&nbsp;EQ&nbsp;B~BSTNK<br />
+&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@DATA(LT_TEST).<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_TEST&nbsp;INTO&nbsp;DATA(LS_TEST).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DATA_PR&nbsp;USING&nbsp;LS_TEST-VBELN&nbsp;LS_TEST-ZORDERNUM.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;DATA_PR<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;LS_TEST_VBELN<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DATA_PR USING PV_VAL1 PV_VAL2.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;VBELN,&nbsp;BANFN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;VBEP<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;VBELN&nbsp;EQ&nbsp;@PV_VAL1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;@DATA(LS_TTEST).<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;ZTOI_STACHK&nbsp;SET&nbsp;ZSOFLAG&nbsp;=&nbsp;PV_VAL1&nbsp;ZPRFLAG&nbsp;=&nbsp;LS_TTEST-BANFN&nbsp;WHERE&nbsp;ZORDERNUM&nbsp;=&nbsp;PV_VAL2.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;BILLING_BAPI<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*FORM&nbsp;BILLING_BAPI&nbsp;.<br />
+   </div>
+   <div class="code">
+FORM BILLING_BAPI TABLES PT_ROW TYPE LVC_T_ROW.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LS_ROW&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_ROW,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_COUNT&nbsp;TYPE&nbsp;N&nbsp;LENGTH&nbsp;6.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LT_BILLINGDATAIN&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIVBRK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_CONDITIONDATAIN&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIKOMV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_RETURN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIRET1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_ERRORS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIVBRKERRORS&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_SUCCESS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BAPIVBRKSUCCESS&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;PT_ROW&nbsp;INTO&nbsp;LS_ROW.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LT_BILLINGDATAIN[],&nbsp;LT_BILLINGDATAIN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_BI&nbsp;INTO&nbsp;DATA(LS_BI)&nbsp;INDEX&nbsp;LS_ROW-INDEX.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LS_BI-STATUS&nbsp;EQ&nbsp;'@5D@'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;10&nbsp;TO&nbsp;LV_COUNT.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_BILLINGDATAIN-SALESORG&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'1010'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_BILLINGDATAIN-DISTR_CHAN&nbsp;&nbsp;=&nbsp;'10'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_BILLINGDATAIN-DIVISION&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LS_BI-ZCATEGORY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_BILLINGDATAIN-DOC_TYPE&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'TA'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_BILLINGDATAIN-SOLD_TO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LS_BI-ZCUSTOMID.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_BILLINGDATAIN-PLANT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'1010'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_BILLINGDATAIN-MATERIAL&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LS_BI-ZPRODCO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_BILLINGDATAIN-PRICE_DATE&nbsp;&nbsp;=&nbsp;SY-DATUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_BILLINGDATAIN-DOC_NUMBER&nbsp;&nbsp;=&nbsp;LS_BI-ZSOFLAG.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_BILLINGDATAIN-ITM_NUMBER&nbsp;&nbsp;=&nbsp;LV_COUNT.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_BILLINGDATAIN-ITM_NUMBER&nbsp;&nbsp;=&nbsp;10.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;LT_BILLINGDATAIN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_BILLINGDOC_CREATEMULTIPLE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BILLINGDATAIN&nbsp;=&nbsp;LT_BILLINGDATAIN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_RETURN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUCCESS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_SUCCESS.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LT_SUCCESS[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_TRANSACTION_COMMIT'.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_BI&nbsp;USING&nbsp;LS_BI-ZORDERNUM&nbsp;LT_SUCCESS-BILL_DOC.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_BI-STATUS&nbsp;=&nbsp;ICON_LED_GREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_BI-ZETC&nbsp;&nbsp;&nbsp;=&nbsp;LT_SUCCESS-BILL_DOC&nbsp;&&&nbsp;'###&nbsp;##&nbsp;#####.'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_TRANSACTION_ROLLBACK'.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_RETURN&nbsp;WITH&nbsp;KEY&nbsp;TYPE&nbsp;=&nbsp;'E'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_BI-STATUS&nbsp;&nbsp;=&nbsp;ICON_LED_RED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_BI-ZETC&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_RETURN-MESSAGE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_BI&nbsp;TRANSPORTING&nbsp;STATUS&nbsp;ZETC&nbsp;WHERE&nbsp;ZORDERNUM&nbsp;=&nbsp;GT_BI-ZORDERNUM.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_BI&nbsp;INDEX&nbsp;LS_ROW-INDEX.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;REFRESH_GRID&nbsp;USING&nbsp;GO_GRID3.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_BI<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;GT_BI_ZORDERNUM<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;LT_SUCCESS_BILL_DOC<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_BI  USING PV_ORNM PV_BI .<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_BI&nbsp;WITH&nbsp;KEY&nbsp;ZORDERNUM&nbsp;=&nbsp;PV_ORNM.<br />
+<br />
+&nbsp;&nbsp;UPDATE&nbsp;ZTOI_STACHK&nbsp;SET&nbsp;ZBIFLAG&nbsp;=&nbsp;PV_BI&nbsp;WHERE&nbsp;ZORDERNUM&nbsp;=&nbsp;PV_ORNM.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

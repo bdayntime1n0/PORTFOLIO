@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBAP_MM01_TOP2</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBAP_MM01_TOP2</h2>
+<h3> Description: Include ZBAP_MM01_TOP</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBAP_MM01_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES: LFA1, EKKO, EKPO, EKET.<br />
+<br />
+CLASS LCL_EVENT_HANDLER DEFINITION DEFERRED.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***TOP-L&nbsp;:&nbsp;&nbsp;##&nbsp;##&nbsp;*********************************************<br />
+   </div>
+   <div class="code">
+DATA: BEGIN OF GS_DATA,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;LIKE&nbsp;LFA1-LIFNR,&nbsp;&nbsp;""####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAND1&nbsp;LIKE&nbsp;LFA1-LAND1,&nbsp;&nbsp;""##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME1&nbsp;LIKE&nbsp;LFA1-NAME1,&nbsp;&nbsp;""###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORT01&nbsp;LIKE&nbsp;LFA1-ORT01,&nbsp;&nbsp;""##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PSTLZ&nbsp;LIKE&nbsp;LFA1-PSTLZ,&nbsp;&nbsp;""####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STRAS&nbsp;LIKE&nbsp;LFA1-STRAS,&nbsp;&nbsp;""###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADRNR&nbsp;LIKE&nbsp;LFA1-ADRNR,&nbsp;&nbsp;""##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TELFX&nbsp;LIKE&nbsp;LFA1-TELFX,&nbsp;&nbsp;""##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TELF1&nbsp;LIKE&nbsp;LFA1-TELF1,&nbsp;&nbsp;""####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;GS_DATA.<br />
+<br />
+DATA: GT_DATA LIKE TABLE OF GS_DATA.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***BOTTOM&nbsp;:&nbsp;&nbsp;PO&nbsp;##&nbsp;*********************************************<br />
+   </div>
+   <div class="code">
+DATA: BEGIN OF GS_DATA2,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AEDAT&nbsp;&nbsp;LIKE&nbsp;EKKO-AEDAT,&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;Date&nbsp;on&nbsp;which&nbsp;the&nbsp;record&nbsp;was&nbsp;created<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;&nbsp;LIKE&nbsp;EKKO-EBELN,&nbsp;&nbsp;&nbsp;&nbsp;"PO&nbsp;##&nbsp;Purchasing&nbsp;Document&nbsp;Number<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;&nbsp;LIKE&nbsp;EKKO-LIFNR,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;Vendor's&nbsp;account&nbsp;number<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;LIKE&nbsp;EKPO-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELP&nbsp;&nbsp;LIKE&nbsp;EKPO-EBELP,&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TXZ01&nbsp;&nbsp;LIKE&nbsp;EKPO-TXZ01,&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MENGE&nbsp;&nbsp;LIKE&nbsp;EKPO-MENGE,&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;&nbsp;LIKE&nbsp;EKPO-MEINS,&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NETPR&nbsp;&nbsp;LIKE&nbsp;EKPO-NETPR,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NETWR&nbsp;&nbsp;LIKE&nbsp;EKPO-NETWR,&nbsp;&nbsp;&nbsp;&nbsp;"#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;&nbsp;LIKE&nbsp;EKKO-WAERS,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;&nbsp;&nbsp;&nbsp;Currency&nbsp;Key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EINDT&nbsp;&nbsp;LIKE&nbsp;EKET-EINDT,&nbsp;&nbsp;&nbsp;&nbsp;""####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRONG_C&nbsp;LIKE&nbsp;ZBAP_VENDOR_2-WRONG_C,&nbsp;""####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRONG_D&nbsp;LIKE&nbsp;ZBAP_VENDOR_2-WRONG_D,&nbsp;&nbsp;""&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;&nbsp;LIKE&nbsp;EKPO-WERKS,&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERNAM&nbsp;&nbsp;LIKE&nbsp;EKKO-ERNAM,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;###&nbsp;Name&nbsp;of&nbsp;Person&nbsp;who&nbsp;Created&nbsp;the&nbsp;Object<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTERM&nbsp;&nbsp;LIKE&nbsp;EKKO-ZTERM,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##&nbsp;Terms&nbsp;of&nbsp;payment&nbsp;key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKORG&nbsp;&nbsp;LIKE&nbsp;EKKO-EKORG,&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;&nbsp;Purchasing&nbsp;organization<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKGRP	&nbsp;LIKE&nbsp;EKKO-EKGRP,&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;Purchasing&nbsp;Group<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPRAS&nbsp;&nbsp;LIKE&nbsp;EKKO-SPRAS,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;Language&nbsp;Key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BANFN&nbsp;&nbsp;LIKE&nbsp;EKPO-BANFN,&nbsp;&nbsp;&nbsp;&nbsp;""###&nbsp;PR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUKRS&nbsp;&nbsp;LIKE&nbsp;EKKO-BUKRS,&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;Company&nbsp;Code<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;GS_DATA2.<br />
+<br />
+DATA: GT_DATA2 LIKE TABLE OF GS_DATA2.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***TOP-R&nbsp;:&nbsp;&nbsp;##&nbsp;##&nbsp;*********************************************<br />
+   </div>
+   <div class="code">
+DATA: BEGIN OF GS_DATA3,<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;&nbsp;LIKE&nbsp;ICON-ID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;""####<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKKO-LIFNR,&nbsp;&nbsp;""##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKPO-MATNR,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TXZ01&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKPO-TXZ01,&nbsp;&nbsp;""###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MENGE&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKPO-MENGE,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKPO-MEINS,&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRONG_C&nbsp;TYPE&nbsp;I,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;""&nbsp;#&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRONG_D&nbsp;TYPE&nbsp;I,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;""&nbsp;#&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_WRONG_C&nbsp;TYPE&nbsp;P&nbsp;DECIMALS&nbsp;1,&nbsp;&nbsp;&nbsp;&nbsp;""###&nbsp;=&nbsp;#####&nbsp;/&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_WRONG_D&nbsp;TYPE&nbsp;P&nbsp;DECIMALS&nbsp;1,&nbsp;&nbsp;&nbsp;&nbsp;""#####&nbsp;=&nbsp;N##&nbsp;/&nbsp;Y&nbsp;+&nbsp;N&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DATA3&nbsp;.<br />
+<br />
+DATA: GT_DATA3 LIKE TABLE OF GS_DATA3.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*****ALV********************************<br />
+   </div>
+   <div class="code">
+""OKCODE<br />
+DATA: OKCODE TYPE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVEOK&nbsp;TYPE&nbsp;SY-UCOMM.<br />
+<br />
+""SPLIT<br />
+DATA: GO_SPLIT TYPE REF TO CL_GUI_SPLITTER_CONTAINER.<br />
+<br />
+""CON<br />
+DATA: GO_CON        TYPE REF TO CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_CON_TOP_L&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_CON_TOP_R&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_CON_2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CUSTOM_CONTAINER.<br />
+<br />
+""GRID<br />
+DATA: GO_ALV_TOP_L  TYPE REF TO CL_GUI_ALV_GRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_ALV_TOP_R&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_ALV_BOTTOM&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+<br />
+""######<br />
+DATA: GS_FIELDCAT_TOP_L   TYPE LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT_TOP_L&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_FCAT.<br />
+DATA: GS_FIELDCAT_TOP_R   TYPE LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT_TOP_R&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_FCAT.<br />
+DATA: GS_FIELDCAT_BOTTOM  TYPE LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT_BOTTOM&nbsp;&nbsp;TYPE&nbsp;LVC_T_FCAT.<br />
+<br />
+""####<br />
+DATA: GS_LAYOUT_TOP_L  TYPE LVC_S_LAYO.<br />
+DATA: GS_LAYOUT_TOP_R  TYPE LVC_S_LAYO.<br />
+DATA: GS_LAYOUT_BOTTOM TYPE LVC_S_LAYO.<br />
+<br />
+""##<br />
+DATA: GT_SORTCAT_TOP_L  TYPE LVC_T_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SORTCAT_TOP_L&nbsp;&nbsp;TYPE&nbsp;LVC_S_SORT.<br />
+DATA: GT_SORTCAT_TOP_R  TYPE LVC_T_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SORTCAT_TOP_R&nbsp;&nbsp;TYPE&nbsp;LVC_S_SORT.<br />
+DATA: GT_SORTCAT_BOTTOM  TYPE LVC_T_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SORTCAT_BOTTOM&nbsp;&nbsp;TYPE&nbsp;LVC_S_SORT.<br />
+<br />
+""###<br />
+DATA: GO_EVENT_HANDLER TYPE REF TO LCL_EVENT_HANDLER.<br />
+<br />
+""CELL TAB<br />
+DATA: GT_CELLTAB_TOP_L   TYPE LVC_T_STYL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB_TOP_L&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_STYL.<br />
+DATA: GT_CELLTAB_TOP_R   TYPE LVC_T_STYL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB_TOP_R&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_STYL.<br />
+DATA: GT_CELLTAB_BOTTOM  TYPE LVC_T_STYL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB_BOTTOM&nbsp;&nbsp;TYPE&nbsp;LVC_S_STYL.<br />
+<br />
+""## ##<br />
+DATA: GS_STBL  TYPE LVC_S_STBL.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBD1_04_MM_VENDOR_SCR</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD1_04_MM_VENDOR_SCR</h2>
+<h3> Description: Include ZBD1_04_MM_VENDER_SCR</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD1_04_MM_VENDER_SCR<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+" #### #### TAB<br />
+SELECTION-SCREEN BEGIN OF SCREEN 1100 AS SUBSCREEN.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;1(60)&nbsp;TEXT-010&nbsp;.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;PARAMETERS&nbsp;FOR&nbsp;GENERAL&nbsp;DATA<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;B01&nbsp;WITH&nbsp;FRAME&nbsp;TITLE&nbsp;TEXT-001.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;BP_CODE&nbsp;&nbsp;TYPE&nbsp;BU_PARTNER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_NAME&nbsp;&nbsp;TYPE&nbsp;BU_NAMEOR1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_STERM&nbsp;TYPE&nbsp;BU_SORT1_TXT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_ADRS&nbsp;&nbsp;TYPE&nbsp;AD_STREET,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_POST&nbsp;&nbsp;TYPE&nbsp;AD_PSTCD1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_CITY&nbsp;&nbsp;TYPE&nbsp;AD_CITY1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;1(10)&nbsp;TEXT-005.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;BP_CNTY&nbsp;&nbsp;TYPE&nbsp;ADDR1_DATA-COUNTRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;30(10)&nbsp;TEXT-006.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;BP_REGI&nbsp;&nbsp;TYPE&nbsp;ADDR1_DATA-REGION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;BP_LANG&nbsp;&nbsp;TYPE&nbsp;SPRAS&nbsp;DEFAULT&nbsp;'EN'&nbsp;AS&nbsp;LISTBOX&nbsp;VISIBLE&nbsp;LENGTH&nbsp;15.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;B01.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;PARAMETERS&nbsp;FOR&nbsp;EXPANDING&nbsp;VENDER&nbsp;ROLE.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;B02&nbsp;WITH&nbsp;FRAME&nbsp;TITLE&nbsp;TEXT-002.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_ORG&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CVIS_PURCHASING_ORG_DYNPRO-PURCHASING_ORG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_CUR&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LFM1-WAERS&nbsp;DEFAULT&nbsp;'USD'&nbsp;AS&nbsp;LISTBOX&nbsp;VISIBLE&nbsp;LENGTH&nbsp;25,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_PTERMS&nbsp;TYPE&nbsp;LFM1-ZTERM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_INC&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LFM1-INCO1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_I_LOC&nbsp;&nbsp;TYPE&nbsp;INCO2_L.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;B02.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;PARAMETERS&nbsp;FOR&nbsp;EXPANDING&nbsp;FI&nbsp;VENDER&nbsp;ROLE.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;B03&nbsp;WITH&nbsp;FRAME&nbsp;TITLE&nbsp;TEXT-003.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_CCODE&nbsp;TYPE&nbsp;BS001-BUKRS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_RECON&nbsp;TYPE&nbsp;LFB1-AKONT.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;B03.<br />
+<br />
+SELECTION-SCREEN END OF SCREEN 1100.<br />
+<br />
+" #### #### TAB<br />
+SELECTION-SCREEN BEGIN OF SCREEN 1200 AS SUBSCREEN.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;B04&nbsp;WITH&nbsp;FRAME&nbsp;TITLE&nbsp;TEXT-004.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_EXCEL&nbsp;TYPE&nbsp;LOCALFILE.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;B04.<br />
+SELECTION-SCREEN END OF SCREEN 1200.<br />
+<br />
+" ## ### ## TAB<br />
+SELECTION-SCREEN BEGIN OF SCREEN 1300 AS SUBSCREEN.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;1(60)&nbsp;TEXT-010.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;B05&nbsp;WITH&nbsp;FRAME&nbsp;TITLE&nbsp;TEXT-020.&nbsp;"&nbsp;##&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_MATNR&nbsp;&nbsp;TYPE&nbsp;ZJEMY_MM_MATERIAL-MATNR,&nbsp;&nbsp;&nbsp;"&nbsp;MATERIAL&nbsp;NUMBER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_CNTY&nbsp;&nbsp;&nbsp;TYPE&nbsp;ADDR1_DATA-COUNTRY&nbsp;DEFAULT&nbsp;'DE'&nbsp;AS&nbsp;LISTBOX&nbsp;VISIBLE&nbsp;LENGTH&nbsp;25,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_MEINS&nbsp;&nbsp;TYPE&nbsp;ZJEMY_MM_MATERIAL-MEINS,&nbsp;&nbsp;&nbsp;"&nbsp;BASE&nbsp;UNIT&nbsp;OF&nbsp;MEASURE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_LANGU1&nbsp;TYPE&nbsp;ZJEMY_MM_MATERIAL-LANGU&nbsp;DEFAULT&nbsp;'D'&nbsp;AS&nbsp;LISTBOX&nbsp;VISIBLE&nbsp;LENGTH&nbsp;15,&nbsp;"&nbsp;MATERIAL&nbsp;LANGUAGE&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_MAKTX1&nbsp;TYPE&nbsp;ZJEMY_MM_MATERIAL-MAKTX,&nbsp;&nbsp;&nbsp;"&nbsp;MATERIAL&nbsp;DESCRIPTION&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_LANGU2&nbsp;TYPE&nbsp;ZJEMY_MM_MATERIAL-LANGU&nbsp;DEFAULT&nbsp;'E'&nbsp;AS&nbsp;LISTBOX&nbsp;VISIBLE&nbsp;LENGTH&nbsp;15,&nbsp;&nbsp;&nbsp;"&nbsp;MATERIAL&nbsp;LANGUAGE&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_MAKTX2&nbsp;TYPE&nbsp;ZJEMY_MM_MATERIAL-MAKTX,&nbsp;"&nbsp;MATERIAL&nbsp;DESCRIPTION&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_BRGEW&nbsp;&nbsp;TYPE&nbsp;MARA-BRGEW,&nbsp;"&nbsp;GROSS&nbsp;WEIGHT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_NTGEW&nbsp;&nbsp;TYPE&nbsp;MARA-NTGEW.&nbsp;"&nbsp;NET&nbsp;WEIGHT<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;B05.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;1(60)&nbsp;TEXT-007.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;B06&nbsp;WITH&nbsp;FRAME&nbsp;TITLE&nbsp;TEXT-021.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_MBRSH&nbsp;TYPE&nbsp;ZJEMY_MM_MATERIAL-MBRSH&nbsp;AS&nbsp;LISTBOX&nbsp;VISIBLE&nbsp;LENGTH&nbsp;25,&nbsp;"&nbsp;INDUSTRY&nbsp;SECTOR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_MTART&nbsp;TYPE&nbsp;ZJEMY_MM_MATERIAL-MTART&nbsp;AS&nbsp;LISTBOX&nbsp;VISIBLE&nbsp;LENGTH&nbsp;30,&nbsp;&nbsp;&nbsp;"&nbsp;MATERIAL&nbsp;TYPE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_VAREA&nbsp;TYPE&nbsp;MBEW-BWKEY&nbsp;DEFAULT&nbsp;'1010',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_SALES&nbsp;TYPE&nbsp;ZJEMY_MM_MATERIAL-SALES_ORG&nbsp;DEFAULT&nbsp;'1010',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_WERKS&nbsp;TYPE&nbsp;ZJEMY_MM_MATERIAL-WERKS&nbsp;DEFAULT&nbsp;'1010',&nbsp;&nbsp;&nbsp;"&nbsp;PLANT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_LGORT&nbsp;TYPE&nbsp;ZJEMY_MM_MATERIAL-LGORT&nbsp;DEFAULT&nbsp;'101C',&nbsp;&nbsp;&nbsp;"&nbsp;STORAGE&nbsp;LOCATION<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_TRANS&nbsp;TYPE&nbsp;ZJEMY_MM_MATERIAL-TRAGR&nbsp;DEFAULT&nbsp;'0001',&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_MATKL&nbsp;TYPE&nbsp;ZJEMY_MM_MATERIAL-MATKL,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;MATERIAL&nbsp;GROUP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DISTR&nbsp;TYPE&nbsp;ZJEMY_MM_MATERIAL-DISTR_CHAN&nbsp;DEFAULT&nbsp;'10',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_MATPR&nbsp;TYPE&nbsp;ZJEMY_MM_MATERIAL-MAT_PR_GRP&nbsp;DEFAULT&nbsp;'01'.&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;B06.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;1(60)&nbsp;TEXT-007.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;B07&nbsp;WITH&nbsp;FRAME&nbsp;TITLE&nbsp;TEXT-022.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_VPRSV&nbsp;TYPE&nbsp;ZJEMY_MM_MATERIAL-VPRSV_1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;INDICATOR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_PVPRS&nbsp;TYPE&nbsp;ZJEMY_MM_MATERIAL-PVPRS_1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_EISBE&nbsp;TYPE&nbsp;MARC-EISBE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_TAXTY&nbsp;TYPE&nbsp;ZJEMY_MM_MATERIAL-TAX_TYPE&nbsp;DEFAULT&nbsp;'MWST',&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_TAXCL&nbsp;TYPE&nbsp;ZJEMY_MM_MATERIAL-TAXCLASS.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;B07.<br />
+<br />
+<br />
+SELECTION-SCREEN END OF SCREEN 1300.<br />
+<br />
+SELECTION-SCREEN BEGIN OF TABBED BLOCK TAB FOR 40 LINES.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;TAB&nbsp;(30)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABNM3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;USER-COMMAND&nbsp;UC_TAB3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT&nbsp;SCREEN&nbsp;1300.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;TAB&nbsp;(30)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABNM1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;USER-COMMAND&nbsp;UC_TAB1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT&nbsp;SCREEN&nbsp;1100.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;TAB&nbsp;(30)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABNM2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;USER-COMMAND&nbsp;UC_TAB2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT&nbsp;SCREEN&nbsp;1200.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK TAB.<br />
+<br />
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR P_EXCEL.<br />
+&nbsp;&nbsp;PERFORM&nbsp;ONF4_FILE&nbsp;USING&nbsp;P_EXCEL.<br />
+<br />
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR P_MEINS.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_HELP_MEINS&nbsp;USING&nbsp;P_MEINS.<br />
+<br />
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR P_PTERMS.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_HELP_PTERMS&nbsp;USING&nbsp;P_PTERMS.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

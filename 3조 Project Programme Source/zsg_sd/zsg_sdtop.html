@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZSG_SDTOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZSG_SDTOP</h2>
+<h3> Description: Include ZYH_SDTOP</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;ZYH_SDTOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;Report&nbsp;ZYH_SD<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZYH_SD.<br />
+<br />
+TYPE-POOLS: icon, abap, slis.<br />
+TABLES :  SSCRFIELDS, vbak, vbap, mard, knb1.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;CONSTANTS<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;-&nbsp;PREFIX&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;1.&nbsp;GC_&nbsp;&nbsp;:&nbsp;Global&nbsp;Constants<br />
+*&nbsp;&nbsp;&nbsp;2.&nbsp;LC_&nbsp;&nbsp;:&nbsp;LOCAL&nbsp;CONSTANTS<br />
+*&nbsp;-&nbsp;EX).&nbsp;CONSTANTS:&nbsp;GC_E&nbsp;&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'E'.<br />
+   </div>
+   <div class="code">
+CONSTANTS: gc_e TYPE c VALUE 'E',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gc_x&nbsp;TYPE&nbsp;c&nbsp;VALUE&nbsp;'X'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;TYPES<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;-&nbsp;PREFIX&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;1.&nbsp;TY_&nbsp;&nbsp;:&nbsp;Global,&nbsp;Local&nbsp;Types<br />
+<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;INTERNAL&nbsp;TABLE<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;-&nbsp;PREFIX&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;1.&nbsp;GT_&nbsp;&nbsp;:&nbsp;Global&nbsp;Internal&nbsp;Table<br />
+*&nbsp;&nbsp;&nbsp;2.&nbsp;LT_&nbsp;&nbsp;:&nbsp;LOCAL&nbsp;INTERNAL&nbsp;TABLE<br />
+   </div>
+   <div class="code">
+DATA : GV_DYNTXT TYPE SMP_DYNTXT. " EXCEL DOWN ##<br />
+<br />
+<br />
+DATA : gv_screen(4).<br />
+DATA : gs_cell  TYPE lvc_s_scol.<br />
+<br />
+"BDC<br />
+   </div>
+   <div class="codeComment">
+*DATA&nbsp;:&nbsp;gs_msg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;fimsg,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_messtab&nbsp;LIKE&nbsp;bdcmsgcoll&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_opt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ctu_params,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_bdcdata&nbsp;TYPE&nbsp;bdcdata&nbsp;&nbsp;&nbsp;&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+*<br />
+*<br />
+*DATA:&nbsp;gs_funtxt&nbsp;TYPE&nbsp;smp_dyntxt.<br />
+*DATA&nbsp;:&nbsp;gv_sum&nbsp;TYPE&nbsp;p&nbsp;LENGTH&nbsp;15&nbsp;DECIMALS&nbsp;2.<br />
+*DATA&nbsp;:&nbsp;gv_percent&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;8.<br />
+*DATA&nbsp;:&nbsp;gv_profit&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;12.<br />
+*DATA&nbsp;:&nbsp;gv_profit2&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;12.<br />
+*DATA&nbsp;:&nbsp;gv_eyun&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;8.<br />
+*<br />
+*DATA:&nbsp;gv_exit&nbsp;&nbsp;&nbsp;TYPE&nbsp;xfeld,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_answer&nbsp;TYPE&nbsp;c,<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_error&nbsp;TYPE&nbsp;c,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;selfield&nbsp;TYPE&nbsp;slis_selfield,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_cnt(3)&nbsp;TYPE&nbsp;i.<br />
+*DATA&nbsp;:&nbsp;gv_5&nbsp;TYPE&nbsp;c.<br />
+*DATA&nbsp;:&nbsp;gv_lines&nbsp;TYPE&nbsp;i.<br />
+*<br />
+*DATA&nbsp;:&nbsp;pr_sender&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid.<br />
+*<br />
+<br />
+   </div>
+   <div class="code">
+DATA gt_intern TYPE TABLE OF alsmex_tabline.<br />
+<br />
+DATA : BEGIN OF gs_excel,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status&nbsp;LIKE&nbsp;icon-id,"&nbsp;###&nbsp;####&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auart&nbsp;LIKE&nbsp;vbak-auart,"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DOC_D&nbsp;LIKE&nbsp;VBAK-AUDAT,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vkorg&nbsp;LIKE&nbsp;vbak-vkorg,"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kunnr&nbsp;LIKE&nbsp;vbak-kunnr,"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;werks&nbsp;like&nbsp;vbap-werks,&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bstnk&nbsp;LIKE&nbsp;vbak-bstnk,"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matnr&nbsp;LIKE&nbsp;vbap-matnr,"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kwmeng&nbsp;LIKE&nbsp;vbap-kwmeng,"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vbeln&nbsp;like&nbsp;vbak-vbeln,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BANFN&nbsp;LIKE&nbsp;VBEP-BANFN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msg&nbsp;like&nbsp;bapiret2-message,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_excel.<br />
+<br />
+DATA : BEGIN OF gs_display,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mandt&nbsp;LIKE&nbsp;vbak-mandt,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;werks&nbsp;LIKE&nbsp;vbap-werks,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vbeln&nbsp;LIKE&nbsp;vbak-vbeln,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vkorg&nbsp;LIKE&nbsp;vbak-vkorg,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matnr&nbsp;LIKE&nbsp;vbap-matnr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;arktx&nbsp;LIKE&nbsp;vbap-arktx,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kunnr&nbsp;LIKE&nbsp;vbak-kunnr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bstnk&nbsp;LIKE&nbsp;vbak-bstnk,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kwmeng&nbsp;LIKE&nbsp;vbap-kwmeng,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lsmeng&nbsp;LIKE&nbsp;vbap-lsmeng,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bstdk&nbsp;LIKE&nbsp;vbak-bstdk,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;netwr&nbsp;LIKE&nbsp;vbak-netwr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;netpr&nbsp;LIKE&nbsp;vbap-netpr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;waerk&nbsp;LIKE&nbsp;vbak-waerk,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;erdat&nbsp;LIKE&nbsp;vbak-erdat,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ernam&nbsp;LIKE&nbsp;vbak-ernam,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;erzet&nbsp;LIKE&nbsp;vbak-erzet,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BANFN&nbsp;LIKE&nbsp;VBEP-BANFN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_display.<br />
+<br />
+DATA GT_SOJOIN LIKE TABLE OF GS_DISPLAY.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*DATA&nbsp;:&nbsp;BEGIN&nbsp;OF&nbsp;gs_display,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mandt&nbsp;LIKE&nbsp;vbak-mandt,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;werks&nbsp;LIKE&nbsp;vbap-werks,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matnr&nbsp;LIKE&nbsp;vbap-matnr,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;arktx&nbsp;LIKE&nbsp;vbap-arktx,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vkorg&nbsp;LIKE&nbsp;vbak-vkorg,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kunnr&nbsp;LIKE&nbsp;vbak-kunnr,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bstnk&nbsp;LIKE&nbsp;vbak-bstnk,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kwmeng&nbsp;LIKE&nbsp;vbap-kwmeng,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lsmeng&nbsp;LIKE&nbsp;vbap-lsmeng,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bstdk&nbsp;LIKE&nbsp;vbak-bstdk,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;netwr&nbsp;LIKE&nbsp;vbak-netwr,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;netpr&nbsp;LIKE&nbsp;vbap-netpr,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;waerk&nbsp;LIKE&nbsp;vbak-waerk,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;erdat&nbsp;LIKE&nbsp;vbak-erdat,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ernam&nbsp;LIKE&nbsp;vbak-ernam,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;erzet&nbsp;LIKE&nbsp;vbak-erzet,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_display.<br />
+<br />
+   </div>
+   <div class="code">
+DATA : gt_display LIKE TABLE OF gs_display WITH HEADER LINE.<br />
+DATA : gt_display2 LIKE TABLE OF gs_display WITH HEADER LINE.<br />
+   </div>
+   <div class="codeComment">
+*DATA&nbsp;GO_DOCKING_CONTAINER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_DOCKING_CONTAINER.<br />
+*DATA:&nbsp;GO_ALV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+*DATA:&nbsp;GS_LAYOUT&nbsp;TYPE&nbsp;LVC_S_LAYO.<br />
+*DATA:&nbsp;GT_FIELDCAT&nbsp;TYPE&nbsp;LVC_T_FCAT,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT&nbsp;TYPE&nbsp;LVC_S_FCAT.<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+DATA: okcode TYPE sy-ucomm,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;saveok&nbsp;TYPE&nbsp;sy-ucomm.&nbsp;"&nbsp;Screen&nbsp;##&nbsp;###&nbsp;OKCODE&nbsp;##&nbsp;##<br />
+<br />
+DATA : gt_excel LIKE TABLE OF gs_excel.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LS_ORDER_HEADER_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPISDHD1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_ORDER_HEADER_INX&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPISDHD1X,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SALESDOCUMENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPIVBELN-VBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_RETURN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;TABLE&nbsp;OF&nbsp;&nbsp;BAPIRET2&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_ORDER_ITEMS_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;TABLE&nbsp;OF&nbsp;&nbsp;BAPISDITM&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_ORDER_ITEMS_INX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;TABLE&nbsp;OF&nbsp;&nbsp;BAPISDITMX&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_ORDER_PARTNERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;TABLE&nbsp;OF&nbsp;&nbsp;BAPIPARNR&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_ORDER_SCHEDULES_IN&nbsp;&nbsp;LIKE&nbsp;&nbsp;TABLE&nbsp;OF&nbsp;&nbsp;BAPISCHDL&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_ORDER_SCHEDULES_INX&nbsp;LIKE&nbsp;&nbsp;TABLE&nbsp;OF&nbsp;&nbsp;BAPISCHDLX&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*DEFINE&nbsp;_style_disabled.<br />
+*&nbsp;&nbsp;gs_style-fieldname&nbsp;=&nbsp;&1.<br />
+*&nbsp;&nbsp;gs_style-style&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;cl_gui_alv_grid=&gt;mc_style_disabled.<br />
+*&nbsp;&nbsp;INSERT&nbsp;gs_style&nbsp;INTO&nbsp;TABLE&nbsp;gt_style.<br />
+*END-OF-DEFINITION.<br />
+*<br />
+*DEFINE&nbsp;_style_enabled.<br />
+*&nbsp;&nbsp;gs_style-fieldname&nbsp;=&nbsp;&1.<br />
+*&nbsp;&nbsp;gs_style-style&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;cl_gui_alv_grid=&gt;mc_style_enabled.<br />
+*&nbsp;&nbsp;INSERT&nbsp;gs_style&nbsp;INTO&nbsp;TABLE&nbsp;gt_style.<br />
+*END-OF-DEFINITION.<br />
+*<br />
+*DEFINE&nbsp;_cell_yellow.<br />
+*&nbsp;&nbsp;gs_cell-fname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&1.<br />
+*&nbsp;&nbsp;gs_cell-color-col&nbsp;=&nbsp;'3'.<br />
+*&nbsp;&nbsp;gs_cell-color-int&nbsp;=&nbsp;'0'.<br />
+*&nbsp;&nbsp;gs_cell-color-inv&nbsp;=&nbsp;'0'.<br />
+*&nbsp;&nbsp;APPEND&nbsp;gs_cell&nbsp;TO&nbsp;gs_display-ctab.<br />
+*END-OF-DEFINITION.<br />
+*<br />
+*DEFINE&nbsp;_cell_red.<br />
+*&nbsp;&nbsp;gs_cell-fname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&1.<br />
+*&nbsp;&nbsp;gs_cell-color-col&nbsp;=&nbsp;'6'.<br />
+*&nbsp;&nbsp;gs_cell-color-int&nbsp;=&nbsp;'1'.<br />
+*&nbsp;&nbsp;gs_cell-color-inv&nbsp;=&nbsp;'0'.<br />
+*&nbsp;&nbsp;APPEND&nbsp;gs_cell&nbsp;TO&nbsp;gs_display-ctab.<br />
+*END-OF-DEFINITION.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

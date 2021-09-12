@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBAPSD0020_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBAPSD0020_TOP</h2>
+<h3> Description: Include ZBD1_00_010TOP</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD1_00_010TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+" LCL_EVENT_HANDLER # ### ## # ### ##<br />
+" ### ## ### ### ###.<br />
+CLASS LCL_EVENT_HANDLER DEFINITION DEFERRED.<br />
+<br />
+TABLES: VBAK, VBAP, VBEP , SSCRFIELDS, EBAN ,MARD, MAKT, ZBAPSUB, ZBAP_CANC.<br />
+<br />
+" ## # ### Data ## # Internal Table<br />
+DATA: BEGIN OF GS_DISPLAY,  " Global Structure + ### ## ###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VBELN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-VBELN,&nbsp;&nbsp;&nbsp;&nbsp;"DOCUMENT&nbsp;NUMBER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AUDAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-AUDAT,&nbsp;&nbsp;&nbsp;&nbsp;"DOCUMENT&nbsp;DATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KUNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-KUNNR,&nbsp;&nbsp;&nbsp;&nbsp;"SOLD&nbsp;TO&nbsp;PARTY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAP-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;"MATERIAL&nbsp;NUMBER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARKTX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAP-ARKTX,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POSNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAP-POSNR,&nbsp;&nbsp;&nbsp;&nbsp;"MATERIAL&nbsp;NUMBER<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MENGE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAP-KWMENG,&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAP-VRKME,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NETWR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-NETWR,&nbsp;&nbsp;&nbsp;&nbsp;"NET&nbsp;VALUE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VDATU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-VDATU,&nbsp;&nbsp;&nbsp;&nbsp;"REQUESTED&nbsp;DELIV.DATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BSTNK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-BSTNK,&nbsp;&nbsp;&nbsp;&nbsp;"CUSTOMER&nbsp;REFERENCE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERNAM	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-ERNAM,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BANFN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBEP-BANFN,&nbsp;&nbsp;&nbsp;&nbsp;"PR&nbsp;NUMBER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EBAN-EBELN,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"PO&nbsp;NUMBER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CANC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZBAP_CANC-ZCANC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COLOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR4,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CELL_COLOR&nbsp;TYPE&nbsp;LVC_T_SCOL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_STYL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEL_CK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DISPLAY.<br />
+<br />
+DATA GT_DISPLAY LIKE TABLE OF GS_DISPLAY.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+DATA : BEGIN OF GS_CANC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VBELN&nbsp;TYPE&nbsp;ZBAP_CANC-ZVBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AUDAT&nbsp;TYPE&nbsp;ZBAP_CANC-ZAUDAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KUNNR&nbsp;TYPE&nbsp;ZBAP_CANC-ZKUNNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARKTX&nbsp;TYPE&nbsp;ZBAP_CANC-ZARKTX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MENGE&nbsp;TYPE&nbsp;ZBAP_CANC-ZMENGE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NETWR&nbsp;TYPE&nbsp;ZBAP_CANC-ZNETWR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VDATU&nbsp;TYPE&nbsp;ZBAP_CANC-ZVDATU,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BSTNK&nbsp;TYPE&nbsp;ZBAP_CANC-ZBSTNK,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;ZBAP_CANC-ZEBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CANC&nbsp;&nbsp;TYPE&nbsp;ZBAP_CANC-ZCANC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CREAT&nbsp;TYPE&nbsp;ZBAP_CANC-ZCREATED_ON,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_CANC.<br />
+DATA GT_CANC LIKE TABLE OF GS_CANC.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*DATA:&nbsp;BEGIN&nbsp;OF&nbsp;GS_DISPLAY,&nbsp;&nbsp;"&nbsp;Global&nbsp;Structure&nbsp;+&nbsp;###&nbsp;##&nbsp;###<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VBELN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-VBELN,&nbsp;&nbsp;&nbsp;&nbsp;"DOCUMENT&nbsp;NUMBER<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AUDAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-AUDAT,&nbsp;&nbsp;&nbsp;&nbsp;"DOCUMENT&nbsp;DATE<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KUNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-KUNNR,&nbsp;&nbsp;&nbsp;&nbsp;"SOLD&nbsp;TO&nbsp;PARTY<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAP-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;"MATERIAL&nbsp;NUMBER<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MENGE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EBAN-MENGE,&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EBAN-MEINS,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NETWR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-NETWR,&nbsp;&nbsp;&nbsp;&nbsp;"NET&nbsp;VALUE<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VDATU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-VDATU,&nbsp;&nbsp;&nbsp;&nbsp;"REQUESTED&nbsp;DELIV.DATE<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BSTNK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-BSTNK,&nbsp;&nbsp;&nbsp;&nbsp;"CUSTOMER&nbsp;REFERENCE<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERNAM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-ERNAM,&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BANFN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBEP-BANFN,&nbsp;&nbsp;&nbsp;&nbsp;"PR&nbsp;NUMBER<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EBAN-EBELN,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"PO&nbsp;NUMBER<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COLOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR4,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CELL_COLOR&nbsp;TYPE&nbsp;LVC_T_SCOL,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;&nbsp;LVC_T_STYL,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DISPLAY.<br />
+*<br />
+*DATA&nbsp;GT_DISPLAY&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_DISPLAY.<br />
+<br />
+   </div>
+   <div class="code">
+DATA: LAST_DATE LIKE SY-DATUM.<br />
+DATA : LV_CUS TYPE C.<br />
+DATA : LV_STA TYPE C.<br />
+"## ## (B2B) TABLE<br />
+DATA: BEGIN OF GS_B2B_STOCK,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VBELN&nbsp;LIKE&nbsp;VBAK-VBELN,&nbsp;"SO&nbsp;NUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KUNNR&nbsp;LIKE&nbsp;VBAK-KUNNR,&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AUDAT&nbsp;LIKE&nbsp;VBAK-AUDAT,&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;LIKE&nbsp;&nbsp;MARD-WERKS,&nbsp;"PLANT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LGORT&nbsp;LIKE&nbsp;&nbsp;MARD-LGORT,&nbsp;"STORAGE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;LIKE&nbsp;&nbsp;VBAP-MATNR,&nbsp;"MATERIAL&nbsp;NUMBER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAKTX&nbsp;LIKE&nbsp;&nbsp;MAKT-MAKTX,&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LABST&nbsp;LIKE&nbsp;&nbsp;MARD-LABST,&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_B2B_STOCK.<br />
+DATA GT_B2B_STOCK LIKE TABLE OF GS_B2B_STOCK.<br />
+<br />
+"## ## (B2C) TABLE<br />
+DATA: BEGIN OF GS_B2C_SUB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBNM&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;2,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CUSID&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;ZBAPSUB-CUSID,&nbsp;"##ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBID&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;ZBAPSUB-SUBID,&nbsp;"##ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBST&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;ZBAPSUB-SUBST,&nbsp;"#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBED&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;ZBAPSUB-SUBED,&nbsp;"#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBTM&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,&nbsp;"INT8,&nbsp;"1##&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;SUB_CNT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;&nbsp;C,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CELLTAB&nbsp;&nbsp;TYPE&nbsp;LVC_T_STYL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CINFO&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_EMPHSZ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CELLSTYL&nbsp;TYPE&nbsp;LVC_T_STYL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CELLSCOL&nbsp;TYPE&nbsp;LVC_T_SCOL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_B2C_SUB.<br />
+DATA GT_B2C_SUB LIKE TABLE OF GS_B2C_SUB.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*CHECK&nbsp;###<br />
+   </div>
+   <div class="code">
+TYPES : BEGIN OF GY_CHECK,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VBELN&nbsp;TYPE&nbsp;VBAK-VBELN,&nbsp;"SO##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KUNNR&nbsp;TYPE&nbsp;VBAK-KUNNR,&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GY_CHECK,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TY_CHECK&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;GY_CHECK.<br />
+<br />
+DATA : GT_CHECK TYPE TY_CHECK.<br />
+<br />
+<br />
+DATA  : GO_CON  TYPE REF TO CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_CON2&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CUSTOM_CONTAINER.<br />
+<br />
+<br />
+DATA : GO_GRID  TYPE REF TO CL_GUI_ALV_GRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_GRID2&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+" Grid ALV # #### ### ##<br />
+<br />
+DATA: GV_SPLIT TYPE C.<br />
+DATA : GO_DYNDOC_ID TYPE REF TO CL_DD_DOCUMENT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_SPLITTER&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_SPLITTER_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_SPLITTER2&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_SPLITTER_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_BOTTOM&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_LEFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_RIGHT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_DOCKING&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_DOCKING_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_EXCLUDE&nbsp;&nbsp;&nbsp;TYPE&nbsp;UI_FUNCTIONS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_VARIANT&nbsp;&nbsp;&nbsp;TYPE&nbsp;DISVARIANT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*DATA&nbsp;:&nbsp;GV_MODE&nbsp;TYPE&nbsp;C.<br />
+   </div>
+   <div class="code">
+DATA : GV_CUS TYPE C.<br />
+DATA: GT_SORTCAT TYPE LVC_T_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SORTCAT&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;GT_SORTCAT.<br />
+<br />
+DATA GO_EVENT_HANDLER TYPE REF TO LCL_EVENT_HANDLER.<br />
+" Grid ALV # #### ### ## ## ##<br />
+DATA: GS_STBL     TYPE LVC_S_STBL.<br />
+DATA: GT_CELLTAB TYPE LVC_T_STYL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB&nbsp;TYPE&nbsp;LVC_S_STYL.<br />
+<br />
+DATA GT_FIELDCAT1   TYPE LVC_T_FCAT. " Screen 0100 # ALV<br />
+DATA GT_FIELDCAT2   TYPE LVC_T_FCAT. " Screen 0100 # ALV<br />
+" LVC_T_FCAT # Table Type ## ### ABAP Dictionary<br />
+" ### GT_FIELDCAT # TYPE # ####, Internal Table # ####.<br />
+<br />
+DATA GS_FIELDCAT1 TYPE LVC_S_FCAT.<br />
+DATA GS_FIELDCAT2 TYPE LVC_S_FCAT.<br />
+" LVC_S_FCAT # Structure # ### ABAP Dictionary<br />
+<br />
+<br />
+DATA GS_LAYOUT1   TYPE LVC_S_LAYO.<br />
+DATA GS_LAYOUT2   TYPE LVC_S_LAYO.<br />
+" SAP ### 4##, 5## ### ### #### ##.<br />
+" LAYOUT =&gt; LAYO # ######, LAYO ## #####, LAYOUT ## ###.<br />
+" ALV ## ## ### ### ##.<br />
+<br />
+<br />
+DATA OKCODE TYPE SY-UCOMM.<br />
+DATA SAVEOK TYPE SY-UCOMM.<br />
+" ### ## ##### ## ##<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

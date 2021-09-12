@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZSG_MM_CHK_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZSG_MM_CHK_TOP</h2>
+<h3> Description: Include ZBD10312_MM_TOP</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD10312_MM_TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS LCL_EVENT_HANDLER DEFINITION DEFERRED.<br />
+TABLES: EKKO, EKPO.<br />
+<br />
+DATA: BEGIN OF GS_PO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;LIKE&nbsp;EKKO-EBELN,&nbsp;&nbsp;"&nbsp;Puchasing&nbsp;Order<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKORG&nbsp;LIKE&nbsp;EKKO-EKORG,&nbsp;&nbsp;"&nbsp;Puchasing&nbsp;Organization<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKGRP&nbsp;LIKE&nbsp;EKKO-EKGRP,&nbsp;&nbsp;"&nbsp;Puchasing&nbsp;Group<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;LIKE&nbsp;EKKO-LIFNR,&nbsp;&nbsp;"&nbsp;Vender<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELP&nbsp;LIKE&nbsp;EKPO-EBELP,&nbsp;&nbsp;"&nbsp;Item<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;LIKE&nbsp;EKPO-MATNR,&nbsp;&nbsp;"&nbsp;Material<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TXZ01&nbsp;LIKE&nbsp;EKPO-TXZ01,&nbsp;&nbsp;"&nbsp;Material&nbsp;Desc.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;LIKE&nbsp;EKPO-WERKS,&nbsp;&nbsp;"&nbsp;Plant<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LGORT&nbsp;LIKE&nbsp;EKPO-LGORT,&nbsp;&nbsp;"&nbsp;Storage&nbsp;location<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MENGE&nbsp;LIKE&nbsp;EKPO-MENGE,&nbsp;&nbsp;"&nbsp;Quantity<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;LIKE&nbsp;EKPO-MEINS,&nbsp;&nbsp;"&nbsp;Unit&nbsp;of&nbsp;Measure<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NETPR&nbsp;LIKE&nbsp;EKPO-NETPR,&nbsp;&nbsp;"&nbsp;Net&nbsp;Price<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INFNR&nbsp;LIKE&nbsp;EKPO-INFNR,&nbsp;&nbsp;"&nbsp;Info&nbsp;Record<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AEDAT&nbsp;LIKE&nbsp;EKKO-AEDAT,&nbsp;&nbsp;"&nbsp;PO&nbsp;Created&nbsp;Date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERNAM&nbsp;LIKE&nbsp;EKKO-ERNAM,&nbsp;&nbsp;"&nbsp;PO&nbsp;Created&nbsp;Person<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VBELN&nbsp;LIKE&nbsp;VBEP-VBELN,&nbsp;&nbsp;"&nbsp;SO&nbsp;Number<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_PO.<br />
+<br />
+DATA GT_PODISP LIKE TABLE OF GS_PO.<br />
+<br />
+DATA: OKCODE TYPE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVEOK&nbsp;TYPE&nbsp;SY-UCOMM.<br />
+<br />
+DATA GO_DOCKING_CONTAINER_TOP     TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA GO_DOCKING_CONTAINER         TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA GO_DOCKING_CONTAINER_BOTTOM  TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+<br />
+DATA GO_ALV_GRID TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+DATA GS_LAYOUT    TYPE LVC_S_LAYO.<br />
+DATA GT_FIELDCAT  TYPE LVC_T_FCAT.<br />
+DATA GS_FIELDCAT  TYPE LVC_S_FCAT.<br />
+<br />
+DATA GO_EVENT_HANDLER TYPE REF TO LCL_EVENT_HANDLER.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBAPSD0021</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBAPSD0021</h2>
+<h3> Description: ######</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBAP_SUB_REPORT<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBAPSD0021.<br />
+TABLES : VBAK,VBAP,MAKT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*DATA:BEGIN&nbsp;OF&nbsp;GS_DISPLAY,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KUNNR&nbsp;LIKE&nbsp;VBAK-KUNNR,&nbsp;&nbsp;&nbsp;&nbsp;"SOLD&nbsp;TO&nbsp;PARTY<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BSTNK&nbsp;LIKE&nbsp;VBAK-BSTNK,&nbsp;&nbsp;&nbsp;&nbsp;"##ID<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BNAME&nbsp;LIKE&nbsp;VBAK-BNAME,&nbsp;&nbsp;&nbsp;&nbsp;"#####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;LIKE&nbsp;VBAP-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;"MATERIAL&nbsp;NUMBER<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAKTX&nbsp;LIKE&nbsp;MAKT-MAKTX,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AUDAT&nbsp;LIKE&nbsp;VBAK-AUDAT,&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VDATU&nbsp;LIKE&nbsp;VBAK-VDATU,&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DISPLAY.<br />
+   </div>
+   <div class="code">
+DATA:BEGIN OF GS_SUB_INFO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDERER_ID&nbsp;LIKE&nbsp;VBAK-KUNNR,&nbsp;&nbsp;&nbsp;&nbsp;"SOLD&nbsp;TO&nbsp;PARTY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUB_ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-BSTNK,&nbsp;&nbsp;&nbsp;&nbsp;"##ID<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BNAME&nbsp;LIKE&nbsp;VBAK-BNAME,&nbsp;&nbsp;&nbsp;&nbsp;"#####<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAT_ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAP-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;"MATERIAL&nbsp;NUMBER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAT_NAME&nbsp;&nbsp;&nbsp;LIKE&nbsp;MAKT-MAKTX,&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_DATE&nbsp;LIKE&nbsp;VBAK-AUDAT,&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEL_DATE&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-VDATU,&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ETENR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBEP-ETENR,&nbsp;&nbsp;&nbsp;&nbsp;"#####<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_SUB_INFO.<br />
+<br />
+DATA GT_SUB_INFO LIKE TABLE OF GS_SUB_INFO.<br />
+PARAMETERS: P_KUNNR TYPE VBAK-KUNNR.<br />
+PARAMETERS: P_BSTNK TYPE VBAK-BSTNK.<br />
+   </div>
+   <div class="codeComment">
+*PARAMETERS:&nbsp;P_SUBST&nbsp;TYPE&nbsp;VBAK-VDATU.<br />
+   </div>
+   <div class="code">
+SELECT DISTINCT A~KUNNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~BSTNK,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~BNAME<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~MAKTX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~AUDAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~VDATU<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D~ETENR<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@GT_SUB_INFO<br />
+&nbsp;&nbsp;FROM&nbsp;VBAK&nbsp;AS&nbsp;A&nbsp;JOIN&nbsp;VBAP&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;B~VBELN&nbsp;=&nbsp;A~VBELN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;MAKT&nbsp;AS&nbsp;C<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;B~VBELN&nbsp;=&nbsp;A~VBELN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;B~MATNR&nbsp;=&nbsp;C~MATNR<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;VBEP&nbsp;AS&nbsp;D<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;&nbsp;B~VBELN&nbsp;EQ&nbsp;D~VBELN<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;&nbsp;D~etenr&nbsp;eq&nbsp;'0001'<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;WHERE&nbsp;A~BSTNK&nbsp;=&nbsp;@P_BSTNK<br />
+&nbsp;&nbsp;AND&nbsp;&nbsp;&nbsp;A~KUNNR&nbsp;=&nbsp;@P_KUNNR<br />
+&nbsp;&nbsp;ORDER&nbsp;BY&nbsp;VDATU.<br />
+<br />
+CL_DEMO_OUTPUT=&gt;DISPLAY( GT_SUB_INFO ).<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

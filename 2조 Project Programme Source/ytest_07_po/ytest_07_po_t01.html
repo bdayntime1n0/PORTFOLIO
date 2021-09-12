@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>YTEST_07_PO_T01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: YTEST_07_PO_T01</h2>
+<h3> Description: Include ZBD1_00_100_T01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD1_00_100_T01<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES SSCRFIELDS.<br />
+<br />
+<br />
+" #### ### #### #### ## Internal Table<br />
+DATA GT_INTERN TYPE TABLE OF ALSMEX_TABLINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;ALV&nbsp;#&nbsp;###&nbsp;####&nbsp;####&nbsp;##&nbsp;Internal&nbsp;Table<br />
+   </div>
+   <div class="code">
+DATA : BEGIN OF GS_DISPLAY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="ztmms_13/dictionary-ztmms_13.html">ZTMMS_13</a>.<br />
+DATA :<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DISPLAY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_DISPLAY&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_DISPLAY&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*DATA:&nbsp;BEGIN&nbsp;OF&nbsp;GS_DISPLAY,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;&nbsp;&nbsp;LIKE&nbsp;ICON-ID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;LFA1-LIFNR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;VENDOR(####)&nbsp;ID<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELP&nbsp;&nbsp;LIKE&nbsp;MEPO1211-EBELP,"&nbsp;ITEM&nbsp;NUM<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARA-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;MATERIAL&nbsp;ID&nbsp;(##&nbsp;ID)<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAKTX&nbsp;&nbsp;LIKE&nbsp;MAKT-MAKTX,&nbsp;&nbsp;&nbsp;"&nbsp;MATERIAL&nbsp;NM&nbsp;(####)<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EISBE&nbsp;&nbsp;LIKE&nbsp;MARC-EISBE,<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;&nbsp;LIKE&nbsp;MARA-MEINS,<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPART&nbsp;&nbsp;LIKE&nbsp;MARA-SPART,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;MATERIAL&nbsp;GROUP<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;MARC-WERKS,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;PLANT&nbsp;ID<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STGLC&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;MSEG-LGORT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;STORAGE<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MENGE&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;MSEG-MENGE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NETPRICE&nbsp;LIKE&nbsp;EBAN-PREIS,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BEDAT&nbsp;&nbsp;LIKE&nbsp;EBAN-BEDAT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKKO-EBELN,&nbsp;&nbsp;&nbsp;"&nbsp;PO&nbsp;HEADER<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;&nbsp;LIKE&nbsp;BAPIRET2-MESSAGE,<br />
+*<br />
+**&nbsp;##&nbsp;####&nbsp;##&nbsp;####&nbsp;####&nbsp;#.<br />
+**&nbsp;MARA-MANTR#&nbsp;###&nbsp;####&nbsp;###&nbsp;###&nbsp;#####&nbsp;####&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DISPLAY.<br />
+<br />
+*DATA&nbsp;GT_DISPLAY&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_DISPLAY.<br />
+   </div>
+   <div class="code">
+"###### ###<br />
+<br />
+DATA: OKCODE TYPE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVEOK&nbsp;TYPE&nbsp;SY-UCOMM.&nbsp;"&nbsp;Screen&nbsp;##&nbsp;###&nbsp;OKCODE&nbsp;##&nbsp;##<br />
+<br />
+<br />
+DATA GO_DOCKING_CONTAINER_TOP     TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA GO_DOCKING_CONTAINER         TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA GO_DOCKING_CONTAINER_BOTTOM  TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+" ALV # Screen 0100 # #### ## ### ## ##<br />
+<br />
+DATA GO_ALV_GRID          TYPE REF TO CL_GUI_ALV_GRID.<br />
+" Screen 0100 ## Container # ALV # #### ## ## ##<br />
+<br />
+DATA GS_LAYOUT    TYPE LVC_S_LAYO.  " ALV # #### ## #### ##<br />
+DATA GT_FIELDCAT  TYPE LVC_T_FCAT.  " ALV # # ### ##, ##, ## # #### ##<br />
+DATA GS_FIELDCAT  TYPE LVC_S_FCAT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

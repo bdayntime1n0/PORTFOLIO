@@ -1,0 +1,364 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Dictionary object- ZJEMY_MM_VENDOR</title>
+<style type="text/css">
+  th{text-align:left}
+  .cell{
+     font-family:"Courier New", Courier, monospace;
+     color:#000;
+     font-size:12px;
+     background-color:#F2F4F7;
+  }
+  .cell td { border: thin solid #ccc; }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+  <table class="outerTable">
+    <tr>
+      <td><h2>Table: ZJEMY_MM_VENDOR</h2>
+  <h3>Description: 4# VENDOR STRUCTURE</h3></td>
+    </tr>
+    <tr>
+      <td><!--This is where our main table begins  -->
+<table class="innerTable">
+<tr>
+  <th>Row</th>
+  <th>Field name</th>
+  <th>Position</th>
+  <th>Key</th>
+  <th>Data element</th>
+  <th>Domain</th>
+  <th>Datatype</th>
+  <th>Length</th>
+  <th>Lowercase</th>
+  <th>Domain text</th>
+</tr>
+<tr class="cell">
+  <td> 1</td>
+  <td>ICON</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>ICON_D</td>
+  <td>ICON</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Icon in text fields (substitute display, alias)</td>
+</tr>
+<tr class="cell">
+  <td> 2</td>
+  <td>BP_CODE</td>
+  <td>2</td>
+  <td>&nbsp;</td>
+  <td>BU_PARTNER</td>
+  <td>BU_PARTNER</td>
+  <td>CHAR</td>
+  <td>10</td>
+  <td>&nbsp;</td>
+  <td>Business Partner Number</td>
+</tr>
+<tr class="cell">
+  <td> 3</td>
+  <td>BP_NAME</td>
+  <td>3</td>
+  <td>&nbsp;</td>
+  <td>BU_NAMEOR1</td>
+  <td>BU_NAME</td>
+  <td>CHAR</td>
+  <td>40</td>
+  <td>X</td>
+  <td>Name 1 of organization</td>
+</tr>
+<tr class="cell">
+  <td> 4</td>
+  <td>BP_STERM</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>BU_SORT1_TXT</td>
+  <td>TEXT20</td>
+  <td>CHAR</td>
+  <td>20</td>
+  <td>X</td>
+  <td>Search Term 1 for Business Partner</td>
+</tr>
+<tr class="cell">
+  <td> 5</td>
+  <td>BP_ADRS</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>AD_STREET</td>
+  <td>TEXT60</td>
+  <td>CHAR</td>
+  <td>60</td>
+  <td>X</td>
+  <td>Street</td>
+</tr>
+<tr class="cell">
+  <td> 6</td>
+  <td>BP_POST</td>
+  <td>6</td>
+  <td>&nbsp;</td>
+  <td>AD_PSTCD1</td>
+  <td>CHAR10</td>
+  <td>CHAR</td>
+  <td>10</td>
+  <td>&nbsp;</td>
+  <td>City postal code</td>
+</tr>
+<tr class="cell">
+  <td> 7</td>
+  <td>BP_CITY</td>
+  <td>7</td>
+  <td>&nbsp;</td>
+  <td>AD_CITY1</td>
+  <td>TEXT40</td>
+  <td>CHAR</td>
+  <td>40</td>
+  <td>X</td>
+  <td>City</td>
+</tr>
+<tr class="cell">
+  <td> 8</td>
+  <td>BP_CNTY</td>
+  <td>8</td>
+  <td>&nbsp;</td>
+  <td>LAND1</td>
+  <td>LAND1</td>
+  <td>CHAR</td>
+  <td>3</td>
+  <td>&nbsp;</td>
+  <td>Country Key</td>
+</tr>
+<tr class="cell">
+  <td> 9</td>
+  <td>BP_REGI</td>
+  <td>9</td>
+  <td>&nbsp;</td>
+  <td>REGIO</td>
+  <td>REGIO</td>
+  <td>CHAR</td>
+  <td>3</td>
+  <td>&nbsp;</td>
+  <td>Region (State, Province, County)</td>
+</tr>
+<tr class="cell">
+  <td>10</td>
+  <td>BP_LANG</td>
+  <td>10</td>
+  <td>&nbsp;</td>
+  <td>SPRAS</td>
+  <td>SPRAS</td>
+  <td>LANG</td>
+  <td>1</td>
+  <td>X</td>
+  <td>Language Key</td>
+</tr>
+<tr class="cell">
+  <td>11</td>
+  <td>P_ORG</td>
+  <td>11</td>
+  <td>&nbsp;</td>
+  <td>EKORG</td>
+  <td>EKORG</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Purchasing organization</td>
+</tr>
+<tr class="cell">
+  <td>12</td>
+  <td>P_CUR</td>
+  <td>12</td>
+  <td>&nbsp;</td>
+  <td>WAERS</td>
+  <td>WAERS</td>
+  <td>CUKY</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>Currency Key</td>
+</tr>
+<tr class="cell">
+  <td>13</td>
+  <td>P_PTERMS</td>
+  <td>13</td>
+  <td>&nbsp;</td>
+  <td>DZTERM</td>
+  <td>ZTERM</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Terms of payment key</td>
+</tr>
+<tr class="cell">
+  <td>14</td>
+  <td>P_INC</td>
+  <td>14</td>
+  <td>&nbsp;</td>
+  <td>INCO1</td>
+  <td>INCO1</td>
+  <td>CHAR</td>
+  <td>3</td>
+  <td>&nbsp;</td>
+  <td>Incoterms (Part 1)</td>
+</tr>
+<tr class="cell">
+  <td>15</td>
+  <td>P_I_LOC</td>
+  <td>15</td>
+  <td>&nbsp;</td>
+  <td>INCO2_L</td>
+  <td>INCO_L</td>
+  <td>CHAR</td>
+  <td>70</td>
+  <td>X</td>
+  <td>Incoterms Location 1</td>
+</tr>
+<tr class="cell">
+  <td>16</td>
+  <td>P_CCODE</td>
+  <td>16</td>
+  <td>&nbsp;</td>
+  <td>BUKRS</td>
+  <td>BUKRS</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Company Code</td>
+</tr>
+<tr class="cell">
+  <td>17</td>
+  <td>P_RECON</td>
+  <td>17</td>
+  <td>&nbsp;</td>
+  <td>AKONT</td>
+  <td>SAKNR</td>
+  <td>CHAR</td>
+  <td>10</td>
+  <td>&nbsp;</td>
+  <td>Reconciliation Account in General Ledger</td>
+</tr>
+<tr class="cell">
+  <td>18</td>
+  <td>TXZ01</td>
+  <td>18</td>
+  <td>&nbsp;</td>
+  <td>TXZ01</td>
+  <td>TEXT40</td>
+  <td>CHAR</td>
+  <td>40</td>
+  <td>X</td>
+  <td>Short Text</td>
+</tr>
+<tr class="cell">
+  <td>19</td>
+  <td>NETPRICE</td>
+  <td>19</td>
+  <td>&nbsp;</td>
+  <td>WERTV9</td>
+  <td>WERTV9</td>
+  <td>CURR</td>
+  <td>17</td>
+  <td>&nbsp;</td>
+  <td>9(17)-character value field with 2 decimal places</td>
+</tr>
+<tr class="cell">
+  <td>20</td>
+  <td>MENGE</td>
+  <td>20</td>
+  <td>&nbsp;</td>
+  <td>BSTMG</td>
+  <td>MENG13</td>
+  <td>QUAN</td>
+  <td>13</td>
+  <td>&nbsp;</td>
+  <td>Purchase Order Quantity</td>
+</tr>
+<tr class="cell">
+  <td>21</td>
+  <td>MEINS</td>
+  <td>21</td>
+  <td>&nbsp;</td>
+  <td>BSTME</td>
+  <td>MEINS</td>
+  <td>UNIT</td>
+  <td>3</td>
+  <td>X</td>
+  <td>Purchase Order Unit of Measure</td>
+</tr>
+<tr class="cell">
+  <td>22</td>
+  <td>ZHACCP</td>
+  <td>22</td>
+  <td>&nbsp;</td>
+  <td>ZHACCP</td>
+  <td>ZHACCP</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>HACCP ## ##</td>
+</tr>
+<tr class="cell">
+  <td>23</td>
+  <td>ZORGANIC</td>
+  <td>23</td>
+  <td>&nbsp;</td>
+  <td>ZORGANIC</td>
+  <td>ZORGANIC</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>### ## ##</td>
+</tr>
+<tr class="cell">
+  <td>24</td>
+  <td>ZGMO</td>
+  <td>24</td>
+  <td>&nbsp;</td>
+  <td>ZGMO</td>
+  <td>ZGMO</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>### ## ### ## ##</td>
+</tr>
+      </table>
+     </td>
+   </tr>
+<br/>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

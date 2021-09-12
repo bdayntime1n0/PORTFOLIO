@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBD101_PO</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for function ZBD101_PO</h2>
+<h3> Description: ####1# 1# PO##</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="code">
+FUNCTION ZBD101_PO.<br />
+   </div>
+   <div class="codeComment">
+*"----------------------------------------------------------------------<br />
+*"*"Local Interface:<br />
+*"  IMPORTING<br />
+*"     REFERENCE(G_BUKRS) TYPE  EKKO-BUKRS<br />
+*"     REFERENCE(G_BSART) TYPE  EKKO-BSART<br />
+*"     REFERENCE(G_LIFNR) TYPE  EKKO-LIFNR<br />
+*"     REFERENCE(G_EKORG) TYPE  EKKO-EKORG<br />
+*"     REFERENCE(G_EKGRP) TYPE  EKKO-EKGRP<br />
+*"     REFERENCE(LS_MATNR) TYPE  MARA-MATNR<br />
+*"     REFERENCE(LS_WERKS) TYPE  MARC-WERKS<br />
+*"     REFERENCE(LS_MENGE) TYPE  MSEG-MENGE<br />
+*"     REFERENCE(LS_PRICE) TYPE  MEPO1211-NETPR OPTIONAL<br />
+*"  EXPORTING<br />
+*"     REFERENCE(LV_ORDER) TYPE  BAPIMEPOHEADER-PO_NUMBER<br />
+*"  TABLES<br />
+*"      LT_RETURN STRUCTURE  BAPIRET2<br />
+*"----------------------------------------------------------------------<br />
+<br />
+<br />
+
+<div class="codeComment">*       <a href ="global-zbd101_po.html">Global data declarations</a></div><br />
+   </div>
+   <div class="code">
+DATA : LS_POHEADER  LIKE  BAPIMEPOHEADER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_POHEADERX&nbsp;LIKE&nbsp;&nbsp;BAPIMEPOHEADERX,<br />
+   </div>
+   <div class="codeComment">
+*       LT_RETURN    LIKE  TABLE OF BAPIRET2      WITH HEADER LINE,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_POITEM&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOITEM&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_POITEMX&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOITEMX&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+   </div>
+   <div class="codeComment">
+*       LV_ORDER     LIKE  BAPIMEPOHEADER-PO_NUMBER.<br />
+<br />
+   </div>
+   <div class="code">
+DATA : LV_PRICE     LIKE MBEW-STPRS.<br />
+<br />
+SELECT SINGLE STPRS<br />
+&nbsp;&nbsp;INTO&nbsp;LV_PRICE<br />
+&nbsp;&nbsp;FROM&nbsp;MBEW<br />
+&nbsp;WHERE&nbsp;MATNR&nbsp;=&nbsp;LS_MATNR.<br />
+<br />
+<br />
+CLEAR : LS_POHEADER.<br />
+LS_POHEADER-COMP_CODE  = G_BUKRS.  " ####<br />
+LS_POHEADER-DOC_TYPE   = G_BSART.  " ####<br />
+LS_POHEADER-VENDOR     = G_LIFNR.  " Vendor<br />
+LS_POHEADER-PURCH_ORG  = G_EKORG.  " ####<br />
+LS_POHEADER-PUR_GROUP  = G_EKGRP.  " ####<br />
+<br />
+CLEAR : LS_POHEADERX.<br />
+LS_POHEADERX-COMP_CODE  =  'X'.<br />
+LS_POHEADERX-DOC_TYPE   =  'X'.<br />
+LS_POHEADERX-VENDOR     =  'X'.<br />
+LS_POHEADERX-PURCH_ORG  =  'X'.<br />
+LS_POHEADERX-PUR_GROUP  =  'X'.<br />
+<br />
+CLEAR : LT_POITEM, LT_POITEM[].<br />
+LT_POITEM-PO_ITEM   = '00010'.<br />
+LT_POITEM-MATERIAL  = LS_MATNR.  " ##<br />
+LT_POITEM-PLANT     = LS_WERKS.  " ###<br />
+LT_POITEM-QUANTITY  = LS_MENGE.  " ##<br />
+   </div>
+   <div class="codeComment">
+*LT_POITEM-NET_PRICE = LS_PRICE.  " ##<br />
+   </div>
+   <div class="code">
+LT_POITEM-NET_PRICE = LV_PRICE.  " ##<br />
+APPEND LT_POITEM.<br />
+<br />
+CLEAR : LT_POITEMX, LT_POITEMX[].<br />
+LT_POITEMX-PO_ITEM   = '00010'.<br />
+LT_POITEMX-MATERIAL  = 'X'.<br />
+LT_POITEMX-PLANT     = 'X'.<br />
+LT_POITEMX-QUANTITY  = 'X'.<br />
+LT_POITEMX-NET_PRICE = 'X'.<br />
+APPEND LT_POITEMX.<br />
+<br />
+CLEAR LV_ORDER.<br />
+CLEAR : LT_RETURN, LT_RETURN[].<br />
+CALL FUNCTION 'BAPI_PO_CREATE1'<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;POHEADER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LS_POHEADER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;POHEADERX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LS_POHEADERX<br />
+&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPPURCHASEORDER&nbsp;=&nbsp;LV_ORDER<br />
+&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_RETURN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;POITEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_POITEM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;POITEMX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_POITEMX.<br />
+<br />
+IF LV_ORDER IS NOT INITIAL.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_TRANSACTION_COMMIT'.<br />
+<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;&nbsp;LV_ORDER.<br />
+ELSE.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_TRANSACTION_ROLLBACK'.<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;LT_RETURN[&nbsp;TYPE&nbsp;=&nbsp;'E'&nbsp;]-MESSAGE.<br />
+<br />
+ENDIF.<br />
+<br />
+<br />
+<br />
+ENDFUNCTION.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

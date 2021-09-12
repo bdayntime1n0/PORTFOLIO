@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBD1_04_SD_SO_SCR</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD1_04_SD_SO_SCR</h2>
+<h3> Description: Include ZBD1_04_MM_PO_SCR</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD1_04_SD_SO_SCR<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+**SELECTION-SCREEN<br />
+<br />
+   </div>
+   <div class="code">
+" TAB1 ####<br />
+SELECTION-SCREEN BEGIN OF SCREEN 1100 AS SUBSCREEN.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_CODE1&nbsp;&nbsp;FOR&nbsp;ZJEMY_STORE-STORE_CODE&nbsp;NO&nbsp;INTERVALS&nbsp;NO-EXTENSION,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_NAME1&nbsp;&nbsp;FOR&nbsp;ZJEMY_STORE-STORE_NAME&nbsp;NO&nbsp;INTERVALS&nbsp;NO-EXTENSION,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_PHONE1&nbsp;FOR&nbsp;ZJEMY_STORE-PHONE&nbsp;NO&nbsp;INTERVALS&nbsp;NO-EXTENSION,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_CITY1&nbsp;&nbsp;FOR&nbsp;ZJEMY_STORE-CITY_NAME&nbsp;NO&nbsp;INTERVALS&nbsp;NO-EXTENSION.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_CITY1&nbsp;&nbsp;FOR&nbsp;T005U-BEZEI&nbsp;NO&nbsp;INTERVALS&nbsp;NO-EXTENSION.<br />
+&nbsp;&nbsp;"&nbsp;Dropdown&nbsp;Listbox<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;PARAMETERS:&nbsp;P_CITY1&nbsp;TYPE&nbsp;ZJEMY_STORE-CITY&nbsp;."&nbsp;&nbsp;AS&nbsp;LISTBOX&nbsp;VISIBLE&nbsp;LENGTH&nbsp;10.<br />
+<br />
+*&nbsp;&nbsp;SELECTION-SCREEN&nbsp;SKIP.&nbsp;"####<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN END OF SCREEN 1100.<br />
+<br />
+<br />
+" TAB2 ### SO ##<br />
+SELECTION-SCREEN BEGIN OF SCREEN 1200 AS SUBSCREEN.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_CODE2&nbsp;&nbsp;FOR&nbsp;ZJEMY_SO-KUNNR.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;PARAMETERS:&nbsp;P_CITY2&nbsp;TYPE&nbsp;T005U-BEZEI&nbsp;AS&nbsp;LISTBOX&nbsp;VISIBLE&nbsp;LENGTH&nbsp;10.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PARAMETERS:&nbsp;P_CITY2&nbsp;TYPE&nbsp;ZJEMY_SO-CITY."&nbsp;AS&nbsp;LISTBOX&nbsp;VISIBLE&nbsp;LENGTH&nbsp;10.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;P_CITY2&nbsp;TYPE&nbsp;ZJEMY_SO-REGIO&nbsp;AS&nbsp;LISTBOX&nbsp;VISIBLE&nbsp;LENGTH&nbsp;10.<br />
+<br />
+*&nbsp;&nbsp;PARAMETERS:&nbsp;P_GJAHR2&nbsp;TYPE&nbsp;GJAHR&nbsp;DEFAULT&nbsp;SY-DATUM+0(4)&nbsp;OBLIGATORY.&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN END OF SCREEN 1200.<br />
+<br />
+<br />
+" TAB3 SO ##<br />
+SELECTION-SCREEN BEGIN OF SCREEN 1300 AS SUBSCREEN.<br />
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME TITLE TEXT-T01.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_R1&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;RG1&nbsp;USER-COMMAND&nbsp;RADIO.&nbsp;"&nbsp;DEFAULT&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;5(10)&nbsp;TEXT-R01&nbsp;FOR&nbsp;FIELD&nbsp;P_R1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_R2&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;RG1&nbsp;DEFAULT&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;20(10)&nbsp;TEXT-R02&nbsp;FOR&nbsp;FIELD&nbsp;P_R2&nbsp;.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+<br />
+<br />
+SELECTION-SCREEN END OF BLOCK B1.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AUART,&nbsp;"&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VKORG,&nbsp;"&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VTWEG,&nbsp;"&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPART,&nbsp;"&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KUNNR,&nbsp;"&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BSTNK,&nbsp;"&nbsp;##&nbsp;Ref.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR,&nbsp;"&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DZMENG&nbsp;"&nbsp;##<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME TITLE TEXT-T02.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;1(10)&nbsp;TEXT-S00&nbsp;FOR&nbsp;FIELD&nbsp;P_AUART&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;GR1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_AUART&nbsp;TYPE&nbsp;ZJEMY_SO-AUART&nbsp;DEFAULT&nbsp;'OR'&nbsp;MODIF&nbsp;ID&nbsp;GR1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;25(10)&nbsp;TEXT-S01&nbsp;FOR&nbsp;FIELD&nbsp;P_SALORG&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;GR1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_SALORG&nbsp;TYPE&nbsp;ZJEMY_SO-VKORG&nbsp;DEFAULT&nbsp;'1010'&nbsp;MODIF&nbsp;ID&nbsp;GR1.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;1(10)&nbsp;TEXT-S02&nbsp;FOR&nbsp;FIELD&nbsp;P_CHAN&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;GR1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_CHAN&nbsp;&nbsp;TYPE&nbsp;ZJEMY_SO-VTWEG&nbsp;&nbsp;DEFAULT&nbsp;'10'&nbsp;MODIF&nbsp;ID&nbsp;GR1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;25(10)&nbsp;TEXT-S03&nbsp;FOR&nbsp;FIELD&nbsp;P_DIV&nbsp;&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;GR1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_DIV&nbsp;&nbsp;TYPE&nbsp;ZJEMY_SO-SPART&nbsp;DEFAULT&nbsp;'00'&nbsp;MODIF&nbsp;ID&nbsp;GR1.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;25(10)&nbsp;TEXT-S04&nbsp;FOR&nbsp;FIELD&nbsp;&nbsp;S_ROLE&nbsp;MODIF&nbsp;ID&nbsp;GR1.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_ROLE&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;ZJEMY_SO-PARVW&nbsp;&nbsp;NO&nbsp;INTERVALS&nbsp;NO-EXTENSION&nbsp;DEFAULT&nbsp;'AG'&nbsp;MODIF&nbsp;ID&nbsp;GR1.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;P_CODE3&nbsp;TYPE&nbsp;ZJEMY_SO-KUNNR&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;GR1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_BSTNK&nbsp;TYPE&nbsp;ZJEMY_SO-BSTNK&nbsp;&nbsp;DEFAULT&nbsp;'JEMY&nbsp;##'&nbsp;MODIF&nbsp;ID&nbsp;GR1,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_NAME3&nbsp;TYPE&nbsp;ZJEMY_SO-NAME1&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;GR1,<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_MATNR&nbsp;TYPE&nbsp;ZJEMY_SO-MATNR&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;GR1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_QUAN&nbsp;&nbsp;TYPE&nbsp;ZJEMY_SO-DZMENG&nbsp;MODIF&nbsp;ID&nbsp;GR1.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;SELECTION-SCREEN&nbsp;PUSHBUTTON&nbsp;75(8)&nbsp;BTN_TEXT&nbsp;USER-COMMAND&nbsp;BUT1&nbsp;MODIF&nbsp;ID&nbsp;GR1.<br />
+<br />
+<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_CUSTNM&nbsp;&nbsp;FOR&nbsp;ZJEMY_SO-KUNNR&nbsp;NO&nbsp;INTERVALS&nbsp;NO-EXTENSION&nbsp;MODIF&nbsp;ID&nbsp;GR1.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;B2.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;B3&nbsp;WITH&nbsp;FRAME&nbsp;TITLE&nbsp;TEXT-T03.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;1(13)&nbsp;TEXT-T02&nbsp;FOR&nbsp;FIELD&nbsp;P_FILE&nbsp;MODIF&nbsp;ID&nbsp;GR2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_FILE&nbsp;TYPE&nbsp;LOCALFILE&nbsp;MODIF&nbsp;ID&nbsp;GR2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;B3.<br />
+<br />
+SELECTION-SCREEN END OF SCREEN 1300.<br />
+<br />
+<br />
+" TAB4 ## SO ##<br />
+<br />
+   </div>
+   <div class="codeComment">
+*DATA:&nbsp;BEGIN&nbsp;OF&nbsp;GS_DISPLAY,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;&nbsp;&nbsp;LIKE&nbsp;ICON-ID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VBELN&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZJEMY_SO-VBELN&nbsp;&nbsp;&nbsp;,&nbsp;"&nbsp;Sales&nbsp;and&nbsp;Distribution&nbsp;Document&nbsp;Number<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VKORG&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZJEMY_SO-VKORG&nbsp;&nbsp;&nbsp;,&nbsp;"&nbsp;Sales&nbsp;Organization<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VTWEG&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZJEMY_SO-VTWEG&nbsp;&nbsp;&nbsp;,&nbsp;"&nbsp;Distribution&nbsp;Channel<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPART&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZJEMY_SO-SPART&nbsp;&nbsp;&nbsp;,&nbsp;"&nbsp;Division<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARVW&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZJEMY_SO-PARVW&nbsp;&nbsp;&nbsp;,&nbsp;"&nbsp;Partner&nbsp;Function(Partner&nbsp;Role)<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KUNNR&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZJEMY_SO-KUNNR&nbsp;&nbsp;&nbsp;,&nbsp;"&nbsp;Customer&nbsp;Number<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BSTNK&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZJEMY_SO-BSTNK&nbsp;&nbsp;&nbsp;,&nbsp;"&nbsp;Customer&nbsp;Reference<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POSNR_VA&nbsp;LIKE&nbsp;ZJEMY_SO-POSNR_VA,&nbsp;"&nbsp;Sales&nbsp;Document&nbsp;Item<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR18&nbsp;&nbsp;LIKE&nbsp;ZJEMY_SO-MATNR18&nbsp;,&nbsp;"&nbsp;Material&nbsp;Number<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DZMENG&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZJEMY_SO-DZMENG&nbsp;&nbsp;,&nbsp;"&nbsp;Target&nbsp;Quantity&nbsp;in&nbsp;Sales&nbsp;Units<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DISPLAY.<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+" TAB.<br />
+SELECTION-SCREEN BEGIN OF TABBED BLOCK TAB_BLOCK FOR 13 LINES. " TABSTRIP ##<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;TAB&nbsp;(10)&nbsp;TAB1&nbsp;USER-COMMAND&nbsp;TAB1&nbsp;DEFAULT&nbsp;SCREEN&nbsp;1100.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;TAB&nbsp;(15)&nbsp;TAB2&nbsp;USER-COMMAND&nbsp;TAB2&nbsp;DEFAULT&nbsp;SCREEN&nbsp;1200.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;TAB&nbsp;(15)&nbsp;TAB3&nbsp;USER-COMMAND&nbsp;TAB3&nbsp;DEFAULT&nbsp;SCREEN&nbsp;1300.<br />
+SELECTION-SCREEN END OF BLOCK TAB_BLOCK.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

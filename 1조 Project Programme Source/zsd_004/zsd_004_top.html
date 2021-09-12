@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZSD_004_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZSD_004_TOP</h2>
+<h3> Description: Include ZBD400_02_EX6_2_TOP</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD400_02_EX6_2_TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES : ZORD_T01,VBAK,T001W,ZDELI_T01.<br />
+<br />
+DATA: BEGIN OF GS_DATA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CELL_COLOR&nbsp;TYPE&nbsp;LVC_T_SCOL,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;CELL&nbsp;COROL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COLOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR4,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WEBORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZORD_T01-ZEWEBORD,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PDNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZBD1_PO-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VBELN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZORD_T01-VBELN,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZORD_T01-ZEORDATE,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORTIME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZORD_T01-ZEORTIME,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CTNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZORD_T01-ZECTNO,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CTNM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;KNA1-NAME1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CTADDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZORD_T01-ZECTADDR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZORD_T01-WERKS,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZDELI_T01-ZEDELI,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELIGO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZDELI_T01-ZEDELIGO,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELIEND&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZDELI_T01-ZEDELIEND,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELITM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZDELI_T01-ZEREALDEL,&nbsp;&nbsp;"&nbsp;#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEMO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZORD_T01-ZEMEMO,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DATA.<br />
+<br />
+DATA : GT_DATA LIKE TABLE OF GS_DATA.<br />
+<br />
+<br />
+DATA : BEGIN OF GS_DATA2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WEBORD&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZORD_T01-ZEWEBORD,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDATE&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZORD_T01-ZEORDATE,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORTIME&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZORD_T01-ZEORTIME,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CTNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZORD_T01-ZECTNO,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CTNM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;KNA1-NAME1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CTADDR&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZORD_T01-ZECTADDR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZORD_T01-WERKS,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PDNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZORD_T01-ZEPDNO,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PDNM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;MAKT-MAKTX,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORQUAN&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZORD_T01-ZEORQUAN,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZORD_T01-ZEUNIT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DATA2.<br />
+<br />
+DATA : GT_DATA2 LIKE TABLE OF GS_DATA2.<br />
+<br />
+<br />
+DATA: GT_CELLTAB TYPE LVC_T_STYL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB&nbsp;TYPE&nbsp;LVC_S_STYL.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***************************************************************<br />
+   </div>
+   <div class="code">
+DATA: GO_ALV TYPE REF TO CL_GUI_ALV_GRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_CON&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER.<br />
+<br />
+DATA : GO_ALV_2 TYPE REF TO CL_GUI_ALV_GRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_CON_2&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CUSTOM_CONTAINER.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***************************************************************<br />
+   </div>
+   <div class="code">
+DATA: OK_CODE TYPE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVEOK&nbsp;&nbsp;TYPE&nbsp;SY-UCOMM.<br />
+<br />
+DATA : GT_MEMO TYPE TABLE OF ZORD_T01,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_MEMO&nbsp;TYPE&nbsp;ZORD_T01.<br />
+<br />
+   </div>
+   <div class="codeComment">
+****************************************************************<br />
+*Cursor.<br />
+   </div>
+   <div class="code">
+DATA : GS_ROW_ID TYPE LVC_S_ROW,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_COL_ID&nbsp;TYPE&nbsp;LVC_S_COL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_STBL&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_STBL.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***************************************************************<br />
+   </div>
+   <div class="code">
+" LVC_T_FCAT # Table Type ## ### ABAP Dictionary<br />
+" ## #### LVC_T_FCAT# TYPE## #### ###, GT_FIELDCAT# Internal Table##.<br />
+DATA GT_FIELDCAT TYPE LVC_T_FCAT.<br />
+DATA GT_FIELDCAT_2 TYPE LVC_T_FCAT.<br />
+<br />
+" LVC_S_FCAT # Structure # ### ABAP Dictionary<br />
+" ##### TYPE## #### ### GS_FIELDCAT # Structure#.<br />
+DATA: GS_FIELDCAT  TYPE LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT_2&nbsp;TYPE&nbsp;LVC_S_FCAT.<br />
+DATA: GS_LAYOUT    TYPE LVC_S_LAYO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_LAYOUT2&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_LAYO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_LAYOUT200&nbsp;TYPE&nbsp;LVC_S_LAYO.<br />
+DATA  GS_VARIANT TYPE DISVARIANT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***************************************************************<br />
+   </div>
+   <div class="code">
+DATA : GV_DISP. "'X': Display ##, ##: Edit ##.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*toolbar<br />
+   </div>
+   <div class="code">
+DATA : GT_SORT       TYPE LVC_T_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_SORT2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SORT2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_EXCLUDE&nbsp;&nbsp;&nbsp;TYPE&nbsp;UI_FUNCTIONS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_EXCLUDE2&nbsp;&nbsp;&nbsp;TYPE&nbsp;UI_FUNCTIONS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_EXCLUDE200&nbsp;TYPE&nbsp;UI_FUNCTIONS.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*.....................................................................................*<br />
+   </div>
+   <div class="code">
+DEFINE __CLEAR_TAB.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;&1.<br />
+&nbsp;&nbsp;REFRESH&nbsp;&1.<br />
+<br />
+END-OF-DEFINITION.<br />
+   </div>
+   <div class="codeComment">
+*.....................................................................................*<br />
+   </div>
+   <div class="code">
+DEFINE __SET_STYLE.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_celltab.<br />
+&nbsp;&nbsp;gs_celltab-fieldname&nbsp;=&nbsp;&1.<br />
+&nbsp;&nbsp;gs_celltab-style&nbsp;=&nbsp;&2.<br />
+&nbsp;&nbsp;INSERT&nbsp;gs_celltab&nbsp;INTO&nbsp;TABLE&nbsp;gt_celltab.<br />
+<br />
+END-OF-DEFINITION.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZSPLIT07O01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZSPLIT07O01</h2>
+<h3> Description: Include ZSPLIT10O01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSPLIT10O01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;STATUS_0100&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE status_0100 OUTPUT.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;-&nbsp;Prefix&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;1.&nbsp;PF_xxxx&nbsp;&nbsp;:&nbsp;STATUS&nbsp;Prefix&nbsp;:&nbsp;PF_&nbsp;&nbsp;&nbsp;//&nbsp;&nbsp;&nbsp;xxxx:&nbsp;Screen&nbsp;No<br />
+*&nbsp;&nbsp;&nbsp;2.&nbsp;TT_xxxx&nbsp;&nbsp;:&nbsp;TITLEBAR&nbsp;Prefix&nbsp;:&nbsp;TT_&nbsp;&nbsp;&nbsp;//&nbsp;&nbsp;&nbsp;xxxx:&nbsp;Screen&nbsp;No<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CLEAR&nbsp;gt_menu1[].<br />
+&nbsp;&nbsp;IF&nbsp;go_grid2&nbsp;IS&nbsp;NOT&nbsp;BOUND.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;'&SAV'&nbsp;TO&nbsp;gt_menu1.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_input-CARRID&nbsp;is&nbsp;INITIAL.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;'INS'&nbsp;TO&nbsp;gt_menu1..<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;'DEL'&nbsp;TO&nbsp;gt_menu1.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;'&EDT'&nbsp;TO&nbsp;gt_menu1.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;go_grid2-&gt;is_ready_for_input(&nbsp;)&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;'&SAV'&nbsp;TO&nbsp;gt_menu1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;save_ok.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'INS'&nbsp;OR&nbsp;'&EDT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;'INS'&nbsp;TO&nbsp;gt_menu1..<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;'DEL'&nbsp;TO&nbsp;gt_menu1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;'&EDT'&nbsp;TO&nbsp;gt_menu1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'&SAV'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;&nbsp;gv_exit&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;'INS'&nbsp;TO&nbsp;gt_menu1..<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;'DEL'&nbsp;TO&nbsp;gt_menu1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;'DET'&nbsp;TO&nbsp;gt_menu1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;&nbsp;gv_exit&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;'INS'&nbsp;TO&nbsp;gt_menu1..<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;'DEL'&nbsp;TO&nbsp;gt_menu1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;'DET'&nbsp;TO&nbsp;gt_menu1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'PF100'&nbsp;EXCLUDING&nbsp;gt_menu1.<br />
+&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;&nbsp;'T100'&nbsp;&nbsp;WITH&nbsp;TEXT-t00.<br />
+<br />
+ENDMODULE.                 " STATUS_0100  OUTPUT<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;ALV_INIT_DISPLAY_0100&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE alv_init_display_0100 OUTPUT.<br />
+<br />
+<br />
+&nbsp;&nbsp;"--&nbsp;###&nbsp;&nbsp;GRID#&nbsp;BOUND####&nbsp;####.<br />
+&nbsp;&nbsp;IF&nbsp;go_grid1&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;OR&nbsp;go_grid2&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;ALV&nbsp;Refresh<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;refresh_grid&nbsp;USING&nbsp;go_grid1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;refresh_grid&nbsp;USING&nbsp;go_grid2.<br />
+&nbsp;&nbsp;ELSE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*-&nbsp;Create&nbsp;Docking&nbsp;container&nbsp;Instance<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;create_container.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;GRID#&nbsp;LAYOUT&nbsp;###&nbsp;####.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;init_layout.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALV&nbsp;1<br />
+*--------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;ALV&nbsp;Standard&nbsp;toolbar&nbsp;button&nbsp;cotrol<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_grid_exclude1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;ALV&nbsp;Sort<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;ALV_SORT_0100.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;Field&nbsp;Attribute#&nbsp;####&nbsp;#####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_fieldcatlog_data&nbsp;TABLES&nbsp;gt_disp&nbsp;&nbsp;gt_fieldcat<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;'SCARR'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;modify_fieldcatlog_data&nbsp;CHANGING&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;ALV&nbsp;DROPDOWN&nbsp;LIST&nbsp;-&nbsp;create&nbsp;object<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_drdn_table&nbsp;USING&nbsp;go_grid1.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;Field&nbsp;Help&nbsp;Value&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_grid_f4_0100.<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;ALV&nbsp;Events&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;regist_alv_event&nbsp;CHANGING&nbsp;go_grid1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_event_receiver1.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*-&nbsp;ALV&nbsp;header&nbsp;setting<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;alv_display_head1.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;ALV&nbsp;Display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;display_alv_grid&nbsp;&nbsp;USING&nbsp;'GT_DISP'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_exclude1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;go_grid1.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*-&nbsp;ALV&nbsp;header&nbsp;setting<br />
+<br />
+<br />
+*--------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALV&nbsp;2<br />
+*--------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;ALV&nbsp;Standard&nbsp;toolbar&nbsp;button&nbsp;cotrol<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_grid_exclude2.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;Field&nbsp;Attribute#&nbsp;####&nbsp;#####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_fieldcatlog_data&nbsp;TABLES&nbsp;gt_disp2&nbsp;&nbsp;gt_fieldcat<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;'SPFLI'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;modify_fieldcatlog_data&nbsp;CHANGING&nbsp;gt_fieldcat.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;ALV&nbsp;DROPDOWN&nbsp;LIST&nbsp;-&nbsp;create&nbsp;object<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_drdn_table&nbsp;USING&nbsp;go_grid2.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;Field&nbsp;Help&nbsp;Value&nbsp;##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_grid_f4_0100.<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;ALV&nbsp;Events&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;regist_alv_event&nbsp;CHANGING&nbsp;go_grid2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_event_receiver2.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*-&nbsp;ALV&nbsp;header&nbsp;setting<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;alv_display_head2.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;ALV&nbsp;Display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;display_alv_grid&nbsp;&nbsp;USING&nbsp;'GT_DISP2'&nbsp;gt_exclude2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_grid2.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALV&nbsp;3<br />
+*--------------------------------------------------------------------*<br />
+<br />
+*"--&nbsp;ALV&nbsp;Standard&nbsp;toolbar&nbsp;button&nbsp;cotrol<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_grid_exclude2.<br />
+*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;Field&nbsp;Attribute#&nbsp;####&nbsp;#####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_fieldcatlog_data&nbsp;TABLES&nbsp;gt_disp3&nbsp;&nbsp;gt_fieldcat<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;'SFLIGHT'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;modify_fieldcatlog_data&nbsp;CHANGING&nbsp;gt_fieldcat.<br />
+   </div>
+   <div class="codeComment">
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;ALV&nbsp;DROPDOWN&nbsp;LIST&nbsp;-&nbsp;create&nbsp;object<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_drdn_table&nbsp;USING&nbsp;go_grid2.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;Field&nbsp;Help&nbsp;Value&nbsp;##<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_grid_f4_0100.<br />
+*<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;ALV&nbsp;Events&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;regist_alv_event&nbsp;CHANGING&nbsp;go_grid2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_event_receiver2.<br />
+*<br />
+*<br />
+**-&nbsp;ALV&nbsp;header&nbsp;setting<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;alv_display_head2.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;"--&nbsp;ALV&nbsp;Display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;display_alv_grid&nbsp;&nbsp;USING&nbsp;'GT_DISP3'&nbsp;gt_exclude2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_grid3.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+ENDMODULE.                 " ALV_INIT_DISPLAY_0100  OUTPUT<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

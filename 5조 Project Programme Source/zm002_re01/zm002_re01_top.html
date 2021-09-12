@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZM002_RE01_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZM002_RE01_TOP</h2>
+<h3> Description: Include ZM002_RE01_TOP</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZM002_RE01_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES : EKKO, EKPO, ZTOI_PRODSTA, ZTOI_STACHK, ZTOI_ORDER, ZTOI_VENDOR, ZTOI_PRODUCT.<br />
+<br />
+DATA : BEGIN OF GS_VD,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZORDERNUM&nbsp;TYPE&nbsp;ZTOI_ORDER-ZORDERNUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZPRODNM&nbsp;TYPE&nbsp;ZTOI_PRODUCT-ZPRODNM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZVENDORNM&nbsp;TYPE&nbsp;ZTOI_VENDOR-ZVENDORNM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;&nbsp;&nbsp;TYPE&nbsp;LFA1-LIFNR,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKORG&nbsp;&nbsp;&nbsp;TYPE&nbsp;EKKO-EKORG,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;&nbsp;&nbsp;TYPE&nbsp;EKKO-EBELN,&nbsp;"PO&nbsp;Doc(NO)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BEDAT&nbsp;&nbsp;&nbsp;TYPE&nbsp;EKKO-BEDAT,&nbsp;"#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;&nbsp;&nbsp;TYPE&nbsp;EKKO-WAERS,&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;&nbsp;&nbsp;TYPE&nbsp;EKPO-WERKS,&nbsp;"PLANT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;&nbsp;TYPE&nbsp;EKPO-MATNR,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;MAKTX&nbsp;TYPE&nbsp;EKPO-MAKTX,&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MENGE&nbsp;&nbsp;&nbsp;TYPE&nbsp;EKPO-MENGE,&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NETPR&nbsp;&nbsp;&nbsp;TYPE&nbsp;EKPO-NETPR,&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NETWR&nbsp;&nbsp;&nbsp;TYPE&nbsp;EKPO-NETWR,&nbsp;"#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BRTWR&nbsp;&nbsp;&nbsp;TYPE&nbsp;EKPO-BRTWR,&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;&nbsp;&nbsp;TYPE&nbsp;EKPO-MEINS,&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LGORT&nbsp;&nbsp;&nbsp;TYPE&nbsp;EKPO-LGORT,&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WEBAZ&nbsp;&nbsp;&nbsp;TYPE&nbsp;EKPO-WEBAZ,&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KOSTL&nbsp;&nbsp;&nbsp;TYPE&nbsp;EKPO-KOSTL,&nbsp;"#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSTKCHK&nbsp;TYPE&nbsp;ZTOI_STACHK-ZSTKCHK,&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_VD.<br />
+<br />
+CONSTANTS : gv_struc type tabname VALUE 'ZBD5G_22'.<br />
+DATA : BEGIN OF GS_PO.<br />
+&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zbd5g_22/dictionary-zbd5g_22.html">ZBD5G_22</a>.<br />
+DATA : END OF GS_PO.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+DATA : GT_PO LIKE TABLE OF GS_PO.<br />
+<br />
+DATA : GT_VD LIKE TABLE OF GS_VD.<br />
+<br />
+DATA : GO_ALV TYPE REF TO CL_GUI_ALV_GRID.<br />
+DATA : GO_ALV2 TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+DATA : GT_FIELDCAT  TYPE LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_FIELDCAT2&nbsp;TYPE&nbsp;LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT&nbsp;TYPE&nbsp;LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT2&nbsp;TYPE&nbsp;LVC_S_FCAT.<br />
+<br />
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.<br />
+DATA : GS_LAYOUT2 TYPE LVC_S_LAYO.<br />
+DATA : GS_VARI   TYPE DISVARIANT.<br />
+DATA : GS_VARI2   TYPE DISVARIANT.<br />
+<br />
+DATA : GO_CON TYPE REF TO CL_GUI_CUSTOM_CONTAINER.<br />
+DATA : GO_CON2 TYPE REF TO CL_GUI_CUSTOM_CONTAINER.<br />
+<br />
+DATA : OKCODE TYPE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVEOK&nbsp;TYPE&nbsp;SY-UCOMM.<br />
+<br />
+<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B01 WITH FRAME TITLE TEXT-S01.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*PARAMETERS&nbsp;P_PLANT&nbsp;TYPE&nbsp;ZTOI_PRODSTA-ZPLANT.<br />
+*SELECT-OPTIONS&nbsp;S_PDATE&nbsp;FOR&nbsp;EKKO-BEDAT.<br />
+*PARAMETERS&nbsp;P_VENDOR&nbsp;TYPE&nbsp;ZTOI_ORDER-ZVENDORCO.<br />
+*<br />
+*PARAMETERS&nbsp;P_PLANT&nbsp;TYPE&nbsp;EKPO-WERKS.<br />
+*SELECT-OPTIONS&nbsp;S_PDATE&nbsp;FOR&nbsp;EKKO-BEDAT.<br />
+*PARAMETERS&nbsp;P_VENDOR&nbsp;TYPE&nbsp;EKKO-LIFNR.<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+PARAMETERS P_ORDER TYPE ZTOI_STACHK-ZORDERNUM.<br />
+SELECT-OPTIONS S_PDATE FOR EKKO-BEDAT.<br />
+SELECT-OPTIONS S_VENDOR FOR ZTOI_VENDOR-ZVENDORCO.<br />
+SELECTION-SCREEN END OF BLOCK B01.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

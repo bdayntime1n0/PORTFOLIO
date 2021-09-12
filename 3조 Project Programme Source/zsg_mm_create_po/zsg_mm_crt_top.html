@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZSG_MM_CRT_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZSG_MM_CRT_TOP</h2>
+<h3> Description: Include ZBD10312_MM_TOP</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD10312_MM_TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS LCL_EVENT_HANDLER DEFINITION DEFERRED.<br />
+TABLES: VBAK, VBAP, EINA, SSCRFIELDS.<br />
+<br />
+DATA: BEGIN OF GS_SO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;&nbsp;LIKE&nbsp;ICON-ID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAP-WERKS,&nbsp;&nbsp;"&nbsp;Plant<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VBELN&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-VBELN,&nbsp;&nbsp;"&nbsp;SO&nbsp;Number<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERDAT&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-ERDAT,&nbsp;&nbsp;"&nbsp;SO&nbsp;Created&nbsp;Date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AUDAT&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-AUDAT,&nbsp;&nbsp;"&nbsp;SO&nbsp;Doc&nbsp;Date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;&nbsp;&nbsp;LIKE&nbsp;EINA-LIFNR,&nbsp;&nbsp;"&nbsp;Vendor<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAP-MATNR,&nbsp;&nbsp;"&nbsp;Material<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARKTX&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAP-ARKTX,&nbsp;&nbsp;"&nbsp;Material&nbsp;Desc.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VKORG&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-VKORG,&nbsp;&nbsp;"&nbsp;Sales&nbsp;Organization<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KUNNR&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-KUNNR,&nbsp;&nbsp;"&nbsp;Sold-To-Party<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BSTNK&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-BSTNK,&nbsp;&nbsp;"&nbsp;Customer&nbsp;Ref.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KWMENG&nbsp;&nbsp;LIKE&nbsp;VBAP-KWMENG,&nbsp;"&nbsp;Order&nbsp;Quantity<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LSMENG&nbsp;&nbsp;LIKE&nbsp;VBAP-LSMENG,&nbsp;"&nbsp;Required&nbsp;Delivery&nbsp;Qty<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KBMENG&nbsp;&nbsp;LIKE&nbsp;VBAP-KBMENG,&nbsp;"&nbsp;Confirmed&nbsp;Quantity&nbsp;in&nbsp;Sales&nbsp;Unit<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NETWR&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-NETWR,&nbsp;&nbsp;"&nbsp;Net&nbsp;Value<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NETPR&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAP-NETPR,&nbsp;&nbsp;"&nbsp;Net&nbsp;Price<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERK&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBAK-WAERK,&nbsp;&nbsp;"&nbsp;Currency<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BANFN&nbsp;&nbsp;&nbsp;LIKE&nbsp;VBEP-BANFN,&nbsp;&nbsp;"&nbsp;Purchase&nbsp;Req.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKORG&nbsp;&nbsp;&nbsp;LIKE&nbsp;LFM1-EKORG,&nbsp;&nbsp;"&nbsp;Purchasing&nbsp;organization<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PONUM&nbsp;&nbsp;&nbsp;LIKE&nbsp;EKKO-EBELN,&nbsp;&nbsp;"&nbsp;###&nbsp;PO&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_SO.<br />
+<br />
+DATA GT_SODISP LIKE TABLE OF GS_SO.<br />
+<br />
+DATA: OKCODE TYPE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVEOK&nbsp;TYPE&nbsp;SY-UCOMM.<br />
+<br />
+DATA GO_DOCKING_CONTAINER_TOP     TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA GO_DOCKING_CONTAINER         TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+DATA GO_DOCKING_CONTAINER_BOTTOM  TYPE REF TO CL_GUI_DOCKING_CONTAINER.<br />
+<br />
+DATA GO_ALV_GRID TYPE REF TO CL_GUI_ALV_GRID.<br />
+<br />
+DATA GS_LAYOUT    TYPE LVC_S_LAYO.<br />
+DATA GT_FIELDCAT  TYPE LVC_T_FCAT.<br />
+DATA GS_FIELDCAT  TYPE LVC_S_FCAT.<br />
+<br />
+DATA GO_EVENT_HANDLER TYPE REF TO LCL_EVENT_HANDLER.<br />
+<br />
+DATA : LS_POHEADER  LIKE  BAPIMEPOHEADER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_POHEADERX&nbsp;LIKE&nbsp;&nbsp;BAPIMEPOHEADERX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_RETURN&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;TABLE&nbsp;OF&nbsp;BAPIRET2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_POITEM&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOITEM&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_POITEMX&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOITEMX&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ORDER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPIMEPOHEADER-PO_NUMBER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_MESSAGE&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;BDCMSGCOLL.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

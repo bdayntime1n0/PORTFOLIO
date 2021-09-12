@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZMST_BDC_UPLOAD</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMST_BDC_UPLOAD</h2>
+<h3> Description: ### ### ## ###</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD1_00_110<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;##&nbsp;###&nbsp;(BDC&nbsp;###&nbsp;###&nbsp;##)<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZMST_BDC_UPLOAD MESSAGE-ID ZBD1_00.<br />
+" #### ### ### ## ### ###<br />
+<br />
+include <a href ="zmst_bdc_upload_t01.html">ZMST_BDC_UPLOAD_T01</a>. " Global Variable<br />
+include <a href ="zmst_bdc_upload_cls.html">ZMST_BDC_UPLOAD_CLS</a>. " Local Class Definition/Implementation<br />
+include <a href ="zmst_bdc_upload_scr.html">ZMST_BDC_UPLOAD_SCR</a>. " Selection Screen<br />
+include <a href ="zmst_bdc_upload_f01.html">ZMST_BDC_UPLOAD_F01</a>. " Subroutine Form<br />
+include <a href ="zmst_bdc_upload_pbo.html">ZMST_BDC_UPLOAD_PBO</a>. " Process Before Output<br />
+include <a href ="zmst_bdc_upload_pai.html">ZMST_BDC_UPLOAD_PAI</a>. " Process After  Input<br />
+<br />
+INITIALIZATION.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;INITIALIZATION.<br />
+<br />
+<br />
+AT SELECTION-SCREEN. " PAI<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;SSCRFIELDS-UCOMM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'FC01'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DOWNLAOD_TEMPLATE.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_FILE&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_DATA_FROM_EXCEL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;######&nbsp;####&nbsp;Internal&nbsp;Table&nbsp;#&nbsp;####&nbsp;####.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;MOVE_INTERN_TO_ITAB.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;Internal&nbsp;Table&nbsp;##&nbsp;###&nbsp;Internal&nbsp;Table&nbsp;#&nbsp;####.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;TEXT-S02&nbsp;TYPE&nbsp;'E'.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+END-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;CALL_PROGRAM.<br />
+&nbsp;&nbsp;PERFORM&nbsp;DISPLAY_DATA.<br />
+&nbsp;&nbsp;"&nbsp;###&nbsp;Internal&nbsp;Table#&nbsp;###&nbsp;ALV#&nbsp;####.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;R01&nbsp;##&nbsp;###<br />
+*&nbsp;R02&nbsp;##&nbsp;###<br />
+*&nbsp;R03&nbsp;##&nbsp;###<br />
+*&nbsp;S01&nbsp;###&nbsp;###<br />
+*&nbsp;S02&nbsp;###&nbsp;###&nbsp;###&nbsp;####.<br />
+*&nbsp;T01&nbsp;##&nbsp;##<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;P_FILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
+*&nbsp;&nbsp;&nbsp;####&nbsp;###&nbsp;######.<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;ZBD1_00<br />
+*006&nbsp;&nbsp;&nbsp;Not&nbsp;exist&nbsp;data&nbsp;in&nbsp;excel&nbsp;file.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZMM_05_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM_05_TOP</h2>
+<h3> Description: Include ZBD1_06_TAXPOST_TOP</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD1_06_TAXPOST_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+" LCL_EVENT_HANDLER # ### ## # ### ##<br />
+" ### ## ### ### ###.<br />
+CLASS LCL_EVENT_HANDLER DEFINITION DEFERRED.<br />
+<br />
+TABLES : BKPF,BSAS, ZTFI_02, ZTFI_03, SSCRFIELDS, RF05A.<br />
+<br />
+<br />
+DATA : OKCODE TYPE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVEOK&nbsp;TYPE&nbsp;SY-UCOMM.<br />
+<br />
+DATA : GS_STABLE  TYPE LVC_S_STBL VALUE 'XX'. " ALV CONTROL : REFRESH STABILITY.<br />
+<br />
+DATA : GT_ROWS TYPE LVC_T_ROW,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ROWS&nbsp;TYPE&nbsp;LVC_S_ROW.<br />
+<br />
+" ## # ### Data ## # Internal Table<br />
+DATA: BEGIN OF GS_DISPLAY_1,  " Global Structure + ### ## ###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS&nbsp;LIKE&nbsp;ICON-ID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BSTAT&nbsp;LIKE&nbsp;ZTFI_02-BSTAT,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUDAT&nbsp;LIKE&nbsp;ZTFI_02-BUDAT,&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUKRS&nbsp;LIKE&nbsp;ZTFI_02-BUKRS,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GJAHR&nbsp;LIKE&nbsp;ZTFI_02-GJAHR,&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMAGE&nbsp;LIKE&nbsp;ICON-ID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;LIKE&nbsp;ZTFI_02-EBELN,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BKTXT&nbsp;LIKE&nbsp;ZTFI_02-BKTXT,&nbsp;"######<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BLDAT&nbsp;LIKE&nbsp;ZTFI_02-BLDAT,&nbsp;&nbsp;"&nbsp;BP&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRBTR&nbsp;LIKE&nbsp;ZTFI_02-WRBTR,&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BELNR&nbsp;LIKE&nbsp;ZTFI_02-BELNR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UBAZW&nbsp;LIKE&nbsp;RF05A-UBAZW,&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USNAM&nbsp;LIKE&nbsp;ZTFI_02-USNAM,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DISPLAY_1.<br />
+<br />
+DATA: BEGIN OF GS_DISPLAY_2,  " Global Structure + ### ## ###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUZEI&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_03-BUZEI,&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BSTAT&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_03-BSTAT,&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SHKZG&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_03-SHKZG,&nbsp;&nbsp;&nbsp;"&nbsp;#/##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUKRS&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_03-BUKRS,&nbsp;&nbsp;"&nbsp;####(###)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HKONT&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_03-HKONT,&nbsp;&nbsp;&nbsp;"&nbsp;GL##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KUNNR&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_03-KUNNR,&nbsp;"GL&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRBTR&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_03-WRBTR,&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MWSKZ&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_03-MWSKZ,&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZFBDT&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_03-ZFBDT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTERM&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_03-ZTERM,&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD1T&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_03-ZBD1T,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DISPLAY_2.<br />
+<br />
+<br />
+DATA: BEGIN OF GS_DISPLAY_3,  " Global Structure + ### ## ###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUZEI&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_04-BUZEI,&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BELNR&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_04-BELNR,&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GJAHR&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_04-GJAHR,&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SHKZG&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_04-SHKZG,&nbsp;&nbsp;&nbsp;"&nbsp;#/##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUKRS&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_04-BUKRS,&nbsp;&nbsp;"&nbsp;####(###)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HKONT&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_04-HKONT,&nbsp;&nbsp;&nbsp;"&nbsp;GL##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRBTR&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_03-WRBTR,&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MWSKZ&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_03-MWSKZ,&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZFBDT&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_03-ZFBDT,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTERM&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_03-ZTERM,&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD1T&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_03-ZBD1T,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRCTR&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZTFI_04-PRCTR,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DISPLAY_3.<br />
+<br />
+<br />
+<br />
+DATA : GT_DISPLAY_1 LIKE TABLE OF GS_DISPLAY_1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_DISPLAY_2&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_DISPLAY_2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_DISPLAY_3&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_DISPLAY_3.<br />
+<br />
+DATA : GT_EXCLUDE1 TYPE UI_FUNCTIONS.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+*&nbsp;##&nbsp;ALV&nbsp;##<br />
+*--------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA : G_GRID1             TYPE REF TO CL_GUI_ALV_GRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_GRID2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_SPLITTER1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_SPLITTER_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_CUSTOM_CONTAINER1&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_CONTAINER_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_CONTAINER_BOTTOM&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*DATA&nbsp;GO_EVENT_HANDLER&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;LCL_EVENT_HANDLER.<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+DATA GT_FIELDCAT   TYPE LVC_T_FCAT. " Screen 0100 # ALV<br />
+DATA GT_FIELDCAT_2 TYPE LVC_T_FCAT. " Screen 0200 # ALV<br />
+DATA GT_FIELDCAT_3 TYPE LVC_T_FCAT. " Screen 0200 # ALV<br />
+" LVC_T_FCAT # Table Type ## ### ABAP Dictionary<br />
+" ### GT_FIELDCAT # TYPE # ####, Internal Table # ####.<br />
+<br />
+DATA GS_FIELDCAT   TYPE LVC_S_FCAT.<br />
+DATA GS_FIELDCAT_2 TYPE LVC_S_FCAT.<br />
+DATA GS_FIELDCAT_3 TYPE LVC_S_FCAT.<br />
+" LVC_S_FCAT # Structure # ### ABAP Dictionary<br />
+<br />
+<br />
+DATA GS_LAYOUT     TYPE LVC_S_LAYO.<br />
+DATA GS_LAYOUT_2   TYPE LVC_S_LAYO.<br />
+" SAP ### 4##, 5## ### ### #### ##.<br />
+" LAYOUT =&gt; LAYO # ######, LAYO ## #####, LAYOUT ## ###.<br />
+" ALV ## ## ### ### ##.<br />
+<br />
+<br />
+DATA : GO_EVENT_HANDLER TYPE REF TO LCL_EVENT_HANDLER.<br />
+DATA : GO_EVENT_RECEIVER1 TYPE REF TO LCL_EVENT_HANDLER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_EVENT_RECEIVER2&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;LCL_EVENT_HANDLER.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+*&nbsp;####&nbsp;##<br />
+*--------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+DATA GT_BDC     TYPE TABLE OF BDCDATA.<br />
+DATA GS_BDC     TYPE BDCDATA.<br />
+DATA GT_MSG     TYPE TABLE OF BDCMSGCOLL.<br />
+DATA GS_MSG     LIKE BDCMSGCOLL.<br />
+DATA GT_MSG2    TYPE TABLE OF BDCMSGCOLL.<br />
+DATA GS_MSG2    LIKE BDCMSGCOLL.<br />
+DATA GT_MSG3    TYPE TABLE OF BDCMSGCOLL.<br />
+DATA GS_MSG3    LIKE BDCMSGCOLL.<br />
+DATA GS_OPTION  TYPE CTU_PARAMS.<br />
+DATA GV_MOVE    LIKE CTU_PARAMS-DISMODE VALUE 'N'.<br />
+DATA GV_ANSWER  TYPE C.<br />
+<br />
+DATA : LS_CTUPAR LIKE CTU_PARAMS.<br />
+<br />
+DATA : LV_DATA TYPE N LENGTH 10.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+*&nbsp;##&nbsp;##<br />
+*--------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA : GO_CONTAINER TYPE REF TO CL_GUI_CUSTOM_CONTAINER.<br />
+DATA : GO_PICTURE TYPE REF TO CL_GUI_PICTURE.<br />
+<br />
+<br />
+CONSTANTS: CNTL_TRUE  TYPE I VALUE 1.<br />
+DATA: LV_XGRAPHIC      TYPE XSTRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_IGRAPHIC_CONV&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_IGRAPHIC_OFFS&nbsp;TYPE&nbsp;I.<br />
+<br />
+DATA: BEGIN OF LT_GRAPHIC OCCURS 0,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LINE(255)&nbsp;TYPE&nbsp;X,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;LT_GRAPHIC.<br />
+<br />
+DATA: LV_IGRAPHIC_SIZE TYPE I.<br />
+<br />
+DATA : LV_URL TYPE CHAR255.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

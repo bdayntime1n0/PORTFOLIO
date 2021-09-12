@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBAPSD0020</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBAPSD0020</h2>
+<h3> Description: ## ## ####</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBAPSD0020<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBAPSD0020 MESSAGE-ID ZBD1_25.<br />
+<br />
+include <a href ="zbapsd0020_top.html">ZBAPSD0020_TOP</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBAP_SO_2_SEAR2_TOP.<br />
+   </div>
+   <div class="code">
+include <a href ="zbapsd0020_cls.html">ZBAPSD0020_CLS</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBAP_SO_2_SEAR2_CLS.<br />
+   </div>
+   <div class="code">
+include <a href ="zbapsd0020_scr.html">ZBAPSD0020_SCR</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBAP_SO_2_SEAR2_SCR.<br />
+   </div>
+   <div class="code">
+include <a href ="zbapsd0020_f01.html">ZBAPSD0020_F01</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBAP_SO_2_SEAR2_F01.<br />
+   </div>
+   <div class="code">
+include <a href ="zbapsd0020_pbo.html">ZBAPSD0020_PBO</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBAP_SO_2_SEAR2_PBO.&nbsp;"&nbsp;##&nbsp;##&nbsp;#&nbsp;##&nbsp;##&nbsp;&nbsp;&nbsp;(&nbsp;#&nbsp;:&nbsp;####&nbsp;##&nbsp;##&nbsp;)<br />
+   </div>
+   <div class="code">
+include <a href ="zbapsd0020_pai.html">ZBAPSD0020_PAI</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBAP_SO_2_SEAR2_PAI.&nbsp;"&nbsp;##&nbsp;##&nbsp;#&nbsp;###&nbsp;##&nbsp;(&nbsp;#&nbsp;:&nbsp;####&nbsp;##&nbsp;##&nbsp;)<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;INITIALIZATION.<br />
+<br />
+AT SELECTION-SCREEN OUTPUT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SCREEN_OUTPUT.<br />
+<br />
+START-OF-SELECTION.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CHECK.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SELECTED_DATA_RTN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_PO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;STYLE.<br />
+<br />
+END-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;DISPLAY_ALV.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*GUI&nbsp;Texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;0200&nbsp;--&gt;&nbsp;###&nbsp;####&nbsp;-&nbsp;&1&nbsp;-&nbsp;&2&nbsp;-&nbsp;&3<br />
+<br />
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;003&nbsp;##&nbsp;##<br />
+*&nbsp;004&nbsp;##&nbsp;##<br />
+*&nbsp;005&nbsp;B2B&nbsp;##&nbsp;##<br />
+*&nbsp;006&nbsp;B2C&nbsp;##&nbsp;##<br />
+*&nbsp;007&nbsp;####<br />
+*&nbsp;008&nbsp;####<br />
+*&nbsp;009&nbsp;B2C&nbsp;####&nbsp;:&nbsp;1#&nbsp;##&nbsp;=&nbsp;####&nbsp;/&nbsp;5#&nbsp;##&nbsp;=&nbsp;####&nbsp;/&nbsp;####&nbsp;##&nbsp;=&nbsp;####<br />
+*&nbsp;010&nbsp;PO&nbsp;####<br />
+*&nbsp;012&nbsp;##&nbsp;#&nbsp;###&nbsp;##<br />
+*&nbsp;S01&nbsp;Selection&nbsp;Options<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;P_PO1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PO&nbsp;####<br />
+*&nbsp;S_AUDAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##<br />
+*&nbsp;S_DELDT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##<br />
+*&nbsp;S_SONUM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SO&nbsp;##<br />
+*&nbsp;S_SOPAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;ZBD1_25<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+*005&nbsp;&nbsp;&nbsp;###&nbsp;so###&nbsp;####&nbsp;####.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBD1_PO_PRO</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD1_PO_PRO</h2>
+<h3> Description: BAPI PO</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;YTEST_PBDA29_016<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD1_PO_PRO.<br />
+<br />
+<br />
+DATA : LS_POHEADER  LIKE  BAPIMEPOHEADER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_POHEADERX&nbsp;LIKE&nbsp;&nbsp;BAPIMEPOHEADERX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_RETURN&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;TABLE&nbsp;OF&nbsp;BAPIRET2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_POITEM&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOITEM&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_POITEMX&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOITEMX&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ORDER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPIMEPOHEADER-PO_NUMBER.<br />
+<br />
+<br />
+CLEAR : LS_POHEADER.<br />
+LS_POHEADER-COMP_CODE  = '1010'.<br />
+LS_POHEADER-DOC_TYPE   = 'NB'.<br />
+LS_POHEADER-VENDOR     = 'TBP0089'.<br />
+LS_POHEADER-PURCH_ORG  = '1010'.<br />
+LS_POHEADER-PUR_GROUP  = 'B11'.<br />
+<br />
+CLEAR : LS_POHEADERX.<br />
+LS_POHEADERX-COMP_CODE  =  ABAP_TRUE  .<br />
+LS_POHEADERX-DOC_TYPE   =  ABAP_TRUE  .<br />
+LS_POHEADERX-VENDOR     =  ABAP_TRUE  .<br />
+LS_POHEADERX-PURCH_ORG  =  ABAP_TRUE  .<br />
+LS_POHEADERX-PUR_GROUP  =  ABAP_TRUE  .<br />
+<br />
+CLEAR : LT_POITEM, LT_POITEM[].<br />
+LT_POITEM-PO_ITEM   = '00010'.<br />
+LT_POITEM-MATERIAL  = 'TROH08'.<br />
+LT_POITEM-PLANT     = '1010'.<br />
+LT_POITEM-QUANTITY  = 50.<br />
+APPEND LT_POITEM.<br />
+<br />
+CLEAR : LT_POITEMX, LT_POITEMX[].<br />
+LT_POITEMX-PO_ITEM   = '00010'.<br />
+LT_POITEMX-MATERIAL  = ABAP_TRUE.<br />
+LT_POITEMX-PLANT     = ABAP_TRUE.<br />
+LT_POITEMX-QUANTITY  = ABAP_TRUE.<br />
+APPEND LT_POITEMX.<br />
+<br />
+CLEAR LV_ORDER.<br />
+CLEAR : LT_RETURN, LT_RETURN[].<br />
+CALL FUNCTION 'BAPI_PO_CREATE1'<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;POHEADER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LS_POHEADER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;POHEADERX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LS_POHEADERX<br />
+&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPPURCHASEORDER&nbsp;=&nbsp;LV_ORDER<br />
+&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_RETURN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;POITEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_POITEM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;POITEMX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_POITEMX.<br />
+<br />
+IF LV_ORDER IS NOT INITIAL.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_TRANSACTION_COMMIT'.<br />
+<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;&nbsp;&nbsp;LV_ORDER.<br />
+ELSE.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_TRANSACTION_ROLLBACK'.<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;LT_RETURN[&nbsp;TYPE&nbsp;=&nbsp;'E'&nbsp;]-MESSAGE.<br />
+<br />
+ENDIF.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

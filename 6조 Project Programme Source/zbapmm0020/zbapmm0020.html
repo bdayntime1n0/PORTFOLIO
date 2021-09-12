@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBAPMM0020</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBAPMM0020</h2>
+<h3> Description: (#)## ## ####</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBAP_P01<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBAPMM0020.<br />
+<br />
+include <a href ="zbap_p01_1_top4_9.html">ZBAP_P01_1_TOP4_9</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBAP_P01_1_TOP4_6.<br />
+   </div>
+   <div class="code">
+include <a href ="zbap_p01_1_cls4_9.html">ZBAP_P01_1_CLS4_9</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBAP_P01_1_CLS4_6.<br />
+   </div>
+   <div class="code">
+include <a href ="zbap_p01_1_scr4_9.html">ZBAP_P01_1_SCR4_9</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBAP_P01_1_SCR4_6.<br />
+   </div>
+   <div class="code">
+include <a href ="zbap_p01_1_f014_9.html">ZBAP_P01_1_F014_9</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBAP_P01_1_F014_6.<br />
+   </div>
+   <div class="code">
+include <a href ="zbap_p01_1_pbo4_9.html">ZBAP_P01_1_PBO4_9</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBAP_P01_1_PBO4_6.<br />
+   </div>
+   <div class="code">
+include <a href ="zbap_p01_1_pai4_9.html">ZBAP_P01_1_PAI4_9</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBAP_P01_1_PAI4_6.<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+&nbsp;&nbsp;PERFORM&nbsp;INITIALIZATION.<br />
+<br />
+AT SELECTION-SCREEN OUTPUT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SCREEN_OUTPUT.<br />
+<br />
+START-OF-SELECTION.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SELECT_DATA.<br />
+<br />
+END-OF-SELECTION.<br />
+&nbsp;&nbsp;PERFORM&nbsp;DISPLAY_DATA.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*GUI&nbsp;Texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;0100&nbsp;--&gt;&nbsp;##&nbsp;####<br />
+*&nbsp;0101&nbsp;--&gt;&nbsp;##&nbsp;####&nbsp;:&nbsp;B2B##<br />
+*&nbsp;0102&nbsp;--&gt;&nbsp;##&nbsp;####&nbsp;:&nbsp;B2C##<br />
+<br />
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;001&nbsp;Document&nbsp;##<br />
+*&nbsp;002&nbsp;####<br />
+*&nbsp;003&nbsp;##&nbsp;##<br />
+*&nbsp;004&nbsp;B2B&nbsp;##&nbsp;##<br />
+*&nbsp;005&nbsp;B2C&nbsp;##&nbsp;##<br />
+*&nbsp;006&nbsp;##<br />
+*&nbsp;007&nbsp;**B2C:&nbsp;##&nbsp;####&nbsp;&nbsp;/&nbsp;&nbsp;B2C:&nbsp;3PL####<br />
+*&nbsp;S01&nbsp;PO&nbsp;##<br />
+*&nbsp;S02&nbsp;####<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;S_AEDAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##<br />
+*&nbsp;S_BELNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IV##&nbsp;##<br />
+*&nbsp;S_BUKRS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;S_EBELN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PO##<br />
+*&nbsp;S_EINDT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;###<br />
+*&nbsp;S_LIFNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vendor&nbsp;##<br />
+*&nbsp;S_MATNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;S_MBLNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GR##&nbsp;##<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;OO<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

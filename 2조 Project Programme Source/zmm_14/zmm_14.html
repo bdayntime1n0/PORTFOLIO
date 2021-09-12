@@ -1,0 +1,424 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZMM_14</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZMM_14</h2>
+<h3> Description: ## SO ## ####</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD1_06_SALESORDER<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZMM_05.<br />
+<br />
+TYPES : BEGIN OF TP_ITAB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_TYPE(4),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SORG(4),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DCH(2),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DIV(2),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TERM(4),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRC_DAT(8),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CUS_NUM(12),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCOTERMS(10),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOCA1(20),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KUNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;KUNNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QTY(15),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UOM(4),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PLANT(4),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PROFIT(20),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;EBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPI_MSG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TP_ITAB.<br />
+<br />
+DATA : GT_ITAB  TYPE STANDARD TABLE OF TP_ITAB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ITAB&nbsp;&nbsp;TYPE&nbsp;TP_ITAB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ITAB1&nbsp;TYPE&nbsp;TP_ITAB.<br />
+<br />
+<br />
+DATA : ORDER_HEADER_IN     LIKE  BAPISDHD1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_INX&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPISDHD1X,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SALESDOCUMENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPIVBELN-VBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPIRET2&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_ITEMS_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPISDITM&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_ITEMS_INX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPISDITMX&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_PARTNERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPIPARNR&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_SCHEDULES_IN&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPISCHDL&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_SCHEDULES_INX&nbsp;LIKE&nbsp;&nbsp;BAPISCHDLX&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_CONDITIONS_IN&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPICOND&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_CONDITIONS_INX&nbsp;LIKE&nbsp;&nbsp;BAPICONDX&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+DATA : GV_FILE TYPE STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_ITEM&nbsp;TYPE&nbsp;VBAP-POSNR.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME TITLE TEXT-001.<br />
+<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_FILE&nbsp;TYPE&nbsp;IBIPPARMS-PATH&nbsp;OBLIGATORY.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK B1.<br />
+.<br />
+<br />
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR P_FILE.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'F4_FILENAME'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PROGRAM_NAME&nbsp;&nbsp;=&nbsp;SYST-CPROG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNPRO_NUMBER&nbsp;=&nbsp;SYST-DYNNR<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FIELD_NAME&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'&nbsp;'<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_FILE.<br />
+<br />
+<br />
+<br />
+START-OF-SELECTION.<br />
+&nbsp;&nbsp;IF&nbsp;P_FILE&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;UPLOAD_FILE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GT_ITAB[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CREATE_ORDER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+END-OF-SELECTION.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;UPLOAD_FILE<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM UPLOAD_FILE .<br />
+<br />
+&nbsp;&nbsp;GV_FILE&nbsp;=&nbsp;P_FILE.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'GUI_UPLOAD'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILENAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GV_FILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Name&nbsp;of&nbsp;file<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILETYPE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'ASC'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;File&nbsp;Type&nbsp;(ASC&nbsp;or&nbsp;BIN)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HAS_FIELD_SEPARATOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Columns&nbsp;Separated&nbsp;by&nbsp;Tabs&nbsp;in&nbsp;Case&nbsp;of&nbsp;ASCII&nbsp;Upload<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA_TAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_ITAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Transfer&nbsp;table&nbsp;for&nbsp;file&nbsp;contents<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE_OPEN_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;File&nbsp;does&nbsp;not&nbsp;exist&nbsp;and&nbsp;cannot&nbsp;be&nbsp;opened<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE_READ_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Error&nbsp;when&nbsp;reading&nbsp;file<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO_BATCH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Cannot&nbsp;execute&nbsp;front-end&nbsp;function&nbsp;in&nbsp;background<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GUI_REFUSE_FILETRANSFER&nbsp;=&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Incorrect&nbsp;front&nbsp;end&nbsp;or&nbsp;error&nbsp;on&nbsp;front&nbsp;end<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INVALID_TYPE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Incorrect&nbsp;parameter&nbsp;FILETYPE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO_AUTHORITY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;No&nbsp;Authorization&nbsp;for&nbsp;Upload<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNKNOWN_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;7<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BAD_DATA_FORMAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Cannot&nbsp;Interpret&nbsp;Data&nbsp;in&nbsp;File<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HEADER_NOT_ALLOWED&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Invalid&nbsp;header<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEPARATOR_NOT_ALLOWED&nbsp;&nbsp;&nbsp;=&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Invalid&nbsp;separator<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HEADER_TOO_LONG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;The&nbsp;header&nbsp;information&nbsp;is&nbsp;limited&nbsp;to&nbsp;1023&nbsp;bytes&nbsp;at&nbsp;present<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNKNOWN_DP_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Error&nbsp;when&nbsp;calling&nbsp;data&nbsp;provider<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ACCESS_DENIED&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;13&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Access&nbsp;to&nbsp;File&nbsp;Denied<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DP_OUT_OF_MEMORY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Not&nbsp;Enough&nbsp;Memory&nbsp;in&nbsp;Data&nbsp;Provider<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DISK_FULL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Storage&nbsp;medium&nbsp;is&nbsp;full.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DP_TIMEOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Timeout&nbsp;of&nbsp;Data&nbsp;Provider<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;17.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;CREATE_ORDER<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CREATE_ORDER .<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_ITAB,&nbsp;GS_ITAB1.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ITAB&nbsp;INTO&nbsp;GS_ITAB1&nbsp;INDEX&nbsp;1.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_ITAB&nbsp;INTO&nbsp;GS_ITAB1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;ORDER_HEADER_IN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_INX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_PARTNERS[],<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_PARTNERS.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'CONVERSION_EXIT_AUART_INPUT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INPUT&nbsp;&nbsp;=&nbsp;GS_ITAB1-ORDER_TYPE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OUTPUT&nbsp;=&nbsp;ORDER_HEADER_IN-DOC_TYPE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;HEADER&nbsp;INFORMATION<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;ORDER_HEADER_IN-DOC_TYPE&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_ITAB1-ORDER_TYPE.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_IN-SALES_ORG&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_ITAB1-SORG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_IN-DISTR_CHAN&nbsp;&nbsp;&nbsp;=&nbsp;GS_ITAB1-DCH.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_IN-DIVISION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_ITAB1-DIV.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_IN-PMNTTRMS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_ITAB1-TERM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_IN-PRICE_DATE&nbsp;&nbsp;&nbsp;=&nbsp;GS_ITAB1-PRC_DAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_IN-PURCH_NO_C&nbsp;&nbsp;&nbsp;=&nbsp;GS_ITAB1-CUS_NUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_IN-INCOTERMS1&nbsp;&nbsp;&nbsp;=&nbsp;GS_ITAB1-INCOTERMS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_IN-INCOTERMS2L&nbsp;&nbsp;=&nbsp;GS_ITAB1-LOCA1.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_INX-UPDATEFLAG&nbsp;&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_INX-DOC_TYPE&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_INX-SALES_ORG&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_INX-DISTR_CHAN&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_INX-DIVISION&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_INX-PMNTTRMS&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_INX-PRICE_DATE&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_INX-PURCH_NO_C&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_INX-INCOTERMS1&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_INX-INCOTERMS2L&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;PARTNER&nbsp;DETAILS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_PARTNERS-PARTN_ROLE&nbsp;&nbsp;&nbsp;=&nbsp;'AG'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_PARTNERS-PARTN_NUMB&nbsp;&nbsp;&nbsp;=&nbsp;GS_ITAB1-KUNNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;ORDER_PARTNERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;&nbsp;ORDER_PARTNERS.<br />
+   </div>
+   <div class="codeComment">
+*<br />
+*&nbsp;&nbsp;ORDER_PARTNERS-PARTN_ROLE&nbsp;&nbsp;&nbsp;=&nbsp;'WE'.<br />
+*&nbsp;&nbsp;ORDER_PARTNERS-PARTN_NUMB&nbsp;&nbsp;&nbsp;=&nbsp;GS_ITAB1-KUNNR.<br />
+*&nbsp;&nbsp;APPEND&nbsp;ORDER_PARTNERS.<br />
+*&nbsp;&nbsp;CLEAR&nbsp;&nbsp;ORDER_PARTNERS.<br />
+*<br />
+*&nbsp;&nbsp;ORDER_PARTNERS-PARTN_ROLE&nbsp;&nbsp;&nbsp;=&nbsp;'RE'.<br />
+*&nbsp;&nbsp;ORDER_PARTNERS-PARTN_NUMB&nbsp;&nbsp;&nbsp;=&nbsp;GS_ITAB1-KUNNR.<br />
+*&nbsp;&nbsp;APPEND&nbsp;ORDER_PARTNERS.<br />
+*&nbsp;&nbsp;CLEAR&nbsp;&nbsp;ORDER_PARTNERS.<br />
+*<br />
+*&nbsp;&nbsp;ORDER_PARTNERS-PARTN_ROLE&nbsp;&nbsp;&nbsp;=&nbsp;'RG'.<br />
+*&nbsp;&nbsp;ORDER_PARTNERS-PARTN_NUMB&nbsp;&nbsp;&nbsp;=&nbsp;GS_ITAB1-KUNNR.<br />
+*&nbsp;&nbsp;APPEND&nbsp;ORDER_PARTNERS.<br />
+*&nbsp;&nbsp;CLEAR&nbsp;&nbsp;ORDER_PARTNERS.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LINE&nbsp;ITEMS<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_ITEM&nbsp;&nbsp;=&nbsp;'000010'.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ORDER_ITEMS_IN[].<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ORDER_ITEMS_IN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ORDER_ITEMS_INX[].<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ORDER_ITEMS_INX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ORDER_SCHEDULES_IN[].<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ORDER_SCHEDULES_IN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ORDER_SCHEDULES_INX[].<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ORDER_SCHEDULES_INX.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_ITEMS_IN-ITM_NUMBER&nbsp;=&nbsp;GV_ITEM.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'CONVERSION_EXIT_ALPHA_INPUT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INPUT&nbsp;&nbsp;=&nbsp;GS_ITAB1-MATNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;C&nbsp;field<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OUTPUT&nbsp;=&nbsp;GS_ITAB1-MATNR.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Internal&nbsp;display&nbsp;of&nbsp;INPUT,&nbsp;any&nbsp;category<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_ITEMS_IN-MATERIAL&nbsp;&nbsp;&nbsp;=&nbsp;GS_ITAB1-MATNR.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONDENSE&nbsp;GS_ITAB1-QTY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_ITEMS_IN-TARGET_QTY&nbsp;&nbsp;=&nbsp;GS_ITAB1-QTY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_ITEMS_IN-TARGET_QU&nbsp;&nbsp;&nbsp;=&nbsp;GS_ITAB1-UOM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_ITEMS_IN-PLANT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_ITAB1-PLANT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_ITEMS_IN-PROFIT_CTR&nbsp;&nbsp;=&nbsp;GS_ITAB-PROFIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;ORDER_ITEMS_IN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ORDER_ITEMS_IN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_ITEMS_INX-ITM_NUMBER&nbsp;=&nbsp;GV_ITEM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_ITEMS_INX-MATERIAL&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_ITEMS_INX-TARGET_QTY&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_ITEMS_INX-TARGET_QU&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_ITEMS_INX-PLANT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;ORDER_ITEMS_INX-STORE_LOC&nbsp;&nbsp;=&nbsp;'X'.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;ORDER_ITEMS_INX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ORDER_ITEMS_INX.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"SCHEDUEL&nbsp;LINES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_SCHEDULES_IN-ITM_NUMBER&nbsp;&nbsp;&nbsp;=&nbsp;GV_ITEM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_SCHEDULES_IN-REQ_QTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_ITAB1-QTY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;ORDER_SCHEDULES_IN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ORDER_SCHEDULES_IN.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_SCHEDULES_INX-ITM_NUMBER&nbsp;&nbsp;&nbsp;=&nbsp;GV_ITEM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ORDER_SCHEDULES_INX-REQ_QTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_ITAB1-QTY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;ORDER_SCHEDULES_INX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ORDER_SCHEDULES_INX.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;SALESDOCUMENT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;RETURN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_SALESORDER_CREATEFROMDAT2'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ORDER_HEADER_IN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_HEADER_INX&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ORDER_HEADER_INX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SALESDOCUMENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SALESDOCUMENT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;RETURN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_ITEMS_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ORDER_ITEMS_IN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_ITEMS_INX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ORDER_ITEMS_INX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_PARTNERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ORDER_PARTNERS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_SCHEDULES_IN&nbsp;&nbsp;=&nbsp;ORDER_SCHEDULES_IN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER_SCHEDULES_INX&nbsp;=&nbsp;ORDER_SCHEDULES_INX.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SALESDOCUMENT&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_TRANSACTION_COMMIT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAIT&nbsp;=&nbsp;'X'<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ITAB1-EBELN&nbsp;=&nbsp;SALESDOCUMENT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;RETURN&nbsp;WITH&nbsp;KEY&nbsp;TYPE&nbsp;=&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ITAB1-MESSAGE&nbsp;=&nbsp;RETURN-MESSAGE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_ITAB&nbsp;FROM&nbsp;GS_ITAB1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_ITAB1.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_ITAB&nbsp;INTO&nbsp;GS_ITAB.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;GS_ITAB-ORDER_TYPE,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ITAB-SORG,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ITAB-DCH,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ITAB-DIV,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ITAB-TERM,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ITAB-PRC_DAT,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ITAB-CUS_NUM,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ITAB-INCOTERMS,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ITAB-LOCA1,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ITAB-KUNNR,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ITAB-MATNR,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ITAB-QTY,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ITAB-UOM,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ITAB-PLANT,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ITAB-EBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ITAB-MESSAGE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*KUNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;KUNNR,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;MATNR,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QTY(15),<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UOM(4),<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PLANT(4),<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STLOC(4),<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRICE(15),<br />
+*ENDFORM.<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;P_FILE&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

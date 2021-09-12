@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBD1_JEMY_TOP_OF_PAGE_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD1_JEMY_TOP_OF_PAGE_F01</h2>
+<h3> Description: Include ZA34_TOP_OF_PAGE_F01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZA34_TOP_OF_PAGE_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;CREATE_OBJECT<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CREATE_OBJECT .<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;G_CONTAINER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTAINER_NAME&nbsp;=&nbsp;'CONT'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;create&nbsp;top-document<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_DYNDOC_ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STYLE&nbsp;=&nbsp;'ALV_GRID'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;create&nbsp;splitter&nbsp;for&nbsp;custom&nbsp;container<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_SPLITTER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARENT&nbsp;&nbsp;=&nbsp;G_CONTAINER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ROWS&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COLUMNS&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_SPLITTER-&gt;GET_CONTAINER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COLUMN&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RECEIVING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTAINER&nbsp;=&nbsp;GO_TOP.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_SPLITTER-&gt;GET_CONTAINER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COLUMN&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RECEIVING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTAINER&nbsp;=&nbsp;GO_BOTTOM.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_SPLITTER-&gt;SET_ROW_HEIGHT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HEIGHT&nbsp;=&nbsp;15.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;G_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_PARENT&nbsp;=&nbsp;GO_BOTTOM.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_HANDLER<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_HANDLER .<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_HANDLER.<br />
+<br />
+&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;GO_HANDLER-&gt;ON_TOP_OF_PAGE&nbsp;FOR&nbsp;G_GRID.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;DISPLAY_ALV<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DISPLAY_ALV .<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;G_GRID-&gt;SET_TABLE_FOR_FIRST_DISPLAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_STRUCTURE_NAME&nbsp;=&nbsp;'SFLIGHT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_ITAB.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_DYNDOC_ID-&gt;INITIALIZE_DOCUMENT<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BACKGROUND_COLOR&nbsp;=&nbsp;CL_DD_AREA=&gt;COL_TEXTAREA.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;G_GRID-&gt;LIST_PROCESSING_EVENTS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_EVENT_NAME&nbsp;=&nbsp;'TOP_OF_PAGE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_DYNDOC_ID&nbsp;&nbsp;=&nbsp;GO_DYNDOC_ID.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_TOP_OF_PAGE<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_GO_DYNDOC_ID&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM TOP_OF_PAGE  USING GO_DYNDOC_ID TYPE REF TO CL_DD_DOCUMENT.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;O_DD_RIGHT&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_DD_AREA.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_TEXT&nbsp;TYPE&nbsp;SDYDO_TEXT_ELEMENT.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+**~SPLIT<br />
+**&nbsp;(#/##&nbsp;####&nbsp;###,&nbsp;###&nbsp;####&nbsp;###&nbsp;###&nbsp;###&nbsp;####&nbsp;##&nbsp;#&nbsp;##)<br />
+*&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_DYNDOC_ID-&gt;VERTICAL_SPLIT<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPLIT_AREA&nbsp;&nbsp;=&nbsp;GO_DYNDOC_ID<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPLIT_WIDTH&nbsp;=&nbsp;'90%'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RIGHT_AREA&nbsp;&nbsp;=&nbsp;O_DD_RIGHT.<br />
+<br />
+*~Header<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;"TEXT<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_DYNDOC_ID-&gt;ADD_TEXT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'TOP_OF_PAGE&nbsp;-&nbsp;Sample'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAP_STYLE&nbsp;=&nbsp;CL_DD_AREA=&gt;KEY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAP_COLOR&nbsp;=&nbsp;CL_DD_AREA=&gt;LIST_HEADING_INT.<br />
+<br />
+&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_DYNDOC_ID-&gt;NEW_LINE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPEAT&nbsp;=&nbsp;1.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*~Body<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_DYNDOC_ID-&gt;ADD_GAP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WIDTH&nbsp;=&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;"TEXT<br />
+&nbsp;&nbsp;LV_TEXT&nbsp;=&nbsp;'-##&nbsp;:&nbsp;'.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_DYNDOC_ID-&gt;ADD_TEXT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT&nbsp;=&nbsp;LV_TEXT.<br />
+<br />
+&nbsp;&nbsp;LV_TEXT&nbsp;=&nbsp;SY-DATUM.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_DYNDOC_ID-&gt;ADD_TEXT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_TEXT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAP_COLOR&nbsp;=&nbsp;CL_DD_AREA=&gt;LIST_NEGATIVE_INV.<br />
+<br />
+&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_DYNDOC_ID-&gt;NEW_LINE.<br />
+<br />
+&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_DYNDOC_ID-&gt;ADD_GAP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WIDTH&nbsp;=&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;"TEXT<br />
+&nbsp;&nbsp;LV_TEXT&nbsp;=&nbsp;'-##&nbsp;:&nbsp;'.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_DYNDOC_ID-&gt;ADD_TEXT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT&nbsp;=&nbsp;LV_TEXT.<br />
+<br />
+&nbsp;&nbsp;LV_TEXT&nbsp;=&nbsp;SY-UZEIT.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_DYNDOC_ID-&gt;ADD_TEXT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_TEXT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAP_COLOR&nbsp;=&nbsp;CL_DD_AREA=&gt;LIST_TOTAL_INV.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*<br />
+**~PICTURE&nbsp;(SPLIT&nbsp;##)<br />
+*&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;O_DD_RIGHT-&gt;NEW_LINE.<br />
+*<br />
+*&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;O_DD_RIGHT-&gt;ADD_PICTURE<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PICTURE_ID&nbsp;=&nbsp;'ZTEST3'.&nbsp;&nbsp;"T-CODE&nbsp;:&nbsp;OAER<br />
+*<br />
+*<br />
+**~Merge&nbsp;(Merge##&nbsp;###&nbsp;o_dd_right&nbsp;####&nbsp;##)<br />
+*&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_DYNDOC_ID-&gt;MERGE_DOCUMENT.<br />
+<br />
+*~Display<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GO_DYNDOC_ID-&gt;DISPLAY_DOCUMENT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REUSE_CONTROL&nbsp;=&nbsp;'X'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GO_TOP.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

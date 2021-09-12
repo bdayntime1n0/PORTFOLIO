@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZM004_TR02_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZM004_TR02_F01</h2>
+<h3> Description: Include ZM004_TR02_F01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZM004_TR02_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SELECT_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SELECT_EXTER .<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;##&nbsp;##&nbsp;##&nbsp;##<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT&nbsp;A~ZPOFLAG,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"PO####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~LIFNR&nbsp;AS&nbsp;ZBPCO,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~AEDAT&nbsp;AS&nbsp;ZPODATE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"PO###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~MATNR&nbsp;AS&nbsp;ZPRODCO,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~WERKS&nbsp;AS&nbsp;ZPLANT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~MENGE&nbsp;AS&nbsp;ZQUANTITY,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E~ZVENDORNM,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~TXZ01&nbsp;AS&nbsp;ZPRODNM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+<br />
+&nbsp;&nbsp;FROM&nbsp;EKPO&nbsp;AS&nbsp;C<br />
+&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;ZTOI_STACHK&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;C~EBELN&nbsp;=&nbsp;A~ZPOFLAG<br />
+&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;EKKO&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;C~EBELN&nbsp;=&nbsp;B~EBELN<br />
+&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;ZTOI_VENDOR&nbsp;AS&nbsp;E<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;B~LIFNR&nbsp;=&nbsp;E~ZVENDORCO<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@GT_DATA<br />
+&nbsp;&nbsp;WHERE&nbsp;B~AEDAT&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;@S_PODT&nbsp;&nbsp;&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~LIFNR&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;@S_VENCD&nbsp;&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~MATNR&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;@S_PROCD.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+<br />
+*--&nbsp;####&nbsp;(&nbsp;###&nbsp;/&nbsp;####&nbsp;/&nbsp;##&nbsp;)<br />
+<br />
+   </div>
+   <div class="code">
+" ## ###### #### #### ### ##### ###<br />
+" ### #### ### PO ##### ### ### ###, #### ### # #### ### ###<br />
+" ### ## 1# #### ###  / + 2# #### ### / + 5# #### ##### ##### (##)<br />
+<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;A~ZORDERNUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZORDERDT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~ZPOFLAG<br />
+&nbsp;&nbsp;FROM&nbsp;ZTOI_ORDER&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;ZTOI_STACHK&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZORDERNUM&nbsp;EQ&nbsp;B~ZORDERNUM<br />
+&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@DATA(LT_DATA).<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_DATA&nbsp;INTO&nbsp;DATA(LS_DATA).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_DATA&nbsp;INTO&nbsp;DATA(LS_CBO)&nbsp;WITH&nbsp;KEY&nbsp;ZPOFLAG&nbsp;=&nbsp;LS_DATA-ZPOFLAG.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-DATUM&nbsp;-&nbsp;LS_DATA-ZORDERDT&nbsp;&gt;=&nbsp;5.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_CBO-STATUS&nbsp;=&nbsp;ICON_GREEN_LIGHT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;SY-DATUM&nbsp;-&nbsp;LS_DATA-ZORDERDT&nbsp;&gt;=&nbsp;2&nbsp;AND&nbsp;SY-DATUM&nbsp;-&nbsp;LS_DATA-ZORDERDT&nbsp;&lt;&nbsp;5.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_CBO-STATUS&nbsp;=&nbsp;ICON_YELLOW_LIGHT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;SY-DATUM&nbsp;-&nbsp;LS_DATA-ZORDERDT&nbsp;&lt;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_CBO-STATUS&nbsp;=&nbsp;ICON_RED_LIGHT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_DATA&nbsp;FROM&nbsp;LS_CBO&nbsp;TRANSPORTING&nbsp;STATUS&nbsp;WHERE&nbsp;ZPOFLAG&nbsp;=&nbsp;LS_DATA-ZPOFLAG.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+<br />
+*--&nbsp;###&nbsp;##<br />
+<br />
+   </div>
+   <div class="code">
+" ### #### ### PO ##### ### ### ###, ## ## ### # #### ### ###<br />
+" ### ## + 5# #### ## O  / 5# #### ## X # #####<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;A~ZORDERNUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZORDERDT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~ZPOFLAG<br />
+&nbsp;&nbsp;FROM&nbsp;ZTOI_ORDER&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;ZTOI_STACHK&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZORDERNUM&nbsp;EQ&nbsp;B~ZORDERNUM<br />
+&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@DATA(LT_DATA2).<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_DATA2&nbsp;INTO&nbsp;DATA(LS_DATA2).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_DATA&nbsp;INTO&nbsp;DATA(LS_CBO2)&nbsp;WITH&nbsp;KEY&nbsp;ZPOFLAG&nbsp;=&nbsp;LS_DATA2-ZPOFLAG.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-DATUM&nbsp;-&nbsp;LS_DATA2-ZORDERDT&nbsp;&gt;=&nbsp;5.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_CBO2-ICON&nbsp;=&nbsp;ICON_CHECKED.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_DATA&nbsp;FROM&nbsp;LS_CBO2&nbsp;TRANSPORTING&nbsp;ICON&nbsp;WHERE&nbsp;ZPOFLAG&nbsp;=&nbsp;LS_DATA2-ZPOFLAG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;MODIFY_SCREEN<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM MODIFY_SCREEN .<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;P_EXTER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'INT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-INPUT&nbsp;&nbsp;&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;P_INTER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'EXT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-INPUT&nbsp;&nbsp;&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SELECT_INTER<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SELECT_INTER .<br />
+<br />
+&nbsp;&nbsp;REFRESH&nbsp;GT_DATA2.<br />
+&nbsp;&nbsp;CLEAR&nbsp;GS_DATA2.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;A~ZORDERNUM,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZORDERDT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZCUSTOMID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZQUANTITY,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~ZCUSTOMNM,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~ZPHONENM,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~ZPOSTNUM,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~ZADDRESS,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZPRODCO,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~ZPRODNM,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D~UPDAT&nbsp;AS&nbsp;ZDELVDT&nbsp;"####&nbsp;/&nbsp;###<br />
+&nbsp;&nbsp;FROM&nbsp;ZTOI_ORDER&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;ZTOI_CONSUMER&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZCUSTOMID&nbsp;=&nbsp;B~ZCUSTOMID<br />
+&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;ZTOI_PRODUCT&nbsp;AS&nbsp;C<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZPRODCO&nbsp;=&nbsp;C~ZPRODCO<br />
+&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;ZTOI_PRODSTA&nbsp;AS&nbsp;D<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZORDERNUM&nbsp;=&nbsp;D~ZORDERNUM<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;LEFT&nbsp;OUTER&nbsp;JOIN&nbsp;ZTOI_STACHK&nbsp;AS&nbsp;E<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZORDERNUM&nbsp;=&nbsp;E~ZORDERNUM<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@GT_DATA2<br />
+<br />
+&nbsp;&nbsp;WHERE&nbsp;"B~ZDELIVST&nbsp;&nbsp;IN&nbsp;@P_DELST2&nbsp;AND&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZORDERDT&nbsp;&nbsp;IN&nbsp;@S_ORDDT2&nbsp;AND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D~UPDAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;@S_DELDT2&nbsp;AND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZCUSTOMID&nbsp;IN&nbsp;@S_CUSNU2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+<br />
+*--&nbsp;####&nbsp;(&nbsp;###&nbsp;/&nbsp;###&nbsp;/&nbsp;####&nbsp;)<br />
+<br />
+   </div>
+   <div class="code">
+" ## ###### #### #### ### ##### ###<br />
+" ### #### ### PO ##### ### ### ###, #### ### # #### ### ###<br />
+" ##### ### ### / #### ## + 2# #### ### / + 3# #### ##### ##### (##)<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;A~ZORDERNUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~ZORDERDT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~ZPONUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~UPDAT<br />
+&nbsp;&nbsp;FROM&nbsp;ZTOI_ORDER&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;ZTOI_PRODSTA&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZORDERNUM&nbsp;EQ&nbsp;B~ZORDERNUM<br />
+&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@DATA(LT_DATA).<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_DATA&nbsp;INTO&nbsp;DATA(LS_DATA).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_DATA2&nbsp;INTO&nbsp;DATA(LS_CBO)&nbsp;WITH&nbsp;KEY&nbsp;ZORDERNUM&nbsp;=&nbsp;LS_DATA-ZORDERNUM.<br />
+<br />
+"##### ###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LS_DATA-UPDAT&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_CBO-STATUS&nbsp;=&nbsp;ICON_RED_LIGHT.<br />
+<br />
+"##### ##, ### 2# #### ###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;SY-DATUM&nbsp;-&nbsp;LS_DATA-UPDAT&nbsp;&lt;=&nbsp;2&nbsp;AND&nbsp;SY-DATUM&nbsp;-&nbsp;LS_DATA-ZORDERDT&nbsp;&lt;&nbsp;5&nbsp;AND&nbsp;LS_DATA-UPDAT&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_CBO-STATUS&nbsp;=&nbsp;ICON_YELLOW_LIGHT.<br />
+<br />
+"##### ##, ### 3# #### ##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;SY-DATUM&nbsp;-&nbsp;LS_DATA-UPDAT&nbsp;&gt;=&nbsp;3&nbsp;AND&nbsp;LS_DATA-UPDAT&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+   </div>
+   <div class="code">
+"### ## ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;SY-DATUM&nbsp;-&nbsp;LS_DATA-ZORDERDT&nbsp;&gt;=&nbsp;5&nbsp;AND&nbsp;LS_DATA-UPDAT&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_CBO-STATUS&nbsp;=&nbsp;ICON_GREEN_LIGHT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_DATA2&nbsp;FROM&nbsp;LS_CBO&nbsp;TRANSPORTING&nbsp;STATUS&nbsp;WHERE&nbsp;ZORDERNUM&nbsp;=&nbsp;LS_DATA-ZORDERNUM.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+<br />
+*--&nbsp;##&nbsp;###&nbsp;#&nbsp;##<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT&nbsp;A~ZORDERNUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~ZPRODSTA<br />
+&nbsp;&nbsp;FROM&nbsp;ZTOI_ORDER&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;ZTOI_PRODSTA&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~ZORDERNUM&nbsp;EQ&nbsp;B~ZORDERNUM<br />
+&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@DATA(LT_DATA2).<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_DATA2&nbsp;INTO&nbsp;DATA(LS_DATA2).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_DATA2&nbsp;INTO&nbsp;DATA(LS_CBO2)&nbsp;WITH&nbsp;KEY&nbsp;ZORDERNUM&nbsp;=&nbsp;LS_DATA2-ZORDERNUM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LS_DATA2-ZPRODSTA&nbsp;EQ&nbsp;01.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_CBO2-ICON&nbsp;=&nbsp;ICON_CHECKED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_DATA2&nbsp;FROM&nbsp;LS_CBO2&nbsp;TRANSPORTING&nbsp;ICON&nbsp;WHERE&nbsp;ZORDERNUM&nbsp;=&nbsp;LS_DATA2-ZORDERNUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBD1_04_MM_PO</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD1_04_MM_PO</h2>
+<h3> Description: ## ### ### # PO/GR/IV ## ####</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD1_04_MM_PO<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD1_04_MM_PO.<br />
+<br />
+include <a href ="zbd1_04_mm_po_top.html">ZBD1_04_MM_PO_TOP</a>.<br />
+include <a href ="zbd1_04_mm_po_cls.html">ZBD1_04_MM_PO_CLS</a>.<br />
+include <a href ="zbd1_04_mm_po_scr.html">ZBD1_04_MM_PO_SCR</a>.<br />
+include <a href ="zbd1_04_mm_po_f01.html">ZBD1_04_MM_PO_F01</a>.<br />
+include <a href ="zbd1_04_mm_po_o01.html">ZBD1_04_MM_PO_O01</a>.<br />
+include <a href ="zbd1_04_mm_po_i01.html">ZBD1_04_MM_PO_I01</a>.<br />
+<br />
+<br />
+<br />
+INITIALIZATION. "------------------------------------------------------------------------------<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_INIT.<br />
+<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;FUNCTION&nbsp;KEY&nbsp;1.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;SELECTION-SCREEN&nbsp;FUNCTION&nbsp;KEY&nbsp;2.<br />
+*&nbsp;&nbsp;SELECTION-SCREEN&nbsp;FUNCTION&nbsp;KEY&nbsp;3.<br />
+*&nbsp;&nbsp;SELECTION-SCREEN&nbsp;FUNCTION&nbsp;KEY&nbsp;4.<br />
+*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CONCATENATE&nbsp;ICON_XLS&nbsp;'##&nbsp;##&nbsp;####'&nbsp;INTO&nbsp;SSCRFIELDS-FUNCTXT_01.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;CONCATENATE&nbsp;ICON_IMPORT&nbsp;'##&nbsp;###'&nbsp;INTO&nbsp;SSCRFIELDS-FUNCTXT_02.<br />
+*&nbsp;&nbsp;CONCATENATE&nbsp;ICON_EXPORT&nbsp;'##&nbsp;####'&nbsp;INTO&nbsp;SSCRFIELDS-FUNCTXT_03.<br />
+*&nbsp;&nbsp;CONCATENATE&nbsp;ICON_VARIANTS&nbsp;'####'&nbsp;INTO&nbsp;SSCRFIELDS-FUNCTXT_04.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN OUTPUT. "---------------------------------------------------------------------<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_R2&nbsp;EQ&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;SCREEN-GROUP1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'GR1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;P_R1&nbsp;EQ&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;SCREEN-GROUP1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'GR2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;"--------------------------------------------------------------------------------------------------<br />
+<br />
+&nbsp;&nbsp;"SEARCH&nbsp;HELP<br />
+<br />
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR S_MATER1-LOW.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_F4_MATER&nbsp;USING&nbsp;'S_MATER1-LOW'.<br />
+<br />
+<br />
+&nbsp;&nbsp;"#######<br />
+<br />
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR P_FILE.<br />
+&nbsp;&nbsp;PERFORM&nbsp;ONF4_FILE&nbsp;USING&nbsp;P_FILE.<br />
+<br />
+<br />
+AT SELECTION-SCREEN. "------------------------------------------------------------------------------<br />
+<br />
+CASE SY-DYNNR.<br />
+&nbsp;&nbsp;WHEN&nbsp;TAB_BLOCK-DYNNR.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;SSCRFIELDS-UCOMM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'FC01'.&nbsp;"FC01#&nbsp;###&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;TEMPLATE_DOWNLOAD&nbsp;USING&nbsp;'T'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'FC02'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;EXCEL_UPLOAD.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'FC03'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;EXCEL_DOWNLOAD&nbsp;USING&nbsp;''.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'FC04'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SMW0_DOWNLOAD.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDCASE.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;CHECK_DATA.<br />
+<br />
+START-OF-SELECTION. "------------------------------------------------------------------------------<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_DATA.<br />
+<br />
+END-OF-SELECTION. "--------------------------------------------------------------------------------<br />
+&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;0100.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*GUI&nbsp;Texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;01&nbsp;--&gt;&nbsp;###&nbsp;##&nbsp;#&nbsp;##<br />
+*&nbsp;02&nbsp;--&gt;&nbsp;PO/GR/IV&nbsp;##&nbsp;##<br />
+<br />
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;G01&nbsp;##&nbsp;##<br />
+*&nbsp;R01&nbsp;SINGLE<br />
+*&nbsp;R02&nbsp;MULTI<br />
+*&nbsp;S01&nbsp;##&nbsp;##<br />
+*&nbsp;S02&nbsp;##&nbsp;##<br />
+*&nbsp;S03&nbsp;##&nbsp;##<br />
+*&nbsp;S04&nbsp;PLNT<br />
+*&nbsp;S05&nbsp;S.LOC<br />
+*&nbsp;T01&nbsp;###&nbsp;###&nbsp;##&nbsp;##<br />
+*&nbsp;T02&nbsp;###&nbsp;##<br />
+*&nbsp;T03&nbsp;##&nbsp;###<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;S_CCODE1&nbsp;<br />
+*&nbsp;S_MATER1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##<br />
+*&nbsp;S_MATER2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##<br />
+*&nbsp;S_NETP1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##<br />
+*&nbsp;S_PONUM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NUMBER<br />
+*&nbsp;S_QUANT1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##<br />
+*&nbsp;S_VENDR1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##<br />
+*&nbsp;S_VENDR2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;00<br />
+*001&nbsp;&nbsp;&nbsp;&1&2&3&4&5&6&7&8<br />
+*398&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
+*&nbsp;&nbsp;&nbsp;####&nbsp;###&nbsp;######.<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;OO<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+*001&nbsp;&nbsp;&nbsp;***&nbsp;Error&nbsp;messages&nbsp;SEOK&nbsp;***<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;ZPBD<br />
+*000&nbsp;&nbsp;&nbsp;&<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

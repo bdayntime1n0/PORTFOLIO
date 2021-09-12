@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBD2_CREATE_PO_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD2_CREATE_PO_TOP</h2>
+<h3> Description: Include ZBD212_ASSG_W6_0723_TOP</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;ZBD212_ASSG_W6_0723_TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;Report&nbsp;ZBD212_ASSG_W6_0723<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD212_ASSG_W6_0723 MESSAGE-ID DB.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;TYPE-POOLS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+*----------------------------------------------------------------------*<br />
+<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;INCLUDE,&nbsp;TABLES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES : CSKS, CEPC, SSCRFIELDS, ICON.<br />
+INCLUDE: OFFICEINTEGRATIONINCLUDE.<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;INTERNAL&nbsp;TABLES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+*----------------------------------------------------------------------*<br />
+<br />
+<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;GLOBAL&nbsp;VARIABLES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA : GV_CHK        TYPE C.<br />
+DATA : GV_EDIT       TYPE C.<br />
+DATA : GV_ANSWER     TYPE C.<br />
+DATA : OK_CODE   TYPE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_OKCODE&nbsp;TYPE&nbsp;SY-UCOMM.<br />
+DATA : GV_USERNAME TYPE BAPIBNAME-BAPIBNAME.<br />
+DATA:  GV_MODE       TYPE C  VALUE 'N'.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*-&nbsp;F4&nbsp;##&nbsp;###<br />
+   </div>
+   <div class="code">
+DATA : F4_RETURN  LIKE TABLE OF DDSHRETVAL WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_DYNMAPP&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;DSELC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_DYNTAB&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;STRING.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*-&nbsp;BDC&nbsp;##<br />
+   </div>
+   <div class="code">
+DATA : GS_BDC LIKE BDCDATA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_BDC&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;BDCDATA.<br />
+<br />
+DATA : GS_MSG LIKE BDCMSGCOLL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_MSG&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;BDCMSGCOLL.<br />
+<br />
+DATA : GS_OPT     TYPE CTU_PARAMS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_MOVE&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;CTU_PARAMS-DISMODE&nbsp;VALUE&nbsp;'N',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_MESSAGE&nbsp;LIKE&nbsp;BAPIRETURN-MESSAGE.<br />
+<br />
+DATA: FUNCTXT TYPE SMP_DYNTXT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*-&nbsp;ALV&nbsp;##<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+" ## #### ## # ALV## ## # ###<br />
+DATA: BEGIN OF GS_DATA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VENDOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;10,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COSTCENTER&nbsp;&nbsp;&nbsp;TYPE&nbsp;KOSTL,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PUR_GROUP&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;EKGRP,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATERIAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;MATNR,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ACCOUNT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SAKNR,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SHORT_TEXT&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;60,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUANTITY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BSTMG,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;3,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NET_PRICE&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;DMBTR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATERIAL_GROUP&nbsp;TYPE&nbsp;MATKL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELIVERYDATE&nbsp;TYPE&nbsp;SY-DATUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_DATA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_DATA&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_DATA.<br />
+<br />
+<br />
+DATA: BEGIN OF GS_RE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EBELN&nbsp;TYPE&nbsp;EBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_RE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_RE&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_RE.<br />
+<br />
+DATA: BEGIN OF GS_RESULT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LINE&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RESULT&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PONUM&nbsp;TYPE&nbsp;BAPIMEPOHEADER-PO_NUMBER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MSG&nbsp;&nbsp;TYPE&nbsp;TXT50,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_RESULT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_RESULT&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_RESULT.<br />
+<br />
+DATA: GV_COUNT TYPE I.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*-&nbsp;SMW0&nbsp;##&nbsp;OPEN&nbsp;##<br />
+<br />
+   </div>
+   <div class="code">
+DATA: FACTORY TYPE REF TO I_OI_DOCUMENT_FACTORY.<br />
+DATA: DOCUMENT TYPE REF TO I_OI_DOCUMENT_PROXY.<br />
+DATA: RETCODE TYPE T_OI_RET_STRING.<br />
+DATA: DOC_TABLE LIKE W3MIME OCCURS 0.<br />
+DATA: DOC_SIZE       TYPE I.<br />
+DATA: DOC_TYPE       TYPE CHAR80 VALUE SOI_DOCTYPE_EXCEL97_SHEET. "##<br />
+DATA: DOC_FORMAT(80) TYPE C.<br />
+DATA: IS_CLOSED      TYPE I.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*-&nbsp;BAPI&nbsp;##&nbsp;(PO&nbsp;##)<br />
+<br />
+   </div>
+   <div class="code">
+DATA GS_POHEADER            TYPE BAPIMEPOHEADER.<br />
+DATA GS_POHEADERX           TYPE BAPIMEPOHEADERX.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;DATA&nbsp;POADDRVENDOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIMEPOADDRVENDOR.<br />
+   </div>
+   <div class="code">
+DATA GV_TESTRUN             TYPE BAPIFLAG-BAPIFLAG.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;DATA&nbsp;MEMORY_UNCOMPLETE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIFLAG-BAPIFLAG.<br />
+*&nbsp;&nbsp;DATA&nbsp;MEMORY_COMPLETE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIFLAG-BAPIFLAG.<br />
+*&nbsp;&nbsp;DATA&nbsp;POEXPIMPHEADER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIEIKP.<br />
+*&nbsp;&nbsp;DATA&nbsp;POEXPIMPHEADERX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIEIKPX.<br />
+*&nbsp;&nbsp;DATA&nbsp;VERSIONS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIMEDCM.<br />
+*&nbsp;&nbsp;DATA&nbsp;NO_MESSAGING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIFLAG-BAPIFLAG.<br />
+*&nbsp;&nbsp;DATA&nbsp;NO_MESSAGE_REQ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIFLAG-BAPIFLAG.<br />
+*&nbsp;&nbsp;DATA&nbsp;NO_AUTHORITY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIFLAG-BAPIFLAG.<br />
+*&nbsp;&nbsp;DATA&nbsp;NO_PRICE_FROM_PO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIFLAG-BAPIFLAG.<br />
+*&nbsp;&nbsp;DATA&nbsp;PARK_COMPLETE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIFLAG-BAPIFLAG.<br />
+*&nbsp;&nbsp;DATA&nbsp;PARK_UNCOMPLETE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIFLAG-BAPIFLAG.<br />
+   </div>
+   <div class="code">
+DATA GV_EXPPURCHASEORDER       TYPE BAPIMEPOHEADER-PO_NUMBER.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;DATA&nbsp;EXPHEADER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIMEPOHEADER.<br />
+*&nbsp;&nbsp;DATA&nbsp;EXPPOEXPIMPHEADER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAPIEIKP.<br />
+   </div>
+   <div class="code">
+DATA GS_RETURN              TYPE BAPIRET2.<br />
+DATA GT_RETURN              LIKE TABLE OF GS_RETURN.<br />
+DATA GS_POITEM              TYPE BAPIMEPOITEM.<br />
+DATA GT_POITEM              LIKE TABLE OF BAPIMEPOITEM.<br />
+DATA GS_POITEMX              TYPE BAPIMEPOITEMX.<br />
+DATA GT_POITEMX              LIKE TABLE OF BAPIMEPOITEMX.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;DATA&nbsp;POITEMX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOITEMX.<br />
+*&nbsp;&nbsp;DATA&nbsp;POADDRDELIVERY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOADDRDELIVERY.<br />
+   </div>
+   <div class="code">
+DATA GS_POSCHEDULE          TYPE BAPIMEPOSCHEDULE.<br />
+DATA GT_POSCHEDULE          LIKE TABLE OF BAPIMEPOSCHEDULE.<br />
+DATA GS_POSCHEDULEX         TYPE BAPIMEPOSCHEDULX.<br />
+DATA GT_POSCHEDULEX         LIKE TABLE OF BAPIMEPOSCHEDULX.<br />
+DATA GS_POACCOUNT           TYPE BAPIMEPOACCOUNT.<br />
+DATA GT_POACCOUNT           LIKE TABLE OF BAPIMEPOACCOUNT.<br />
+DATA GS_POACCOUNTX          TYPE BAPIMEPOACCOUNTX.<br />
+DATA GT_POACCOUNTX          LIKE TABLE OF BAPIMEPOACCOUNTX.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;DATA&nbsp;POACCOUNTPROFITSEGMENT&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOACCOUNTPROFITSEGMENT.&nbsp;&nbsp;"&lt;&lt;&nbsp;IT&nbsp;WAS&nbsp;A&nbsp;STRUCTURE<br />
+*&nbsp;&nbsp;DATA&nbsp;POACCOUNTX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOACCOUNTX.<br />
+*&nbsp;&nbsp;DATA&nbsp;POCONDHEADER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOCONDHEADER.<br />
+*&nbsp;&nbsp;DATA&nbsp;POCONDHEADERX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOCONDHEADERX.<br />
+*&nbsp;&nbsp;DATA&nbsp;POCOND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOCOND.<br />
+*&nbsp;&nbsp;DATA&nbsp;POCONDX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOCONDX.<br />
+*&nbsp;&nbsp;DATA&nbsp;POLIMITS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIESUHC.<br />
+*&nbsp;&nbsp;DATA&nbsp;POCONTRACTLIMITS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIESUCC.<br />
+*&nbsp;&nbsp;DATA&nbsp;POSERVICES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIESLLC.<br />
+*&nbsp;&nbsp;DATA&nbsp;POSRVACCESSVALUES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIESKLC.<br />
+*&nbsp;&nbsp;DATA&nbsp;POSERVICESTEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIESLLTX.<br />
+*&nbsp;&nbsp;DATA&nbsp;EXTENSIONIN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIPAREX.<br />
+*&nbsp;&nbsp;DATA&nbsp;EXTENSIONOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIPAREX.<br />
+*&nbsp;&nbsp;DATA&nbsp;POEXPIMPITEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIEIPO.<br />
+*&nbsp;&nbsp;DATA&nbsp;POEXPIMPITEMX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIEIPOX.<br />
+*&nbsp;&nbsp;DATA&nbsp;POTEXTHEADER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOTEXTHEADER.<br />
+*&nbsp;&nbsp;DATA&nbsp;POTEXTITEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOTEXT.<br />
+*&nbsp;&nbsp;DATA&nbsp;ALLVERSIONS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEDCM_ALLVERSIONS.<br />
+*&nbsp;&nbsp;DATA&nbsp;POPARTNER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIEKKOP.<br />
+*&nbsp;&nbsp;DATA&nbsp;POCOMPONENTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOCOMPONENT.<br />
+*&nbsp;&nbsp;DATA&nbsp;POCOMPONENTSX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOCOMPONENTX.<br />
+*&nbsp;&nbsp;DATA&nbsp;POSHIPPING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIITEMSHIP.<br />
+*&nbsp;&nbsp;DATA&nbsp;POSHIPPINGX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIITEMSHIPX.<br />
+*&nbsp;&nbsp;DATA&nbsp;POSHIPPINGEXP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOSHIPPEXP.<br />
+*&nbsp;&nbsp;DATA&nbsp;SERIALNUMBER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOSERIALNO.<br />
+*&nbsp;&nbsp;DATA&nbsp;SERIALNUMBERX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIMEPOSERIALNOX.<br />
+*&nbsp;&nbsp;DATA&nbsp;INVPLANHEADER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPI_INVOICE_PLAN_HEADER.<br />
+*&nbsp;&nbsp;DATA&nbsp;INVPLANHEADERX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPI_INVOICE_PLAN_HEADERX.<br />
+*&nbsp;&nbsp;DATA&nbsp;INVPLANITEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPI_INVOICE_PLAN_ITEM.<br />
+*&nbsp;&nbsp;DATA&nbsp;INVPLANITEMX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPI_INVOICE_PLAN_ITEMX.<br />
+*&nbsp;&nbsp;DATA&nbsp;NFMETALLITMS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;/NFM/BAPIDOCITM.<br />
+<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;CONSTANTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+*----------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+CONSTANTS: C_X          TYPE C             VALUE 'X'.<br />
+CONSTANTS: C_SPACE      TYPE C             VALUE ' '.<br />
+CONSTANTS: C_1          TYPE C             VALUE '1'.<br />
+CONSTANTS: C_SMW0       TYPE W3OBJID       VALUE 'ZBD212_BPROLE'.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;FIELD-SYMBOL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+*----------------------------------------------------------------------*<br />
+<br />
+<br />
+<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;SELECT-OPTIONS&nbsp;&&nbsp;PARAMETERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+*----------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN FUNCTION KEY 1.<br />
+<br />
+<br />
+PARAMETERS: P_FILENM TYPE RLGRAP-FILENAME DEFAULT 'C:\DATA.XLS' MODIF ID CRE.<br />
+PARAMETERS: P_HEADER AS CHECKBOX DEFAULT 'X' MODIF ID CRE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;B01&nbsp;WITH&nbsp;FRAME&nbsp;TITLE&nbsp;TEXT-005.<br />
+*&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;1(60)&nbsp;TEXT-004.<br />
+*&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;R_BP&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;G1&nbsp;DEFAULT&nbsp;'X'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;5(15)&nbsp;TEXT-001&nbsp;FOR&nbsp;FIELD&nbsp;R_BP.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;R_FIVD&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;G1.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;30(15)&nbsp;TEXT-002&nbsp;FOR&nbsp;FIELD&nbsp;R_FIVD.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;R_VD&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;G1.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;55(15)&nbsp;TEXT-003&nbsp;FOR&nbsp;FIELD&nbsp;R_VD.<br />
+*&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+*SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;B01.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

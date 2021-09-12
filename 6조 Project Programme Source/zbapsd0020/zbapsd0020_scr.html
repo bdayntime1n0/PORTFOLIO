@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBAPSD0020_SCR</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBAPSD0020_SCR</h2>
+<h3> Description: Include ZBD1_00_010SCR</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBD1_00_010SCR<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK B03.<br />
+<br />
+<br />
+SELECTION-SCREEN END OF BLOCK B03.<br />
+<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B01 WITH FRAME TITLE TEXTS01. " ###### ## ## ##<br />
+&nbsp;&nbsp;"&nbsp;######&nbsp;####.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;FOR&nbsp;###&nbsp;###&nbsp;######&nbsp;###&nbsp;####&nbsp;##.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;S_SONUM&nbsp;FOR&nbsp;VBAK-VBELN&nbsp;NO-EXTENSION&nbsp;.&nbsp;&nbsp;&nbsp;"DOCUMENT&nbsp;NUMBER<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;S_SOPAR&nbsp;FOR&nbsp;VBAK-KUNNR&nbsp;NO-EXTENSION.&nbsp;&nbsp;&nbsp;&nbsp;"CUSTOMER&nbsp;NAME<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;S_DELDT&nbsp;FOR&nbsp;VBAK-VDATU&nbsp;NO-EXTENSION&nbsp;MODIF&nbsp;ID&nbsp;Z1.&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;S_AUDAT&nbsp;FOR&nbsp;VBAK-AUDAT&nbsp;NO-EXTENSION&nbsp;MODIF&nbsp;ID&nbsp;Z2.&nbsp;&nbsp;&nbsp;"##<br />
+<br />
+<br />
+<br />
+SELECTION-SCREEN END   OF BLOCK B01.<br />
+<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B02 WITH FRAME TITLE TEXTS02.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;5(15)&nbsp;TEXT-003&nbsp;MODIF&nbsp;ID&nbsp;CR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;P_AUD&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;RAD2&nbsp;USER-COMMAND&nbsp;RA&nbsp;&nbsp;DEFAULT&nbsp;'X'.&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;30(20)&nbsp;TEXT-007&nbsp;FOR&nbsp;FIELD&nbsp;P_AUD.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;P_DEL&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;RAD2.&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;55(20)&nbsp;TEXT-008&nbsp;FOR&nbsp;FIELD&nbsp;P_DEL.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;SKIP&nbsp;1.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;5(15)&nbsp;TEXT-004&nbsp;MODIF&nbsp;ID&nbsp;CR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;P_B2B&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;RAD1&nbsp;USER-COMMAND&nbsp;RA&nbsp;DEFAULT&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;30(20)&nbsp;TEXT-005&nbsp;FOR&nbsp;FIELD&nbsp;P_B2B.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;P_B2C&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;RAD1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;55(20)&nbsp;TEXT-006&nbsp;FOR&nbsp;FIELD&nbsp;P_B2C.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+<br />
+<br />
+SELECTION-SCREEN BEGIN OF LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;30(20)&nbsp;TEXT-013.<br />
+PARAMETERS : P_PO1 AS CHECKBOX MODIF ID PO.<br />
+SELECTION-SCREEN COMMENT 79(10) TEXT-010 FOR FIELD P_PO1 MODIF ID PO.<br />
+SELECTION-SCREEN END OF LINE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;SKIP&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;52(60)&nbsp;TEXT-009&nbsp;MODIF&nbsp;ID&nbsp;CR2.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;10(10)&nbsp;TEXT-013.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_NODEL&nbsp;AS&nbsp;CHECKBOX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;40(30)&nbsp;TEXT-012&nbsp;FOR&nbsp;FIELD&nbsp;P_NODEL.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+SELECTION-SCREEN END   OF BLOCK B02.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

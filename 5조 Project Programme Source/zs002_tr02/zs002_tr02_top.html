@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZS002_TR02_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZS002_TR02_TOP</h2>
+<h3> Description: Include ZC002_TR02_TOP</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZC002_TR02_TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES : ZTOI_CONSUMER, ZTOI_DELIVERY, ZTOI_ORDER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTOI_PRODSTA,&nbsp;ZTOI_PRODUCT,&nbsp;ZTOI_STACHK,&nbsp;ZTOI_VENDOR.<br />
+<br />
+CONSTANTS : GC_DISP_STRUCTURE TYPE TABNAME VALUE 'ZSOI_SALES_LIST'.<br />
+CONSTANTS : GC_DISP_STRUCTURE2 TYPE TABNAME VALUE 'ZSOI_SALES_SUMMARY'.<br />
+<br />
+<br />
+TYPES: BEGIN OF TY_DATA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zsoi_sales_list/dictionary-zsoi_sales_list.html">ZSOI_SALES_LIST</a>.<br />
+TYPES: END OF TY_DATA.<br />
+DATA:  GT_DATA  TYPE TABLE OF TY_DATA.<br />
+<br />
+TYPES: BEGIN OF TY_DATA_SUMMARY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zsoi_sales_summary/dictionary-zsoi_sales_summary.html">ZSOI_SALES_SUMMARY</a>.<br />
+TYPES: END OF TY_DATA_SUMMARY.<br />
+DATA:  GT_DATA_SUMMARY  TYPE TABLE OF TY_DATA_SUMMARY.<br />
+<br />
+<br />
+DATA : BEGIN OF GS_DATA.<br />
+include structure <a href ="zsoi_sales_list/dictionary-zsoi_sales_list.html">ZSOI_SALES_LIST</a>.<br />
+DATA :  END OF GS_DATA.<br />
+"ALV# ### ##<br />
+   </div>
+   <div class="codeComment">
+*DATA:&nbsp;&nbsp;GT_DISP&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;TY_DISP.<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+DATA : GV_UCOMM TYPE SY-UCOMM.<br />
+<br />
+DATA : GO_CON TYPE REF TO CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_ALV&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+<br />
+DATA : GO_CON2 TYPE REF TO CL_GUI_CUSTOM_CONTAINER, "## ALV# ## ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_ALV2&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+<br />
+DATA : GT_FIELDCAT TYPE LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT&nbsp;TYPE&nbsp;LVC_S_FCAT.<br />
+DATA : GT_FIELDCAT2 TYPE LVC_T_FCAT,    "## ALV# ## ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FIELDCAT2&nbsp;TYPE&nbsp;LVC_S_FCAT.<br />
+<br />
+DATA : GS_LAYOUT   TYPE LVC_S_LAYO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_LAYOUT2&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_LAYO.&nbsp;&nbsp;"##ALV#&nbsp;##&nbsp;##<br />
+<br />
+DATA : GS_VARI   TYPE DISVARIANT.<br />
+DATA : GS_VARI2  TYPE DISVARIANT.<br />
+<br />
+DATA : GS_OPT     TYPE CTU_PARAMS,                   "CALL TRANSACTION ### ### WA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_MOVE&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;CTU_PARAMS-DISMODE&nbsp;VALUE&nbsp;'N',&nbsp;&nbsp;"DISPLAY#####,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_MESSAGE&nbsp;LIKE&nbsp;BAPIRETURN-MESSAGE.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;##<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

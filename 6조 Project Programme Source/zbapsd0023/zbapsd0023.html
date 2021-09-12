@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBAPSD0023</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBAPSD0023</h2>
+<h3> Description: ### B2B ## ## ##</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBAPSD0023<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBAPSD0023 MESSAGE-ID ZBD1_25.<br />
+<br />
+include <a href ="zbapsd0023_top.html">ZBAPSD0023_TOP</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBAP_SO_DEL2_TOP.<br />
+*INCLUDE&nbsp;ZBAP_SO_DEL_TOP.<br />
+*INCLUDE&nbsp;ZBAP_SO_2_SEAR_TOP.<br />
+*INCLUDE&nbsp;ZBD1_SO_2_SEAR_TOP.<br />
+<br />
+   </div>
+   <div class="code">
+include <a href ="zbapsd0023_cls.html">ZBAPSD0023_CLS</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBAP_SO_DEL2_CLS.<br />
+*INCLUDE&nbsp;ZBAP_SO_DEL_CLS.<br />
+*INCLUDE&nbsp;ZBAP_SO_2_SEAR_CLS.<br />
+*INCLUDE&nbsp;ZBD1_SO_2_SEAR_CLS.<br />
+<br />
+   </div>
+   <div class="code">
+include <a href ="zbapsd0023_scr.html">ZBAPSD0023_SCR</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBAP_SO_DEL2_SCR.<br />
+*INCLUDE&nbsp;ZBAP_SO_DEL_SCR.<br />
+*INCLUDE&nbsp;ZBAP_SO_2_SEAR_SCR.<br />
+*INCLUDE&nbsp;ZBD1_SO_2_SEAR_SCR.<br />
+<br />
+   </div>
+   <div class="code">
+include <a href ="zbapsd0023_f01.html">ZBAPSD0023_F01</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBAP_SO_DEL2_F01.<br />
+*INCLUDE&nbsp;ZBAP_SO_DEL_F01.<br />
+*INCLUDE&nbsp;ZBAP_SO_2_SEAR_F01.<br />
+*INCLUDE&nbsp;ZBD1_SO_2_SEAR_F01.<br />
+<br />
+   </div>
+   <div class="code">
+include <a href ="zbapsd0023_pbo.html">ZBAPSD0023_PBO</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBAP_SO_DEL2_PBO.<br />
+*INCLUDE&nbsp;ZBAP_SO_DEL_PBO.<br />
+*INCLUDE&nbsp;ZBAP_SO_2_SEAR_PBO.<br />
+*INCLUDE&nbsp;ZBD1_SO_2_SEAR_PBO.&nbsp;"&nbsp;##&nbsp;##&nbsp;#&nbsp;##&nbsp;##&nbsp;&nbsp;&nbsp;(&nbsp;#&nbsp;:&nbsp;####&nbsp;##&nbsp;##&nbsp;)<br />
+   </div>
+   <div class="code">
+include <a href ="zbapsd0023_pai.html">ZBAPSD0023_PAI</a>.<br />
+   </div>
+   <div class="codeComment">
+*INCLUDE&nbsp;ZBAP_SO_DEL2_PAI.<br />
+*INCLUDE&nbsp;ZBAP_SO_DEL_PAI.<br />
+*INCLUDE&nbsp;ZBAP_SO_2_SEAR_PAI.<br />
+*INCLUDE&nbsp;ZBD1_SO_2_SEAR_PAI.&nbsp;"&nbsp;##&nbsp;##&nbsp;#&nbsp;###&nbsp;##&nbsp;(&nbsp;#&nbsp;:&nbsp;####&nbsp;##&nbsp;##&nbsp;)<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;PERFORM&nbsp;INITIALIZATION.<br />
+<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CHECK.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SELECTED_DATA_RTN.<br />
+<br />
+END-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;DISPLAY_ALV.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*GUI&nbsp;Texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;0200&nbsp;--&gt;&nbsp;###&nbsp;####&nbsp;-&nbsp;&1&nbsp;-&nbsp;&2&nbsp;-&nbsp;&3<br />
+<br />
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;005&nbsp;B2B&nbsp;##&nbsp;##<br />
+*&nbsp;006&nbsp;B2C&nbsp;##&nbsp;##<br />
+*&nbsp;S01&nbsp;Selection&nbsp;Options<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;P_B2B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B2B&nbsp;##&nbsp;##<br />
+*&nbsp;P_B2C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B2C&nbsp;##&nbsp;##<br />
+*&nbsp;S_DELDT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####<br />
+*&nbsp;S_SONUM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SO&nbsp;NUMBER<br />
+*&nbsp;S_SOPAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;ID<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZM004_TR02_SCR</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZM004_TR02_SCR</h2>
+<h3> Description: Include ZM004_TR02_SCR</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZM004_TR02_SCR<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.<br />
+&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;P_EXTER&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;RG1&nbsp;USER-COMMAND&nbsp;CO1&nbsp;DEFAULT&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;(29)&nbsp;TEXT-S01.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;P_INTER&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;RG1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;(20)&nbsp;TEXT-S02.<br />
+<br />
+&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;B1.<br />
+<br />
+SELECTION-SCREEN SKIP 1.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;##&nbsp;##&nbsp;##&nbsp;(####&nbsp;/&nbsp;####&nbsp;/&nbsp;####&nbsp;/&nbsp;####)<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME TITLE TEXT-T01.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;PARAMETERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;P_DELST&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;ZTOI_DELIVERY-ZDELIVST&nbsp;AS&nbsp;LISTBOX&nbsp;VISIBLE&nbsp;LENGTH&nbsp;10&nbsp;MODIF&nbsp;ID&nbsp;EXT.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_VENCD&nbsp;&nbsp;&nbsp;FOR&nbsp;&nbsp;ZTOI_ORDER-ZVENDORCO&nbsp;MODIF&nbsp;ID&nbsp;EXT,&nbsp;"DEFAULT&nbsp;'TVE-',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_PROCD&nbsp;&nbsp;&nbsp;FOR&nbsp;&nbsp;ZTOI_ORDER-ZPRODCO&nbsp;MODIF&nbsp;ID&nbsp;EXT,&nbsp;"DEFAULT&nbsp;'TPR-'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_PODT&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;&nbsp;ZTOI_ORDER-ZDELVDT&nbsp;MODIF&nbsp;ID&nbsp;EXT.&nbsp;"DEFAULT&nbsp;SY-DATUM.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK B2.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;##&nbsp;##&nbsp;##&nbsp;(####&nbsp;/&nbsp;####&nbsp;/&nbsp;###&nbsp;/&nbsp;###&nbsp;)<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK B3 WITH FRAME TITLE TEXT-T01.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;PARAMETERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;P_DELST2&nbsp;&nbsp;TYPE&nbsp;&nbsp;ZTOI_DELIVERY-ZDELIVST&nbsp;AS&nbsp;LISTBOX&nbsp;VISIBLE&nbsp;LENGTH&nbsp;10&nbsp;MODIF&nbsp;ID&nbsp;INT.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_CUSNU2&nbsp;&nbsp;FOR&nbsp;&nbsp;ZTOI_ORDER-ZCUSTOMID&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;INT,&nbsp;"DEFAULT&nbsp;'TCU-'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_ORDDT2&nbsp;&nbsp;FOR&nbsp;&nbsp;ZTOI_ORDER-ZORDERDT&nbsp;&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;INT,&nbsp;"DEFAULT&nbsp;SY-DATUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_DELDT2&nbsp;&nbsp;FOR&nbsp;&nbsp;ZTOI_STACHK-UPDAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;INT.&nbsp;&nbsp;"DEFAULT&nbsp;SY-DATUM.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK B3.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

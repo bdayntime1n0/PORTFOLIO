@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBD1_06_CUSTOMER_INVOICE</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBD1_06_CUSTOMER_INVOICE</h2>
+<h3> Description: Program ZBD1_06_CUSTOMER_INVOICE</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBD1_06_CUSTOMER_INVOICE<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZBD1_06_CUSTOMER_INVOICE.<br />
+<br />
+<br />
+<br />
+DATA :  REF_TYPE             LIKE BAPIACHE01-OBJ_TYPE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WA_DOCUMENTHEADER&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;BAPIACHE01,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WA_CUSTOMERCPD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;BAPIACPA00,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_ACCOUNTRECEIVABLE&nbsp;LIKE&nbsp;BAPIACAR01&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_ACCOUNTGL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;BAPIACGL01&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_ACCOUNTTAX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;BAPIACTX01&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_CRITERIA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;BAPIACKECR&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_VALUEFIELD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;BAPIACKEVA&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_CURRENCYAMOUNT&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;BAPIACCR01&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_RETURN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;BAPIRET2&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_MESSAGES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;BAPIRET2&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_SALESORDER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;BAPIACSO00&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_SALESAMOUNT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;BAPIACCRSO&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_RECEIVERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;BDI_LOGSYS&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*DOCUMENT&nbsp;HEADER&nbsp;DATA.<br />
+<br />
+   </div>
+   <div class="code">
+WA_DOCUMENTHEADER-OBJ_TYPE = 'BKPFF'.<br />
+WA_DOCUMENTHEADER-OBJ_KEY = 'X'.<br />
+   </div>
+   <div class="codeComment">
+*WA_DOCUMENTHEADER-OBJ_SYS&nbsp;=&nbsp;'DVL'.<br />
+   </div>
+   <div class="code">
+WA_DOCUMENTHEADER-USERNAME = SY-UNAME.<br />
+WA_DOCUMENTHEADER-HEADER_TXT = 'TEST'.<br />
+WA_DOCUMENTHEADER-COMP_CODE = '1010'.<br />
+WA_DOCUMENTHEADER-DOC_DATE = '20210824'.<br />
+WA_DOCUMENTHEADER-PSTNG_DATE = SY-DATUM.<br />
+WA_DOCUMENTHEADER-DOC_TYPE = 'DR'.<br />
+   </div>
+   <div class="codeComment">
+*WA_DOCUMENTHEADER-REF_DOC_NO&nbsp;=&nbsp;'DATA&nbsp;LOAD'.<br />
+<br />
+   </div>
+   <div class="code">
+" ACCOUNT RECEIVABLES LINE ITEM 1.<br />
+IT_ACCOUNTRECEIVABLE-ITEMNO_ACC = '0000000001'.<br />
+IT_ACCOUNTRECEIVABLE-CUSTOMER = '0000000130'.<br />
+IT_ACCOUNTRECEIVABLE-ITEM_TEXT = 'LINE ITEM 1'.<br />
+<br />
+APPEND IT_ACCOUNTRECEIVABLE.<br />
+<br />
+CLEAR IT_ACCOUNTRECEIVABLE.<br />
+<br />
+IT_CURRENCYAMOUNT-ITEMNO_ACC = '0000000001'.<br />
+IT_CURRENCYAMOUNT-CURRENCY = 'EUR'.<br />
+IT_CURRENCYAMOUNT-AMT_DOCCUR = '1000'.<br />
+<br />
+APPEND IT_CURRENCYAMOUNT.<br />
+<br />
+CLEAR IT_CURRENCYAMOUNT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*ACCOUNT&nbsp;RECEIVABLES&nbsp;LINE&nbsp;ITEM&nbsp;2.<br />
+<br />
+   </div>
+   <div class="code">
+IT_ACCOUNTGL-ITEMNO_ACC = '0000000002'.<br />
+IT_ACCOUNTGL-GL_ACCOUNT = '0000010219'.<br />
+IT_ACCOUNTGL-TAX_CODE = 'A3'.<br />
+IT_ACCOUNTGL-ITEM_TEXT = 'GL BAPI'.<br />
+<br />
+APPEND IT_ACCOUNTGL.<br />
+CLEAR IT_ACCOUNTGL.<br />
+<br />
+IT_CURRENCYAMOUNT-ITEMNO_ACC = '0000000002'.<br />
+IT_CURRENCYAMOUNT-CURRENCY = 'EUR'.<br />
+IT_CURRENCYAMOUNT-AMT_DOCCUR = '1000-'.<br />
+<br />
+APPEND IT_CURRENCYAMOUNT.<br />
+CLEAR IT_CURRENCYAMOUNT.<br />
+<br />
+<br />
+IT_ACCOUNTTAX-ITEMNO_ACC = '0000000002'.<br />
+IT_ACCOUNTTAX-GL_ACCOUNT = '0000010219'.<br />
+IT_ACCOUNTTAX-TAX_CODE = 'A3'.<br />
+IT_ACCOUNTTAX-TAX_RATE = '0.100'.<br />
+<br />
+APPEND IT_ACCOUNTTAX.<br />
+CLEAR IT_ACCOUNTTAX.<br />
+<br />
+CALL FUNCTION 'BAPI_ACC_BILLING_POST'<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DOCUMENTHEADER&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;WA_DOCUMENTHEADER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CUSTOMERCPD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;WA_CUSTOMERCPD<br />
+&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ACCOUNTRECEIVABLE&nbsp;=&nbsp;IT_ACCOUNTRECEIVABLE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ACCOUNTGL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;IT_ACCOUNTGL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ACCOUNTTAX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;IT_ACCOUNTTAX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CRITERIA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;IT_CRITERIA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;VALUEFIELD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;IT_VALUEFIELD<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CURRENCYAMOUNT&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;IT_CURRENCYAMOUNT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;IT_RETURN<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;SALESORDER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;SALESAMOUNT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXTENSION1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;EXTENSION1.<br />
+   </div>
+   <div class="code">
+.<br />
+<br />
+IF SY-SUBRC EQ 0.<br />
+&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'ERROR&nbsp;WITH&nbsp;POSTING'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;IT_RETURN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;REFRESH&nbsp;IT_RETURN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_TRANSACTION_COMMIT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN&nbsp;=&nbsp;IT_RETURN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'POSTING&nbsp;UPDATE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;WA_DOCUMENTHEADER-OBJ_KEY,&nbsp;'POSTED'.<br />
+<br />
+ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+<br />
+*<br />
+*DATA:<br />
+*&nbsp;Structure&nbsp;for&nbsp;document&nbsp;header<br />
+*&nbsp;&nbsp;G_DOCHEADER&nbsp;&nbsp;LIKE&nbsp;BAPIACHE08,<br />
+*&nbsp;Table&nbsp;and&nbsp;header&nbsp;for&nbsp;G/L&nbsp;Account&nbsp;Line&nbsp;Items<br />
+*&nbsp;&nbsp;GI_ACCOUNTGL&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIACGL08,<br />
+*&nbsp;&nbsp;G_ACCOUNTGL&nbsp;&nbsp;LIKE&nbsp;BAPIACGL08,<br />
+*&nbsp;Table&nbsp;and&nbsp;header&nbsp;for&nbsp;Line&nbsp;Item&nbsp;Currency&nbsp;Fields<br />
+*&nbsp;&nbsp;GI_AMOUNT&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIACCR08,<br />
+*&nbsp;&nbsp;G_AMOUNT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;BAPIACCR08,<br />
+*&nbsp;Return<br />
+*&nbsp;&nbsp;GI_RETURN&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;BAPIRET2,<br />
+*&nbsp;&nbsp;G_RETURN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;BAPIRET2.<br />
+*<br />
+*START-OF-SELECTION.<br />
+*---------------------------------------------------------<br />
+*&nbsp;HEADER&nbsp;DATA<br />
+*---------------------------------------------------------<br />
+*&nbsp;&nbsp;G_DOCHEADER-OBJ_TYPE&nbsp;=&nbsp;'BKPFF'.<br />
+*&nbsp;&nbsp;G_DOCHEADER-OBJ_KEY&nbsp;=&nbsp;'1'.<br />
+*&nbsp;&nbsp;G_DOCHEADER-OBJ_SYS&nbsp;=&nbsp;'B3TCLNT800'.<br />
+*&nbsp;&nbsp;G_DOCHEADER-USERNAME&nbsp;=&nbsp;SY-UNAME.<br />
+*&nbsp;&nbsp;G_DOCHEADER-HEADER_TXT&nbsp;=&nbsp;'BAPI&nbsp;test'.<br />
+*&nbsp;&nbsp;G_DOCHEADER-COMP_CODE&nbsp;=&nbsp;'1010'.<br />
+*&nbsp;&nbsp;G_DOCHEADER-DOC_DATE&nbsp;=&nbsp;SY-DATUM.<br />
+*&nbsp;&nbsp;G_DOCHEADER-PSTNG_DATE&nbsp;=&nbsp;SY-DATUM.<br />
+*---------------------------------------------------------<br />
+*&nbsp;LINE&nbsp;ITEMS<br />
+*---------------------------------------------------------<br />
+*&nbsp;Item&nbsp;1<br />
+*&nbsp;&nbsp;G_ACCOUNTGL-ITEMNO_ACC&nbsp;=&nbsp;'0000000001'.<br />
+*&nbsp;&nbsp;G_ACCOUNTGL-GL_ACCOUNT&nbsp;=&nbsp;'0000100009'.<br />
+*&nbsp;&nbsp;G_ACCOUNTGL-PSTNG_DATE&nbsp;=&nbsp;SY-DATUM.<br />
+*&nbsp;&nbsp;APPEND&nbsp;G_ACCOUNTGL&nbsp;TO&nbsp;GI_ACCOUNTGL.<br />
+*&nbsp;Item&nbsp;2<br />
+*&nbsp;&nbsp;G_ACCOUNTGL-ITEMNO_ACC&nbsp;=&nbsp;'0000000002'.<br />
+*&nbsp;&nbsp;G_ACCOUNTGL-GL_ACCOUNT&nbsp;=&nbsp;'0000100009'.<br />
+*&nbsp;&nbsp;G_ACCOUNTGL-PSTNG_DATE&nbsp;=&nbsp;SY-DATUM.<br />
+*&nbsp;&nbsp;APPEND&nbsp;G_ACCOUNTGL&nbsp;TO&nbsp;GI_ACCOUNTGL.<br />
+*---------------------------------------------------------<br />
+*&nbsp;CURRENCY&nbsp;AND&nbsp;AMOUNT<br />
+*---------------------------------------------------------<br />
+*&nbsp;Item&nbsp;1<br />
+*&nbsp;&nbsp;G_AMOUNT-ITEMNO_ACC&nbsp;=&nbsp;'0000000001'.<br />
+*&nbsp;&nbsp;G_AMOUNT-CURRENCY&nbsp;=&nbsp;'KRW'.<br />
+*&nbsp;&nbsp;G_AMOUNT-AMT_DOCCUR&nbsp;=&nbsp;5000.<br />
+*&nbsp;&nbsp;APPEND&nbsp;G_AMOUNT&nbsp;TO&nbsp;GI_AMOUNT.<br />
+*&nbsp;Item&nbsp;2<br />
+*&nbsp;&nbsp;G_AMOUNT-ITEMNO_ACC&nbsp;=&nbsp;'0000000002'.<br />
+*&nbsp;&nbsp;G_AMOUNT-CURRENCY&nbsp;=&nbsp;'KRW'.<br />
+*&nbsp;&nbsp;G_AMOUNT-AMT_DOCCUR&nbsp;=&nbsp;-5000.<br />
+*&nbsp;&nbsp;APPEND&nbsp;G_AMOUNT&nbsp;TO&nbsp;GI_AMOUNT.<br />
+*<br />
+*<br />
+*&nbsp;&nbsp;DATA&nbsp;:&nbsp;OBJ_TYPE&nbsp;LIKE&nbsp;&nbsp;BAPIACHE02-OBJ_TYPE,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBJ_KEY&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPIACHE02-OBJ_KEY,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBJ_SYS&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPIACHE02-OBJ_SYS.<br />
+*<br />
+*&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;OBJ_TYPE,&nbsp;OBJ_KEY&nbsp;&nbsp;,&nbsp;OBJ_SYS&nbsp;&nbsp;.<br />
+*<br />
+*<br />
+*&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_ACC_GL_POSTING_POST'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DOCUMENTHEADER&nbsp;=&nbsp;G_DOCHEADER<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBJ_TYPE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;OBJ_TYPE<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBJ_KEY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;OBJ_KEY<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBJ_SYS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;OBJ_SYS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ACCOUNTGL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GI_ACCOUNTGL<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CURRENCYAMOUNT&nbsp;=&nbsp;GI_AMOUNT<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GI_RETURN.<br />
+*&nbsp;EXTENSION1&nbsp;=<br />
+*<br />
+*&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GI_RETURN&nbsp;INTO&nbsp;DATA(LS_RETURN)&nbsp;WITH&nbsp;KEY&nbsp;TYPE&nbsp;=&nbsp;'E'.<br />
+*<br />
+*&nbsp;&nbsp;IF&nbsp;&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_TRANSACTION_ROLLBACK'.<br />
+*&nbsp;&nbsp;ELSE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_TRANSACTION_COMMIT'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GI_RETURN&nbsp;INTO&nbsp;LS_RETURN&nbsp;WITH&nbsp;KEY&nbsp;TYPE&nbsp;=&nbsp;'S'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;LS_RETURN-MESSAGE.<br />
+*<br />
+*&nbsp;&nbsp;ENDIF.<br />
+*<br />
+*&nbsp;&nbsp;BREAK-POINT.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

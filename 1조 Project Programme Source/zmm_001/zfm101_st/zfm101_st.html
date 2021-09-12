@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZFM101_ST</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for function ZFM101_ST</h2>
+<h3> Description: ####1# 1# Stock Transfer##</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="code">
+FUNCTION ZFM101_ST.<br />
+   </div>
+   <div class="codeComment">
+*"----------------------------------------------------------------------<br />
+*"*"Local Interface:<br />
+*"  IMPORTING<br />
+*"     REFERENCE(IV_MATNR) TYPE  MARA-MATNR<br />
+*"     REFERENCE(IV_WERKS_FR) TYPE  MARC-WERKS<br />
+*"     REFERENCE(IV_WERKS_TO) TYPE  MARC-WERKS<br />
+*"     REFERENCE(IV_SL_FR) TYPE  T001L-LGORT OPTIONAL<br />
+*"     REFERENCE(IV_SL_TO) TYPE  T001L-LGORT OPTIONAL<br />
+*"     REFERENCE(IV_MENGE) TYPE  MSEG-MENGE<br />
+*"  EXPORTING<br />
+*"     REFERENCE(EV_RESULT_NO) TYPE  BAPI2017_GM_HEAD_RET-MAT_DOC<br />
+*"  TABLES<br />
+*"      LT_RETURN STRUCTURE  BAPIRET2<br />
+*"----------------------------------------------------------------------<br />
+<br />
+<br />
+
+<div class="codeComment">*       <a href ="global-zfm101_st.html">Global data declarations</a></div><br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;MSGLIN&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SLFR&nbsp;LIKE&nbsp;T001L-LGORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SLTO&nbsp;LIKE&nbsp;T001L-LGORT.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;ST_GOODSMVT_HEADER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPI2017_GM_HEAD_01,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST_GOODSMVT_CODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPI2017_GM_CODE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST_GOODSMVT_HEADRET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPI2017_GM_HEAD_RET,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_GOODSMVT_DOC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPI2017_GM_HEAD_RET-MAT_DOC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_MATERIALDOCUMENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;&nbsp;BAPI2017_GM_HEAD_RET-MAT_DOC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_MATDOCUMENTYEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;&nbsp;BAPI2017_GM_HEAD_RET-DOC_YEAR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_GOODSMVT_ITEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;&nbsp;BAPI2017_GM_ITEM_CREATE&nbsp;&nbsp;OCCURS&nbsp;&nbsp;0&nbsp;WITH&nbsp;&nbsp;HEADER&nbsp;&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_GOODSMVT_SERIALNUMBER&nbsp;LIKE&nbsp;&nbsp;BAPI2017_GM_SERIALNUMBER&nbsp;OCCURS&nbsp;&nbsp;0&nbsp;WITH&nbsp;&nbsp;HEADER&nbsp;&nbsp;LINE.<br />
+<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;L_TABIX&nbsp;LIKE&nbsp;SY-TABIX.<br />
+<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;LV_SLFR.<br />
+&nbsp;&nbsp;CLEAR&nbsp;LV_SLTO.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;####&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;IF&nbsp;IV_SL_FR&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;IV_WERKS_FR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1010'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SLFR&nbsp;=&nbsp;'101C'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;LGORT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;LV_SLFR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;T001L<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;WERKS&nbsp;=&nbsp;IV_WERKS_FR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_SLFR&nbsp;=&nbsp;IV_SL_FR.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;IV_SL_TO&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;IV_WERKS_TO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'1010'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SLTO&nbsp;=&nbsp;'101C'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;LGORT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;LV_SLTO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;T001L<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;WERKS&nbsp;=&nbsp;IV_WERKS_TO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_SLTO&nbsp;=&nbsp;IV_SL_TO.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;&nbsp;&nbsp;&nbsp;ST_GOODSMVT_HEADER.<br />
+&nbsp;&nbsp;REFRESH:&nbsp;IT_GOODSMVT_ITEM,&nbsp;IT_GOODSMVT_SERIALNUMBER,&nbsp;LT_RETURN.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;&nbsp;&nbsp;IT_GOODSMVT_ITEM,&nbsp;IT_GOODSMVT_SERIALNUMBER,&nbsp;LT_RETURN.<br />
+<br />
+&nbsp;&nbsp;L_TABIX&nbsp;=&nbsp;SY-TABIX.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;ST_GOODSMVT_HEADER.<br />
+&nbsp;&nbsp;ST_GOODSMVT_HEADER-PSTNG_DATE&nbsp;&nbsp;&nbsp;=&nbsp;SY-DATUM.&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;ST_GOODSMVT_HEADER-DOC_DATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-DATUM.&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;ST_GOODSMVT_CODE-GM_CODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'04'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+<br />
+&nbsp;&nbsp;REFRESH:&nbsp;IT_GOODSMVT_ITEM,&nbsp;IT_GOODSMVT_SERIALNUMBER,&nbsp;LT_RETURN.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;&nbsp;&nbsp;IT_GOODSMVT_ITEM,&nbsp;IT_GOODSMVT_SERIALNUMBER,&nbsp;LT_RETURN.<br />
+<br />
+&nbsp;&nbsp;IT_GOODSMVT_ITEM-MOVE_TYPE&nbsp;&nbsp;=&nbsp;'301'.<br />
+<br />
+&nbsp;&nbsp;IT_GOODSMVT_ITEM-MATERIAL&nbsp;&nbsp;&nbsp;=&nbsp;IV_MATNR.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;IT_GOODSMVT_ITEM-PLANT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;IV_WERKS_FR.&nbsp;&nbsp;"&nbsp;###&nbsp;(###&nbsp;#)<br />
+&nbsp;&nbsp;IT_GOODSMVT_ITEM-STGE_LOC&nbsp;&nbsp;&nbsp;=&nbsp;LV_SLFR.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;S/L<br />
+<br />
+&nbsp;&nbsp;IT_GOODSMVT_ITEM-MOVE_MAT&nbsp;&nbsp;&nbsp;=&nbsp;IV_MATNR.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;IT_GOODSMVT_ITEM-MOVE_PLANT&nbsp;=&nbsp;IV_WERKS_TO.&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;(##&nbsp;#)<br />
+&nbsp;&nbsp;IT_GOODSMVT_ITEM-MOVE_STLOC&nbsp;=&nbsp;LV_SLTO.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;&nbsp;S/L<br />
+<br />
+&nbsp;&nbsp;IT_GOODSMVT_ITEM-ENTRY_QNT&nbsp;&nbsp;=&nbsp;IV_MENGE.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;IT_GOODSMVT_ITEM-ENTRY_UOM&nbsp;&nbsp;=&nbsp;'EA'.<br />
+&nbsp;&nbsp;APPEND&nbsp;IT_GOODSMVT_ITEM.<br />
+<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;G_MATERIALDOCUMENT,&nbsp;G_MATDOCUMENTYEAR.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_GOODSMVT_CREATE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GOODSMVT_HEADER&nbsp;&nbsp;=&nbsp;ST_GOODSMVT_HEADER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GOODSMVT_CODE&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ST_GOODSMVT_CODE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GOODSMVT_HEADRET&nbsp;=&nbsp;ST_GOODSMVT_HEADRET<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATERIALDOCUMENT&nbsp;=&nbsp;G_MATERIALDOCUMENT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATDOCUMENTYEAR&nbsp;&nbsp;=&nbsp;G_MATDOCUMENTYEAR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GOODSMVT_ITEM&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;IT_GOODSMVT_ITEM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_RETURN.<br />
+<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;G_GOODSMVT_DOC.<br />
+&nbsp;&nbsp;IF&nbsp;NOT&nbsp;ST_GOODSMVT_HEADRET&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;G_GOODSMVT_DOC&nbsp;=&nbsp;ST_GOODSMVT_HEADRET-MAT_DOC.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'BAPI_TRANSACTION_COMMIT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EV_RESULT_NO&nbsp;=&nbsp;&nbsp;G_GOODSMVT_DOC.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_RETURN&nbsp;&nbsp;INDEX&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MSGLIN&nbsp;=&nbsp;LT_RETURN-MESSAGE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFUNCTION.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

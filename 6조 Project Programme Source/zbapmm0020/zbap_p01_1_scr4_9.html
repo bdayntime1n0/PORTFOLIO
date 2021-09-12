@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZBAP_P01_1_SCR4_9</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBAP_P01_1_SCR4_9</h2>
+<h3> Description: Include ZBAP_P01_1_SCR</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBAP_P01_1_SCR<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+"""B2B / B2C<br />
+SELECTION-SCREEN BEGIN OF BLOCK B3 WITH FRAME TITLE TEXT-003.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;P_B2B&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;RAD1&nbsp;USER-COMMAND&nbsp;RA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;10(12)&nbsp;TEXT-004&nbsp;FOR&nbsp;FIELD&nbsp;P_B2B.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;P_B2C&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;RAD1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;40(12)&nbsp;TEXT-005&nbsp;FOR&nbsp;FIELD&nbsp;P_B2C.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;P_ALL&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;RAD1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;54(12)&nbsp;TEXT-006&nbsp;FOR&nbsp;FIELD&nbsp;P_ALL.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;SKIP&nbsp;1.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;1(60)&nbsp;TEXT-007&nbsp;MODIF&nbsp;ID&nbsp;SC.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK B3.<br />
+<br />
+<br />
+""## ##<br />
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME TITLE TEXT-001.<br />
+<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_EBELN&nbsp;FOR&nbsp;EKKO-EBELN&nbsp;,&nbsp;&nbsp;""PO&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_MBLNR&nbsp;FOR&nbsp;MKPF-MBLNR&nbsp;,&nbsp;&nbsp;""GR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_BELNR&nbsp;FOR&nbsp;RBKP-BELNR&nbsp;.&nbsp;&nbsp;""IV<br />
+SELECTION-SCREEN END OF BLOCK B1.<br />
+<br />
+<br />
+""## ##<br />
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME TITLE TEXT-002.<br />
+<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_BUKRS&nbsp;FOR&nbsp;EKKO-BUKRS&nbsp;DEFAULT&nbsp;'1010',&nbsp;&nbsp;""##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_AEDAT&nbsp;FOR&nbsp;EKKO-AEDAT&nbsp;,&nbsp;&nbsp;""##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_EINDT&nbsp;FOR&nbsp;EKET-EINDT&nbsp;,&nbsp;&nbsp;""##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_LIFNR&nbsp;FOR&nbsp;EKKO-LIFNR&nbsp;,&nbsp;&nbsp;""##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_MATNR&nbsp;FOR&nbsp;EKPO-MATNR&nbsp;.&nbsp;&nbsp;""##&nbsp;##<br />
+<br />
+<br />
+SELECTION-SCREEN END OF BLOCK B2.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2021. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>
